@@ -1,11 +1,4 @@
 {
-    "extends" : ["airbnb", "plugin:react/recommended"],
-    // "plugins": [
-    //     "react"
-    // ],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        }
-    }
+    "parser": "babel-eslint",
+    "extends" : "airbnb"
 }

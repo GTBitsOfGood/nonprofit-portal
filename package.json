@@ -5,7 +5,8 @@
     "scripts": {
         "dev": "next",
         "build": "next build",
-        "start": "next start"
+        "start": "next start",
+        "lint": "eslint --ext .js --ext .jsx ."
     },
     "dependencies": {
         "mongodb": "^3.3.2",
@@ -14,6 +15,7 @@
         "react-dom": "^16.9.0"
     },
     "devDependencies": {
+        "babel-eslint": "^10.0.3",
         "eslint": "^6.1.0",
         "eslint-config-airbnb": "^18.0.1",
         "eslint-plugin-import": "^2.18.2",

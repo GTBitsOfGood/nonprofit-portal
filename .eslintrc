@@ -1,4 +1,7 @@
 {
     "parser": "babel-eslint",
-    "extends" : "airbnb"
+    "extends" : "airbnb",
+    "rules": {
+        "react/react-in-jsx-scope": "off"
+    }
 }

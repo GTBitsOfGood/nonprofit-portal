@@ -14,5 +14,6 @@ A running instance of MongoDB is required this project.
 ## Development
 
 Run `npm run build` when changing files in the **/pages** directory.
+
 Run `npm run dev` to start the development Express server.
 

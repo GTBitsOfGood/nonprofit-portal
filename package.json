@@ -9,8 +9,10 @@
         "lint": "eslint --ext .js --ext .jsx ."
     },
     "dependencies": {
+        "@zeit/next-css": "^1.0.1",
         "mongodb": "^3.3.2",
-        "next": "^9.0.5",
+        "next": "^9.0.6",
+        "next-images": "^1.2.0",
         "react": "^16.9.0",
         "react-dom": "^16.9.0"
     },

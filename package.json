@@ -3,12 +3,13 @@
     "version": "0.0.1",
     "main": "index.js",
     "scripts": {
-        "dev": "next",
+        "dev": "node .",
         "build": "next build",
-        "start": "next start",
         "lint": "eslint --ext .js --ext .jsx ."
     },
     "dependencies": {
+        "body-parser": "^1.19.0",
+        "express": "^4.17.1",
         "mongodb": "^3.3.2",
         "next": "^9.0.5",
         "react": "^16.9.0",

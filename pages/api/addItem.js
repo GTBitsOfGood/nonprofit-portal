@@ -4,8 +4,8 @@ import { addItem } from '../../server/mongodb/actions/items';
 // @desc    Create An Item
 // @access  Public
 export default async function (req, res) {
-  const { body } = req;
+  const { item } = req.body;
 
-  await addItem(body)
-    .then((item) => res.json(item));
+  await addItem(item)
+    .then((result) => res.json(result));
 }

@@ -34,4 +34,12 @@ const ItemSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model('Item', ItemSchema);
+let Item;
+
+if (mongoose.models.Item) {
+  Item = mongoose.model('Item');
+} else {
+  Item = mongoose.model('Item', ItemSchema);
+}
+
+module.exports = Item;

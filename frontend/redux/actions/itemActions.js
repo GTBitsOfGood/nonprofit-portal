@@ -14,7 +14,7 @@ export const getItems = () => (dispatch) => {
     .getItems()
     .then((res) => dispatch({
       type: GET_ITEMS,
-      payload: res.data,
+      payload: res,
     }));
 };
 
@@ -23,14 +23,14 @@ export const addItem = (item) => (dispatch) => {
     .addItem(item)
     .then((res) => dispatch({
       type: ADD_ITEM,
-      payload: res.data,
+      payload: res,
     }));
 };
 
 export const deleteItem = (id) => (dispatch) => {
   itemActions
     .deleteItem(id)
-    .then((res) => dispatch({
+    .then(() => dispatch({
       type: DELETE_ITEM,
       payload: id,
     }));

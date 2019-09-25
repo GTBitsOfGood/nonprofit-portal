@@ -12,8 +12,8 @@ A running instance of MongoDB is required this project.
 - You're done!
 
 ## Development
-
-Run `npm run build` when changing files in the **/pages** directory.
-
-Run `npm run dev` to start the development Express server.
-
+- Setup MongoDB with the instructions above
+- Clone this project to your computer
+- Navigate to this project in terminal and enter `npm install`
+- By default, development uses MongoDB on your computer, if you would like to use an external database, enter `export devDB=URLHERE`
+- Run the dev version of this project by entering `npm run dev`

@@ -20,17 +20,10 @@ async function getItems() {
   return items;
 }
 
-async function addItem(body) {
+async function addItem(item) {
   await mongoDB();
 
-  const newItem = new Item({
-    name: body.name,
-    address: body.address,
-    email: body.email,
-    contactName: body.contactName,
-    reason: body.reason,
-    website: body.website,
-  });
+  const newItem = new Item(item);
 
   let result = {};
   await newItem
@@ -49,18 +42,14 @@ async function addItem(body) {
 async function deleteItem(id) {
   await mongoDB();
 
-  let result = {};
   await Item.findById(id)
     .then((item) => item.remove())
-    .then((res) => {
-      result = res;
+    .then(() => {
       mongoose.connection.close();
     })
     .catch(() => {
       mongoose.connection.close();
     });
-
-  return result;
 }
 
 module.exports = {

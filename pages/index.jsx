@@ -4,23 +4,24 @@ import { Container } from 'reactstrap';
 import AppNavbar from '../frontend/components/AppNavbar';
 import ItemsList from '../frontend/components/ItemsList';
 import ItemModal from '../frontend/components/ItemModal';
-import { getClients, addClient } from '../frontend/actions/clients';
+import { getItems } from '../frontend/actions/items';
 
 class IndexPage extends React.Component {
   static async getInitialProps({ req }) {
     if (req) {
       // TODO server-side database calls
+      const items = await getItems();
 
       return {
-        isServer: true,
+        items,
       };
     }
   }
 
   render() {
-    const { clients } = this.props;
+    const { items } = this.props;
 
-    console.log(clients);
+    console.log(items);
 
     return (
       <div className="App">
@@ -35,7 +36,7 @@ class IndexPage extends React.Component {
 }
 
 IndexPage.propTypes = {
-  clients: PropTypes.array,
+  items: PropTypes.array.isRequired,
 };
 
 export default IndexPage;

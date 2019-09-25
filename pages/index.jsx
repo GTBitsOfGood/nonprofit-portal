@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { Container } from 'reactstrap';
+import AppNavbar from '../frontend/components/AppNavbar';
+import ItemsList from '../frontend/components/ItemsList';
+import ItemModal from '../frontend/components/ItemModal';
 import { getClients, addClient } from '../frontend/actions/clients';
 
 class IndexPage extends React.Component {
@@ -18,14 +21,6 @@ class IndexPage extends React.Component {
         clients,
       };
     }
-
-    // TODO client-side API calls
-    const { clients } = await getClients();
-
-    return {
-      isServer: false,
-      clients,
-    };
   }
 
   render() {
@@ -34,7 +29,13 @@ class IndexPage extends React.Component {
     console.log(clients);
 
     return (
-      <div>Hello, World!</div>
+      <div className="App">
+        <AppNavbar />
+        <Container>
+          <ItemModal />
+          <ItemsList />
+        </Container>
+      </div>
     );
   }
 }

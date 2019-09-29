@@ -34,3 +34,10 @@ export const deleteItem = async (id) => fetch(config.baseUrl + config.apis.delet
   }),
 })
   .then((response) => response.json());
+
+export const getItem = async (urlString) => fetch(`${config.baseUrl}${config.apis.getItem}?url=${urlString}`, {
+  method: 'get',
+  mode: 'same-origin',
+  credentials: 'include',
+})
+  .then((response) => response.json());

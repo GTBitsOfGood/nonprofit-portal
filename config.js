@@ -7,5 +7,6 @@ export default {
     getItems: '/api/getItems',
     addItem: '/api/addItem',
     deleteItem: '/api/deleteItem',
+    getItem: '/api/getItem',
   },
 };

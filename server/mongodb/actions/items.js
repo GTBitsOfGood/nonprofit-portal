@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 const mongoDB = require('../index');
 const Item = require('../models/Item');
+const PageURL = require('../models/PageURL');
+const { generateURLString } = require('./util');
+
+/* eslint no-underscore-dangle: "off" */
 
 async function getItems() {
   await mongoDB();
@@ -23,19 +27,22 @@ async function getItems() {
 async function addItem(item) {
   await mongoDB();
 
-  const newItem = new Item(item);
-
   let result = {};
-  await newItem
-    .save()
-    .then((res) => {
-      result = res;
-      mongoose.connection.close();
-    })
-    .catch(() => {
-      mongoose.connection.close();
+
+  try {
+    const pageURLString = await generateURLString();
+    const newItem = new Item(item);
+    result = await newItem.save();
+
+    const newPageURL = new PageURL({
+      itemId: result._id.toString(),
+      urlString: pageURLString,
     });
 
+    await newPageURL.save();
+  } finally {
+    mongoose.connection.close();
+  }
   return result;
 }
 
@@ -52,8 +59,23 @@ async function deleteItem(id) {
     });
 }
 
+async function getItem(urlString) {
+  await mongoDB();
+
+  let item = {};
+
+  try {
+    const pageURL = await PageURL.findOne({ urlString });
+    item = await Item.findById(pageURL.itemId);
+  } finally {
+    mongoose.connection.close();
+  }
+  return item;
+}
+
 module.exports = {
   getItems,
   addItem,
   deleteItem,
+  getItem,
 };

@@ -9,8 +9,12 @@
         "lint": "eslint --ext .js --ext .jsx ."
     },
     "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^1.2.25",
+        "@fortawesome/free-solid-svg-icons": "^5.11.2",
+        "@fortawesome/react-fontawesome": "^0.1.4",
         "@zeit/next-css": "^1.0.1",
         "bootstrap": "^4.3.1",
+        "font-awesome": "",
         "isomorphic-unfetch": "^3.0.0",
         "mongodb": "^3.3.2",
         "mongoose": "^5.7.1",

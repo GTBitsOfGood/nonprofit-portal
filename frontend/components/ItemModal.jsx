@@ -45,6 +45,7 @@ class ItemModal extends Component {
       reason: this.state.reason,
       website: this.state.website,
     };
+    console.log(newItem)
 
     // Add item via addItem action
     this.props.addItem(newItem);

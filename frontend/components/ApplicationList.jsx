@@ -208,13 +208,18 @@ class ApplicationList extends Component {
               />
             </FormGroup>
           </Collapse>
-          <Button
-            color="dark"
-            style={{ marginTop: '2rem' }}
-            block
-          >
-            Submit Application
-          </Button>
+          <div className="d-flex justify-content-between">
+            <div />
+            <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+              <div className="btn-group mr-2" role="group" aria-label="First group">
+                <Button outline color="secondary">Reset</Button>
+              </div>
+              <div className="btn-group mr-2" role="group" aria-label="Second group">
+                <Button type="submit" className="btn btn-secondary">Submit</Button>
+              </div>
+            </div>
+            <div />
+          </div>
         </Form>
       </div>
     );

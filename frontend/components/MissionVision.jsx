@@ -17,14 +17,14 @@ class MissionVision extends Component {
     };
   }
 
-  toggle = () => {
+  toggleCollapse = () => {
     this.setState((state) => ({ open: !state.open }));
   }
 
   render() {
     return (
       <>
-        <Button color="#F0F4F7" onClick={() => this.toggle(1)} style={{ marginBottom: '1rem' }} block>
+        <Button color="#F0F4F7" onClick={() => this.toggleCollapse()} style={{ marginBottom: '1rem' }} block>
           <div align="left">
             {this.state.open ? <FontAwesomeIcon icon={faChevronDown} />
               : <FontAwesomeIcon icon={faChevronRight} />}

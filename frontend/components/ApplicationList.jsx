@@ -16,7 +16,6 @@ class ApplicationList extends Component {
 
     this.state = {
       item: '',
-      collapse: [false, false, false, false],
     };
   }
 
@@ -45,12 +44,6 @@ class ApplicationList extends Component {
     // Add item via addItem action
     this.props.addItem(newItem);
   };
-
-  toggle = (n) => {
-    let newArr = [...this.state.collapse];
-    newArr[n] = !newArr[n]
-    this.setState({ collapse: newArr });
-  }
 
   render() {
     return (

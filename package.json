@@ -3,17 +3,33 @@
     "version": "0.0.1",
     "main": "index.js",
     "scripts": {
-        "dev": "node .",
+        "dev": "next",
         "build": "next build",
+        "start": "next start",
         "lint": "eslint --ext .js --ext .jsx ."
     },
     "dependencies": {
-        "body-parser": "^1.19.0",
-        "express": "^4.17.1",
+        "@fortawesome/fontawesome-svg-core": "^1.2.25",
+        "@fortawesome/free-solid-svg-icons": "^5.11.2",
+        "@fortawesome/react-fontawesome": "^0.1.4",
+        "@zeit/next-css": "^1.0.1",
+        "bootstrap": "^4.3.1",
+        "font-awesome": "",
+        "isomorphic-unfetch": "^3.0.0",
         "mongodb": "^3.3.2",
-        "next": "^9.0.5",
+        "mongoose": "^5.7.1",
+        "next": "^9.0.6",
+        "next-images": "^1.2.0",
+        "prop-types": "^15.7.2",
         "react": "^16.9.0",
-        "react-dom": "^16.9.0"
+        "react-dom": "^16.9.0",
+        "react-redux": "^7.1.1",
+        "react-transition-group": "^4.3.0",
+        "reactstrap": "^8.0.1",
+        "redux": "^4.0.4",
+        "redux-devtools-extension": "^2.13.8",
+        "redux-thunk": "^2.3.0",
+        "uuid": "^3.3.3"
     },
     "devDependencies": {
         "babel-eslint": "^10.0.3",

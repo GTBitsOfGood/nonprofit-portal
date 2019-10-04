@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { Container } from 'reactstrap';
 import AppNavbar from '../frontend/components/AppNavbar';
 import ItemsList from '../frontend/components/ItemsList';
-import ItemModal from '../frontend/components/ItemModal';
+import WelcomeJumbo from '../frontend/components/WelcomeJumbo'
+import ApplicationList from '../frontend/components/ApplicationList';
 import { getItems } from '../frontend/actions/items';
 
 class IndexPage extends React.Component {
@@ -27,7 +28,8 @@ class IndexPage extends React.Component {
       <div className="App">
         <AppNavbar />
         <Container>
-          <ItemModal />
+          <WelcomeJumbo />
+          <ApplicationList />
           <ItemsList />
         </Container>
       </div>

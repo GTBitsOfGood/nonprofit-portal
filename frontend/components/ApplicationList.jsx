@@ -31,12 +31,29 @@ class ApplicationList extends Component {
     const newItem = {
       name: this.state.name,
       address: this.state.address,
-      email: this.state.email,
-      contactName: this.state.contactName,
-      reason: this.state.reason,
       website: this.state.website,
+      workPhone: this.state.workPhone,
+      contactName: this.state.contactName,
+      mobilePhone: this.state.mobilePhone,
+      email: this.state.email,
       mission: this.state.mission,
-      decision: this.state.decision,
+      needsWeb: this.state.needsWeb,
+      needsMobile: this.state.needsMobile,
+      needsOther: this.state.needsOther,
+      needsOtherExpand: this.state.needsOtherExpand,
+      stageNew: this.state.stageNew,
+      stageUnfinish: this.state.stageUnfinish,
+      stageRedesign: this.state.stageRedesign,
+      stageOther: this.state.stageOther,
+      stageOtherExpand: this.state.stageExpand,
+      availFlexible: this.state.availFlexible,
+      availWeek: this.state.availWeek,
+      availBiweek: this.state.availBiweek,
+      availMonth: this.state.availMonth,
+      availLess: this.state.availLess,
+      fieldYes: this.state.fieldYes,
+      fieldNo: this.state.fieldNo,
+      fieldRemote: this.state.fieldRemote,
       feedback: this.state.feedback,
     };
     // Add item via addItem action
@@ -55,10 +72,10 @@ class ApplicationList extends Component {
             <div />
             <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
               <div className="btn-group mr-2" role="group" aria-label="First group">
-                <Button outline color="secondary">Reset</Button>
+                <Button outline color="dark">Reset</Button>
               </div>
               <div className="btn-group mr-2" role="group" aria-label="Second group">
-                <Button type="submit" className="btn btn-secondary">Submit</Button>
+                <Button type="submit" color="dark" className="btn btn-secondary">Submit</Button>
               </div>
             </div>
             <div />

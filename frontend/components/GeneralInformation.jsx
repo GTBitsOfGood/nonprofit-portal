@@ -68,7 +68,7 @@ class GeneralInformation extends Component {
             <Label for="item">Work Phone</Label>
             <Input
               type="text"
-              name="work-phone"
+              name="workPhone"
               id="item"
               placeholder=""
               onChange={this.props.onChange}
@@ -88,7 +88,7 @@ class GeneralInformation extends Component {
             <Label for="item">Mobile Phone</Label>
             <Input
               type="text"
-              name="work-phone"
+              name="mobilePhone"
               id="item"
               placeholder="(Optional)"
               onChange={this.props.onChange}

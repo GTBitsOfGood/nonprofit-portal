@@ -8,11 +8,6 @@ class IndexPage extends React.Component {
     return (
       <div className="App">
         <AppNavbar />
-        <Container>
-          <a href="/application">
-            <Button>Apply Here</Button>
-          </a>
-        </Container>
       </div>
     );
   }

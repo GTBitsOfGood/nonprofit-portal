@@ -7,7 +7,7 @@ import {
   Input,
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown, faChevronRight} from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
 class MissionVision extends Component {
   constructor(props) {
@@ -29,27 +29,18 @@ class MissionVision extends Component {
             {this.state.open ? <FontAwesomeIcon icon={faChevronDown} />
               : <FontAwesomeIcon icon={faChevronRight} />}
             {' '}
-            Your Mission & Vision
+            Your Mission
           </div>
         </Button>
         <Collapse isOpen={this.state.open}>
           <FormGroup>
-            <Label for="item">Please tell us the mission of your organization. What services do you provide to the community?</Label>
+            <p>At Bits of Good, our mission is to change lives one bit at a time - we serve our community by building powerful applications for local nonprofits.</p>
+            <Label for="item">We want to know the mission of your organization. Who do you care to serve? What services do you provide to the community? How could the collaboration with BoG help you achieve your mission?</Label>
             <Input
               type="textarea"
               name="mission"
               id="item"
               placeholder="Organization Mission"
-              onChange={this.props.onChange}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="item">Please tell us the vision of your organization. How can BoG help with it?</Label>
-            <Input
-              type="textarea"
-              name="vision"
-              id="item"
-              placeholder="Organization Vision"
               onChange={this.props.onChange}
             />
           </FormGroup>

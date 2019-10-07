@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import {
-  Container, ListGroup, ListGroupItem, Button,
+  Container,
+  ListGroup,
+  ListGroupItem,
+  Button,
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
@@ -31,7 +34,9 @@ class ItemsList extends Component {
                     color="danger"
                     size="sm"
                     onClick={this.onDeleteClick.bind(this, _id)}
-                  >&times;</Button>
+                  >
+                  &times;
+                  </Button>
                   {name}
                 </ListGroupItem>
               </CSSTransition>

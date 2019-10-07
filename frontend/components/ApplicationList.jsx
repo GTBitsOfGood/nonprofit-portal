@@ -3,11 +3,11 @@ import {
   Button,
   Form,
 } from 'reactstrap';
+import { connect } from 'react-redux';
 import GeneralInformation from './GeneralInformation';
 import MissionVision from './MissionVision';
 import Decision from './Decision';
 import Feedback from './Feedback';
-import { connect } from 'react-redux';
 import { addItem } from '../redux/actions/itemActions';
 
 class ApplicationList extends Component {
@@ -39,8 +39,6 @@ class ApplicationList extends Component {
       decision: this.state.decision,
       feedback: this.state.feedback,
     };
-    console.log(newItem)
-
     // Add item via addItem action
     this.props.addItem(newItem);
   };

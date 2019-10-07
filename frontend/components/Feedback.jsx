@@ -4,10 +4,10 @@ import {
   FormGroup,
   Label,
   Collapse,
-  Input, Form,
+  Input,
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown, faChevronRight} from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
 class Feedback extends Component {
   constructor(props) {
@@ -44,7 +44,7 @@ class Feedback extends Component {
               type="textarea"
               name="feedback"
               id="item"
-              placeholder="Optional"
+              placeholder="(Optional)"
               onChange={this.props.onChange}
             />
           </FormGroup>

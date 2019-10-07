@@ -40,6 +40,13 @@ class AppNavbar extends Component {
             <Collapse isOpen={isOpen} navbar>
               <Nav className="ml-auto" navbar />
             </Collapse>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/application">
+                  Apply
+                </NavLink>
+              </NavItem>
+            </Nav>
           </Container>
         </Navbar>
       </div>

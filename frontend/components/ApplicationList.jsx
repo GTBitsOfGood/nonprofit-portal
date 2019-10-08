@@ -48,6 +48,7 @@ class ApplicationList extends Component {
     };
     // Add item via addItem action
     this.props.addItem(newItem);
+    window.location.href = "/submitted";
   };
 
   render() {
@@ -65,7 +66,7 @@ class ApplicationList extends Component {
                 <Button outline color="dark">Reset</Button>
               </div>
               <div className="btn-group mr-2" role="group" aria-label="Second group">
-                <a href="/submitted"><Button type="submit" color="dark" className="btn btn-secondary">Submit</Button></a>
+                <Button type="submit" color="dark" className="btn btn-secondary">Submit</Button>
               </div>
             </div>
             <div />

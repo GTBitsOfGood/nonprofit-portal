@@ -38,15 +38,14 @@ class AppNavbar extends Component {
             <NavbarBrand href="/">Bits of Good Nonprofit Portal</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={isOpen} navbar>
-              <Nav className="ml-auto" navbar />
+              <Nav className="ml-auto" navbar>
+                <NavItem>
+                  <NavLink href="/application">
+                    Apply
+                  </NavLink>
+                </NavItem>
+              </Nav>
             </Collapse>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="/application">
-                  Apply
-                </NavLink>
-              </NavItem>
-            </Nav>
           </Container>
         </Navbar>
       </div>

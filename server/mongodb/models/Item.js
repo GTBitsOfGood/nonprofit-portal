@@ -56,15 +56,7 @@ const ItemSchema = new Schema({
     type: String,
     required: false,
   },
-  stageUnfinish: {
-    type: String,
-    required: false,
-  },
-  stageRedesign: {
-    type: String,
-    required: false,
-  },
-  stageOther: {
+  stageRadio: {
     type: String,
     required: false,
   },
@@ -72,35 +64,11 @@ const ItemSchema = new Schema({
     type: String,
     required: false,
   },
-  availFlexible: {
+  availRadio: {
     type: String,
     required: false,
   },
-  availWeek: {
-    type: String,
-    required: false,
-  },
-  availBiweek: {
-    type: String,
-    required: false,
-  },
-  availMonth: {
-    type: String,
-    required: false,
-  },
-  availLess: {
-    type: String,
-    required: false,
-  },
-  fieldYes: {
-    type: String,
-    required: false,
-  },
-  fieldNo: {
-    type: String,
-    required: false,
-  },
-  fieldRemote: {
+  fieldRadio: {
     type: String,
     required: false,
   },

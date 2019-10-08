@@ -65,7 +65,7 @@ class ApplicationList extends Component {
                 <Button outline color="dark">Reset</Button>
               </div>
               <div className="btn-group mr-2" role="group" aria-label="Second group">
-                <Button type="submit" color="dark" className="btn btn-secondary">Submit</Button>
+                <a href="/submitted"><Button type="submit" color="dark" className="btn btn-secondary">Submit</Button></a>
               </div>
             </div>
             <div />

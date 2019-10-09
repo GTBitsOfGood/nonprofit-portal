@@ -111,10 +111,9 @@ class Decision extends Component {
             </div>
           </FormGroup>
           <FormGroup>
-            <Label for="item">What is your availability to work with us in the upcoming semester?</Label>
+            <Label for="item">What is your availability to work with us in the upcoming semester? The time you devote to us may directly influence the success of the project.</Label>
             <div>
               <CustomInput type="radio" id="availFlexible" name="availRadio" label="We have a flexible schedule and can beet with the BoG team upon request" defaultChecked onChange={this.props.onChange} />
-              <CustomInput type="radio" id="availTwiceWeek" name="availRadio" label="Twice a week" onChange={this.props.onChange} />
               <CustomInput type="radio" id="availWeek" name="availRadio" label="Once a week" onChange={this.props.onChange} />
               <CustomInput type="radio" id="availBiweek" name="availRadio" label="Once every two weeks" onChange={this.props.onChange} />
               <CustomInput type="radio" id="availMonth" name="availRadio" label="Once every month" onChange={this.props.onChange} />
@@ -122,7 +121,7 @@ class Decision extends Component {
             </div>
           </FormGroup>
           <FormGroup>
-            <Label for="item">Can you provide a field for us to know more about your organization and users? (i.e. observe or interview the users)</Label>
+            <Label for="item">Can you provide a field tour for us to know more about your organization and users? (i.e. observe or interview the users)</Label>
             <div>
               <CustomInput type="radio" id="fieldYes" name="fieldRadio" label="Yes" defaultChecked onChange={this.props.onChange} />
               <CustomInput type="radio" id="fieldNo" name="fieldRadio" label="No" onChange={this.props.onChange} />

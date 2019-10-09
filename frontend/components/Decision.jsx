@@ -19,7 +19,7 @@ class Decision extends Component {
 
   toggleCollapse = () => {
     this.setState((state) => ({ open: !state.open }));
-  }
+  };
 
   render() {
     return (
@@ -76,6 +76,7 @@ class Decision extends Component {
                 type="radio"
                 id="stageNew"
                 name="stageRadio"
+                value="new"
                 label="It's brand new. We haven't built anything yet"
                 defaultChecked
                 onChange={this.props.onChange}
@@ -84,6 +85,7 @@ class Decision extends Component {
                 type="radio"
                 id="stageUnfinish"
                 name="stageRadio"
+                value="unfinished"
                 label="We had some progress, but it's not finished"
                 onChange={this.props.onChange}
               />
@@ -91,6 +93,7 @@ class Decision extends Component {
                 type="radio"
                 id="stageRedesign"
                 name="stageRadio"
+                value="redesign"
                 label="We have a developed product, but we want to redesign it"
                 onChange={this.props.onChange}
               />
@@ -98,12 +101,14 @@ class Decision extends Component {
                 type="radio"
                 id="stageOther"
                 name="stageRadio"
+                value="other"
                 label="Other"
                 onChange={this.props.onChange}
                 inline
               />
               <CustomInput
                 type="textarea"
+                name="stageOtherExpand"
                 id="stageOtherExpand"
                 onChange={this.props.onChange}
                 inline
@@ -113,19 +118,77 @@ class Decision extends Component {
           <FormGroup>
             <Label for="item">What is your availability to work with us in the upcoming semester? The time you devote to us may directly influence the success of the project.</Label>
             <div>
-              <CustomInput type="radio" id="availFlexible" name="availRadio" label="We have a flexible schedule and can beet with the BoG team upon request" defaultChecked onChange={this.props.onChange} />
-              <CustomInput type="radio" id="availWeek" name="availRadio" label="Once a week" onChange={this.props.onChange} />
-              <CustomInput type="radio" id="availBiweek" name="availRadio" label="Once every two weeks" onChange={this.props.onChange} />
-              <CustomInput type="radio" id="availMonth" name="availRadio" label="Once every month" onChange={this.props.onChange} />
-              <CustomInput type="radio" id="availLess" name="availRadio" label="Less than once a month" onChange={this.props.onChange} />
+              <CustomInput
+                type="radio"
+                id="availFlexible"
+                name="availRadio"
+                value="flexible"
+                label="We have a flexible schedule and can meet with the BoG team upon request"
+                defaultChecked
+                onChange={this.props.onChange}
+              />
+              <CustomInput
+                type="radio"
+                id="availWeek"
+                name="availRadio"
+                value="week"
+                label="Once a week"
+                onChange={this.props.onChange}
+              />
+              <CustomInput
+                type="radio"
+                id="availBiweek"
+                name="availRadio"
+                value="biweek"
+                label="Once every two weeks"
+                onChange={this.props.onChange}
+              />
+              <CustomInput
+                type="radio"
+                id="availMonth"
+                name="availRadio"
+                value="month"
+                label="Once every month"
+                onChange={this.props.onChange}
+              />
+              <CustomInput
+                type="radio"
+                id="availLess"
+                name="availRadio"
+                value="less"
+                label="Less than once a month"
+                onChange={this.props.onChange}
+              />
             </div>
           </FormGroup>
           <FormGroup>
             <Label for="item">Can you provide a field tour for us to know more about your organization and users? (i.e. observe or interview the users)</Label>
             <div>
-              <CustomInput type="radio" id="fieldYes" name="fieldRadio" label="Yes" defaultChecked onChange={this.props.onChange} />
-              <CustomInput type="radio" id="fieldNo" name="fieldRadio" label="No" onChange={this.props.onChange} />
-              <CustomInput type="radio" id="fieldRemote" name="fieldRadio" label="We would work remotely but could connect the BoG team with users" onChange={this.props.onChange} />
+              <CustomInput
+                type="radio"
+                id="fieldYes"
+                name="fieldRadio"
+                value="Yes"
+                label="Yes"
+                defaultChecked
+                onChange={this.props.onChange}
+              />
+              <CustomInput
+                type="radio"
+                id="fieldNo"
+                name="fieldRadio"
+                value="No"
+                label="No"
+                onChange={this.props.onChange}
+              />
+              <CustomInput
+                type="radio"
+                id="fieldRemote"
+                name="fieldRadio"
+                value="Remote"
+                label="We would work remotely but could connect the BoG team with users"
+                onChange={this.props.onChange}
+              />
             </div>
           </FormGroup>
           <FormGroup>

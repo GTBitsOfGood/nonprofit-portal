@@ -42,13 +42,14 @@ class ApplicationList extends Component {
       needsOther: this.state.needsOther,
       needsOtherExpand: this.state.needsOtherExpand,
       stageRadio: this.state.stageRadio,
+      stageOtherExpand: this.state.stageOtherExpand,
       availRadio: this.state.availRadio,
       fieldRadio: this.state.fieldRadio,
+      productExtra: this.state.productExtra,
       feedback: this.state.feedback,
     };
     // Add item via addItem action
     this.props.addItem(newItem);
-    window.location.href = "/submitted";
   };
 
   render() {

@@ -72,6 +72,10 @@ const ItemSchema = new Schema({
     type: String,
     required: false,
   },
+  productExtra: {
+    type: String,
+    required: false,
+  },
   feedback: {
     type: String,
     required: false,

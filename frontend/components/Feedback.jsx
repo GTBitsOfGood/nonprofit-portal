@@ -26,13 +26,13 @@ class Feedback extends Component {
       <>
         <Button color="#F0F4F7" onClick={() => this.toggleCollapse()} style={{ marginBottom: '1rem' }} block>
           <div align="left">
-            {this.state.open ? <FontAwesomeIcon icon={faChevronDown} />
-              : <FontAwesomeIcon icon={faChevronRight} />}
+            {this.state.open ? <FontAwesomeIcon icon={faChevronDown} size="sm" />
+              : <FontAwesomeIcon icon={faChevronRight} size="sm" />}
             {' '}
             Your Questions
           </div>
         </Button>
-        <Collapse style={{ borderStyle: 'solid', padding: '20px' }} isOpen={this.state.open}>
+        <Collapse isOpen={this.state.open}>
           <FormGroup>
             <Label for="item">
               Please let us know if you have any other questions or feedback.

@@ -26,13 +26,13 @@ class GeneralInformation extends Component {
       <>
         <Button outline color="#F0F4F7" onClick={() => this.toggleCollapse()} style={{ marginBottom: '1rem'}}>
           <div align="left">
-            { this.state.open ? <FontAwesomeIcon icon={faChevronDown} />
-              : <FontAwesomeIcon icon={faChevronRight} />}
+            { this.state.open ? <FontAwesomeIcon icon={faChevronDown} size="sm" />
+              : <FontAwesomeIcon icon={faChevronRight} size="sm" />}
             {' '}
             Your General Information
           </div>
         </Button>
-        <Collapse style={{ borderStyle: 'solid', padding: '20px' }} isOpen={this.state.open}>
+        <Collapse isOpen={this.state.open}>
           <p>Please fill out the blanks so we can know more about your organization</p>
           <FormGroup>
             <Label for="item">Organization Name</Label>

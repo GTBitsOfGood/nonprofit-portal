@@ -32,7 +32,7 @@ class MissionVision extends Component {
             Your Mission
           </div>
         </Button>
-        <Collapse isOpen={this.state.open}>
+        <Collapse style={{ borderStyle: 'solid', padding: '20px' }} isOpen={this.state.open}>
           <FormGroup>
             <p>At Bits of Good, our mission is to change lives one bit at a time - we serve our community by building powerful applications for local nonprofits.</p>
             <Label for="item">We want to know the mission of your organization. Who do you care to serve? What services do you provide to the community? How could the collaboration with BoG help you achieve your mission?</Label>

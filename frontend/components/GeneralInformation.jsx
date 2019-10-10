@@ -32,7 +32,7 @@ class GeneralInformation extends Component {
             Your General Information
           </div>
         </Button>
-        <Collapse isOpen={this.state.open}>
+        <Collapse style={{ borderStyle: 'solid', padding: '20px' }} isOpen={this.state.open}>
           <p>Please fill out the blanks so we can know more about your organization</p>
           <FormGroup>
             <Label for="item">Organization Name</Label>

@@ -32,7 +32,7 @@ class Feedback extends Component {
             Your Questions
           </div>
         </Button>
-        <Collapse isOpen={this.state.open}>
+        <Collapse style={{ borderStyle: 'solid', padding: '20px' }} isOpen={this.state.open}>
           <FormGroup>
             <Label for="item">
               Please let us know if you have any other questions or feedback.

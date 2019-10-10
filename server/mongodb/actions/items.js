@@ -4,8 +4,6 @@ const Item = require('../models/Item');
 const PageURL = require('../models/PageURL');
 const { generateURLString } = require('./util');
 
-/* eslint no-underscore-dangle: "off" */
-
 async function getItems() {
   await mongoDB();
 

@@ -4,6 +4,7 @@ import {
   FormGroup,
   Label,
   Collapse,
+  Input,
   CustomInput,
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,7 +25,7 @@ class Decision extends Component {
   render() {
     return (
       <>
-        <Button color="#F0F4F7" onClick={() => this.toggleCollapse()} style={{ marginBottom: '1rem' }} block>
+        <Button color="#F0F4F7" onClick={() => this.toggleCollapse()} block>
           <div align="left">
             {this.state.open ? <FontAwesomeIcon icon={faChevronDown} />
               : <FontAwesomeIcon icon={faChevronRight} />}
@@ -32,7 +33,7 @@ class Decision extends Component {
             Your Product Needs
           </div>
         </Button>
-        <Collapse isOpen={this.state.open}>
+        <Collapse style={{ borderStyle: 'solid', padding: '20px' }} isOpen={this.state.open}>
           <FormGroup>
             <Label for="item">What kind of product needs do you hope BoG can support you with?</Label>
             <div>
@@ -130,7 +131,7 @@ class Decision extends Component {
           </FormGroup>
           <FormGroup>
             <Label for="item">Is there anything else related to your product needs you want to share with us?</Label>
-            <CustomInput
+            <Input
               type="textarea"
               name="productExtra"
               id="productExtra"

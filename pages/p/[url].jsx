@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Container } from 'reactstrap';
 import { withRouter } from 'next/router';
+
+import AppNavbar from '../../frontend/components/AppNavbar';
+import StatusJumbo from '../../frontend/components/StatusJumbo';
+import StatusBar from '../../frontend/components/StatusBar';
+
 import { getItem } from '../../frontend/actions/items';
 
 class LandingPage extends React.Component {
@@ -21,7 +27,13 @@ class LandingPage extends React.Component {
     const { item, urlString } = this.props;
 
     return (
-      <h1>{urlString}</h1>
+      <div className="App">
+        <AppNavbar />
+        <Container>
+          <StatusJumbo status={item.status} />
+          <StatusBar status={item.status} />
+        </Container>
+      </div>
     );
   }
 }

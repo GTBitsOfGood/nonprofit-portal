@@ -80,6 +80,10 @@ const ItemSchema = new Schema({
     type: String,
     required: false,
   },
+  status: {
+    type: Number,
+    default: 0,
+  }
 });
 
 let Item;

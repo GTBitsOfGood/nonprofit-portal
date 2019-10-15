@@ -25,7 +25,7 @@ class Decision extends Component {
   render() {
     return (
       <>
-        <Button color="#F0F4F7" onClick={() => this.toggleCollapse()} block>
+        <Button color="#F0F4F7" onClick={() => this.toggleCollapse()} style={{ marginBottom: '1rem' }} block>
           <div align="left">
             {this.state.open ? <FontAwesomeIcon icon={faChevronDown} size="sm" />
               : <FontAwesomeIcon icon={faChevronRight} size="sm" />}

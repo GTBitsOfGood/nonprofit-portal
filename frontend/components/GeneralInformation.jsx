@@ -24,7 +24,7 @@ class GeneralInformation extends Component {
   render() {
     return (
       <>
-        <Button outline color="#F0F4F7" onClick={() => this.toggleCollapse()} style={{ marginBottom: '1rem'}}>
+        <Button outline color="#F0F4F7" onClick={() => this.toggleCollapse()} style={{ marginBottom: '1rem' }}>
           <div align="left">
             { this.state.open ? <FontAwesomeIcon icon={faChevronDown} style={{ }} />
               : <FontAwesomeIcon icon={faChevronRight} size="sm" />}

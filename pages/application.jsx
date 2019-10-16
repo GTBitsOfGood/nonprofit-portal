@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from 'reactstrap';
 import AppNavbar from '../frontend/components/AppNavbar';
 import WelcomeJumbo from '../frontend/components/WelcomeJumbo'
-import ApplicationList from '../frontend/components/ApplicationList';
+import ApplicationForm from '../frontend/components/ApplicationForm';
 
 class IndexPage extends React.Component {
   render() {
@@ -11,7 +11,7 @@ class IndexPage extends React.Component {
         <AppNavbar />
         <Container>
           <WelcomeJumbo />
-          <ApplicationList />
+          <ApplicationForm />
         </Container>
       </div>
     );

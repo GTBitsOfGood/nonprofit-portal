@@ -6,11 +6,11 @@ import {
 import { connect } from 'react-redux';
 import GeneralInformation from './GeneralInformation';
 import MissionVision from './MissionVision';
-import Decision from './Decision';
+import ProductNeeds from './ProductNeeds';
 import Feedback from './Feedback';
 import { addApplication } from '../redux/actions/applicationActions';
 
-class ApplicationList extends Component {
+class ApplicationForm extends Component {
   constructor(props) {
     super(props);
 
@@ -58,7 +58,7 @@ class ApplicationList extends Component {
         <Form onSubmit={this.onSubmit}>
           <GeneralInformation onChange={this.onChange} />
           <MissionVision onChange={this.onChange} />
-          <Decision onChange={this.onChange} />
+          <ProductNeeds onChange={this.onChange} />
           <Feedback onChange={this.onChange} />
           <div className="d-flex justify-content-between">
             <div />
@@ -82,4 +82,4 @@ const mapStateToProps = (state) => ({
   application: state.application,
 });
 
-export default connect(mapStateToProps, { addApplication })(ApplicationList);
+export default connect(mapStateToProps, { addApplication })(ApplicationForm);

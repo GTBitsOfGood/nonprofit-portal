@@ -10,7 +10,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
-class Decision extends Component {
+class ProductNeeds extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -210,4 +210,4 @@ class Decision extends Component {
   }
 }
 
-export default Decision;
+export default ProductNeeds;

@@ -35,71 +35,71 @@ class GeneralInformation extends Component {
         <Collapse isOpen={this.state.open}>
           <p>Please fill out the blanks so we can know more about your organization</p>
           <FormGroup>
-            <Label for="item">Organization Name</Label>
+            <Label for="application">Organization Name</Label>
             <Input
               type="text"
               name="name"
-              id="item"
+              id="application"
               placeholder=""
               onChange={this.props.onChange}
             />
           </FormGroup>
           <FormGroup>
-            <Label for="item">Address</Label>
+            <Label for="application">Address</Label>
             <Input
               type="text"
               name="address"
-              id="item"
+              id="application"
               placeholder=""
               onChange={this.props.onChange}
             />
           </FormGroup>
           <FormGroup>
-            <Label for="item">Website</Label>
+            <Label for="application">Website</Label>
             <Input
               type="url"
               name="website"
-              id="item"
+              id="application"
               placeholder="(Optional)"
               onChange={this.props.onChange}
             />
           </FormGroup>
           <FormGroup>
-            <Label for="item">Work Phone</Label>
+            <Label for="application">Work Phone</Label>
             <Input
               type="text"
               name="workPhone"
-              id="item"
+              id="application"
               placeholder=""
               onChange={this.props.onChange}
             />
           </FormGroup>
           <FormGroup>
-            <Label for="item">Person of Contact</Label>
+            <Label for="application">Person of Contact</Label>
             <Input
               type="text"
               name="contactName"
-              id="item"
+              id="application"
               placeholder=""
               onChange={this.props.onChange}
             />
           </FormGroup>
           <FormGroup>
-            <Label for="item">Mobile Phone</Label>
+            <Label for="application">Mobile Phone</Label>
             <Input
               type="text"
               name="mobilePhone"
-              id="item"
+              id="application"
               placeholder="(Optional)"
               onChange={this.props.onChange}
             />
           </FormGroup>
           <FormGroup>
-            <Label for="item">Email</Label>
+            <Label for="application">Email</Label>
             <Input
               type="email"
               name="email"
-              id="item"
+              id="application"
               placeholder=""
               onChange={this.props.onChange}
             />

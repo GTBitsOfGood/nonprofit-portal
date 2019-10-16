@@ -34,7 +34,7 @@ class Feedback extends Component {
         </Button>
         <Collapse isOpen={this.state.open}>
           <FormGroup>
-            <Label for="item">
+            <Label for="application">
               Please let us know if you have any other questions or feedback.
               You can also reach out to us at
               <a href="mailto:hello@bitsofgood.org"> hello@bitsofgood.org</a>
@@ -43,7 +43,7 @@ class Feedback extends Component {
             <Input
               type="textarea"
               name="feedback"
-              id="item"
+              id="application"
               placeholder="(Optional)"
               onChange={this.props.onChange}
             />

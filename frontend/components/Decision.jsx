@@ -35,7 +35,7 @@ class Decision extends Component {
         </Button>
         <Collapse isOpen={this.state.open}>
           <FormGroup>
-            <Label for="item">What kind of product needs do you hope BoG can support you with?</Label>
+            <Label for="ication">What kind of product needs do you hope BoG can support you with?</Label>
             <div>
               <CustomInput
                 type="checkbox"
@@ -74,7 +74,7 @@ class Decision extends Component {
             </div>
           </FormGroup>
           <FormGroup>
-            <Label for="item">What is the stage of the product development?</Label>
+            <Label for="application">What is the stage of the product development?</Label>
             <div>
               <CustomInput
                 type="radio"
@@ -119,7 +119,7 @@ class Decision extends Component {
             </div>
           </FormGroup>
           <FormGroup>
-            <Label for="item">What is your availability to work with us in the upcoming semester? The time you devote to us may directly influence the success of the project.</Label>
+            <Label for="application">What is your availability to work with us in the upcoming semester? The time you devote to us may directly influence the success of the project.</Label>
             <div>
               <CustomInput
                 type="radio"
@@ -164,7 +164,7 @@ class Decision extends Component {
             </div>
           </FormGroup>
           <FormGroup>
-            <Label for="item">Can you provide a field tour for us to know more about your organization and users? (i.e. observe or interview the users)</Label>
+            <Label for="application">Can you provide a field tour for us to know more about your organization and users? (i.e. observe or interview the users)</Label>
             <div>
               <CustomInput
                 type="radio"

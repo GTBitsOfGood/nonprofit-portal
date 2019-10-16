@@ -8,25 +8,25 @@ import {
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getItems, deleteItem } from '../redux/actions/itemActions';
+import { getApplications, deleteApplication } from '../redux/actions/applicationActions';
 
-class ItemsList extends Component {
+class ApplicationsList extends Component {
   componentDidMount() {
-    this.props.getItems();
+    this.props.getApplications();
   };
 
   onDeleteClick = (id) => {
-    this.props.deleteItem(id);
+    this.props.deleteApplication(id);
   };
 
   render() {
-    const { items } = this.props.item;
+    const { applications } = this.props.application;
 
     return (
       <Container>
         <ListGroup>
-          <TransitionGroup className="items-list">
-            {items.map(({ _id,
+          <TransitionGroup className="applications-list">
+            {applications.map(({ _id,
               name,
               address,
               website,
@@ -106,13 +106,13 @@ class ItemsList extends Component {
   }
 }
 
-ItemsList.propTypes = {
-  getItems: PropTypes.func.isRequired,
-  item: PropTypes.object.isRequired,
+ApplicationsList.propTypes = {
+  getApplications: PropTypes.func.isRequired,
+  application: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  item: state.item,
+  application: state.application,
 });
 
-export default connect(mapStateToProps, { getItems, deleteItem })(ItemsList);
+export default connect(mapStateToProps, { getApplications, deleteApplication })(ApplicationsList);

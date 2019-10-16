@@ -8,14 +8,14 @@ import GeneralInformation from './GeneralInformation';
 import MissionVision from './MissionVision';
 import Decision from './Decision';
 import Feedback from './Feedback';
-import { addItem } from '../redux/actions/itemActions';
+import { addApplication } from '../redux/actions/applicationActions';
 
 class ApplicationList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      item: '',
+      application: '',
     };
   }
 
@@ -28,7 +28,7 @@ class ApplicationList extends Component {
   onSubmit = (event) => {
     event.preventDefault();
 
-    const newItem = {
+    const newApplication = {
       name: this.state.name,
       address: this.state.address,
       website: this.state.website,
@@ -48,8 +48,8 @@ class ApplicationList extends Component {
       productExtra: this.state.productExtra,
       feedback: this.state.feedback,
     };
-    // Add item via addItem action
-    this.props.addItem(newItem);
+    // Add application via addApplication action
+    this.props.addApplication(newApplication);
   };
 
   render() {
@@ -79,7 +79,7 @@ class ApplicationList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  item: state.item,
+  application: state.application,
 });
 
-export default connect(mapStateToProps, { addItem })(ApplicationList);
+export default connect(mapStateToProps, { addApplication })(ApplicationList);

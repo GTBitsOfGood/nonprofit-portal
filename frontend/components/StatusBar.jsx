@@ -38,6 +38,8 @@ const StatusBar = (props) => {
         <StatusCircle status={getCircleStatus(2)} />
         <StatusLine status={getLineStatus(3)} />
         <StatusCircle status={getCircleStatus(3)} />
+        <StatusLine status={getLineStatus(4)} />
+        <StatusCircle status={getCircleStatus(4)} />
       </div>
       <div style={{
         display: 'flex',
@@ -47,9 +49,10 @@ const StatusBar = (props) => {
       }}
       >
         <StatusLabel label="Application submitted" status={getCircleStatus(0)} />
-        <StatusLabel label="Under review" status={getCircleStatus(1)} />
+        <StatusLabel label="Schedule interview" status={getCircleStatus(1)} />
         <StatusLabel label="Interview scheduled" status={getCircleStatus(2)} />
-        <StatusLabel label="Decision made" status={getCircleStatus(3)} />
+        <StatusLabel label="Under review" status={getCircleStatus(3)} />
+        <StatusLabel label="Decision made" status={getCircleStatus(4)} />
       </div>
     </div>
   );

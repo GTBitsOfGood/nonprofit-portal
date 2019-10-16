@@ -2,29 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'reactstrap';
 import AppNavbar from '../frontend/components/AppNavbar';
-import ItemsList from '../frontend/components/ItemsList';
-import { getItems } from '../frontend/actions/items';
+import ApplicationsList from '../frontend/components/ApplicationsList';
+import { getApplications } from '../frontend/actions/applications';
 
 class IndexPage extends React.Component {
   static async getInitialProps({ req }) {
     if (req) {
       // TODO server-side database calls
-      const items = await getItems();
+      const applications = await getApplications();
 
       return {
-        items,
+        applications,
       };
     }
   }
 
   render() {
-    const { items } = this.props;
+    const { applications } = this.props;
 
     return (
       <div className="App">
         <AppNavbar />
         <Container>
-          <ItemsList />
+          <ApplicationsList />
         </Container>
       </div>
     );
@@ -32,7 +32,7 @@ class IndexPage extends React.Component {
 }
 
 IndexPage.propTypes = {
-  items: PropTypes.array.isRequired,
+  applications: PropTypes.array.isRequired,
 };
 
 export default IndexPage;

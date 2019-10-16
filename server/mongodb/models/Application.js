@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 // Create Schema
-const ItemSchema = new Schema({
+const ApplicationSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -84,14 +84,18 @@ const ItemSchema = new Schema({
     type: Number,
     default: 0,
   },
+  urlString: {
+    type: String,
+    required: true,
+  },
 });
 
-let Item;
+let Application;
 
-if (mongoose.models.Item) {
-  Item = mongoose.model('Item');
+if (mongoose.models.Application) {
+  Application = mongoose.model('Application');
 } else {
-  Item = mongoose.model('Item', ItemSchema);
+  Application = mongoose.model('Application', ApplicationSchema);
 }
 
-module.exports = Item;
+module.exports = Application;

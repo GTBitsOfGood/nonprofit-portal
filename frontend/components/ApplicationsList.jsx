@@ -67,7 +67,7 @@ class ApplicationsList extends Component {
                       className="remove-btn"
                       color="danger"
                       size="sm"
-                      style= {{ marginRight: '20px' }}
+                      style={{ marginRight: '20px' }}
                       onClick={this.onDeleteClick.bind(this, _id)}
                     >
                       <h5>Delete</h5>

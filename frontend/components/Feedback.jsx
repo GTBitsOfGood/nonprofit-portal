@@ -4,10 +4,10 @@ import {
   FormGroup,
   Label,
   Collapse,
-  Input, Form,
+  Input,
 } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown, faChevronRight} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 class Feedback extends Component {
   constructor(props) {
@@ -26,15 +26,15 @@ class Feedback extends Component {
       <>
         <Button color="#F0F4F7" onClick={() => this.toggleCollapse()} style={{ marginBottom: '1rem' }} block>
           <div align="left">
-            {this.state.open ? <FontAwesomeIcon icon={faChevronDown} />
-              : <FontAwesomeIcon icon={faChevronRight} />}
+            {this.state.open ? <FontAwesomeIcon icon={faChevronDown} size="sm" />
+              : <FontAwesomeIcon icon={faChevronRight} size="sm" />}
             {' '}
             Your Questions
           </div>
         </Button>
         <Collapse isOpen={this.state.open}>
           <FormGroup>
-            <Label for="item">
+            <Label for="application">
               Please let us know if you have any other questions or feedback.
               You can also reach out to us at
               <a href="mailto:hello@bitsofgood.org"> hello@bitsofgood.org</a>
@@ -43,8 +43,8 @@ class Feedback extends Component {
             <Input
               type="textarea"
               name="feedback"
-              id="item"
-              placeholder="Optional"
+              id="application"
+              placeholder="(Optional)"
               onChange={this.props.onChange}
             />
           </FormGroup>

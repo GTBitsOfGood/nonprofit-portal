@@ -19,3 +19,17 @@
     opacity: 0.01;
     transition: opacity 1000ms ease-in;
 }
+
+.btn-toolbar {
+    margin-top: 30px;
+    margin-bottom: 60px;
+}
+
+.applications-list {
+    margin-bottom: 60px;
+}
+
+.progress-bar {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}

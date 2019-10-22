@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import withReduxStore from '../frontend/redux/with-redux-store';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../frontend/static/style/App.css';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 
 class MyApp extends App {
   render() {

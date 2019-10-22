@@ -1,4 +1,4 @@
-const PageURL = require('../models/PageURL');
+const Application = require('../models/Application');
 const { randomString } = require('../../util/random');
 
 /* eslint no-await-in-loop: "off" */
@@ -11,7 +11,7 @@ async function generateURLString() {
   while (attemptCount < 10) {
     urlStringAttempt = randomString(8);
     try {
-      await PageURL.findOne({ urlString: urlStringAttempt });
+      await Application.findOne({ urlString: urlStringAttempt });
       attemptCount += 1;
     } catch (e) {
       return urlStringAttempt;

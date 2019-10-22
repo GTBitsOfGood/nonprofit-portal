@@ -6,14 +6,14 @@ import {
   Collapse,
   Input,
 } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown, faChevronRight} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 class GeneralInformation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
+      open: true,
     };
   }
 
@@ -24,72 +24,83 @@ class GeneralInformation extends Component {
   render() {
     return (
       <>
-        <Button outline color="#F0F4F7" onClick={() => this.toggleCollapse()} style={{ marginBottom: '1rem'}}>
+        <Button outline color="#F0F4F7" onClick={() => this.toggleCollapse()} style={{ marginBottom: '1rem' }} block>
           <div align="left">
-            { this.state.open ? <FontAwesomeIcon icon={faChevronDown} />
-              : <FontAwesomeIcon icon={faChevronRight} />}
+            { this.state.open ? <FontAwesomeIcon icon={faChevronDown} style={{ }} />
+              : <FontAwesomeIcon icon={faChevronRight} size="sm" />}
             {' '}
             Your General Information
           </div>
         </Button>
         <Collapse isOpen={this.state.open}>
+          <p>Please fill out the blanks so we can know more about your organization</p>
           <FormGroup>
-            <Label for="item">Organization Name</Label>
+            <Label for="application">Organization Name</Label>
             <Input
               type="text"
               name="name"
-              id="item"
-              placeholder="Organization Name"
+              id="application"
+              placeholder=""
               onChange={this.props.onChange}
             />
           </FormGroup>
           <FormGroup>
-            <Label for="item">Address</Label>
+            <Label for="application">Address</Label>
             <Input
               type="text"
               name="address"
-              id="item"
-              placeholder="Organization Address"
+              id="application"
+              placeholder=""
               onChange={this.props.onChange}
             />
           </FormGroup>
           <FormGroup>
-            <Label for="item">Email</Label>
-            <Input
-              type="email"
-              name="email"
-              id="item"
-              placeholder="Organization Email"
-              onChange={this.props.onChange}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="item">Contact Name</Label>
-            <Input
-              type="text"
-              name="contactName"
-              id="item"
-              placeholder="Contact Name"
-              onChange={this.props.onChange}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="item">How do you serve the community?</Label>
-            <Input
-              type="textarea"
-              name="reason"
-              id="item"
-              placeholder="Tell us a bit about your organization"
-              onChange={this.props.onChange}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="item">Website</Label>
+            <Label for="application">Website</Label>
             <Input
               type="url"
               name="website"
-              id="item"
-              placeholder="Website Link"
+              id="application"
+              placeholder="(Optional)"
+              onChange={this.props.onChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="application">Work Phone</Label>
+            <Input
+              type="text"
+              name="workPhone"
+              id="application"
+              placeholder=""
+              onChange={this.props.onChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="application">Person of Contact</Label>
+            <Input
+              type="text"
+              name="contactName"
+              id="application"
+              placeholder=""
+              onChange={this.props.onChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="application">Mobile Phone</Label>
+            <Input
+              type="text"
+              name="mobilePhone"
+              id="application"
+              placeholder="(Optional)"
+              onChange={this.props.onChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="application">Email</Label>
+            <Input
+              type="email"
+              name="email"
+              id="application"
+              placeholder=""
               onChange={this.props.onChange}
             />
           </FormGroup>

@@ -2,14 +2,14 @@ import fetch from 'isomorphic-unfetch';
 
 import config from '../../config';
 
-export const getItems = async () => fetch(config.baseUrl + config.apis.getItems, {
+export const getApplications = async () => fetch(config.baseUrl + config.apis.getApplications, {
   method: 'get',
   mode: 'same-origin',
   credentials: 'include',
 })
   .then((response) => response.json());
 
-export const addItem = async (item) => fetch(config.baseUrl + config.apis.addItem, {
+export const addApplication = async (application) => fetch(config.baseUrl + config.apis.addApplication, {
   method: 'post',
   mode: 'same-origin',
   credentials: 'include',
@@ -17,12 +17,12 @@ export const addItem = async (item) => fetch(config.baseUrl + config.apis.addIte
     'Content-Type': 'application/json',
   },
   body: JSON.stringify({
-    item,
+    application,
   }),
 })
   .then((response) => response.json());
 
-export const deleteItem = async (id) => fetch(config.baseUrl + config.apis.deleteItem, {
+export const deleteApplication = async (id) => fetch(config.baseUrl + config.apis.deleteApplication, {
   method: 'delete',
   mode: 'same-origin',
   credentials: 'include',
@@ -35,7 +35,7 @@ export const deleteItem = async (id) => fetch(config.baseUrl + config.apis.delet
 })
   .then((response) => response.json());
 
-export const getItem = async (urlString) => fetch(`${config.baseUrl}${config.apis.getItem}?url=${urlString}`, {
+export const getApplication = async (urlString) => fetch(`${config.baseUrl}${config.apis.getApplication}?url=${urlString}`, {
   method: 'get',
   mode: 'same-origin',
   credentials: 'include',

@@ -28,30 +28,28 @@ class ApplicationForm extends Component {
   onSubmit = (event) => {
     event.preventDefault();
 
-    const { app } = this.state;
-
     const newApplication = {
-      name: app.name,
-      address: app.address,
-      website: app.website,
-      workPhone: app.workPhone,
-      contactName: app.contactName,
-      mobilePhone: app.mobilePhone,
-      email: app.email,
-      mission: app.mission,
-      needsWeb: app.needsWeb,
-      needsMobile: app.needsMobile,
-      needsOther: app.needsOther,
-      needsOtherExpand: app.needsOtherExpand,
-      stageRadio: app.stageRadio,
-      stageOtherExpand: app.stageOtherExpand,
-      availRadio: app.availRadio,
-      fieldRadio: app.fieldRadio,
-      productExtra: app.productExtra,
-      feedback: app.feedback,
+      name: this.state.name,
+      address: this.state.address,
+      website: this.state.website,
+      workPhone: this.state.workPhone,
+      contactName: this.state.contactName,
+      mobilePhone: this.state.mobilePhone,
+      email: this.state.email,
+      mission: this.state.mission,
+      needsWeb: this.state.needsWeb,
+      needsMobile: this.state.needsMobile,
+      needsOther: this.state.needsOther,
+      needsOtherExpand: this.state.needsOtherExpand,
+      stageRadio: this.state.stageRadio,
+      stageOtherExpand: this.state.stageOtherExpand,
+      availRadio: this.state.availRadio,
+      fieldRadio: this.state.fieldRadio,
+      productExtra: this.state.productExtra,
+      feedback: this.state.feedback,
     };
     // Add application via addApplication action
-    app.addApplication(newApplication);
+    this.props.addApplication(newApplication);
   };
 
   render() {

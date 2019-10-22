@@ -88,6 +88,10 @@ const ApplicationSchema = new Schema({
     type: String,
     required: true,
   },
+  decision: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 let Application;

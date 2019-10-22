@@ -6,7 +6,7 @@ import UnderReviewBody from './UnderReviewBody';
 import DecisionMadeBody from './DecisionMadeBody';
 
 const LandingBody = (props) => {
-  const { status } = props;
+  const { status, decision } = props;
 
   const getLandingBody = () => {
     switch (status) {
@@ -19,7 +19,7 @@ const LandingBody = (props) => {
       case 3:
         return <UnderReviewBody />;
       case 4:
-        return <DecisionMadeBody />;
+        return <DecisionMadeBody decision={decision} />;
     }
   };
 
@@ -32,6 +32,7 @@ const LandingBody = (props) => {
 
 LandingBody.propTypes = {
   status: PropTypes.number.isRequired,
+  decision: PropTypes.bool.isRequired,
 };
 
 export default LandingBody;

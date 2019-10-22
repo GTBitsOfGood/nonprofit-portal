@@ -14,6 +14,7 @@ A running instance of MongoDB is required this project.
 ## Development
 - Setup MongoDB with the instructions above
 - Clone this project to your computer
+- Clone the `bog-secrets` repository inside of of this repo
 - Navigate to this project in terminal and enter `npm install`
 - By default, development uses MongoDB on your computer, if you would like to use an external database, enter `export devDB='URLHERE'` (macOS/Linux) or `setx devDB URLHERE` (Windows).
 - Run the dev version of this project by entering `npm run dev`

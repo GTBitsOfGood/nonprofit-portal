@@ -6,6 +6,7 @@ import { withRouter } from 'next/router';
 import AppNavbar from '../../frontend/components/AppNavbar';
 import StatusJumbo from '../../frontend/components/StatusJumbo';
 import StatusBar from '../../frontend/components/StatusBar';
+import LandingBody from '../../frontend/components/LandingBody';
 
 import { getApplication } from '../../frontend/actions/applications';
 
@@ -32,6 +33,10 @@ class LandingPage extends React.Component {
         <Container>
           <StatusJumbo status={application.status} />
           <StatusBar status={application.status} />
+          <LandingBody
+            status={application.status}
+            decision={application.decision}
+          />
         </Container>
       </div>
     );

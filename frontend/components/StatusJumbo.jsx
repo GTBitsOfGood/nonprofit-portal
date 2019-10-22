@@ -9,11 +9,13 @@ const StatusJumbo = (props) => {
       default:
         return 'Thank you so much for your interest!';
       case 1:
-        return 'We are reviewing your application!';
+        return 'We have reviewed your application!';
       case 2:
         return 'Let\'s meet and talk about the project!';
       case 3:
-        return 'We have made a decision.';
+        return 'We are completing a final review!';
+      case 4:
+        return 'We have made a decision!';
     }
   };
 

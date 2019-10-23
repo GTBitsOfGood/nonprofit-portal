@@ -17,7 +17,7 @@ const LandingBodyMessage = (props) => {
 };
 
 LandingBodyMessage.propTypes = {
-  children: PropTypes.array.isRequired,
+  children: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
 };
 

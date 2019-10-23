@@ -49,7 +49,10 @@ class ApplicationForm extends Component {
       feedback: this.state.feedback,
     };
     // Add application via addApplication action
-    this.props.addApplication(newApplication);
+    this.props.addApplication(newApplication)
+      .then(({ payload }) => {
+        window.location.href = `/p/${payload.urlString}`;
+      });
   };
 
   render() {

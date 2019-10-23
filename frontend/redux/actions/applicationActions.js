@@ -19,7 +19,7 @@ export const getApplications = () => (dispatch) => {
 };
 
 export const addApplication = (application) => (dispatch) => {
-  applicationActions
+  return applicationActions
     .addApplication(application)
     .then((res) => dispatch({
       type: ADD_APPLICATION,

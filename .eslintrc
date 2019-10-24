@@ -17,6 +17,7 @@
     "extends" : "airbnb",
     "rules": {
         "react/react-in-jsx-scope": "off",
-        "linebreak-style": 0
+        "linebreak-style": 0,
+        "no-underscore-dangle": "off"
     }
 }

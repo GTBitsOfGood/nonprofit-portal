@@ -8,13 +8,14 @@ export const setApplicationsLoading = () => ({
 });
 
 export const getApplications = () => (dispatch) => {
-  dispatch(setApplicationsLoading())
-    .then(() => applicationActions
-      .getApplications()
-      .then((res) => dispatch({
-        type: GET_APPLICATIONS,
-        payload: res,
-      })));
+  dispatch(setApplicationsLoading());
+
+  return applicationActions
+    .getApplications()
+    .then((res) => dispatch({
+      type: GET_APPLICATIONS,
+      payload: res,
+    }));
 };
 
 export const addApplication = (application) => (dispatch) => applicationActions

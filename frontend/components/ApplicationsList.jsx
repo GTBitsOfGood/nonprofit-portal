@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Collapse,
   Container,
@@ -8,39 +9,50 @@ import {
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { getApplications, deleteApplication } from '../redux/actions/applicationActions';
+import {
+  getApplications as getApplicationsBase,
+  deleteApplication as deleteApplicationBase,
+} from '../redux/actions/applicationActions';
 
 class ApplicationsList extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       open: false,
     };
   }
 
   componentDidMount() {
-    this.props.getApplications();
+    const { getApplications } = this.props;
+
+    getApplications();
   }
 
   onDeleteClick = (id) => {
-    this.props.deleteApplication(id);
-  }
+    const { deleteApplication } = this.props;
+
+    deleteApplication(id);
+  };
 
   toggleCollapse = () => {
     this.setState((state) => ({ open: !state.open }));
-  }
+  };
 
   render() {
-    const { applications } = this.props.application;
+    const { application } = this.props;
+    const { open } = this.state;
+
+    const { applications } = application;
 
     return (
       <Container>
         <ListGroup>
           <TransitionGroup className="applications-list">
-            {applications.map(({ _id,
+            {applications.map(({
+              _id,
               name,
               address,
               website,
@@ -68,23 +80,26 @@ class ApplicationsList extends Component {
                       color="danger"
                       size="sm"
                       style={{ marginRight: '20px' }}
-                      onClick={this.onDeleteClick.bind(this, _id)}
+                      onClick={() => this.onDeleteClick(_id)}
                     >
                       <h5>Delete</h5>
                     </Button>
                     <h2 style={{ fontWeight: '600' }}>{name}</h2>
                   </div>
-                  <Button color="#F0F4F7" onClick={() => this.toggleCollapse()} style={{ marginBottom: '1rem' }} block>
+                  <Button color="#F0F4F7" onClick={this.toggleCollapse} style={{ marginBottom: '1rem' }} block>
                     <div align="left">
                       <h4>
-                        {this.state.open ? <FontAwesomeIcon icon={faChevronDown} size="sm" />
-                          : <FontAwesomeIcon icon={faChevronRight} size="sm" />}
+                        {open ? (
+                          <FontAwesomeIcon icon={faChevronDown} size="sm" />
+                        ) : (
+                          <FontAwesomeIcon icon={faChevronRight} size="sm" />
+                        )}
                         {' '}
                       View Application
                       </h4>
                     </div>
                   </Button>
-                  <Collapse isOpen={this.state.open}>
+                  <Collapse isOpen={open}>
                     <p style={{ fontWeight: '600' }}>Address: </p>
                     <p>{address}</p>
                     <p style={{ fontWeight: '600' }}>Website: </p>
@@ -133,11 +148,18 @@ class ApplicationsList extends Component {
 
 ApplicationsList.propTypes = {
   getApplications: PropTypes.func.isRequired,
-  application: PropTypes.object.isRequired,
+  deleteApplication: PropTypes.func.isRequired,
+  application: PropTypes.shape({
+    applications: PropTypes.arrayOf(PropTypes.object),
+    loading: PropTypes.bool,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   application: state.application,
 });
 
-export default connect(mapStateToProps, { getApplications, deleteApplication })(ApplicationsList);
+export default connect(mapStateToProps, {
+  getApplications: getApplicationsBase,
+  deleteApplication: deleteApplicationBase,
+})(ApplicationsList);

@@ -86,7 +86,12 @@ class ApplicationsList extends Component {
                     </Button>
                     <h2 style={{ fontWeight: '600' }}>{name}</h2>
                   </div>
-                  <Button color="#F0F4F7" onClick={this.toggleCollapse} style={{ marginBottom: '1rem' }} block>
+                  <Button
+                    color="#F0F4F7"
+                    onClick={this.toggleCollapse}
+                    style={{ marginBottom: '1rem' }}
+                    block
+                  >
                     <div align="left">
                       <h4>
                         {open ? (

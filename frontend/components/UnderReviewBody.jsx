@@ -1,3 +1,4 @@
+import React from 'react';
 import LandingBodyMessage from './LandingBodyMessage';
 
 const UnderViewBody = () => (

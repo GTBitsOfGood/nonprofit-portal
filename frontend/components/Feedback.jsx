@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Button,
   FormGroup,
@@ -12,27 +13,41 @@ import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons
 class Feedback extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       open: false,
     };
   }
 
   toggleCollapse = () => {
-    this.setState((state) => ({ open: !state.open }));
-  }
+    this.setState((state) => ({
+      open: !state.open,
+    }));
+  };
 
   render() {
+    const { onChange } = this.props;
+    const { open } = this.state;
+
     return (
       <>
-        <Button color="#F0F4F7" onClick={() => this.toggleCollapse()} style={{ marginBottom: '1rem' }} block>
+        <Button
+          color="#F0F4F7"
+          onClick={this.toggleCollapse}
+          style={{ marginBottom: '1rem' }}
+          block
+        >
           <div align="left">
-            {this.state.open ? <FontAwesomeIcon icon={faChevronDown} size="sm" />
-              : <FontAwesomeIcon icon={faChevronRight} size="sm" />}
+            {open ? (
+              <FontAwesomeIcon icon={faChevronDown} size="sm" />
+            ) : (
+              <FontAwesomeIcon icon={faChevronRight} size="sm" />
+            )}
             {' '}
             Your Questions
           </div>
         </Button>
-        <Collapse isOpen={this.state.open}>
+        <Collapse isOpen={open}>
           <FormGroup>
             <Label for="application">
               Please let us know if you have any other questions or feedback.
@@ -45,7 +60,7 @@ class Feedback extends Component {
               name="feedback"
               id="application"
               placeholder="(Optional)"
-              onChange={this.props.onChange}
+              onChange={onChange}
             />
           </FormGroup>
         </Collapse>
@@ -53,5 +68,9 @@ class Feedback extends Component {
     );
   }
 }
+
+Feedback.propTypes = {
+  onChange: PropTypes.func.isRequired,
+};
 
 export default Feedback;

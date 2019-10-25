@@ -31,7 +31,7 @@ class LandingPage extends React.Component {
       <div className="App">
         <AppNavbar />
         <Container>
-          <StatusJumbo status={application.status} />
+          <StatusJumbo status={application.status} name={application.name} />
           <StatusBar status={application.status} />
           <LandingBody
             status={application.status}

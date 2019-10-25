@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Button,
   FormGroup,
@@ -12,27 +13,42 @@ import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons
 class GeneralInformation extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       open: true,
     };
   }
 
   toggleCollapse = () => {
-    this.setState((state) => ({ open: !state.open }));
-  }
+    this.setState((state) => ({
+      open: !state.open,
+    }));
+  };
 
   render() {
+    const { onChange } = this.props;
+    const { open } = this.state;
+
     return (
       <>
-        <Button outline color="#F0F4F7" onClick={() => this.toggleCollapse()} style={{ marginBottom: '1rem' }} block>
+        <Button
+          outline
+          color="#F0F4F7"
+          onClick={this.toggleCollapse}
+          style={{ marginBottom: '1rem' }}
+          block
+        >
           <div align="left">
-            { this.state.open ? <FontAwesomeIcon icon={faChevronDown} style={{ }} />
-              : <FontAwesomeIcon icon={faChevronRight} size="sm" />}
+            { open ? (
+              <FontAwesomeIcon icon={faChevronDown} style={{ }} />
+            ) : (
+              <FontAwesomeIcon icon={faChevronRight} size="sm" />
+            )}
             {' '}
             Your General Information
           </div>
         </Button>
-        <Collapse isOpen={this.state.open}>
+        <Collapse isOpen={open}>
           <p>Please fill out the blanks so we can know more about your organization</p>
           <FormGroup>
             <Label for="application">Organization Name</Label>
@@ -41,7 +57,7 @@ class GeneralInformation extends Component {
               name="name"
               id="application"
               placeholder=""
-              onChange={this.props.onChange}
+              onChange={onChange}
             />
           </FormGroup>
           <FormGroup>
@@ -51,7 +67,7 @@ class GeneralInformation extends Component {
               name="address"
               id="application"
               placeholder=""
-              onChange={this.props.onChange}
+              onChange={onChange}
             />
           </FormGroup>
           <FormGroup>
@@ -61,7 +77,7 @@ class GeneralInformation extends Component {
               name="website"
               id="application"
               placeholder="(Optional)"
-              onChange={this.props.onChange}
+              onChange={onChange}
             />
           </FormGroup>
           <FormGroup>
@@ -71,7 +87,7 @@ class GeneralInformation extends Component {
               name="workPhone"
               id="application"
               placeholder=""
-              onChange={this.props.onChange}
+              onChange={onChange}
             />
           </FormGroup>
           <FormGroup>
@@ -81,7 +97,7 @@ class GeneralInformation extends Component {
               name="contactName"
               id="application"
               placeholder=""
-              onChange={this.props.onChange}
+              onChange={onChange}
             />
           </FormGroup>
           <FormGroup>
@@ -91,7 +107,7 @@ class GeneralInformation extends Component {
               name="mobilePhone"
               id="application"
               placeholder="(Optional)"
-              onChange={this.props.onChange}
+              onChange={onChange}
             />
           </FormGroup>
           <FormGroup>
@@ -101,7 +117,7 @@ class GeneralInformation extends Component {
               name="email"
               id="application"
               placeholder=""
-              onChange={this.props.onChange}
+              onChange={onChange}
             />
           </FormGroup>
         </Collapse>
@@ -110,5 +126,8 @@ class GeneralInformation extends Component {
   }
 }
 
-export default GeneralInformation;
+GeneralInformation.propTypes = {
+  onChange: PropTypes.func.isRequired,
+};
 
+export default GeneralInformation;

@@ -8,6 +8,7 @@ const middleware = [thunk];
 
 const bindMiddleware = (mware) => {
   if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line global-require
     const { composeWithDevTools } = require('redux-devtools-extension');
 
     return composeWithDevTools(applyMiddleware(...mware));

@@ -3,19 +3,20 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faDotCircle, faCircle } from '@fortawesome/free-solid-svg-icons';
 
+const getIcon = (status) => {
+  if (status === 0) {
+    return <FontAwesomeIcon icon={faCheckCircle} size="sm" />;
+  }
+
+  if (status === 1) {
+    return <FontAwesomeIcon icon={faDotCircle} size="sm" />;
+  }
+
+  return <FontAwesomeIcon icon={faCircle} color="lightgray" size="sm" />;
+};
 
 const StatusCircle = (props) => {
   const { status } = props;
-
-  const getIcon = () => {
-    if (status === 0) {
-      return <FontAwesomeIcon icon={faCheckCircle} size="sm" />;
-    }
-    if (status === 1) {
-      return <FontAwesomeIcon icon={faDotCircle} size="sm" />;
-    }
-    return <FontAwesomeIcon icon={faCircle} color="lightgray" size="sm" />;
-  };
 
   return (
     <div style={{
@@ -25,7 +26,7 @@ const StatusCircle = (props) => {
       paddingTop: '10px',
     }}
     >
-      {getIcon()}
+      {getIcon(status)}
     </div>
   );
 };

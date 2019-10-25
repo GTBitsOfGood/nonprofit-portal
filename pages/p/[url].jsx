@@ -12,8 +12,6 @@ import { getApplication } from '../../frontend/actions/applications';
 
 class LandingPage extends React.Component {
   static async getInitialProps(router) {
-    // if (req) {
-    // TODO server-side database calls
     const urlString = router.query.url;
     const application = await getApplication(router.query.url);
 
@@ -21,11 +19,10 @@ class LandingPage extends React.Component {
       application,
       urlString,
     };
-    // }
   }
 
   render() {
-    const { application, urlString } = this.props;
+    const { application } = this.props;
 
     return (
       <div className="App">
@@ -44,8 +41,26 @@ class LandingPage extends React.Component {
 }
 
 LandingPage.propTypes = {
-  application: PropTypes.object.isRequired,
-  urlString: PropTypes.string.isRequired,
+  application: PropTypes.shape({
+    _id: PropTypes.string,
+    address: PropTypes.string,
+    availRadio: PropTypes.string,
+    contactName: PropTypes.string,
+    decision: PropTypes.bool,
+    email: PropTypes.string,
+    feedback: PropTypes.string,
+    fieldRadio: PropTypes.string,
+    mission: PropTypes.string,
+    mobilePhone: PropTypes.string,
+    name: PropTypes.string,
+    needsWeb: PropTypes.string,
+    productExtra: PropTypes.string,
+    stageRadio: PropTypes.string,
+    status: PropTypes.number,
+    urlString: PropTypes.string,
+    website: PropTypes.string,
+    workPhone: PropTypes.string,
+  }).isRequired,
 };
 
 export default withRouter(LandingPage);

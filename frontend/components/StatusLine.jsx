@@ -4,19 +4,12 @@ import PropTypes from 'prop-types';
 const StatusLine = (props) => {
   const { status } = props;
 
-  const getColor = () => {
-    if (status === true) {
-      return 'black';
-    }
-    return 'lightgray';
-  };
-
   return (
     <div style={{
       width: '110px',
       height: '2px',
       borderRadius: '1px',
-      backgroundColor: getColor(),
+      backgroundColor: status === true ? 'black' : 'lightgray',
       float: 'left',
       marginLeft: '3px',
       marginRight: '3px',

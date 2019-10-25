@@ -21,7 +21,9 @@ export default function (state = initialState, action) {
     case DELETE_APPLICATION:
       return {
         ...state,
-        applications: state.applications.filter((application) => application._id !== action.payload),
+        applications: state.applications.filter(
+          (application) => application._id !== action.payload,
+        ),
       };
     case ADD_APPLICATION:
       return {

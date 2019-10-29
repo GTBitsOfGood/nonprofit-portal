@@ -14,7 +14,10 @@
         "@fortawesome/react-fontawesome": "^0.1.4",
         "@zeit/next-css": "^1.0.1",
         "bootstrap": "^4.3.1",
+<<<<<<< HEAD
         "email-templates": "^6.0.3",
+=======
+>>>>>>> d2dbdbebc863fe849e707e0a5f00b3472f59fa8f
         "font-awesome": "^4.7.0",
         "isomorphic-unfetch": "^3.0.0",
         "mongodb": "^3.3.2",

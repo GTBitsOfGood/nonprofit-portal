@@ -50,6 +50,19 @@ async function deleteApplication(id) {
     });
 }
 
+async function updateApplicationState(id, state) {
+  await mongoDB();
+
+  await Application.findById(id)
+    .then((application) => application.update({ _id: id }, { $set: { state } }))
+    .then(() => {
+      mongoose.connection.close();
+    })
+    .catch(() => {
+      mongoose.connection.close();
+    });
+}
+
 async function getApplication(urlString) {
   await mongoDB();
 
@@ -68,4 +81,5 @@ module.exports = {
   addApplication,
   deleteApplication,
   getApplication,
+  updateApplicationState,
 };

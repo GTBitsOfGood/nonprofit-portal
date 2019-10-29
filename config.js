@@ -9,5 +9,6 @@ export default {
     addApplication: '/api/addApplication',
     deleteApplication: '/api/deleteApplication',
     getApplication: '/api/getApplication',
+    updateApplicationState: '/api/updateApplicationState',
   },
 };

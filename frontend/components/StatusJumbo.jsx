@@ -1,6 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const getMessage = (status) => {
+  switch (status) {
+    default:
+      return 'Thank you so much for your interest!';
+    case 1:
+      return 'We have reviewed your application!';
+    case 2:
+      return 'Let\'s meet and talk about the project!';
+    case 3:
+      return 'We are completing a final review!';
+    case 4:
+      return 'We have made a decision!';
+  }
+};
+
 const StatusJumbo = (props) => {
   const { status, name } = props;
 
@@ -21,8 +36,22 @@ const StatusJumbo = (props) => {
 
   return (
     <div>
-      <div style={{ background: 'transparent', marginBottom: '30px' }} className="Jumbotron">
-        <h4 style={{ font: 'Open Sans', fontWeight: 600 }} align="center">{getMessage()}</h4>
+      <div
+        style={{
+          background: 'transparent',
+          marginBottom: '30px',
+        }}
+        className="Jumbotron"
+      >
+        <h4
+          style={{
+            font: 'Open Sans',
+            fontWeight: 600,
+          }}
+          align="center"
+        >
+          {getMessage(status)}
+        </h4>
       </div>
     </div>
   );

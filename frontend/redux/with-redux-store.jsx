@@ -25,6 +25,7 @@ export default (App) => class AppWithRedux extends React.Component {
     const reduxStore = getOrCreateStore();
 
     // Provide the store to getInitialProps of pages
+    // eslint-disable-next-line no-param-reassign
     appContext.ctx.reduxStore = reduxStore;
 
     let appProps = {};
@@ -41,6 +42,7 @@ export default (App) => class AppWithRedux extends React.Component {
   constructor(props) {
     super(props);
 
+    // eslint-disable-next-line react/prop-types
     this.reduxStore = getOrCreateStore(props.initialReduxState);
   }
 

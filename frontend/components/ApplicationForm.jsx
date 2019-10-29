@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Button,
   Form,
@@ -8,48 +9,37 @@ import GeneralInformation from './GeneralInformation';
 import MissionVision from './MissionVision';
 import ProductNeeds from './ProductNeeds';
 import Feedback from './Feedback';
-import { addApplication } from '../redux/actions/applicationActions';
+import { addApplication as addApplicationBase } from '../redux/actions/applicationActions';
 
 class ApplicationForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      application: '',
+      application: {},
     };
   }
 
   onChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value || event.target.checked,
-    });
+    const eventName = event.target.name;
+    const eventVal = event.target.value || event.target.checked;
+
+    this.setState((prevState) => ({
+      application: {
+        ...prevState.application,
+        [eventName]: eventVal,
+      },
+    }));
   };
 
   onSubmit = (event) => {
     event.preventDefault();
 
-    const newApplication = {
-      name: this.state.name,
-      address: this.state.address,
-      website: this.state.website,
-      workPhone: this.state.workPhone,
-      contactName: this.state.contactName,
-      mobilePhone: this.state.mobilePhone,
-      email: this.state.email,
-      mission: this.state.mission,
-      needsWeb: this.state.needsWeb,
-      needsMobile: this.state.needsMobile,
-      needsOther: this.state.needsOther,
-      needsOtherExpand: this.state.needsOtherExpand,
-      stageRadio: this.state.stageRadio,
-      stageOtherExpand: this.state.stageOtherExpand,
-      availRadio: this.state.availRadio,
-      fieldRadio: this.state.fieldRadio,
-      productExtra: this.state.productExtra,
-      feedback: this.state.feedback,
-    };
+    const { addApplication } = this.props;
+    const { application } = this.state;
+
     // Add application via addApplication action
-    this.props.addApplication(newApplication)
+    addApplication(application)
       .then(({ payload }) => {
         window.location.href = `/p/${payload.urlString}`;
       });
@@ -81,8 +71,14 @@ class ApplicationForm extends Component {
   }
 }
 
+ApplicationForm.propTypes = {
+  addApplication: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => ({
   application: state.application,
 });
 
-export default connect(mapStateToProps, { addApplication })(ApplicationForm);
+export default connect(mapStateToProps, {
+  addApplication: addApplicationBase,
+})(ApplicationForm);

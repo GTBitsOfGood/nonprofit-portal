@@ -75,10 +75,10 @@ class ApplicationsList extends Component {
                     </Button>
                     <h2 style={{ fontWeight: '600', paddingRight: '30px' }}>{name}</h2>
                     <ButtonGroup>
-                      <Button color="primary" onClick={this.changeAppState(_id, 0)}>1</Button>
-                      <Button color="primary" onClick={this.changeAppState(_id, 1)}>2</Button>
-                      <Button color="primary" onClick={this.changeAppState(_id, 2)}>3</Button>
-                      <Button color="primary" onClick={this.changeAppState(_id, 3)}>4</Button>
+                      <Button color="primary" onClick={() => this.changeAppState(_id, 0)}>1</Button>
+                      <Button color="primary" onClick={() => this.changeAppState(_id, 1)}>2</Button>
+                      <Button color="primary" onClick={() => this.changeAppState(_id, 2)}>3</Button>
+                      <Button color="primary" onClick={() => this.changeAppState(_id, 3)}>4</Button>
                     </ButtonGroup>
                   </div>
                   <p style={{ fontWeight: '600' }}>Stage: </p>

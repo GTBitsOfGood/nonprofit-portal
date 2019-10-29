@@ -19,6 +19,7 @@ const sendEmail = (options) => {
       from: fromAddress,
     },
     transport: transportConfig,
+    send: true,
   });
 
   return email.send(

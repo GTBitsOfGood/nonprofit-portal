@@ -10,7 +10,6 @@ export const setApplicationsLoading = () => ({
 
 export const getApplications = () => (dispatch) => {
   dispatch(setApplicationsLoading());
-
   return applicationActions
     .getApplications()
     .then((res) => dispatch({
@@ -35,7 +34,7 @@ export const deleteApplication = (id) => (dispatch) => applicationActions
 
 export const updateApplicationState = (id, state) => (dispatch) => applicationActions
   .updateApplicationState(id, state)
-  .then(() => dispatch({
+  .then((res) => dispatch({
     type: UPDATE_APPLICATION_STATE,
-    payload: id,
+    payload: res,
   }));

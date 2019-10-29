@@ -61,7 +61,7 @@ class ApplicationsList extends Component {
               feedback,
               status,
             }) => (
-              <CSSTransition timeout={500} classNames="fade">
+              <CSSTransition key={_id} timeout={500} classNames="fade">
                 <ListGroupItem>
                   <div style={{ display: 'flex', margin: '30px 0' }}>
                     <Button

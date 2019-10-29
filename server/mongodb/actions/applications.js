@@ -54,7 +54,7 @@ async function updateApplicationState(id, state) {
   await mongoDB();
 
   await Application.findById(id)
-    .then((application) => application.update({ _id: id }, { $set: { state } }))
+    .then((application) => application.update({ _id: id }, { $set: { status: state } }))
     .then(() => {
       mongoose.connection.close();
     })

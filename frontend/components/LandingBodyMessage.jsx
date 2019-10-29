@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
 const LandingBodyMessage = (props) => {
@@ -20,6 +21,5 @@ LandingBodyMessage.propTypes = {
   children: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
 };
-
 
 export default LandingBodyMessage;

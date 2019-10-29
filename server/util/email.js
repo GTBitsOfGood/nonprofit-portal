@@ -1,7 +1,7 @@
 const Email = require('email-templates');
 const { join } = require('path');
 
-const fromAddress = '"GT Bits of Good" <TODO@bitsofgood.org>';
+const fromAddress = '"GT Bits of Good" <test.bitsofgoodportal.gmail.com>';
 
 const transportConfig = {
   host: process.env.MAIL_HOST,

@@ -53,14 +53,18 @@ async function deleteApplication(id) {
 async function updateApplicationState(id, state) {
   await mongoDB();
 
-  await Application.findById(id)
-    .then((application) => application.update({ 'items._id': id }, { $set: { 'items.$.status': state } }))
-    .then(() => {
-      mongoose.connection.close();
-    })
-    .catch(() => {
-      mongoose.connection.close();
-    });
+  let application = {};
+  let result = {};
+
+  try {
+    application = await Application.findOne({ id });
+    const newApplication = new Application(application);
+    newApplication.status = state;
+    result = await newApplication.save();
+  } finally {
+    mongoose.connection.close();
+  }
+  return result;
 }
 
 async function getApplication(urlString) {

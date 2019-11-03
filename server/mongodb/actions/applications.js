@@ -36,12 +36,13 @@ async function addApplication(application) {
     newApplication.urlString = pageURLString;
     result = await newApplication.save();
     sendEmail({
-      to: application.email,
+      to: newApplication.email,
       template: 'status',
       locals: {
         status: 0,
-        name: application.name,
-        link: `${config.baseUrl}/p/${pageURLString}`,
+        name: newApplication.name,
+        baseUrl: config.baseUrl,
+        urlString: newApplication.urlString,
       },
     });
   } finally {

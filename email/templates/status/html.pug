@@ -5,16 +5,18 @@ html
   body
     -
       const alts = ['Application Submitted', 'Schedule an Interview', 'Interview Scheduled', 'Under Review', 'Decision Made']
-      const src = `file:///home/karpawich/Downloads/${status}.jpg`
       const alt = `Status: ${alts[status]}`
+      const staticURL = `${baseUrl}/static`
     table
       tbody
         tr
           td
-            img(id="logo" src="file:///home/karpawich/Downloads/logo.jpg")
+            - const logoURL = `${staticURL}/logo.jpg`
+            img(id="logo" src=logoURL)
         tr
           td
-            img(id="placeholder" src="file:///home/karpawich/Downloads/placeholder.jpg")
+            - const placeholderURL = `${staticURL}/placeholder.jpg`
+            img(id="placeholder" src=placeholderURL)
         tr
           td
             p Dear #{name},
@@ -33,10 +35,12 @@ html
                 p Congratulations! After careful consideration, our team has decided to work with you next semester! We enjoyed the meeting with you and believe that our missions align with each other. Let’s build a powerful and meaningful product together to make our community better! 
         tr
           td
-            img(id="status" src=src alt=alt)
+            - const statusURL = `${staticURL}/${status}.jpg`
+            img(id="status" src=statusURL alt=alt)
         tr
           td
             p You can revisit this webpage to track your status of application:
+            - const link = `${baseUrl}/p/${urlString}`
             a(href=link)
               p #{link}
         tr

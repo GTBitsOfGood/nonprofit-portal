@@ -17,7 +17,22 @@ const getMessage = (status) => {
 };
 
 const StatusJumbo = (props) => {
-  const { status } = props;
+  const { status, name } = props;
+
+  const getMessage = () => {
+    switch (status) {
+      default:
+        return `Thank you so much for your interest, ${name}!`;
+      case 1:
+        return `We have reviewed your application, ${name}!`;
+      case 2:
+        return `Let's meet and talk about the project, ${name}!`;
+      case 3:
+        return `We are completing a final review, ${name}!`;
+      case 4:
+        return `We look forward to looking with you, ${name}!`;
+    }
+  };
 
   return (
     <div>
@@ -44,6 +59,7 @@ const StatusJumbo = (props) => {
 
 StatusJumbo.propTypes = {
   status: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default StatusJumbo;

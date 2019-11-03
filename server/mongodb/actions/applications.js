@@ -1,7 +1,11 @@
+import config from '../../../config';
+
 const mongoose = require('mongoose');
 const mongoDB = require('../index');
 const Application = require('../models/Application');
+
 const { generateURLString } = require('./util');
+const { sendEmail } = require('../../util/email');
 
 async function getApplications() {
   await mongoDB();
@@ -31,6 +35,16 @@ async function addApplication(application) {
     const newApplication = new Application(application);
     newApplication.urlString = pageURLString;
     result = await newApplication.save();
+    sendEmail({
+      to: newApplication.email,
+      template: 'status',
+      locals: {
+        status: 0,
+        name: newApplication.name,
+        baseUrl: config.baseUrl,
+        urlString: newApplication.urlString,
+      },
+    });
   } finally {
     mongoose.connection.close();
   }

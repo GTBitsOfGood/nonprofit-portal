@@ -57,6 +57,22 @@ export const updateApplicationState = async (id, state) => fetch(
 )
   .then((response) => response.json());
 
+export const updateApplicationDecision = async (id, decision) => fetch(
+  config.baseUrl + config.apis.updateApplicationDecision, {
+    method: 'post',
+    mode: 'same-origin',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      id,
+      decision,
+    }),
+  },
+)
+  .then((response) => response.json());
+
 export const getApplication = async (urlString) => fetch(
   `${config.baseUrl}${config.apis.getApplication}?url=${urlString}`, {
     method: 'get',

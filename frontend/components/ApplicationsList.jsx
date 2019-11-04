@@ -13,6 +13,7 @@ import {
   getApplications as getApplicationsBase,
   deleteApplication as deleteApplicationBase,
   updateApplicationState as updateApplicationStateBase,
+  updateApplicationDecision as updateApplicationDecisionBase,
 } from '../redux/actions/applicationActions';
 
 class ApplicationsList extends Component {
@@ -29,6 +30,12 @@ class ApplicationsList extends Component {
   changeAppState = async (id, state) => {
     const { updateApplicationState } = this.props;
     await updateApplicationState(id, state);
+    document.location.reload();
+  }
+
+  changeAppDecision = async (id, decision) => {
+    const { updateApplicationDecision } = this.props;
+    await updateApplicationDecision(id, decision);
     document.location.reload();
   }
 
@@ -62,6 +69,7 @@ class ApplicationsList extends Component {
               feedback,
               status,
               urlString,
+              decision,
             }) => (
               <CSSTransition key={_id} timeout={500} classNames="fade">
                 <ListGroupItem>
@@ -76,41 +84,42 @@ class ApplicationsList extends Component {
                       <h5>Delete</h5>
                     </Button>
                     <h2 style={{ fontWeight: '600', paddingRight: '30px' }}>{name}</h2>
-                    <ButtonGroup>
-                      <Button
-                        color="primary"
-                        onClick={() => {
-                          this.changeAppState(_id, 0);
-                        }}
-                      >
-                        1
-                      </Button>
-                      <Button
-                        color="primary"
-                        onClick={() => {
-                          this.changeAppState(_id, 1);
-                        }}
-                      >
-                        2
-                      </Button>
-                      <Button
-                        color="primary"
-                        onClick={() => {
-                          this.changeAppState(_id, 2);
-                        }}
-                      >
-                        3
-                      </Button>
-                      <Button
-                        color="primary"
-                        onClick={() => {
-                          this.changeAppState(_id, 3);
-                        }}
-                      >
-                        4
-                      </Button>
-                    </ButtonGroup>
                   </div>
+                  <ButtonGroup style={{ marginBottom: '30px' }}>
+                    <Button
+                      color="primary"
+                      onClick={() => this.changeAppState(_id, 0)}
+
+                    >
+                      Submitted Application
+                    </Button>
+                    <Button
+                      color="primary"
+                      onClick={() => this.changeAppState(_id, 1)}
+                    >
+                      Schedule Interview
+                    </Button>
+                    <Button
+                      color="primary"
+                      onClick={() => this.changeAppState(_id, 2)}
+
+                    >
+                      Interview Scheduled
+                    </Button>
+                    <Button
+                      color="primary"
+                      onClick={() => this.changeAppState(_id, 3)}
+
+                    >
+                      Under Review
+                    </Button>
+                    <Button
+                      color="primary"
+                      onClick={() => this.changeAppState(_id, 4)}
+                    >
+                      Decision Made
+                    </Button>
+                  </ButtonGroup>
                   <p style={{ fontWeight: '600' }}><a href={`/p/${urlString}`} target="_blank" rel="noopener noreferrer">View Application Page</a></p>
                   <p style={{ fontWeight: '600' }}>Stage: </p>
                   <p>{status}</p>
@@ -148,6 +157,13 @@ class ApplicationsList extends Component {
                   <p>{productExtra}</p>
                   <p style={{ fontWeight: '600' }}>Feedback: </p>
                   <p>{feedback}</p>
+                  <p style={{ fontWeight: '600' }}>Decision: </p>
+                  <p>{decision.toString()}</p>
+                  <p style={{ fontWeight: '600' }}>Make Decision: </p>
+                  <ButtonGroup>
+                    <Button onClick={() => this.changeAppDecision(_id, true)}>Accept</Button>
+                    <Button onClick={() => this.changeAppDecision(_id, false)}>Decline</Button>
+                  </ButtonGroup>
                 </ListGroupItem>
               </CSSTransition>
             ))}
@@ -163,6 +179,7 @@ ApplicationsList.propTypes = {
   getApplications: PropTypes.func.isRequired,
   deleteApplication: PropTypes.func.isRequired,
   updateApplicationState: PropTypes.func.isRequired,
+  updateApplicationDecision: PropTypes.func.isRequired,
   application: PropTypes.shape({
     applications: PropTypes.arrayOf(PropTypes.object),
     loading: PropTypes.bool,
@@ -177,4 +194,5 @@ export default connect(mapStateToProps, {
   getApplications: getApplicationsBase,
   deleteApplication: deleteApplicationBase,
   updateApplicationState: updateApplicationStateBase,
+  updateApplicationDecision: updateApplicationDecisionBase,
 })(ApplicationsList);

@@ -1,6 +1,6 @@
 import {
   GET_APPLICATIONS, ADD_APPLICATION, DELETE_APPLICATION, APPLICATIONS_LOADING,
-  UPDATE_APPLICATION_STATE,
+  UPDATE_APPLICATION_STATE, UPDATE_APPLICATION_DECISION,
 } from './types';
 import * as applicationActions from '../../actions/applications';
 
@@ -36,5 +36,12 @@ export const updateApplicationState = (id, state) => (dispatch) => applicationAc
   .updateApplicationState(id, state)
   .then((res) => dispatch({
     type: UPDATE_APPLICATION_STATE,
+    payload: res,
+  }));
+
+export const updateApplicationDecision = (id, decision) => (dispatch) => applicationActions
+  .updateApplicationDecision(id, decision)
+  .then((res) => dispatch({
+    type: UPDATE_APPLICATION_DECISION,
     payload: res,
   }));

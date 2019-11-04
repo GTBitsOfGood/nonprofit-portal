@@ -4,6 +4,7 @@ import {
   DELETE_APPLICATION,
   APPLICATIONS_LOADING,
   UPDATE_APPLICATION_STATE,
+  UPDATE_APPLICATION_DECISION,
 } from '../actions/types';
 
 const initialState = {
@@ -37,6 +38,13 @@ export default function (state = initialState, action) {
         loading: true,
       };
     case UPDATE_APPLICATION_STATE:
+      return {
+        ...state,
+        applications: state.applications.filter(
+          (application) => application._id === action.payload,
+        ),
+      };
+    case UPDATE_APPLICATION_DECISION:
       return {
         ...state,
         applications: state.applications.filter(

@@ -66,11 +66,23 @@ async function deleteApplication(id) {
 
 async function updateApplicationState(id, state) {
   await mongoDB();
-
   let result = {};
 
   try {
     result = await Application.findOneAndUpdate({ _id: id }, { status: state }, { upsert: false });
+  } finally {
+    mongoose.connection.close();
+  }
+
+  return result;
+}
+
+async function updateApplicationDecision(id, decision) {
+  await mongoDB();
+  let result = {};
+
+  try {
+    result = await Application.findOneAndUpdate({ _id: id }, { decision }, { upsert: false });
   } finally {
     mongoose.connection.close();
   }
@@ -97,4 +109,5 @@ module.exports = {
   deleteApplication,
   getApplication,
   updateApplicationState,
+  updateApplicationDecision,
 };

@@ -90,7 +90,7 @@ class ApplicationsList extends Component {
                     onClick={() => this.changeAppState(_id, 0)}
                     {... status === 0 ? { active: true } : {}}
                   >
-                    Initial Application
+                    Initial Application (Testing)
                   </Button>
                   <Button
                     color="primary"

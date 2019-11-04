@@ -32,10 +32,10 @@ html
               when 3
                 p We enjoyed the meeting with you! Hang tight for the updates for your application. We still need more time to tell our team about your organization and the product goals to make decisions accordingly. We appreciate your time and patience. Before the decision is made, feel free to contact us if you have any further questions.
               when 4
-                if decision
-                  p Congratulations! After careful consideration, our team has decided to work with you next semester! We enjoyed the meeting with you and believe that our missions align with each other. Let’s build a powerful and meaningful product together to make our community better! 
+                if decision === true
+                  p Congratulations! After careful consideration, our team has decided to work with you next semester! We enjoyed the meeting with you and believe that our missions align with each other. Let’s build a powerful and meaningful product together to make our community better!
                 else
-                  After careful considerations, we are sorry to inform you that we decide not to move on with your application. We enjoyed learning about your organization and its impact on the community. We appreciate your time and work! Keep in touch!
+                  p After careful considerations, we are sorry to inform you that we decide not to move on with your application. We enjoyed learning about your organization and its impact on the community. We appreciate your time and work! Keep in touch!
         tr
           td
             - const statusURL = `${staticURL}/${status}.jpg`
@@ -49,5 +49,3 @@ html
         tr
           td
             p - Bits of Good Team
-              
-      

@@ -1,23 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const getMessage = (status) => {
-  switch (status) {
-    default:
-      return 'Thank you so much for your interest!';
-    case 1:
-      return 'We have reviewed your application!';
-    case 2:
-      return 'Let\'s meet and talk about the project!';
-    case 3:
-      return 'We are completing a final review!';
-    case 4:
-      return 'We have made a decision!';
-  }
-};
-
 const StatusJumbo = (props) => {
-  const { status, name } = props;
+  const { status, name, decision } = props;
 
   const getMessage = () => {
     switch (status) {
@@ -30,7 +15,8 @@ const StatusJumbo = (props) => {
       case 3:
         return `We are completing a final review, ${name}!`;
       case 4:
-        return `We look forward to looking with you, ${name}!`;
+        if (decision === true) return `We look forward to working with you, ${name}!`;
+        return `We thank you for applying, ${name}!`;
     }
   };
 

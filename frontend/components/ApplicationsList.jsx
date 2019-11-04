@@ -7,7 +7,7 @@ import {
   Button,
   ButtonGroup,
 } from 'reactstrap';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
 import {
   getApplications as getApplicationsBase,
@@ -30,13 +30,11 @@ class ApplicationsList extends Component {
   changeAppState = async (id, state) => {
     const { updateApplicationState } = this.props;
     await updateApplicationState(id, state);
-    document.location.reload();
   }
 
   changeAppDecision = async (id, decision) => {
     const { updateApplicationDecision } = this.props;
     await updateApplicationDecision(id, decision);
-    document.location.reload();
   }
 
   render() {
@@ -135,7 +133,13 @@ class ApplicationsList extends Component {
                       case 3:
                         return <span>Reviewing</span>;
                       case 4:
-                        return <span>Decision Reached</span>;
+                        return (
+                          <span>
+                            Decision Reached:
+                            {' '}
+                            {decision === true ? 'Accepted' : 'Rejected'}
+                          </span>
+                        );
                       default:
                         return <span>Switch-Case Logic Error</span>;
                     }

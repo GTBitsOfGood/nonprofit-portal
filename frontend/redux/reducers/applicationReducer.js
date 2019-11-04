@@ -40,16 +40,22 @@ export default function (state = initialState, action) {
     case UPDATE_APPLICATION_STATE:
       return {
         ...state,
-        applications: state.applications.filter(
-          (application) => application._id === action.payload,
-        ),
+        applications: state.applications.map((application) => {
+          if (application._id === action.payload._id) {
+            return action.payload;
+          }
+          return application;
+        }),
       };
     case UPDATE_APPLICATION_DECISION:
       return {
         ...state,
-        applications: state.applications.filter(
-          (application) => application._id === action.payload,
-        ),
+        applications: state.applications.map((application) => {
+          if (application._id === action.payload._id) {
+            return action.payload;
+          }
+          return application;
+        }),
       };
     default:
       return state;

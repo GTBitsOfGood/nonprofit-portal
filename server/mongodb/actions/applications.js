@@ -72,10 +72,10 @@ async function updateApplicationState(id, state) {
     const curObject = await Application.findOne({ _id: id }, { status: 1 });
     if (curObject.status < 3) {
       result = await Application.findOneAndUpdate({ _id: id }, { status: state, decision: null },
-        { upsert: false });
+        { upsert: false, new: true, useFindAndModify: false });
     } else {
       result = await Application.findOneAndUpdate({ _id: id }, { status: state },
-        { upsert: false });
+        { upsert: false, new: true, useFindAndModify: false });
     }
   } finally {
     mongoose.connection.close();
@@ -89,7 +89,8 @@ async function updateApplicationDecision(id, decision) {
   let result = {};
 
   try {
-    result = await Application.findOneAndUpdate({ _id: id }, { decision, status: 4 }, { upsert: false });
+    result = await Application.findOneAndUpdate({ _id: id }, { decision, status: 4 },
+      { upsert: false, new: true, useFindAndModify: false });
   } finally {
     mongoose.connection.close();
   }

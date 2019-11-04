@@ -26,9 +26,10 @@ class ApplicationsList extends Component {
     deleteApplication(id);
   };
 
-  changeAppState = (id, state) => {
+  changeAppState = async (id, state) => {
     const { updateApplicationState } = this.props;
-    updateApplicationState(id, state);
+    await updateApplicationState(id, state);
+    document.location.reload();
   }
 
   render() {
@@ -60,6 +61,7 @@ class ApplicationsList extends Component {
               productExtra,
               feedback,
               status,
+              urlString,
             }) => (
               <CSSTransition key={_id} timeout={500} classNames="fade">
                 <ListGroupItem>
@@ -75,12 +77,41 @@ class ApplicationsList extends Component {
                     </Button>
                     <h2 style={{ fontWeight: '600', paddingRight: '30px' }}>{name}</h2>
                     <ButtonGroup>
-                      <Button color="primary" onClick={() => this.changeAppState(_id, 0)}>1</Button>
-                      <Button color="primary" onClick={() => this.changeAppState(_id, 1)}>2</Button>
-                      <Button color="primary" onClick={() => this.changeAppState(_id, 2)}>3</Button>
-                      <Button color="primary" onClick={() => this.changeAppState(_id, 3)}>4</Button>
+                      <Button
+                        color="primary"
+                        onClick={() => {
+                          this.changeAppState(_id, 0);
+                        }}
+                      >
+                        1
+                      </Button>
+                      <Button
+                        color="primary"
+                        onClick={() => {
+                          this.changeAppState(_id, 1);
+                        }}
+                      >
+                        2
+                      </Button>
+                      <Button
+                        color="primary"
+                        onClick={() => {
+                          this.changeAppState(_id, 2);
+                        }}
+                      >
+                        3
+                      </Button>
+                      <Button
+                        color="primary"
+                        onClick={() => {
+                          this.changeAppState(_id, 3);
+                        }}
+                      >
+                        4
+                      </Button>
                     </ButtonGroup>
                   </div>
+                  <p style={{ fontWeight: '600' }}><a href={`/p/${urlString}`} target="_blank" rel="noopener noreferrer">View Application Page</a></p>
                   <p style={{ fontWeight: '600' }}>Stage: </p>
                   <p>{status}</p>
                   <p style={{ fontWeight: '600' }}>Address: </p>

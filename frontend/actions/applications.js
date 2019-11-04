@@ -43,7 +43,7 @@ export const deleteApplication = async (id) => fetch(
 
 export const updateApplicationState = async (id, state) => fetch(
   config.baseUrl + config.apis.updateApplicationState, {
-    method: 'update',
+    method: 'post',
     mode: 'same-origin',
     credentials: 'include',
     headers: {

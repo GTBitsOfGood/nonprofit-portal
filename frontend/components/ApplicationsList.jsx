@@ -215,7 +215,7 @@ class ApplicationsList extends Component {
                   {feedback}
                 </p>
                 )}
-                { status === 4 && (
+                { status >= 3 && (
                 <p>
                   <span style={{ fontWeight: '600', marginRight: '15px' }}>Make Decision: </span>
                   <ButtonGroup>

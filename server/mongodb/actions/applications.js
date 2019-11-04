@@ -69,8 +69,8 @@ async function updateApplicationState(id, state) {
   let result = {};
 
   try {
-    const status = await Application.findOne({ _id: id }, { status: 1 });
-    if (status !== 4) {
+    const curObject = await Application.findOne({ _id: id }, { status: 1 });
+    if (curObject.status < 3) {
       result = await Application.findOneAndUpdate({ _id: id }, { status: state, decision: null },
         { upsert: false });
     } else {

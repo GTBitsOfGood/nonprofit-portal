@@ -221,13 +221,13 @@ class ApplicationsList extends Component {
                   <ButtonGroup>
                     <Button
                       onClick={() => this.changeAppDecision(_id, true)}
-                      {... decision ? { active: true } : {}}
+                      {... decision ? { color: 'success' } : {}}
                     >
                     Accept
                     </Button>
                     <Button
                       onClick={() => this.changeAppDecision(_id, false)}
-                      {... decision === false ? { active: true } : {}}
+                      {... decision === false ? { color: 'danger' } : {}}
                     >
                     Decline
                     </Button>

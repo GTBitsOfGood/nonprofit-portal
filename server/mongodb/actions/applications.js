@@ -89,7 +89,7 @@ async function updateApplicationDecision(id, decision) {
   let result = {};
 
   try {
-    result = await Application.findOneAndUpdate({ _id: id }, { decision }, { upsert: false });
+    result = await Application.findOneAndUpdate({ _id: id }, { decision, status: 4 }, { upsert: false });
   } finally {
     mongoose.connection.close();
   }

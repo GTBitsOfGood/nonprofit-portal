@@ -80,7 +80,7 @@ class ApplicationsList extends Component {
                     style={{ marginRight: '20px' }}
                     onClick={() => this.onDeleteClick(_id)}
                   >
-                    <h5>Delete</h5>
+                    <p style={{ marginBottom: 0 }}>X</p>
                   </Button>
                   <h2 style={{ fontWeight: '600', paddingRight: '30px' }}>{name}</h2>
                 </div>
@@ -173,25 +173,31 @@ class ApplicationsList extends Component {
                   <span style={{ fontWeight: '600' }}>Mission: </span>
                   {mission}
                 </p>
+                { (needsWeb || needsMobile || needsOther) && (
+                  <p style={{ fontWeight: '600' }}>Needs:</p>
+                )}
                 { needsWeb && (
-                  <p style={{ fontWeight: '600' }}>Needs Web</p>
+                  <p>- Web</p>
                 )}
                 { needsMobile && (
-                  <p style={{ fontWeight: '600' }}>Needs Mobile</p>
+                  <p>- Mobile</p>
                 )}
                 { needsOther && (
                   <p>
-                    <span style={{ fontWeight: '600' }}>Needs Other: </span>
+                    -
+                    {' '}
                     {needsOtherExpand}
                   </p>
                 )}
+                { stageRadio !== 'Other' && (
                 <p>
                   <span style={{ fontWeight: '600' }}>Stage of Development: </span>
                   {stageRadio}
                 </p>
+                )}
                 { stageOtherExpand && (
                 <p>
-                  <span style={{ fontWeight: '600' }}>If other, what: </span>
+                  <span style={{ fontWeight: '600' }}>Stage of Development: </span>
                   {stageOtherExpand}
                 </p>
                 )}

@@ -67,17 +67,14 @@ async function deleteApplication(id) {
 async function updateApplicationState(id, state) {
   await mongoDB();
 
-  let application = {};
   let result = {};
 
   try {
-    application = await Application.findOne({ id });
-    const newApplication = new Application(application);
-    newApplication.status = state;
-    result = await newApplication.save();
+    result = await Application.findOneAndUpdate({ _id: id }, { status: state }, { upsert: false });
   } finally {
     mongoose.connection.close();
   }
+
   return result;
 }
 

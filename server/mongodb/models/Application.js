@@ -90,7 +90,6 @@ const ApplicationSchema = new Schema({
   },
   decision: {
     type: Boolean,
-    default: false,
   },
 });
 

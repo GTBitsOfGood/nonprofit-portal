@@ -71,101 +71,160 @@ class ApplicationsList extends Component {
               urlString,
               decision,
             }) => (
-              <CSSTransition key={_id} timeout={500} classNames="fade">
-                <ListGroupItem>
-                  <div style={{ display: 'flex', margin: '30px 0' }}>
-                    <Button
-                      className="remove-btn"
-                      color="danger"
-                      size="sm"
-                      style={{ marginRight: '20px' }}
-                      onClick={() => this.onDeleteClick(_id)}
-                    >
-                      <h5>Delete</h5>
-                    </Button>
-                    <h2 style={{ fontWeight: '600', paddingRight: '30px' }}>{name}</h2>
-                  </div>
-                  <ButtonGroup style={{ marginBottom: '30px' }}>
-                    <Button
-                      color="primary"
-                      onClick={() => this.changeAppState(_id, 0)}
+              <ListGroupItem>
+                <div style={{ display: 'flex', margin: '30px 0' }}>
+                  <Button
+                    className="remove-btn"
+                    color="danger"
+                    size="sm"
+                    style={{ marginRight: '20px' }}
+                    onClick={() => this.onDeleteClick(_id)}
+                  >
+                    <h5>Delete</h5>
+                  </Button>
+                  <h2 style={{ fontWeight: '600', paddingRight: '30px' }}>{name}</h2>
+                </div>
+                <ButtonGroup style={{ marginBottom: '30px' }}>
+                  <Button
+                    color="primary"
+                    onClick={() => this.changeAppState(_id, 0)}
 
-                    >
-                      Submitted Application
-                    </Button>
-                    <Button
-                      color="primary"
-                      onClick={() => this.changeAppState(_id, 1)}
-                    >
-                      Schedule Interview
-                    </Button>
-                    <Button
-                      color="primary"
-                      onClick={() => this.changeAppState(_id, 2)}
+                  >
+                    Initial Application
+                  </Button>
+                  <Button
+                    color="primary"
+                    onClick={() => this.changeAppState(_id, 1)}
+                  >
+                    Request Interview
+                  </Button>
+                  <Button
+                    color="primary"
+                    onClick={() => this.changeAppState(_id, 2)}
 
-                    >
-                      Interview Scheduled
-                    </Button>
-                    <Button
-                      color="primary"
-                      onClick={() => this.changeAppState(_id, 3)}
+                  >
+                    Interview Scheduled
+                  </Button>
+                  <Button
+                    color="primary"
+                    onClick={() => this.changeAppState(_id, 3)}
 
-                    >
-                      Under Review
-                    </Button>
-                    <Button
-                      color="primary"
-                      onClick={() => this.changeAppState(_id, 4)}
-                    >
-                      Decision Made
-                    </Button>
-                  </ButtonGroup>
-                  <p style={{ fontWeight: '600' }}><a href={`/p/${urlString}`} target="_blank" rel="noopener noreferrer">View Application Page</a></p>
-                  <p style={{ fontWeight: '600' }}>Stage: </p>
-                  <p>{status}</p>
-                  <p style={{ fontWeight: '600' }}>Address: </p>
-                  <p>{address}</p>
-                  <p style={{ fontWeight: '600' }}>Website: </p>
-                  <p><a href={website} target="_blank" rel="noopener noreferrer">{website}</a></p>
-                  <p style={{ fontWeight: '600' }}>Work Phone: </p>
-                  <p>{workPhone}</p>
-                  <p style={{ fontWeight: '600' }}>Contact Name: </p>
-                  <p>{contactName}</p>
-                  <p style={{ fontWeight: '600' }}>Mobile Phone: </p>
-                  <p>{mobilePhone}</p>
-                  <p style={{ fontWeight: '600' }}>Email: </p>
-                  <p>{email}</p>
-                  <p style={{ fontWeight: '600' }}>Mission: </p>
-                  <p>{mission}</p>
-                  <p style={{ fontWeight: '600' }}>Needs Web? </p>
-                  <p>{needsWeb}</p>
-                  <p style={{ fontWeight: '600' }}>Needs Mobile? </p>
-                  <p>{needsMobile}</p>
-                  <p style={{ fontWeight: '600' }}>Needs Other? </p>
-                  <p>{needsOther}</p>
-                  <p style={{ fontWeight: '600' }}>If so what: </p>
-                  <p>{needsOtherExpand}</p>
-                  <p style={{ fontWeight: '600' }}>Stage of Development: </p>
-                  <p>{stageRadio}</p>
-                  <p style={{ fontWeight: '600' }}>If other, what: </p>
-                  <p>{stageOtherExpand}</p>
-                  <p style={{ fontWeight: '600' }}>Availability: </p>
-                  <p>{availRadio}</p>
-                  <p style={{ fontWeight: '600' }}>Field Test? </p>
-                  <p>{fieldRadio}</p>
-                  <p style={{ fontWeight: '600' }}>Other Product Needs: </p>
-                  <p>{productExtra}</p>
-                  <p style={{ fontWeight: '600' }}>Feedback: </p>
-                  <p>{feedback}</p>
-                  <p style={{ fontWeight: '600' }}>Decision: </p>
-                  <p>{decision.toString()}</p>
-                  <p style={{ fontWeight: '600' }}>Make Decision: </p>
+                  >
+                    Review
+                  </Button>
+                  <Button
+                    color="primary"
+                    onClick={() => this.changeAppState(_id, 4)}
+                  >
+                    Post Decision
+                  </Button>
+                </ButtonGroup>
+                <p style={{ fontWeight: '600' }}><a href={`/p/${urlString}`} target="_blank" rel="noopener noreferrer">View Application Page</a></p>
+                <p>
+                  <span style={{ fontWeight: '600' }}>Stage: </span>
+                  {(() => {
+                    switch (status) {
+                      case 0:
+                        return <span>Submitted</span>;
+                      case 1:
+                        return <span>Waiting for Interview Schedule</span>;
+                      case 2:
+                        return <span>Interview Scheduled</span>;
+                      case 3:
+                        return <span>Reviewing</span>;
+                      case 4:
+                        return <span>Decision Reached</span>;
+                      default:
+                        return <span>Switch-Case Logic Error</span>;
+                    }
+                  })()}
+                </p>
+                <p>
+                  <span style={{ fontWeight: '600' }}>Address: </span>
+                  {address}
+                </p>
+                { website && (
+                <p>
+                  <span style={{ fontWeight: '600' }}>Website: </span>
+                  <a href={website} target="_blank" rel="noopener noreferrer">{website}</a>
+                </p>
+                )}
+                <p>
+                  <span style={{ fontWeight: '600' }}>Work Phone: </span>
+                  {workPhone}
+                </p>
+                <p>
+                  <span style={{ fontWeight: '600' }}>Contact Name: </span>
+                  {contactName}
+                </p>
+                { mobilePhone && (
+                <p>
+                  <span style={{ fontWeight: '600' }}>Mobile Phone: </span>
+                  {mobilePhone}
+                </p>
+                )}
+                <p>
+                  <span style={{ fontWeight: '600' }}>Email: </span>
+                  {email}
+                </p>
+                <p>
+                  <span style={{ fontWeight: '600' }}>Mission: </span>
+                  {mission}
+                </p>
+                { needsWeb && (
+                  <p style={{ fontWeight: '600' }}>Needs Web</p>
+                )}
+                { needsMobile && (
+                  <p style={{ fontWeight: '600' }}>Needs Mobile</p>
+                )}
+                { needsOther && (
+                  <p>
+                    <span style={{ fontWeight: '600' }}>Needs Other: </span>
+                    {needsOtherExpand}
+                  </p>
+                )}
+                <p>
+                  <span style={{ fontWeight: '600' }}>Stage of Development: </span>
+                  {stageRadio}
+                </p>
+                { stageOtherExpand && (
+                <p>
+                  <span style={{ fontWeight: '600' }}>If other, what: </span>
+                  {stageOtherExpand}
+                </p>
+                )}
+                <p>
+                  <span style={{ fontWeight: '600' }}>Availability: </span>
+                  {availRadio}
+                </p>
+                <p>
+                  <span style={{ fontWeight: '600' }}>Field Test? </span>
+                  {fieldRadio}
+                </p>
+                { productExtra && (
+                <p>
+                  <span style={{ fontWeight: '600' }}>Other Product Needs: </span>
+                  {productExtra}
+                </p>
+                )}
+                { feedback && (
+                <p>
+                  <span style={{ fontWeight: '600' }}>Feedback: </span>
+                  {feedback}
+                </p>
+                )}
+                <p>
+                  <span style={{ fontWeight: '600' }}>Decision: </span>
+                  {decision ? 'Accepted' : 'Declined' }
+                </p>
+                <p>
+                  <span style={{ fontWeight: '600', marginRight: '15px' }}>Make Decision: </span>
                   <ButtonGroup>
                     <Button onClick={() => this.changeAppDecision(_id, true)}>Accept</Button>
                     <Button onClick={() => this.changeAppDecision(_id, false)}>Decline</Button>
                   </ButtonGroup>
-                </ListGroupItem>
-              </CSSTransition>
+                </p>
+              </ListGroupItem>
             ))}
           </TransitionGroup>
           <br />

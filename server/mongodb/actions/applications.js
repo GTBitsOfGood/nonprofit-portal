@@ -69,7 +69,14 @@ async function updateApplicationState(id, state) {
   let result = {};
 
   try {
-    result = await Application.findOneAndUpdate({ _id: id }, { status: state }, { upsert: false });
+    const status = await Application.findOne({ _id: id }, { status: 1 });
+    if (status !== 4) {
+      result = await Application.findOneAndUpdate({ _id: id }, { status: state, decision: null },
+        { upsert: false });
+    } else {
+      result = await Application.findOneAndUpdate({ _id: id }, { status: state },
+        { upsert: false });
+    }
   } finally {
     mongoose.connection.close();
   }

@@ -88,33 +88,35 @@ class ApplicationsList extends Component {
                   <Button
                     color="primary"
                     onClick={() => this.changeAppState(_id, 0)}
-
+                    {... status === 0 ? { active: true } : {}}
                   >
                     Initial Application
                   </Button>
                   <Button
                     color="primary"
                     onClick={() => this.changeAppState(_id, 1)}
+                    {... status === 1 ? { active: true } : {}}
                   >
                     Request Interview
                   </Button>
                   <Button
                     color="primary"
                     onClick={() => this.changeAppState(_id, 2)}
-
+                    {... status === 2 ? { active: true } : {}}
                   >
                     Interview Scheduled
                   </Button>
                   <Button
                     color="primary"
                     onClick={() => this.changeAppState(_id, 3)}
-
+                    {... status === 3 ? { active: true } : {}}
                   >
                     Review
                   </Button>
                   <Button
                     color="primary"
                     onClick={() => this.changeAppState(_id, 4)}
+                    {... status === 4 ? { active: true } : {}}
                   >
                     Post Decision
                   </Button>
@@ -213,17 +215,25 @@ class ApplicationsList extends Component {
                   {feedback}
                 </p>
                 )}
-                <p>
-                  <span style={{ fontWeight: '600' }}>Decision: </span>
-                  {decision ? 'Accepted' : 'Declined' }
-                </p>
+                { status === 4 && (
                 <p>
                   <span style={{ fontWeight: '600', marginRight: '15px' }}>Make Decision: </span>
                   <ButtonGroup>
-                    <Button onClick={() => this.changeAppDecision(_id, true)}>Accept</Button>
-                    <Button onClick={() => this.changeAppDecision(_id, false)}>Decline</Button>
+                    <Button
+                      onClick={() => this.changeAppDecision(_id, true)}
+                      {... decision ? { active: true } : {}}
+                    >
+                    Accept
+                    </Button>
+                    <Button
+                      onClick={() => this.changeAppDecision(_id, false)}
+                      {... decision === false ? { active: true } : {}}
+                    >
+                    Decline
+                    </Button>
                   </ButtonGroup>
                 </p>
+                )}
               </ListGroupItem>
             ))}
           </TransitionGroup>

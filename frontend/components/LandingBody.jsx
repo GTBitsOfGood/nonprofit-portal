@@ -25,7 +25,7 @@ const LandingBody = (props) => {
   const { status, decision } = props;
 
   return (
-    <div style={{ marginTop: '50px' }}>
+    <div style={{ marginTop: '50px', height: '100%', marginBottom: '60px' }}>
       {getLandingBody(status, decision)}
     </div>
   );

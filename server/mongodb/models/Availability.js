@@ -4,10 +4,6 @@ const { Schema } = mongoose;
 
 // Create Schema
 const AvailabilitySchema = new Schema({
-  team: {
-    type: String,
-    required: true,
-  },
   startDate: {
     type: Date,
     required: true,
@@ -19,6 +15,10 @@ const AvailabilitySchema = new Schema({
   isBooked: {
     type: Boolean,
     default: false,
+  },
+  team: {
+    type: String,
+    default: null,
   },
 });
 

@@ -67,3 +67,25 @@ async function updateAvailability(id, isBooked) {
 
   return result;
 }
+
+async function getAvailability(id) {
+  await mongoDB();
+
+  let availability = {};
+
+  try {
+    availability = await Availability.findOne({ _id: id });
+  } finally {
+    mongoose.connection.close();
+  }
+
+  return availability;
+}
+
+module.exports = {
+  getAvailabilities,
+  addAvailability,
+  deleteAvailability,
+  updateAvailability,
+  getAvailability,
+};

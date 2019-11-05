@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -6,19 +6,55 @@ import { connect } from 'react-redux';
 import { getAvailabilities as getAvailabilitiesBase } from '../../redux/actions/availabilityActions';
 import './NonProfitCalendar.css';
 
-const getHoursPerDay = (day) => {
+const getHoursPerDay = (day, availabilities) => {
   const hours = [];
 
-  const startHours = moment(day).startOf('day').add(9, 'hour');
+  const availHours = [];
+  for (let i = 0; i < availabilities.length; i += 1) {
+    const curDay = availabilities[i];
+
+    const startDate = moment(curDay.startDate);
+    const endDate = moment(curDay.endDate);
+
+    if (day.isSame(startDate, 'date')) {
+      availHours.push({
+        startDate,
+        endDate,
+        id: curDay._id,
+        isBooked: curDay.isBooked,
+      });
+    }
+  }
+
+  const startHour = 9;
+  const startHours = moment(day).startOf('day').add(startHour, 'hour');
 
   for (let i = 0; i < 8; i += 1) {
-    hours.push(startHours.clone().add(i, 'hour'));
+    const time = startHours.clone().add(i, 'hour');
+    let isAvailable = false;
+
+    for (let j = 0; j < availHours.length; j += 1) {
+      const curHour = availHours[j];
+
+      if (time.isBetween(curHour.startDate, curHour.endDate, null, '[]')) {
+        if (!curHour.isBooked) {
+          isAvailable = true;
+          break;
+        }
+      }
+    }
+
+    hours.push({
+      time,
+      isAvailable,
+      id: null,
+    });
   }
 
   return hours;
 };
 
-class NonProfitCalendar extends Component {
+class NonProfitCalendar extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -30,12 +66,9 @@ class NonProfitCalendar extends Component {
       upcomingDays.push(weekStart.clone().add(i, 'day').startOf('day'));
     }
 
-    const hoursPerDay = [];
-
     this.state = {
       today,
       upcomingDays,
-      hoursPerDay,
     };
   }
 
@@ -47,7 +80,7 @@ class NonProfitCalendar extends Component {
 
   render() {
     const { availability } = this.props;
-    const { today, upcomingDays, hoursPerDay } = this.state;
+    const { today, upcomingDays } = this.state;
 
     const { availabilities, loading } = availability;
 
@@ -74,18 +107,13 @@ class NonProfitCalendar extends Component {
                 key={day.toString()}
                 className="dayColumn"
               >
-                {getHoursPerDay(day).map((hour) => (
+                {getHoursPerDay(day, availabilities).map(({ time, isAvailable }) => (
                   <div
-                    key={hour.toString()}
-                    className="dayHour"
+                    key={time.toString()}
+                    className={`dayHour ${(loading || !isAvailable) ? 'hourNotAvail' : 'hourAvail'}`}
                   >
-                    <p
-                      className="time"
-                      style={{
-                        color: loading ? '#CCC' : '#000',
-                      }}
-                    >
-                      {hour.format('h:mm a')}
+                    <p className="time">
+                      {time.format('h:mm a')}
                     </p>
                   </div>
                 ))}

@@ -65,15 +65,24 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.hourAvail {
+    color: #000;
     cursor: pointer;
 }
 
-.dayHour:hover {
+.hourNotAvail {
+    color: #CCC;
+    cursor: default;
+}
+
+.hourAvail:hover {
     border: 2px solid black;
     border-radius: 5px;
 }
 
 .dayHour .time {
     margin: 0;
-    transition: 3s all;
+    transition: 2s all;
 }

@@ -4,18 +4,38 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getAvailabilities as getAvailabilitiesBase } from '../../redux/actions/availabilityActions';
-import '../../static/style/calendar.css';
+import './NonProfitCalendar.css';
+
+const getHoursPerDay = (day) => {
+  const hours = [];
+
+  const startHours = moment(day).startOf('day').add(9, 'hour');
+
+  for (let i = 0; i < 8; i += 1) {
+    hours.push(startHours.clone().add(i, 'hour'));
+  }
+
+  return hours;
+};
 
 class NonProfitCalendar extends Component {
   constructor(props) {
     super(props);
 
-    const today = moment();
-    const upcomingDays = [today];
+    const weekStart = moment().startOf('week');
+    const today = moment().startOf('day');
+    const upcomingDays = [];
+
+    for (let i = 0; i < 7; i += 1) {
+      upcomingDays.push(weekStart.clone().add(i, 'day').startOf('day'));
+    }
+
+    const hoursPerDay = [];
 
     this.state = {
       today,
       upcomingDays,
+      hoursPerDay,
     };
   }
 
@@ -27,13 +47,52 @@ class NonProfitCalendar extends Component {
 
   render() {
     const { availability } = this.props;
-    const { today, upcomingDays } = this.state;
+    const { today, upcomingDays, hoursPerDay } = this.state;
 
     const { availabilities, loading } = availability;
 
     return (
       <div className="calendar-container">
-        <h2>Calendar</h2>
+        <div className="calendar">
+          <div className="calendarHeader">
+            {upcomingDays.map((day) => (
+              <div
+                key={day.toString()}
+                className="headerDay"
+              >
+                {(today.isSame(day)) && (
+                  <p className="currentDay">Today</p>
+                )}
+                <p className="weekDay">{day.format('dddd')}</p>
+                <p className="monthDay">{day.format('MMM D')}</p>
+              </div>
+            ))}
+          </div>
+          <div className="calendarBody">
+            {upcomingDays.map((day) => (
+              <div
+                key={day.toString()}
+                className="dayColumn"
+              >
+                {getHoursPerDay(day).map((hour) => (
+                  <div
+                    key={hour.toString()}
+                    className="dayHour"
+                  >
+                    <p
+                      className="time"
+                      style={{
+                        color: loading ? '#CCC' : '#000',
+                      }}
+                    >
+                      {hour.format('h:mm a')}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     );
   }

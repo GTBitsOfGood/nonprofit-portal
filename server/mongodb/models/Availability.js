@@ -14,7 +14,7 @@ const AvailabilitySchema = new Schema({
   },
   endDate: {
     type: Date,
-    required: false,
+    required: true,
   },
   isBooked: {
     type: Boolean,

@@ -49,6 +49,11 @@ class AppNavbar extends Component {
                     Applications
                   </NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink href="/schedule">
+                    Availability
+                  </NavLink>
+                </NavItem>
               </Nav>
             </Collapse>
           </Container>

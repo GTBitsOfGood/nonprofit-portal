@@ -1,105 +1,96 @@
-.calendar-container,
-.calendar,
-.calendar-header,
-td,
-tr {
-    padding: 0;
-    margin: 0;
-}
-
-.calendar-container {
-    border: 2px solid black;
-}
-
 .calendar {
-    background-color: white;
-    border-spacing: 0;
-    border-collapse: collapse;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 75%;
+    height: 550px;
+    border-radius: 25px;
+}
+
+.calendarHeader, .calendarBody {
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
 }
 
-.calendar-header {
-    border-bottom: 1px dashed black;
-    font-size: 1.6em;
+.calendarHeader {
+    background-color: #F38D6A;
+    color: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
-.calendar-header td {
-    border-spacing: 0;
-    padding-left: 5px;
+.calendarBody {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
-.day,
-.empty-slot,
-.week-day {
-    text-align: center;
-    height: 40px;
+.headerDay {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.week-day {
-    font-size: 0.8em;
+.headerDay .currentDay {
+    font-size: 14px;
+    margin-bottom: 4px;
 }
 
-.day {
-    font-size: 0.8em;
+.headerDay .weekDay {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 4px;
 }
 
-.day {
+.headerDay .monthDay {
+    font-size: 12px;
+    margin-bottom: 0;
+}
+
+.calendarBody {
+    flex: 1;
+    background-color: #FFF3EF;
+}
+
+.dayColumn {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dayHour {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hourAvail {
+    color: #000;
     cursor: pointer;
-    width: 24px;
-    height: 24px;
-    line-height: 24px;
 }
 
-.current-day {
-    background-color: black;
-    width: 28px;
-    height: 28px;
-    line-height: 28px;
-    border-radius: 2%;
-    color: white;
-}
-.selected-day {
-    background-color:red;
-    width: 28px;
-    height: 28px;
-    line-height: 28px;
-    border-radius: 2%;
-    color: black;
+.hourNotAvail {
+    color: #CCC;
+    cursor: default;
 }
 
-.month-popup {
-    position: absolute;
-    padding: 5px;
-    background: white;
+.hourAvail:hover {
     border: 2px solid black;
+    border-radius: 5px;
 }
 
-.month-popup div {
-    padding: 0.3em;
-}
-
-.nav-month {
-    position: absolute;
-    top: 0.6em;
-    font-size: 0.6em;
-    right:3px;
-}
-
-.prev {
-}
-
-.next {
-}
-
-.editor-year {
-    max-width: 3.6em;
-}
-
-.label-month,
-.label-year {
-    font-size: 0.6em;
-}
-
-.label-month {
-    cursor: pointer;
+.dayHour .time {
+    margin: 0;
+    transition: 2s all;
 }

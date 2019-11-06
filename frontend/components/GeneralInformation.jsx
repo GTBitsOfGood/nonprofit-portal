@@ -61,12 +61,32 @@ class GeneralInformation extends Component {
             />
           </FormGroup>
           <FormGroup>
-            <Label for="application">Address</Label>
+            <Label for="application">Street Address</Label>
             <Input
               type="text"
-              name="address"
+              name="streetaddress"
               id="application"
               placeholder=""
+              onChange={onChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="application">City</Label>
+            <Input
+              type="url"
+              name="city"
+              id="application"
+              placeholder="(Optional)"
+              onChange={onChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="application">State</Label>
+            <Input
+              type="url"
+              name="state"
+              id="application"
+              placeholder="(Optional)"
               onChange={onChange}
             />
           </FormGroup>

@@ -58,16 +58,14 @@ class NonProfitCalendar extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const weekStart = moment().startOf('week');
-    const today = moment().startOf('day');
+    const weekStart = moment().startOf('week').add(1, 'day');
     const upcomingDays = [];
 
-    for (let i = 0; i < 7; i += 1) {
+    for (let i = 0; i < 5; i += 1) {
       upcomingDays.push(weekStart.clone().add(i, 'day').startOf('day'));
     }
 
     this.state = {
-      today,
       upcomingDays,
     };
   }
@@ -80,7 +78,7 @@ class NonProfitCalendar extends React.PureComponent {
 
   render() {
     const { availability } = this.props;
-    const { today, upcomingDays } = this.state;
+    const { upcomingDays } = this.state;
 
     const { availabilities, loading } = availability;
 
@@ -93,9 +91,6 @@ class NonProfitCalendar extends React.PureComponent {
                 key={day.toString()}
                 className="headerDay"
               >
-                {(today.isSame(day)) && (
-                  <p className="currentDay">Today</p>
-                )}
                 <p className="weekDay">{day.format('dddd')}</p>
                 <p className="monthDay">{day.format('MMM D')}</p>
               </div>

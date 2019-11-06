@@ -54,14 +54,14 @@ const getHoursPerDay = (day, availabilities) => {
   return hours;
 };
 
-class Calendar extends React.PureComponent {
+class AdminCalendar extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const weekStart = moment().startOf('week');
+    const weekStart = moment().startOf('week').add(1, 'day');
     const upcomingDays = [];
 
-    for (let i = 0; i < 7; i += 1) {
+    for (let i = 0; i < 5; i += 1) {
       upcomingDays.push(weekStart.clone().add(i, 'day').startOf('day'));
     }
 
@@ -83,9 +83,9 @@ class Calendar extends React.PureComponent {
     const { availabilities, loading } = availability;
 
     return (
-      <div className="calendar-container">
-        <div className="calendar">
-          <div className="calendarHeader">
+      <div className="admincalendar-container">
+        <div className="admincalendar">
+          <div className="admincalendarHeader">
             {upcomingDays.map((day) => (
               <div
                 key={day.toString()}
@@ -121,7 +121,7 @@ class Calendar extends React.PureComponent {
   }
 }
 
-Calendar.propTypes = {
+AdminCalendar.propTypes = {
   getAvailabilities: PropTypes.func.isRequired,
   availability: PropTypes.shape({
     availabilities: PropTypes.arrayOf(PropTypes.object),
@@ -129,7 +129,7 @@ Calendar.propTypes = {
   }),
 };
 
-Calendar.defaultProps = {
+AdminCalendar.defaultProps = {
   availability: {
     availabilities: [],
     loading: true,
@@ -142,4 +142,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getAvailabilities: getAvailabilitiesBase,
-})(Calendar);
+})(AdminCalendar);

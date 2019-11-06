@@ -1,12 +1,12 @@
 import React from 'react';
 import AppNavbar from '../frontend/components/AppNavbar';
-import Calendar from '../frontend/components/calendar/Calendar';
+import AdminCalendar from '../frontend/components/calendar/AdminCalendar';
 
 function IndexPage() {
   return (
     <div className="App">
       <AppNavbar />
-      <Calendar />
+      <AdminCalendar />
     </div>
   );
 }

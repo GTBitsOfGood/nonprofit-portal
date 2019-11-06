@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getAvailabilities as getAvailabilitiesBase } from '../../redux/actions/availabilityActions';
-import './NonProfitCalendar.css';
+import './calendar.css';
 
 const getHoursPerDay = (day, availabilities) => {
   const hours = [];

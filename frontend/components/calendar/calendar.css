@@ -1,10 +1,14 @@
+.calendar-container {
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+    height: auto;
+}
+
 .calendar {
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
-    width: 75%;
-    height: 550px;
-    border-radius: 25px;
 }
 
 .calendarHeader, .calendarBody {

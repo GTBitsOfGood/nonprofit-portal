@@ -77,7 +77,7 @@ class AdminCalendar extends React.PureComponent {
     await getAvailabilities();
   }
 
-  addAvailability = (availableDate) => {
+  addOrRemoveAvailability = (availableDate) => {
     const { selectedDays } = this.state;
 
     if (availableDate in selectedDays) {
@@ -94,8 +94,6 @@ class AdminCalendar extends React.PureComponent {
         },
       }));
     }
-
-
   }
 
   render() {
@@ -130,8 +128,8 @@ class AdminCalendar extends React.PureComponent {
                     type="button"
                     style={{ backgroundColor: 'Transparent' }}
                     className={`dayHour ${((loading || !isSelected) && !(time in selectedDays)) ? 'adminhourDisplay' : 'adminhourSelected'}`}
-                    onClick={() => this.addAvailability(time)}
-                    onKeyDown={() => this.addAvailability(time)}
+                    onClick={() => this.addOrRemoveAvailability(time)}
+                    onKeyDown={() => this.addOrRemoveAvailability(time)}
                   >
                     <p className="time">
                       {time.format('h:mm a')}

@@ -136,6 +136,7 @@
 
 .adminhourDisplay {
     padding: 0;
+    background-color: transparent;
     border: 2px solid transparent;
     border-radius: 5px;
     cursor: pointer;
@@ -143,10 +144,11 @@
 
 .adminhourSelected {
     padding: 0;
+    background-color: #CCC;
     border: 2px solid black;
     border-radius: 5px;
     cursor: pointer;
-    transition: 2s all;
+    transition: 0.5s all ease-in;
 }
 
 .adminhourDisplay:hover {

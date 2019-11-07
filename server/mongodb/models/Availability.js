@@ -8,8 +8,8 @@ const AvailabilitySchema = new Schema({
     type: Date,
     required: true,
   },
-  endDate: {
-    type: Date,
+  interviewer: {
+    type: String,
     required: true,
   },
   isBooked: {

@@ -86,6 +86,7 @@ class AdminCalendar extends React.PureComponent {
       this.setState({
         selectedDays: selectedDaysCopy,
       });
+      this.forceUpdate();
     } else {
       this.setState((prevState) => ({
         selectedDays: {
@@ -126,7 +127,6 @@ class AdminCalendar extends React.PureComponent {
                   <button
                     key={time.toString()}
                     type="button"
-                    style={{ backgroundColor: 'Transparent' }}
                     className={`dayHour ${((loading || !isSelected) && !(time in selectedDays)) ? 'adminhourDisplay' : 'adminhourSelected'}`}
                     onClick={() => this.addOrRemoveAvailability(time)}
                     onKeyDown={() => this.addOrRemoveAvailability(time)}

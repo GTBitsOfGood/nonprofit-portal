@@ -135,18 +135,23 @@
 }
 
 .adminhourDisplay {
-    color: #000;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 5px;
     cursor: pointer;
 }
 
 .adminhourSelected {
-    color: #CCC;
-    cursor: default;
+    padding: 0;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 2s all;
 }
 
 .adminhourDisplay:hover {
-    border: 2px solid black;
     padding: 0;
+    border: 2px solid black;
     border-radius: 5px;
 }
 

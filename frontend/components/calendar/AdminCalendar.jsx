@@ -100,7 +100,7 @@ class AdminCalendar extends React.PureComponent {
 
   render() {
     const { availability } = this.props;
-    const { upcomingDays } = this.state;
+    const { upcomingDays, selectedDays } = this.state;
 
     const { availabilities, loading } = availability;
 
@@ -128,8 +128,8 @@ class AdminCalendar extends React.PureComponent {
                   <button
                     key={time.toString()}
                     type="button"
-                    style={{ backgroundColor: 'Transparent', border: 'none' }}
-                    className={`dayHour ${(loading || !isSelected) ? 'adminhourDisplay' : 'adminhourSelected'}`}
+                    style={{ backgroundColor: 'Transparent' }}
+                    className={`dayHour ${((loading || !isSelected) && !(time in selectedDays)) ? 'adminhourDisplay' : 'adminhourSelected'}`}
                     onClick={() => this.addAvailability(time)}
                     onKeyDown={() => this.addAvailability(time)}
                   >

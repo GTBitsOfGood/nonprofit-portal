@@ -60,14 +60,22 @@ class AdminCalendar extends React.PureComponent {
 
     const weekStart = moment().startOf('week').add(1, 'day');
     const upcomingDays = [];
+    const upcomingMonths = [];
+
 
     for (let i = 0; i < 5; i += 1) {
       upcomingDays.push(weekStart.clone().add(i, 'day').startOf('day'));
     }
 
+    for (let i = 0; i < 2; i += 1) {
+      upcomingMonths.push(moment().add(i, 'month'));
+    }
+
     this.state = {
       upcomingDays,
       selectedDays: {},
+      monthYear: moment(),
+      upcomingMonths,
     };
   }
 
@@ -97,49 +105,147 @@ class AdminCalendar extends React.PureComponent {
     }
   }
 
+  getNextWeek = (curWeek) => {
+    if (curWeek.diff(moment(), 'weeks') > 3) {
+      return;
+    }
+
+    const nextWeek = [];
+    const nextDay = curWeek.add(1, 'weeks').startOf('isoWeek');
+
+    for (let i = 0; i < 5; i += 1) {
+      nextWeek.push(nextDay.clone().add(i, 'day').startOf('day'));
+    }
+
+    this.setState({
+      upcomingDays: nextWeek,
+    });
+  }
+
+  getPreviousWeek = (curWeek) => {
+    if (curWeek.isBefore(moment())) {
+      return;
+    }
+    const prevWeek = [];
+    const prevDay = curWeek.subtract(1, 'weeks').startOf('isoWeek');
+
+    for (let i = 0; i < 5; i += 1) {
+      prevWeek.push(prevDay.clone().add(i, 'day').startOf('day'));
+    }
+
+    this.setState({
+      upcomingDays: prevWeek,
+    });
+  }
+
+  updateMonthYear = (selectedMonth) => {
+    this.setState({
+      monthYear: selectedMonth,
+    });
+  }
+
   render() {
     const { availability } = this.props;
-    const { upcomingDays, selectedDays } = this.state;
-
+    const {
+      upcomingDays,
+      selectedDays,
+      monthYear,
+      upcomingMonths,
+    } = this.state;
     const { availabilities, loading } = availability;
 
     return (
-      <div className="admincalendar-container">
-        <div className="admincalendar">
-          <div className="admincalendarHeader">
-            {upcomingDays.map((day) => (
-              <div
-                key={day.toString()}
-                className="adminheaderDay"
-              >
-                <p className="weekDay">{day.format('dddd')}</p>
-                <p className="monthDay">{day.format('MMM D')}</p>
-              </div>
-            ))}
+      <div>
+        <h1 style={{ fontWeight: 600, marginLeft: '10%' }}>Select your availability</h1>
+        <span>
+          <button
+            type="button"
+            className="navigationButton"
+            style={{ marginLeft: '10%' }}
+            onClick={() => this.getPreviousWeek(monthYear)}
+          >
+            {'< '}
+            Previous Week
+          </button>
+          <button
+            type="button"
+            className="navigationButton"
+            style={{ marginLeft: '50px' }}
+            onClick={() => this.getNextWeek(monthYear)}
+          >
+            Next Week
+            {' >'}
+          </button>
+          <div className="dropdown">
+            <button
+              type="button"
+              className="monthSelected"
+              style={{
+                marginTop: '-40px',
+                width: '300px',
+                backgroundColor: '#C4C4C4',
+                float: 'right',
+                marginRight: '10%',
+              }}
+            >
+              {monthYear.format('MMMM YYYY')}
+            </button>
+            {/* <div className="dropdownMonthList">
+              {upcomingMonths.map((month) => (
+                <button
+                  key={month}
+                  className="monthItem"
+                  type="button"
+                  onClick={() => this.updateMonthYear(month)}
+                >
+                  {month.format('MMMM YYYY')}
+                </button>
+              ))}
+            </div> */}
           </div>
-          <div className="admincalendarBody">
-            {upcomingDays.map((day) => (
-              <div
-                key={day.toString()}
-                className="dayColumn"
-              >
-                {getHoursPerDay(day, availabilities).map(({ time, isSelected }) => (
-                  <button
-                    key={time.toString()}
-                    type="button"
-                    className={`dayHour ${((loading || !isSelected) && !(time in selectedDays)) ? 'adminhourDisplay' : 'adminhourSelected'}`}
-                    onClick={() => this.addOrRemoveAvailability(time)}
-                    onKeyDown={() => this.addOrRemoveAvailability(time)}
-                  >
-                    <p className="time">
-                      {time.format('h:mm a')}
-                    </p>
-                  </button>
-                ))}
-              </div>
-            ))}
+        </span>
+        <div className="admincalendar-container">
+          <div className="admincalendar">
+            <div className="admincalendarHeader">
+              {upcomingDays.map((day) => (
+                <div
+                  key={day.toString()}
+                  className="adminheaderDay"
+                >
+                  <p className="weekDay">{day.format('dddd')}</p>
+                  <p className="monthDay">{day.format('D')}</p>
+                </div>
+              ))}
+            </div>
+            <div className="admincalendarBody">
+              {upcomingDays.map((day) => (
+                <div
+                  key={day.toString()}
+                  className="dayColumn"
+                >
+                  {getHoursPerDay(day, availabilities).map(({ time, isSelected }) => (
+                    <button
+                      key={time.toString()}
+                      type="button"
+                      className={`dayHour ${((loading || !isSelected) && !(time in selectedDays)) ? 'adminhourDisplay' : 'adminhourSelected'}`}
+                      onClick={() => this.addOrRemoveAvailability(time)}
+                      onKeyDown={() => this.addOrRemoveAvailability(time)}
+                    >
+                      <p className="time">
+                        {time.format('h:mm a')}
+                      </p>
+                    </button>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+        <p className="inputInterviewer">
+          Interviewer:
+          <input type="text" name="interviewer" style={{ marginLeft: '15px', borderRadius: '5px', border: '1px solid black' }} />
+        </p>
+        <button className="submitAvailability" type="submit">Submit</button>
       </div>
     );
   }

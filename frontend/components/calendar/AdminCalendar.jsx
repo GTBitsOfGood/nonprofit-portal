@@ -67,6 +67,7 @@ class AdminCalendar extends React.PureComponent {
 
     this.state = {
       upcomingDays,
+      selectedDays: {},
     };
   }
 
@@ -74,6 +75,27 @@ class AdminCalendar extends React.PureComponent {
     const { getAvailabilities } = this.props;
 
     await getAvailabilities();
+  }
+
+  addAvailability = (availableDate) => {
+    const { selectedDays } = this.state;
+
+    if (availableDate in selectedDays) {
+      const selectedDaysCopy = selectedDays;
+      delete selectedDaysCopy[availableDate];
+      this.setState({
+        selectedDays: selectedDaysCopy,
+      });
+    } else {
+      this.setState((prevState) => ({
+        selectedDays: {
+          ...prevState.selectedDays,
+          [availableDate]: 1,
+        },
+      }));
+    }
+
+
   }
 
   render() {
@@ -108,8 +130,8 @@ class AdminCalendar extends React.PureComponent {
                     type="button"
                     style={{ backgroundColor: 'Transparent', border: 'none' }}
                     className={`dayHour ${(loading || !isSelected) ? 'adminhourDisplay' : 'adminhourSelected'}`}
-                    onClick={() => { console.log(time.toString()); }}
-                    onKeyDown={() => { console.log(time.toString()); }}
+                    onClick={() => this.addAvailability(time)}
+                    onKeyDown={() => this.addAvailability(time)}
                   >
                     <p className="time">
                       {time.format('h:mm a')}

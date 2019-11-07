@@ -31,7 +31,7 @@ const getHoursPerDay = (day, availabilities) => {
 
   for (let i = 0; i < 8; i += 1) {
     const time = startHours.clone().add(i, 'hour');
-    let isAvailable = false;
+    let isAvailable = true;
 
     for (let j = 0; j < availHours.length; j += 1) {
       const curHour = availHours[j];
@@ -89,28 +89,32 @@ class AdminCalendar extends React.PureComponent {
             {upcomingDays.map((day) => (
               <div
                 key={day.toString()}
-                className="headerDay"
+                className="adminheaderDay"
               >
                 <p className="weekDay">{day.format('dddd')}</p>
                 <p className="monthDay">{day.format('MMM D')}</p>
               </div>
             ))}
           </div>
-          <div className="calendarBody">
+          <div className="admincalendarBody">
             {upcomingDays.map((day) => (
               <div
                 key={day.toString()}
                 className="dayColumn"
               >
-                {getHoursPerDay(day, availabilities).map(({ time, isAvailable }) => (
-                  <div
+                {getHoursPerDay(day, availabilities).map(({ time, isSelected }) => (
+                  <button
                     key={time.toString()}
-                    className={`dayHour ${(loading || !isAvailable) ? 'hourNotAvail' : 'hourAvail'}`}
+                    type="button"
+                    style={{ backgroundColor: 'Transparent', border: 'none' }}
+                    className={`dayHour ${(loading || !isSelected) ? 'adminhourDisplay' : 'adminhourSelected'}`}
+                    onClick={() => { console.log(time.toString()); }}
+                    onKeyDown={() => { console.log(time.toString()); }}
                   >
                     <p className="time">
                       {time.format('h:mm a')}
                     </p>
-                  </div>
+                  </button>
                 ))}
               </div>
             ))}

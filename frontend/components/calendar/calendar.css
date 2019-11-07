@@ -1,13 +1,14 @@
 .admincalendar-container {
-    display: block;
+    display: flex;
     margin-left: 10%;
     margin-right: 10%;
     width: 80%;
-    height: auto;
+    height: 550px;
 }
 
 .admincalendar {
     display: flex;
+    width: 100%;
     flex-direction: column;
 }
 
@@ -21,20 +22,13 @@
 }
 
 .admincalendarHeader {
-    background-color: #F38D6A;
-    color: #fff;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
-.admincalendarBody {
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    font-weight: 200;
+    padding-bottom: 0px;
 }
 
 .admincalendarBody {
     flex: 1;
-    background-color: #FFF3EF;
+    padding-top: 0px;
 }
 
 .calendar {
@@ -64,6 +58,15 @@
 .calendarBody {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+}
+
+.adminheaderDay {
+    font-weight: 200;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .headerDay {
@@ -129,6 +132,22 @@
     padding: 0;
     border-radius: 5px;
     background-color: #F38D6A;
+}
+
+.adminhourDisplay {
+    color: #000;
+    cursor: pointer;
+}
+
+.adminhourSelected {
+    color: #CCC;
+    cursor: default;
+}
+
+.adminhourDisplay:hover {
+    border: 2px solid black;
+    padding: 0;
+    border-radius: 5px;
 }
 
 .dayHour .time {

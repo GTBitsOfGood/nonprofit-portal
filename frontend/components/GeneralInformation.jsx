@@ -99,6 +99,7 @@ class GeneralInformation extends Component {
                 style={{ width: '75px', marginLeft: '1%' }}
                 inline
               >
+                <option hidden disabled selected value></option>
                 <option>AL</option>
                 <option>AK</option>
                 <option>AZ</option>

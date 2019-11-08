@@ -335,7 +335,7 @@ class AdminCalendar extends React.PureComponent {
                       className={`dayHour ${(loading || !(time.toDate() in selectedDays)) ? 'adminhourDisplay' : 'adminhourSelected'}`}
                       onClick={() => this.addOrRemoveAvailability(time.toDate())}
                       onKeyDown={() => this.addOrRemoveAvailability(time.toDate())}
-                      disabled={(time.isBefore(moment()) || time.isSame(moment(), 'day')) ? 'true' : ''}
+                      disabled={time.isBefore(moment()) || time.isSame(moment(), 'day')}
                     >
                       <p className="time">
                         {time.format('h:mm a')}

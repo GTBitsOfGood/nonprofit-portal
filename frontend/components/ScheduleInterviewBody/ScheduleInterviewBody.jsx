@@ -60,7 +60,7 @@ class ScheduleInterviewBody extends React.PureComponent {
         >
           <div className="formInputs">
             <div className="singleInput">
-              <p>Person Of Contact</p>
+              <p style={{ fontWeight: 600 }}>Person Of Contact</p>
               <input
                 type="text"
                 name="person"
@@ -69,7 +69,7 @@ class ScheduleInterviewBody extends React.PureComponent {
               />
             </div>
             <div className="singleInput">
-              <p>Mobile Phone</p>
+              <p style={{ fontWeight: 600 }}>Mobile Phone</p>
               <input
                 type="tel"
                 name="phone"
@@ -79,6 +79,11 @@ class ScheduleInterviewBody extends React.PureComponent {
               />
             </div>
           </div>
+          <p style={{ paddingTop: '35px', fontWeight: 600 }}>
+            Can't find a time that works? Feel free to email us at
+            {' '}
+            <a href="mailto:hello@bitsofgood.org" style={{ color: 'black', textDecoration: 'underline' }}>hello@bitsofgood.org</a>
+          </p>
           <button
             className="submitButton"
             type="submit"

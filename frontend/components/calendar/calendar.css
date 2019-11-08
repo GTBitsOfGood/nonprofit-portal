@@ -31,12 +31,17 @@
     padding-top: 0px;
 }
 
+.calendar-container {
+    margin-top: 40px;
+}
+
 .calendar {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 550px;
     border-radius: 25px;
+    margin-top: 15px;
 }
 
 .calendarHeader, .calendarBody {
@@ -120,11 +125,15 @@
 
 .hourAvail {
     color: #000;
+    background-color: transparent;
+    border: 2px solid transparent;
     cursor: pointer;
 }
 
 .hourNotAvail {
     color: #CCC;
+    background-color: transparent;
+    border: 2px solid transparent;
     cursor: default;
 }
 

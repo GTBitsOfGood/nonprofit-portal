@@ -31,9 +31,13 @@ const LandingBody = (props) => {
   );
 };
 
+LandingBody.defaultProps = {
+  decision: null,
+};
+
 LandingBody.propTypes = {
   status: PropTypes.number.isRequired,
-  decision: PropTypes.bool.isRequired,
+  decision: PropTypes.bool,
 };
 
 export default LandingBody;

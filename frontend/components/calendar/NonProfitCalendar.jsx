@@ -56,7 +56,12 @@ class NonProfitCalendar extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const weekStart = moment().startOf('week').add(1, 'day');
+    let weekStart = moment().startOf('week').add(1, 'day');
+
+    if (moment().weekday() >= 5) {
+      weekStart = weekStart.add(1, 'weeks').startOf('isoWeek');
+    }
+
     const upcomingDays = [];
 
     for (let i = 0; i < 5; i += 1) {
@@ -65,7 +70,7 @@ class NonProfitCalendar extends React.PureComponent {
 
     this.state = {
       upcomingDays,
-      monthYear: moment(),
+      monthYear: weekStart,
       firstWeek: true,
       lastWeek: false,
     };
@@ -187,7 +192,7 @@ class NonProfitCalendar extends React.PureComponent {
                   <button
                     type="button"
                     key={time.toString()}
-                    className={`dayHour ${(loading || !isAvailable) ? 'hourNotAvail' : 'hourAvail'}${(selectedHour != null && selectedHour === id) ? ' hourSelected' : ''}`}
+                    className={`dayHour ${((!loading && isAvailable && time.isAfter(moment()))) ? 'hourAvail' : 'hourNotAvail'}${(selectedHour != null && selectedHour === id) ? ' hourSelected' : ''}`}
                     onClick={id != null ? () => selectHourHandler(id) : () => {}}
                     onKeyDown={id != null ? () => selectHourHandler(id) : () => {}}
                   >

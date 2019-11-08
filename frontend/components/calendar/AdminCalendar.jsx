@@ -33,7 +33,7 @@ const getHoursPerDay = (day, availabilities) => {
 
   for (let i = 0; i < 8; i += 1) {
     const time = startHours.clone().add(i, 'hour');
-    let isAvailable = false;
+    let isAvailable = true;
     let id = null;
 
     for (let j = 0; j < availHours.length; j += 1) {
@@ -82,7 +82,7 @@ class AdminCalendar extends React.PureComponent {
       upcomingDays,
       selectedDays: {},
       deselectedDays: {},
-      monthYear: moment(),
+      monthYear: weekStart,
       interviewer: '',
       firstWeek: true,
       lastWeek: false,
@@ -328,14 +328,15 @@ class AdminCalendar extends React.PureComponent {
                   key={day.toString()}
                   className="dayColumn"
                 >
-                  {getHoursPerDay(day, availabilities).map(({ time }) => (
+                  {getHoursPerDay(day, availabilities).map(({ time, isAvailable }) => (
                     <button
                       key={time.toString()}
                       type="button"
+                      id={isAvailable ? 'notBooked' : 'booked'}
                       className={`dayHour ${(loading || !(time.toDate() in selectedDays)) ? 'adminhourDisplay' : 'adminhourSelected'}`}
                       onClick={() => this.addOrRemoveAvailability(time.toDate())}
                       onKeyDown={() => this.addOrRemoveAvailability(time.toDate())}
-                      disabled={time.isBefore(moment()) || time.isSame(moment(), 'day')}
+                      disabled={time.isBefore(moment()) || !isAvailable || time.isSame(moment(), 'day')}
                     >
                       <p className="time">
                         {time.format('h:mm a')}

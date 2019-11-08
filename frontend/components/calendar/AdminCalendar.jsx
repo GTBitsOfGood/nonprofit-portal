@@ -60,7 +60,12 @@ class AdminCalendar extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const weekStart = moment().startOf('week').add(1, 'day');
+    let weekStart = moment().startOf('week').add(1, 'day');
+
+    if (moment().weekday() >= 5) {
+      weekStart = weekStart.add(1, 'weeks').startOf('isoWeek');
+    }
+
     const upcomingDays = [];
     // const upcomingMonths = [];
 
@@ -79,6 +84,8 @@ class AdminCalendar extends React.PureComponent {
       deselectedDays: {},
       monthYear: moment(),
       interviewer: '',
+      firstWeek: true,
+      lastWeek: false,
       // upcomingMonths,
     };
   }
@@ -143,6 +150,9 @@ class AdminCalendar extends React.PureComponent {
 
   getNextWeek = (curWeek) => {
     if (curWeek.diff(moment(), 'weeks') > 3) {
+      this.setState({
+        lastWeek: true,
+      });
       return;
     }
 
@@ -155,11 +165,24 @@ class AdminCalendar extends React.PureComponent {
 
     this.setState({
       upcomingDays: nextWeek,
+      lastWeek: false,
     });
   }
 
   getPreviousWeek = (curWeek) => {
+    if (moment().weekday() === 5) {
+      if (curWeek.isBefore(moment().add(1, 'week'))) {
+        this.setState({
+          firstWeek: true,
+        });
+        return;
+      }
+    }
+
     if (curWeek.isBefore(moment())) {
+      this.setState({
+        firstWeek: true,
+      });
       return;
     }
     const prevWeek = [];
@@ -171,6 +194,7 @@ class AdminCalendar extends React.PureComponent {
 
     this.setState({
       upcomingDays: prevWeek,
+      firstWeek: false,
     });
   }
 
@@ -193,7 +217,11 @@ class AdminCalendar extends React.PureComponent {
   addAvailability = (event) => {
     event.preventDefault();
     const { addAvailability, deleteAvailability } = this.props;
-    const { selectedDays, deselectedDays, interviewer } = this.state;
+    const {
+      selectedDays,
+      deselectedDays,
+      interviewer,
+    } = this.state;
 
     Object.keys(selectedDays).forEach((date) => {
       if (selectedDays[date] === -1) {
@@ -219,6 +247,8 @@ class AdminCalendar extends React.PureComponent {
       selectedDays,
       monthYear,
       interviewer,
+      firstWeek,
+      lastWeek,
       // upcomingMonths,
     } = this.state;
     const { availabilities, loading } = availability;
@@ -232,6 +262,7 @@ class AdminCalendar extends React.PureComponent {
             className="navigationButton"
             style={{ marginLeft: '10%' }}
             onClick={() => this.getPreviousWeek(monthYear)}
+            disabled={firstWeek}
           >
             {'< '}
             Previous Week
@@ -241,6 +272,8 @@ class AdminCalendar extends React.PureComponent {
             className="navigationButton"
             style={{ marginLeft: '50px' }}
             onClick={() => this.getNextWeek(monthYear)}
+            disabled={lastWeek}
+
           >
             Next Week
             {' >'}
@@ -299,6 +332,7 @@ class AdminCalendar extends React.PureComponent {
                       className={`dayHour ${(loading || !(time.toDate() in selectedDays)) ? 'adminhourDisplay' : 'adminhourSelected'}`}
                       onClick={() => this.addOrRemoveAvailability(time.toDate())}
                       onKeyDown={() => this.addOrRemoveAvailability(time.toDate())}
+                      disabled={(time.isBefore(moment()) || time.isSame(moment(), 'day')) ? 'true' : ''}
                     >
                       <p className="time">
                         {time.format('h:mm a')}
@@ -318,8 +352,12 @@ class AdminCalendar extends React.PureComponent {
               id="interviewer"
               value={interviewer}
               onChange={this.handleChangeInterviewer}
-              style={{ marginLeft: '15px', borderRadius: '5px', border: '1px solid black' }}
-              required
+              style={{
+                marginLeft: '15px',
+                borderRadius: '5px',
+                border: '1px solid black',
+                padding: '0px 15px',
+              }}
             />
           </label>
           <button className="submitAvailability" type="submit">Submit</button>

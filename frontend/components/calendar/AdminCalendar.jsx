@@ -358,6 +358,7 @@ class AdminCalendar extends React.PureComponent {
                 border: '1px solid black',
                 padding: '0px 15px',
               }}
+              required
             />
           </label>
           <button className="submitAvailability" type="submit">Submit</button>

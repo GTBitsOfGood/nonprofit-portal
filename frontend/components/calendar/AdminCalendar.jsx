@@ -325,7 +325,7 @@ class AdminCalendar extends React.PureComponent {
                   key={day.toString()}
                   className="dayColumn"
                 >
-                  {getHoursPerDay(day, availabilities).map(({ time, id }) => (
+                  {getHoursPerDay(day, availabilities).map(({ time }) => (
                     <button
                       key={time.toString()}
                       type="button"

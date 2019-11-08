@@ -43,9 +43,14 @@ const StatusJumbo = (props) => {
   );
 };
 
+StatusJumbo.defaultProps = {
+  decision: null,
+};
+
 StatusJumbo.propTypes = {
   status: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
+  decision: PropTypes.bool,
 };
 
 export default StatusJumbo;

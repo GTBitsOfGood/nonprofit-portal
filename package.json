@@ -16,6 +16,7 @@
         "bootstrap": "^4.3.1",
         "email-templates": "^6.0.3",
         "font-awesome": "^4.7.0",
+        "formik": "^2.0.3",
         "isomorphic-unfetch": "^3.0.0",
         "moment": "^2.24.0",
         "mongodb": "^3.3.2",

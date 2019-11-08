@@ -9,6 +9,7 @@ import {
   CustomInput,
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styles from '../static/style/App.css'
 import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 class GeneralInformation extends Component {
@@ -81,12 +82,13 @@ class GeneralInformation extends Component {
                 placeholder=""
                 onChange={onChange}
                 label="city"
+                className={styles.reactstrapInput}
                 style={{
                   borderRadius: '.25rem',
                   border: '1px solid #ced4da',
                   padding: '6px',
                   marginRight: '1%',
-                  paddingTop: '.375rem',
+                  verticalAlign: 'middle',
                 }}
                 inline
               />
@@ -99,7 +101,7 @@ class GeneralInformation extends Component {
                 style={{ width: '75px', marginLeft: '1%' }}
                 inline
               >
-                <option hidden disabled selected value></option>
+                <option hidden disabled selected value>&nbsp;</option>
                 <option>AL</option>
                 <option>AK</option>
                 <option>AZ</option>

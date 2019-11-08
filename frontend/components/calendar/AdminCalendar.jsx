@@ -3,7 +3,7 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { getAvailabilities as getAvailabilitiesBase } from '../../redux/actions/availabilityActions';
+import { getAvailabilities as getAvailabilitiesBase, addAvailability as addAvailabilityBase } from '../../redux/actions/availabilityActions';
 import './calendar.css';
 
 const getHoursPerDay = (day, availabilities) => {
@@ -60,29 +60,29 @@ class AdminCalendar extends React.PureComponent {
 
     const weekStart = moment().startOf('week').add(1, 'day');
     const upcomingDays = [];
-    const upcomingMonths = [];
+    // const upcomingMonths = [];
 
 
     for (let i = 0; i < 5; i += 1) {
       upcomingDays.push(weekStart.clone().add(i, 'day').startOf('day'));
     }
 
-    for (let i = 0; i < 2; i += 1) {
-      upcomingMonths.push(moment().add(i, 'month'));
-    }
+    // for (let i = 0; i < 2; i += 1) {
+    //   upcomingMonths.push(moment().add(i, 'month'));
+    // }
 
     this.state = {
       upcomingDays,
       selectedDays: {},
       monthYear: moment(),
-      upcomingMonths,
+      interviewer: null,
+      // upcomingMonths,
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const { getAvailabilities } = this.props;
-
-    await getAvailabilities();
+    getAvailabilities();
   }
 
   addOrRemoveAvailability = (availableDate) => {
@@ -144,13 +144,38 @@ class AdminCalendar extends React.PureComponent {
     });
   }
 
+  handleChangeInterviewer = (event) => {
+    let eventClone = event.target.value;
+    if (eventClone === '') {
+      eventClone = null;
+    }
+    this.setState({
+      interviewer: eventClone,
+    });
+  }
+
+  addAvailability = (event) => {
+    event.preventDefault();
+    const { addAvailability } = this.props;
+    const { selectedDays, interviewer } = this.state;
+
+    Object.keys(selectedDays).forEach((date) => {
+      const availability = {
+        startDate: date,
+        interviewer,
+      };
+      addAvailability(availability);
+    });
+  }
+
   render() {
     const { availability } = this.props;
     const {
       upcomingDays,
       selectedDays,
       monthYear,
-      upcomingMonths,
+      interviewer,
+      // upcomingMonths,
     } = this.state;
     const { availabilities, loading } = availability;
 
@@ -241,11 +266,19 @@ class AdminCalendar extends React.PureComponent {
             </div>
           </div>
         </div>
-        <p className="inputInterviewer">
-          Interviewer:
-          <input type="text" name="interviewer" style={{ marginLeft: '15px', borderRadius: '5px', border: '1px solid black' }} />
-        </p>
-        <button className="submitAvailability" type="submit">Submit</button>
+        <form onSubmit={this.addAvailability}>
+          <label htmlFor="interviewer" className="inputInterviewer">
+            Interviewer:
+            <input
+              type="text"
+              id="interviewer"
+              value={interviewer}
+              onChange={this.handleChangeInterviewer}
+              style={{ marginLeft: '15px', borderRadius: '5px', border: '1px solid black' }}
+            />
+          </label>
+          <button className="submitAvailability" type="submit">Submit</button>
+        </form>
       </div>
     );
   }
@@ -253,6 +286,7 @@ class AdminCalendar extends React.PureComponent {
 
 AdminCalendar.propTypes = {
   getAvailabilities: PropTypes.func.isRequired,
+  addAvailability: PropTypes.func.isRequired,
   availability: PropTypes.shape({
     availabilities: PropTypes.arrayOf(PropTypes.object),
     loading: PropTypes.bool,
@@ -272,4 +306,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getAvailabilities: getAvailabilitiesBase,
+  addAvailability: addAvailabilityBase,
 })(AdminCalendar);

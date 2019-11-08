@@ -3,7 +3,11 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { getAvailabilities as getAvailabilitiesBase, addAvailability as addAvailabilityBase } from '../../redux/actions/availabilityActions';
+import {
+  getAvailabilities as getAvailabilitiesBase,
+  addAvailability as addAvailabilityBase,
+  deleteAvailability as deleteAvailabilityBase,
+} from '../../redux/actions/availabilityActions';
 import './calendar.css';
 
 const getHoursPerDay = (day, availabilities) => {
@@ -72,6 +76,7 @@ class AdminCalendar extends React.PureComponent {
     this.state = {
       upcomingDays,
       selectedDays: {},
+      deselectedDays: {},
       monthYear: moment(),
       interviewer: '',
       // upcomingMonths,
@@ -93,20 +98,44 @@ class AdminCalendar extends React.PureComponent {
   }
 
   addOrRemoveAvailability = (availableDate) => {
-    const { selectedDays } = this.state;
+    const { selectedDays, deselectedDays } = this.state;
 
-    if (availableDate.toDate() in selectedDays) {
+    if (availableDate in selectedDays) {
+      if (selectedDays[availableDate] !== -1) {
+        const id = selectedDays[availableDate];
+        this.setState((prevState) => ({
+          deselectedDays: {
+            ...prevState.deselectedDays,
+            [availableDate]: id,
+          },
+        }));
+      }
       const selectedDaysCopy = selectedDays;
-      delete selectedDaysCopy[availableDate.toDate()];
+      delete selectedDaysCopy[availableDate];
       this.setState({
         selectedDays: selectedDaysCopy,
       });
       this.forceUpdate();
     } else {
+      if (availableDate in deselectedDays) {
+        this.setState((prevState) => ({
+          selectedDays: {
+            ...prevState.selectedDays,
+            [availableDate]: deselectedDays[availableDate],
+          },
+          deselectedDays: {
+            ...prevState.deselectedDays,
+            [availableDate]: 0,
+          },
+        }));
+        this.forceUpdate();
+        return;
+      }
+
       this.setState((prevState) => ({
         selectedDays: {
           ...prevState.selectedDays,
-          [availableDate.toDate()]: -1,
+          [availableDate]: -1,
         },
       }));
     }
@@ -163,8 +192,8 @@ class AdminCalendar extends React.PureComponent {
 
   addAvailability = (event) => {
     event.preventDefault();
-    const { addAvailability } = this.props;
-    const { selectedDays, interviewer } = this.state;
+    const { addAvailability, deleteAvailability } = this.props;
+    const { selectedDays, deselectedDays, interviewer } = this.state;
 
     Object.keys(selectedDays).forEach((date) => {
       const availability = {
@@ -172,6 +201,12 @@ class AdminCalendar extends React.PureComponent {
         interviewer,
       };
       addAvailability(availability);
+    });
+
+    Object.keys(deselectedDays).forEach((date) => {
+      if (deselectedDays[date] !== 0) {
+        deleteAvailability(deselectedDays[date]);
+      }
     });
   }
 
@@ -260,8 +295,8 @@ class AdminCalendar extends React.PureComponent {
                       key={time.toString()}
                       type="button"
                       className={`dayHour ${(loading || !(time.toDate() in selectedDays)) ? 'adminhourDisplay' : 'adminhourSelected'}`}
-                      onClick={() => this.addOrRemoveAvailability(time)}
-                      onKeyDown={() => this.addOrRemoveAvailability(time)}
+                      onClick={() => this.addOrRemoveAvailability(time.toDate())}
+                      onKeyDown={() => this.addOrRemoveAvailability(time.toDate())}
                     >
                       <p className="time">
                         {time.format('h:mm a')}
@@ -295,6 +330,7 @@ class AdminCalendar extends React.PureComponent {
 AdminCalendar.propTypes = {
   getAvailabilities: PropTypes.func.isRequired,
   addAvailability: PropTypes.func.isRequired,
+  deleteAvailability: PropTypes.func.isRequired,
   availability: PropTypes.shape({
     availabilities: PropTypes.arrayOf(PropTypes.object),
     loading: PropTypes.bool,
@@ -315,4 +351,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getAvailabilities: getAvailabilitiesBase,
   addAvailability: addAvailabilityBase,
+  deleteAvailability: deleteAvailabilityBase,
 })(AdminCalendar);

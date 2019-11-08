@@ -166,6 +166,7 @@ class AdminCalendar extends React.PureComponent {
     this.setState({
       upcomingDays: nextWeek,
       lastWeek: false,
+      firstWeek: false,
     });
   }
 
@@ -181,7 +182,8 @@ class AdminCalendar extends React.PureComponent {
 
     if (curWeek.isBefore(moment())) {
       this.setState({
-        firstWeek: true,
+        firstWeek: false,
+        lastWeek: false,
       });
       return;
     }
@@ -195,6 +197,7 @@ class AdminCalendar extends React.PureComponent {
     this.setState({
       upcomingDays: prevWeek,
       firstWeek: false,
+      lastWeek: false,
     });
   }
 

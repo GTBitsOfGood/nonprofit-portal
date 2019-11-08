@@ -14,12 +14,10 @@ const getHoursPerDay = (day, availabilities) => {
     const curDay = availabilities[i];
 
     const startDate = moment(curDay.startDate);
-    const endDate = moment(curDay.endDate);
 
     if (day.isSame(startDate, 'date')) {
       availHours.push({
         startDate,
-        endDate,
         id: curDay._id,
         isBooked: curDay.isBooked,
       });
@@ -37,12 +35,10 @@ const getHoursPerDay = (day, availabilities) => {
     for (let j = 0; j < availHours.length; j += 1) {
       const curHour = availHours[j];
 
-      if (time.isBetween(curHour.startDate, curHour.endDate, null, '(]')) {
-        if (!curHour.isBooked) {
-          isAvailable = true;
-          id = curHour.id;
-          break;
-        }
+      if (time.isSame(curHour.startDate, 'hour')) {
+        isAvailable = !curHour.isBooked;
+        id = curHour.id;
+        break;
       }
     }
 
@@ -109,6 +105,7 @@ class NonProfitCalendar extends React.PureComponent {
                     key={time.toString()}
                     className={`dayHour ${(loading || !isAvailable) ? 'hourNotAvail' : 'hourAvail'}${(selectedHour != null && selectedHour === id) ? ' hourSelected' : ''}`}
                     onClick={id != null ? () => selectHourHandler(id) : () => {}}
+                    onKeyDown={id != null ? () => selectHourHandler(id) : () => {}}
                   >
                     <p className="time">
                       {time.format('h:mm a')}
@@ -131,7 +128,7 @@ NonProfitCalendar.propTypes = {
     loading: PropTypes.bool,
   }),
   selectHourHandler: PropTypes.func.isRequired,
-  selectedHour: PropTypes.string.isRequired,
+  selectedHour: PropTypes.string,
 };
 
 NonProfitCalendar.defaultProps = {
@@ -139,6 +136,7 @@ NonProfitCalendar.defaultProps = {
     availabilities: [],
     loading: true,
   },
+  selectedHour: null,
 };
 
 const mapStateToProps = (state) => ({

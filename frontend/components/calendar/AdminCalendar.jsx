@@ -14,12 +14,10 @@ const getHoursPerDay = (day, availabilities) => {
     const curDay = availabilities[i];
 
     const startDate = moment(curDay.startDate);
-    const endDate = moment(curDay.endDate);
 
     if (day.isSame(startDate, 'date')) {
       availHours.push({
         startDate,
-        endDate,
         id: curDay._id,
         isBooked: curDay.isBooked,
       });
@@ -31,23 +29,23 @@ const getHoursPerDay = (day, availabilities) => {
 
   for (let i = 0; i < 8; i += 1) {
     const time = startHours.clone().add(i, 'hour');
-    let isAvailable = true;
+    let isAvailable = false;
+    let id = null;
 
     for (let j = 0; j < availHours.length; j += 1) {
       const curHour = availHours[j];
 
-      if (time.isBetween(curHour.startDate, curHour.endDate, null, '[]')) {
-        if (!curHour.isBooked) {
-          isAvailable = true;
-          break;
-        }
+      if (time.isSame(curHour.startDate, 'hour')) {
+        isAvailable = !curHour.isBooked;
+        id = curHour.id;
+        break;
       }
     }
 
     hours.push({
       time,
       isAvailable,
-      id: null,
+      id,
     });
   }
 
@@ -75,7 +73,7 @@ class AdminCalendar extends React.PureComponent {
       upcomingDays,
       selectedDays: {},
       monthYear: moment(),
-      interviewer: null,
+      interviewer: '',
       // upcomingMonths,
     };
   }
@@ -248,11 +246,11 @@ class AdminCalendar extends React.PureComponent {
                   key={day.toString()}
                   className="dayColumn"
                 >
-                  {getHoursPerDay(day, availabilities).map(({ time, isSelected }) => (
+                  {getHoursPerDay(day, availabilities).map(({ time, id }) => (
                     <button
                       key={time.toString()}
                       type="button"
-                      className={`dayHour ${((loading || !isSelected) && !(time in selectedDays)) ? 'adminhourDisplay' : 'adminhourSelected'}`}
+                      className={`dayHour ${(loading || !((time in selectedDays) || id != null)) ? 'adminhourDisplay' : 'adminhourSelected'}`}
                       onClick={() => this.addOrRemoveAvailability(time)}
                       onKeyDown={() => this.addOrRemoveAvailability(time)}
                     >
@@ -275,6 +273,7 @@ class AdminCalendar extends React.PureComponent {
               value={interviewer}
               onChange={this.handleChangeInterviewer}
               style={{ marginLeft: '15px', borderRadius: '5px', border: '1px solid black' }}
+              required
             />
           </label>
           <button className="submitAvailability" type="submit">Submit</button>

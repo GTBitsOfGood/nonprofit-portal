@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 const mongoDB = require('../index');
 const Availability = require('../models/Availability');
 
@@ -9,7 +10,7 @@ async function getAvailabilities() {
   await Availability
     .find({
       startDate: {
-        $gte: new Date(),
+        $gte: moment().startOf('week'),
       },
     })
     .sort({

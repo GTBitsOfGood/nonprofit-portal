@@ -80,9 +80,9 @@ class AdminCalendar extends React.PureComponent {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { getAvailabilities } = this.props;
-    getAvailabilities();
+    await getAvailabilities();
   }
 
   addOrRemoveAvailability = (availableDate) => {

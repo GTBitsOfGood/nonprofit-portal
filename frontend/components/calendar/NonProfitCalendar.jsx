@@ -32,13 +32,15 @@ const getHoursPerDay = (day, availabilities) => {
   for (let i = 0; i < 8; i += 1) {
     const time = startHours.clone().add(i, 'hour');
     let isAvailable = false;
+    let id = null;
 
     for (let j = 0; j < availHours.length; j += 1) {
       const curHour = availHours[j];
 
-      if (time.isBetween(curHour.startDate, curHour.endDate, null, '[]')) {
+      if (time.isBetween(curHour.startDate, curHour.endDate, null, '(]')) {
         if (!curHour.isBooked) {
           isAvailable = true;
+          id = curHour.id;
           break;
         }
       }
@@ -47,7 +49,7 @@ const getHoursPerDay = (day, availabilities) => {
     hours.push({
       time,
       isAvailable,
-      id: null,
+      id,
     });
   }
 
@@ -77,7 +79,7 @@ class NonProfitCalendar extends React.PureComponent {
   }
 
   render() {
-    const { availability } = this.props;
+    const { availability, selectedHour, selectHourHandler } = this.props;
     const { upcomingDays } = this.state;
 
     const { availabilities, loading } = availability;
@@ -102,10 +104,11 @@ class NonProfitCalendar extends React.PureComponent {
                 key={day.toString()}
                 className="dayColumn"
               >
-                {getHoursPerDay(day, availabilities).map(({ time, isAvailable }) => (
+                {getHoursPerDay(day, availabilities).map(({ time, isAvailable, id }) => (
                   <div
                     key={time.toString()}
-                    className={`dayHour ${(loading || !isAvailable) ? 'hourNotAvail' : 'hourAvail'}`}
+                    className={`dayHour ${(loading || !isAvailable) ? 'hourNotAvail' : 'hourAvail'}${(selectedHour != null && selectedHour === id) ? ' hourSelected' : ''}`}
+                    onClick={id != null ? () => selectHourHandler(id) : () => {}}
                   >
                     <p className="time">
                       {time.format('h:mm a')}
@@ -127,6 +130,8 @@ NonProfitCalendar.propTypes = {
     availabilities: PropTypes.arrayOf(PropTypes.object),
     loading: PropTypes.bool,
   }),
+  selectHourHandler: PropTypes.func.isRequired,
+  selectedHour: PropTypes.string.isRequired,
 };
 
 NonProfitCalendar.defaultProps = {

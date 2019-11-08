@@ -196,11 +196,13 @@ class AdminCalendar extends React.PureComponent {
     const { selectedDays, deselectedDays, interviewer } = this.state;
 
     Object.keys(selectedDays).forEach((date) => {
-      const availability = {
-        startDate: date,
-        interviewer,
-      };
-      addAvailability(availability);
+      if (selectedDays[date] === -1) {
+        const availability = {
+          startDate: date,
+          interviewer,
+        };
+        addAvailability(availability);
+      }
     });
 
     Object.keys(deselectedDays).forEach((date) => {

@@ -19,7 +19,7 @@ export default function (state = initialState, action) {
     case DELETE_AVAILABILITY:
       return {
         ...state,
-        availabilities: state.applications.filter(
+        availabilities: state.availabilities.filter(
           (availability) => availability._id !== action.payload,
         ),
       };

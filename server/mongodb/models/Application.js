@@ -87,6 +87,10 @@ const ApplicationSchema = new Schema({
   decision: {
     type: Boolean,
   },
+}, {
+  timestamps: {
+    createdAt: 'submitted',
+  },
 });
 
 let Application;

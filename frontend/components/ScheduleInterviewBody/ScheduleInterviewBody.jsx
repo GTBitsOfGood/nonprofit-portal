@@ -1,6 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import LandingBodyMessage from '../LandingBodyMessage';
 import NonProfitCalendar from '../calendar/NonProfitCalendar';
+import { updateAvailability as updateAvailabilityBase } from '../../redux/actions/availabilityActions';
+import { updateApplicationState as updateApplicationStateBase } from '../../redux/actions/applicationActions';
 import './ScheduleInterviewBody.css';
 
 class ScheduleInterviewBody extends React.PureComponent {
@@ -26,14 +31,15 @@ class ScheduleInterviewBody extends React.PureComponent {
     });
   };
 
-  submitForm = (e) => {
+  submitForm = async (e) => {
     e.preventDefault();
 
+    const { updateAvailability, updateApplicationState } = this.props;
     const { selectedHour, person, phone } = this.state;
 
-    console.log(this.state);
     if (selectedHour != null && person != null && phone != null) {
-      console.log('valid');
+      await updateAvailability(selectedHour, true, 'team');
+      await updateApplicationState(id, 2);
     }
   };
 
@@ -91,4 +97,16 @@ class ScheduleInterviewBody extends React.PureComponent {
   }
 }
 
-export default ScheduleInterviewBody;
+ScheduleInterviewBody.propTypes = {
+  updateAvailability: PropTypes.func.isRequired,
+  updateApplicationState: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  availability: state.availability,
+});
+
+export default connect(mapStateToProps, {
+  updateAvailability: updateAvailabilityBase,
+  updateApplicationState: updateApplicationStateBase,
+})(ScheduleInterviewBody);

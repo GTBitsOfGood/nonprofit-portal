@@ -40,16 +40,8 @@ const ApplicationSchema = new Schema({
     type: String,
     required: true,
   },
-  needsWeb: {
-    type: String,
-    required: false,
-  },
-  needsMobile: {
-    type: String,
-    required: false,
-  },
-  needsOther: {
-    type: String,
+  productNeeds: {
+    type: Array,
     required: false,
   },
   needsOtherExpand: {

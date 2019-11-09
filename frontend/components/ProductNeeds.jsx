@@ -8,6 +8,7 @@ import {
   Input,
   CustomInput,
 } from 'reactstrap';
+import { Field } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import '../static/style/App.css';
@@ -28,7 +29,7 @@ class ProductNeeds extends Component {
   };
 
   render() {
-    const { onChange } = this.props;
+    const { onChange, values } = this.props;
     const { open } = this.state;
 
     return (
@@ -51,15 +52,15 @@ class ProductNeeds extends Component {
         </Button>
         <Collapse isOpen={open}>
           <FormGroup>
-            <Label for="ication">
+            <Label for="application">
               What kind of product needs do you hope BoG can support you with?
             </Label>
             <div>
               <CustomInput
                 type="checkbox"
                 id="needsWeb"
-                name="needsWeb"
-                value="Yes"
+                name="productNeeds"
+                value="Web"
                 label="Web Application"
                 onChange={onChange}
                 inline
@@ -67,8 +68,8 @@ class ProductNeeds extends Component {
               <CustomInput
                 type="checkbox"
                 id="needsMobile"
-                name="needsMobile"
-                value="Yes"
+                name="productNeeds"
+                value="Mobile"
                 label="Mobile Application"
                 onChange={onChange}
                 inline
@@ -76,8 +77,8 @@ class ProductNeeds extends Component {
               <CustomInput
                 type="checkbox"
                 id="needsOther"
-                name="needsOther"
-                value="Yes"
+                name="productNeeds"
+                value="Other"
                 label="Other"
                 onChange={onChange}
                 inline
@@ -228,6 +229,7 @@ class ProductNeeds extends Component {
                 name="productExtra"
                 id="productExtra"
                 placeholder="(Optional)"
+                value={values.productExtra}
                 onChange={onChange}
               />
             </div>
@@ -240,6 +242,7 @@ class ProductNeeds extends Component {
 
 ProductNeeds.propTypes = {
   onChange: PropTypes.func.isRequired,
+  values: PropTypes.object.isRequired,
 };
 
 export default ProductNeeds;

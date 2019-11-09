@@ -9,6 +9,7 @@ import {
   CustomInput,
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ErrorMessage } from 'formik';
 import '../static/style/App.css';
 import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -28,7 +29,7 @@ class GeneralInformation extends Component {
   };
 
   render() {
-    const { onChange } = this.props;
+    const { onChange, values } = this.props;
     const { open } = this.state;
 
     return (
@@ -57,9 +58,10 @@ class GeneralInformation extends Component {
             <Input
               type="text"
               name="name"
-              id="application"
+              id="name"
               placeholder=""
               onChange={onChange}
+              value={values.name}
             />
           </FormGroup>
           <FormGroup>
@@ -67,9 +69,10 @@ class GeneralInformation extends Component {
             <Input
               type="text"
               name="streetaddress"
-              id="application"
+              id="streetaddress"
               placeholder=""
               onChange={onChange}
+              value={values.streetaddress}
             />
           </FormGroup>
           <FormGroup>
@@ -78,20 +81,22 @@ class GeneralInformation extends Component {
               <CustomInput
                 type="text"
                 name="city"
-                id="application"
+                id="city"
                 placeholder=""
                 onChange={onChange}
                 label="city"
                 className="reactstrap-input"
+                value={values.city}
                 inline
               />
               <CustomInput
                 type="select"
                 name="state"
-                id="application"
+                id="state"
                 placeholder="(Optional)"
                 onChange={onChange}
                 style={{ width: '75px', marginLeft: '1%' }}
+                value={values.state}
                 inline
               >
                 <option hidden disabled selected value>&nbsp;</option>
@@ -154,8 +159,9 @@ class GeneralInformation extends Component {
             <Input
               type="url"
               name="website"
-              id="application"
+              id="website"
               placeholder="(Optional)"
+              value={values.website}
               onChange={onChange}
             />
           </FormGroup>
@@ -164,8 +170,9 @@ class GeneralInformation extends Component {
             <Input
               type="text"
               name="workPhone"
-              id="application"
+              id="workPhone"
               placeholder=""
+              value={values.workPhone}
               onChange={onChange}
             />
           </FormGroup>
@@ -174,8 +181,9 @@ class GeneralInformation extends Component {
             <Input
               type="text"
               name="contactName"
-              id="application"
+              id="contactName"
               placeholder=""
+              value={values.contactName}
               onChange={onChange}
             />
           </FormGroup>
@@ -184,8 +192,9 @@ class GeneralInformation extends Component {
             <Input
               type="text"
               name="mobilePhone"
-              id="application"
+              id="mobilePhone"
               placeholder="(Optional)"
+              value={values.mobilePhone}
               onChange={onChange}
             />
           </FormGroup>
@@ -194,10 +203,12 @@ class GeneralInformation extends Component {
             <Input
               type="email"
               name="email"
-              id="application"
+              id="email"
               placeholder=""
+              value={values.email}
               onChange={onChange}
             />
+            <ErrorMessage name="email" render={(msg) => <div>{msg}</div>} />
           </FormGroup>
         </Collapse>
       </>
@@ -207,6 +218,7 @@ class GeneralInformation extends Component {
 
 GeneralInformation.propTypes = {
   onChange: PropTypes.func.isRequired,
+  values: PropTypes.object.isRequired,
 };
 
 export default GeneralInformation;

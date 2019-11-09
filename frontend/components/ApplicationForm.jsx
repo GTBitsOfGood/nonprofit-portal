@@ -1,58 +1,51 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
   Form,
 } from 'reactstrap';
 import { connect } from 'react-redux';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+
 import GeneralInformation from './GeneralInformation';
 import MissionVision from './MissionVision';
 import ProductNeeds from './ProductNeeds';
 import Feedback from './Feedback';
 import { addApplication as addApplicationBase } from '../redux/actions/applicationActions';
 
-class ApplicationForm extends Component {
-  constructor(props) {
-    super(props);
+const SignupSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Required'),
+  website: Yup.string().url(),
+});
 
-    this.state = {
-      application: {},
-    };
-  }
+const ApplicationForm = (props) => {
+  return (
+    <Formik
+      initialValues={{
+        email: '',
+      }}
+      validationSchema={SignupSchema}
+      onSubmit={(values) => {
+        const { addApplication } = props;
+        console.log(values);
+        /* addApplication(values)
+          .then(({ payload }) => {
+            window.location.href = `/p/${payload.urlString}`;
+          });
 
-  onChange = (event) => {
-    const eventName = event.target.name;
-    const eventVal = event.target.value || event.target.checked;
-
-    this.setState((prevState) => ({
-      application: {
-        ...prevState.application,
-        [eventName]: eventVal,
-      },
-    }));
-  };
-
-  onSubmit = (event) => {
-    event.preventDefault();
-
-    const { addApplication } = this.props;
-    const { application } = this.state;
-
-    // Add application via addApplication action
-    addApplication(application)
-      .then(({ payload }) => {
-        window.location.href = `/p/${payload.urlString}`;
-      });
-  };
-
-  render() {
-    return (
-      <div>
-        <Form onSubmit={this.onSubmit}>
-          <GeneralInformation onChange={this.onChange} />
-          <MissionVision onChange={this.onChange} />
-          <ProductNeeds onChange={this.onChange} />
-          <Feedback onChange={this.onChange} />
+         */
+      }}
+    >
+      {(formikProps) => (
+        <Form onSubmit={formikProps.handleSubmit}>
+          {console.log(formikProps.errors)}
+          <GeneralInformation onChange={formikProps.handleChange} values={formikProps.values} />
+          <MissionVision onChange={formikProps.handleChange} values={formikProps.values} />
+          <ProductNeeds onChange={formikProps.handleChange} values={formikProps.values} />
+          <Feedback onChange={formikProps.handleChange} values={formikProps.values} />
           <div className="d-flex justify-content-between">
             <div />
             <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
@@ -66,10 +59,10 @@ class ApplicationForm extends Component {
             <div />
           </div>
         </Form>
-      </div>
-    );
-  }
-}
+      )}
+    </Formik>
+  );
+};
 
 ApplicationForm.propTypes = {
   addApplication: PropTypes.func.isRequired,

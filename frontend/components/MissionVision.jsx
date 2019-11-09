@@ -26,7 +26,7 @@ class MissionVision extends Component {
   };
 
   render() {
-    const { onChange } = this.props;
+    const { onChange, values } = this.props;
     const { open } = this.state;
 
     return (
@@ -61,8 +61,9 @@ class MissionVision extends Component {
             <Input
               type="textarea"
               name="mission"
-              id="application"
+              id="mission"
               placeholder="Organization Mission"
+              value={values.mission}
               onChange={onChange}
             />
           </FormGroup>
@@ -74,6 +75,7 @@ class MissionVision extends Component {
 
 MissionVision.propTypes = {
   onChange: PropTypes.func.isRequired,
+  values: PropTypes.object.isRequired,
 };
 
 export default MissionVision;

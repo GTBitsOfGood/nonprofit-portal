@@ -29,7 +29,7 @@ class GeneralInformation extends Component {
   };
 
   render() {
-    const { onChange, values } = this.props;
+    const { onChange, values, onBlur } = this.props;
     const { open } = this.state;
 
     return (
@@ -163,7 +163,9 @@ class GeneralInformation extends Component {
               placeholder="(Optional)"
               value={values.website}
               onChange={onChange}
+              onBlur={onBlur}
             />
+            <ErrorMessage name="website" render={(msg) => <div style={{ color: 'red' }}>{msg}</div>} />
           </FormGroup>
           <FormGroup>
             <Label for="application">Work Phone</Label>
@@ -186,6 +188,7 @@ class GeneralInformation extends Component {
               value={values.contactName}
               onChange={onChange}
             />
+            <ErrorMessage name="website" render={(msg) => <div>{msg}</div>} />
           </FormGroup>
           <FormGroup>
             <Label for="application">Mobile Phone</Label>
@@ -207,8 +210,9 @@ class GeneralInformation extends Component {
               placeholder=""
               value={values.email}
               onChange={onChange}
+              onBlur={onBlur}
             />
-            <ErrorMessage name="email" render={(msg) => <div>{msg}</div>} />
+            <ErrorMessage name="email" render={(msg) => <div style={{ color: 'red' }}>{msg}</div>} />
           </FormGroup>
         </Collapse>
       </>
@@ -219,6 +223,7 @@ class GeneralInformation extends Component {
 GeneralInformation.propTypes = {
   onChange: PropTypes.func.isRequired,
   values: PropTypes.object.isRequired,
+  onBlur: PropTypes.func.isRequired,
 };
 
 export default GeneralInformation;

@@ -26,23 +26,24 @@ const ApplicationForm = (props) => {
     <Formik
       initialValues={{
         email: '',
+        website: '',
       }}
       validationSchema={SignupSchema}
       onSubmit={(values) => {
         const { addApplication } = props;
-        console.log(values);
-        /* addApplication(values)
+        addApplication(values)
           .then(({ payload }) => {
             window.location.href = `/p/${payload.urlString}`;
           });
-
-         */
       }}
     >
       {(formikProps) => (
         <Form onSubmit={formikProps.handleSubmit}>
-          {console.log(formikProps.errors)}
-          <GeneralInformation onChange={formikProps.handleChange} values={formikProps.values} />
+          <GeneralInformation
+            onChange={formikProps.handleChange}
+            values={formikProps.values}
+            onBlur={formikProps.handleBlur}
+          />
           <MissionVision onChange={formikProps.handleChange} values={formikProps.values} />
           <ProductNeeds onChange={formikProps.handleChange} values={formikProps.values} />
           <Feedback onChange={formikProps.handleChange} values={formikProps.values} />

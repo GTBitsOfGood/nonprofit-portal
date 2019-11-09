@@ -10,6 +10,7 @@ import {
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import '../static/style/App.css';
 
 class ProductNeeds extends Component {
   constructor(props) {
@@ -85,6 +86,7 @@ class ProductNeeds extends Component {
                 type="textarea"
                 id="needsOtherExpand"
                 name="needsOtherExpand"
+                className="reactstrap-input"
                 onChange={onChange}
                 inline
               />
@@ -130,6 +132,7 @@ class ProductNeeds extends Component {
                 type="textarea"
                 name="stageOtherExpand"
                 id="stageOtherExpand"
+                className="reactstrap-input"
                 onChange={onChange}
                 inline
               />

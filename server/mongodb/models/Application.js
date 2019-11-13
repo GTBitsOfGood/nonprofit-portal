@@ -18,7 +18,7 @@ const ApplicationSchema = new Schema({
   },
   state: {
     type: String,
-    required: false,
+    required: true,
   },
   workPhone: {
     type: String,
@@ -30,7 +30,7 @@ const ApplicationSchema = new Schema({
   },
   mobilePhone: {
     type: String,
-    required: false,
+    required: true,
   },
   email: {
     type: String,
@@ -82,7 +82,7 @@ const ApplicationSchema = new Schema({
   },
   urlString: {
     type: String,
-    required: true,
+    required: false,
   },
   decision: {
     type: Boolean,

@@ -196,7 +196,7 @@ class GeneralInformation extends Component {
               type="text"
               name="mobilePhone"
               id="mobilePhone"
-              placeholder="(Optional)"
+              placeholder=""
               value={values.mobilePhone}
               onChange={onChange}
             />

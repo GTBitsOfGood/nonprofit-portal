@@ -16,9 +16,9 @@ import { addApplication as addApplicationBase } from '../redux/actions/applicati
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string()
-    .email('Invalid email')
+    .email('Invalid email!')
     .required('Required'),
-  website: Yup.string().url(),
+  website: Yup.string().url('Website must be a valid URL!'),
 });
 
 const ApplicationForm = (props) => {

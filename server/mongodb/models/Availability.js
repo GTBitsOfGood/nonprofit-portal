@@ -20,6 +20,14 @@ const AvailabilitySchema = new Schema({
     type: String,
     default: null,
   },
+  person: {
+    type: String,
+    default: null,
+  },
+  phone: {
+    type: Number,
+    default: null,
+  },
 });
 
 let Availability;

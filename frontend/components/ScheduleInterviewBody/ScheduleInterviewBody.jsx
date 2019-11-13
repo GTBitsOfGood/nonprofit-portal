@@ -1,18 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import LandingBodyMessage from '../LandingBodyMessage';
 import NonProfitCalendar from '../calendar/NonProfitCalendar';
 import { updateAvailability as updateAvailabilityBase } from '../../redux/actions/availabilityActions';
-import { updateApplicationState as updateApplicationStateBase } from '../../redux/actions/applicationActions';
+
 import './ScheduleInterviewBody.css';
 
 class ScheduleInterviewBody extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    const { name } = this.props;
+
     this.state = {
+      name,
       selectedHour: null,
       person: null,
       phone: null,
@@ -25,21 +27,30 @@ class ScheduleInterviewBody extends React.PureComponent {
     });
   };
 
-  selectHour = (id) => {
+  selectHour = (selectedHour) => {
     this.setState({
-      selectedHour: id,
+      selectedHour,
     });
   };
 
-  submitForm = async (e) => {
+  submitForm = (e) => {
     e.preventDefault();
 
-    const { updateAvailability, updateApplicationState } = this.props;
-    const { selectedHour, person, phone } = this.state;
+    const {
+      name,
+      selectedHour,
+      person,
+      phone,
+    } = this.state;
+
+    const { updateAvailability } = this.props;
+
+    if (selectedHour === null) {
+      alert('Please select a time for your interview!');
+    }
 
     if (selectedHour != null && person != null && phone != null) {
-      await updateAvailability(selectedHour, true, 'team');
-      await updateApplicationState(id, 2);
+      updateAvailability(selectedHour, true, name, person, phone);
     }
   };
 
@@ -57,7 +68,7 @@ class ScheduleInterviewBody extends React.PureComponent {
           the time and date for the call.
         </LandingBodyMessage>
         <NonProfitCalendar
-          selectedHour={selectedHour}
+          selectHour={selectedHour}
           selectHourHandler={this.selectHour}
         />
         <form
@@ -66,25 +77,40 @@ class ScheduleInterviewBody extends React.PureComponent {
         >
           <div className="formInputs">
             <div className="singleInput">
-              <p>Person Of Contact</p>
+              <p style={{ fontWeight: 600 }}>Person Of Contact</p>
               <input
                 type="text"
                 name="person"
                 onChange={this.onChange}
+                style={{
+                  borderRadius: '5px',
+                  border: '1px solid black',
+                  padding: '0px 15px',
+                }}
                 required
               />
             </div>
             <div className="singleInput">
-              <p>Mobile Phone</p>
+              <p style={{ fontWeight: 600 }}>Mobile Phone</p>
               <input
                 type="tel"
                 name="phone"
                 onChange={this.onChange}
-                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+                style={{
+                  borderRadius: '5px',
+                  border: '1px solid black',
+                  padding: '0px 15px',
+                }}
                 required
               />
             </div>
           </div>
+          <p style={{ paddingTop: '35px', fontWeight: 600 }}>
+            Can't find a time that works? Feel free to email us at
+            {' '}
+            <a href="mailto:hello@bitsofgood.org" style={{ color: 'black', textDecoration: 'underline' }}>hello@bitsofgood.org</a>
+          </p>
           <button
             className="submitButton"
             type="submit"
@@ -96,10 +122,9 @@ class ScheduleInterviewBody extends React.PureComponent {
     );
   }
 }
-
 ScheduleInterviewBody.propTypes = {
   updateAvailability: PropTypes.func.isRequired,
-  updateApplicationState: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -108,5 +133,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   updateAvailability: updateAvailabilityBase,
-  updateApplicationState: updateApplicationStateBase,
 })(ScheduleInterviewBody);

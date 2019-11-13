@@ -36,6 +36,7 @@ class LandingPage extends React.Component {
           <StatusBar status={application.status} />
           <LandingBody
             status={application.status}
+            name={application.name}
             decision={application.decision}
           />
         </Container>

@@ -56,7 +56,12 @@ class NonProfitCalendar extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const weekStart = moment().startOf('week').add(1, 'day');
+    let weekStart = moment().startOf('week').add(1, 'day');
+
+    if (moment().weekday() >= 5) {
+      weekStart = weekStart.add(1, 'weeks').startOf('isoWeek');
+    }
+
     const upcomingDays = [];
 
     for (let i = 0; i < 5; i += 1) {
@@ -65,6 +70,9 @@ class NonProfitCalendar extends React.PureComponent {
 
     this.state = {
       upcomingDays,
+      monthYear: weekStart,
+      firstWeek: true,
+      lastWeek: false,
     };
   }
 
@@ -74,14 +82,94 @@ class NonProfitCalendar extends React.PureComponent {
     await getAvailabilities();
   }
 
+  getNextWeek = (curWeek) => {
+    if (curWeek.diff(moment(), 'weeks') > 3) {
+      this.setState({
+        lastWeek: true,
+      });
+      return;
+    }
+
+    const nextWeek = [];
+    const nextDay = curWeek.add(1, 'weeks').startOf('isoWeek');
+
+    for (let i = 0; i < 5; i += 1) {
+      nextWeek.push(nextDay.clone().add(i, 'day').startOf('day'));
+    }
+
+    this.setState({
+      upcomingDays: nextWeek,
+      lastWeek: false,
+      firstWeek: false,
+    });
+  }
+
+  getPreviousWeek = (curWeek) => {
+    if (moment().weekday() === 5) {
+      if (curWeek.isBefore(moment().add(1, 'week'))) {
+        this.setState({
+          firstWeek: true,
+        });
+        return;
+      }
+    }
+
+    if (curWeek.isBefore(moment())) {
+      this.setState({
+        firstWeek: false,
+        lastWeek: false,
+      });
+      return;
+    }
+    const prevWeek = [];
+    const prevDay = curWeek.subtract(1, 'weeks').startOf('isoWeek');
+
+    for (let i = 0; i < 5; i += 1) {
+      prevWeek.push(prevDay.clone().add(i, 'day').startOf('day'));
+    }
+
+    this.setState({
+      upcomingDays: prevWeek,
+      firstWeek: false,
+      lastWeek: false,
+    });
+  }
+
   render() {
     const { availability, selectedHour, selectHourHandler } = this.props;
-    const { upcomingDays } = this.state;
+    const {
+      upcomingDays,
+      monthYear,
+      firstWeek,
+      lastWeek,
+    } = this.state;
 
     const { availabilities, loading } = availability;
 
     return (
       <div className="calendar-container">
+        <span>
+          <button
+            type="button"
+            className="navigationButton"
+            onClick={() => this.getPreviousWeek(monthYear)}
+            disabled={firstWeek}
+          >
+            {'< '}
+            Previous Week
+          </button>
+          <button
+            type="button"
+            className="navigationButton"
+            style={{ float: 'right' }}
+            onClick={() => this.getNextWeek(monthYear)}
+            disabled={lastWeek}
+
+          >
+            Next Week
+            {' >'}
+          </button>
+        </span>
         <div className="calendar">
           <div className="calendarHeader">
             {upcomingDays.map((day) => (
@@ -101,16 +189,17 @@ class NonProfitCalendar extends React.PureComponent {
                 className="dayColumn"
               >
                 {getHoursPerDay(day, availabilities).map(({ time, isAvailable, id }) => (
-                  <div
+                  <button
+                    type="button"
                     key={time.toString()}
-                    className={`dayHour ${(loading || !isAvailable) ? 'hourNotAvail' : 'hourAvail'}${(selectedHour != null && selectedHour === id) ? ' hourSelected' : ''}`}
+                    className={`dayHour ${((!loading && isAvailable && time.isAfter(moment()))) ? 'hourAvail' : 'hourNotAvail'}${(selectedHour != null && selectedHour === id) ? ' hourSelected' : ''}`}
                     onClick={id != null ? () => selectHourHandler(id) : () => {}}
                     onKeyDown={id != null ? () => selectHourHandler(id) : () => {}}
                   >
                     <p className="time">
                       {time.format('h:mm a')}
                     </p>
-                  </div>
+                  </button>
                 ))}
               </div>
             ))}

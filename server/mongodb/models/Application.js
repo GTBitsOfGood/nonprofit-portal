@@ -20,6 +20,10 @@ const ApplicationSchema = new Schema({
     type: String,
     required: true,
   },
+  zip: {
+    type: String,
+    required: true,
+  },
   workPhone: {
     type: String,
     required: true,

@@ -76,7 +76,7 @@ class GeneralInformation extends Component {
             />
           </FormGroup>
           <FormGroup>
-            <Label for="application">City & State</Label>
+            <Label for="application">City & State & Zip</Label>
             <div>
               <CustomInput
                 type="text"
@@ -152,6 +152,17 @@ class GeneralInformation extends Component {
                 <option>WY</option>
                 <option>N/A</option>
               </CustomInput>
+              <CustomInput
+                type="text"
+                name="zipcode"
+                id="zipcode"
+                placeholder=""
+                onChange={onChange}
+                style={{ marginLeft: '2%' }}
+                value={values.state}
+                className="reactstrap-input"
+                inline
+              />
             </div>
           </FormGroup>
           <FormGroup>

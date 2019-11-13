@@ -38,6 +38,7 @@ class LandingPage extends React.Component {
             status={application.status}
             name={application.name}
             decision={application.decision}
+            applicationId={application._id}
           />
         </Container>
       </div>

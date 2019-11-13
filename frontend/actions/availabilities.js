@@ -41,7 +41,7 @@ export const deleteAvailability = async (id) => fetch(
 )
   .then((response) => response.json());
 
-export const updateAvailability = async (id, isBooked, team) => fetch(
+export const updateAvailability = async (id, updatedFields) => fetch(
   config.baseUrl + config.apis.updateAvailability, {
     method: 'post',
     mode: 'same-origin',
@@ -51,8 +51,7 @@ export const updateAvailability = async (id, isBooked, team) => fetch(
     },
     body: JSON.stringify({
       id,
-      isBooked,
-      team,
+      updatedFields,
     }),
   },
 )

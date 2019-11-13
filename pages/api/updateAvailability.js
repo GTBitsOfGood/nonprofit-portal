@@ -4,9 +4,9 @@ import { updateAvailability } from '../../server/mongodb/actions/availabilities'
 // @desc    Update the status of an availability
 // @access  Public
 export default async function (req, res) {
-  const { id, isBooked, team } = req.body;
+  const { id, updatedFields } = req.body;
 
-  await updateAvailability(id, isBooked, team)
+  await updateAvailability(id, updatedFields)
     .then((result) => {
       res.json(result);
     });

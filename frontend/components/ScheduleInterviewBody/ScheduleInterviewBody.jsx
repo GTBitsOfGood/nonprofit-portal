@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import LandingBodyMessage from '../LandingBodyMessage';
 import NonProfitCalendar from '../calendar/NonProfitCalendar';
 import { updateAvailability as updateAvailabilityBase } from '../../redux/actions/availabilityActions';
+import { updateApplicationState as updateApplicationStateBase } from '../../redux/actions/applicationActions';
 
 import './ScheduleInterviewBody.css';
 
@@ -11,10 +12,7 @@ class ScheduleInterviewBody extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const { name } = this.props;
-
     this.state = {
-      name,
       selectedHour: null,
       person: null,
       phone: null,
@@ -33,24 +31,27 @@ class ScheduleInterviewBody extends React.PureComponent {
     });
   };
 
-  submitForm = (e) => {
+  submitForm = async (e) => {
     e.preventDefault();
 
     const {
-      name,
-      selectedHour,
-      person,
-      phone,
-    } = this.state;
+      name, applicationId, updateAvailability, updateApplicationState,
+    } = this.props;
+    const { selectedHour, person, phone } = this.state;
 
-    const { updateAvailability } = this.props;
-
-    if (selectedHour === null) {
+    if (selectedHour == null) {
       alert('Please select a time for your interview!');
     }
 
-    if (selectedHour != null && person != null && phone != null) {
-      updateAvailability(selectedHour, true, name, person, phone);
+    if (selectedHour != null && name != null && person != null && phone != null) {
+      await updateAvailability(selectedHour, {
+        isBooked: true,
+        team: name,
+        person,
+        phone,
+      });
+
+      await updateApplicationState(applicationId, 2);
     }
   };
 
@@ -68,7 +69,7 @@ class ScheduleInterviewBody extends React.PureComponent {
           the time and date for the call.
         </LandingBodyMessage>
         <NonProfitCalendar
-          selectHour={selectedHour}
+          selectedHour={selectedHour}
           selectHourHandler={this.selectHour}
         />
         <form
@@ -124,7 +125,9 @@ class ScheduleInterviewBody extends React.PureComponent {
 }
 ScheduleInterviewBody.propTypes = {
   updateAvailability: PropTypes.func.isRequired,
+  updateApplicationState: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
+  applicationId: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -133,4 +136,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   updateAvailability: updateAvailabilityBase,
+  updateApplicationState: updateApplicationStateBase,
 })(ScheduleInterviewBody);

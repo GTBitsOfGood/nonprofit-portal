@@ -55,18 +55,16 @@ async function deleteAvailability(id) {
     });
 }
 
-async function updateAvailability(id, isBooked, team, person, phone) {
+async function updateAvailability(id, updatedFields) {
   await mongoDB();
   let result = {};
 
   try {
-    result = await Availability.findOneAndUpdate({ _id: id }, {
-      isBooked,
-      team,
-      person,
-      phone,
-    },
-    { upsert: false, new: true, useFindAndModify: false });
+    result = await Availability.findOneAndUpdate(
+      { _id: id },
+      updatedFields,
+      { upsert: false, new: true, useFindAndModify: false },
+    );
   } finally {
     mongoose.connection.close();
   }

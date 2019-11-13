@@ -33,8 +33,8 @@ export const deleteAvailability = (id) => (dispatch) => availabilityActions
     payload: id,
   }));
 
-export const updateAvailability = (id, isBooked, team) => (dispatch) => availabilityActions
-  .updateAvailability(id, isBooked, team)
+export const updateAvailability = (id, updatedFields) => (dispatch) => availabilityActions
+  .updateAvailability(id, updatedFields)
   .then((res) => dispatch({
     type: UPDATE_AVAILABILITY,
     payload: res,

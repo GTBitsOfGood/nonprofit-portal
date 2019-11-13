@@ -50,8 +50,8 @@ class ScheduleInterviewBody extends React.PureComponent {
         person,
         phone,
       });
-
       await updateApplicationState(applicationId, 2);
+      window.location.reload();
     }
   };
 

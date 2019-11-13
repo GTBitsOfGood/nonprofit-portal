@@ -55,9 +55,7 @@ class ApplicationsList extends Component {
               mobilePhone,
               email,
               mission,
-              needsWeb,
-              needsMobile,
-              needsOther,
+              productNeeds,
               needsOtherExpand,
               stageRadio,
               stageOtherExpand,
@@ -177,21 +175,17 @@ class ApplicationsList extends Component {
                   <span style={{ fontWeight: '600' }}>Mission: </span>
                   {mission}
                 </p>
-                { (needsWeb || needsMobile || needsOther) && (
-                  <p style={{ fontWeight: '600' }}>Needs:</p>
-                )}
-                { needsWeb && (
-                  <p>- Web</p>
-                )}
-                { needsMobile && (
-                  <p>- Mobile</p>
-                )}
-                { needsOther && (
-                  <p>
-                    -
-                    {' '}
-                    {needsOtherExpand}
-                  </p>
+                {(productNeeds.length > 0) && (
+                  <>
+                    <p style={{ fontWeight: '600' }}>Needs:</p>
+                    {productNeeds.map((need) => {
+                      if (need === 'Other' && needsOtherExpand) {
+                        return <p key={need}>{`- ${need}: ${needsOtherExpand}`}</p>;
+                      }
+
+                      return <p key={need}>{`- ${need}`}</p>;
+                    })}
+                  </>
                 )}
                 { stageRadio !== 'Other' && (
                 <p>

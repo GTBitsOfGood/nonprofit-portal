@@ -1,7 +1,7 @@
 import App from 'next/app';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { useSession } from 'next-session';
+import nextCookie from 'next-cookies';
 import withReduxStore from '../frontend/redux/with-redux-store';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../frontend/static/style/App.css';
@@ -10,12 +10,12 @@ import AppNavbar from '../frontend/components/AppNavbar';
 
 class MyApp extends App {
   static async getInitialProps(appContext) {
-    const user = await useSession(appContext.ctx.req, appContext.ctx.res);
+    const { token } = nextCookie(appContext.ctx);
     const appProps = await App.getInitialProps(appContext);
 
     return {
       ...appProps,
-      user,
+      user: token,
     };
   }
 

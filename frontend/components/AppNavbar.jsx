@@ -33,7 +33,7 @@ class AppNavbar extends Component {
     const { user } = this.props;
     const { isOpen } = this.state;
 
-    const isLoggedIn = user != null && user.userId != null;
+    const isLoggedIn = user != null;
 
     return (
       <div>
@@ -72,10 +72,11 @@ class AppNavbar extends Component {
 }
 
 AppNavbar.propTypes = {
-  user: PropTypes.shape({
-    username: PropTypes.string,
-    userId: PropTypes.string,
-  }).isRequired,
+  user: PropTypes.string,
+};
+
+AppNavbar.defaultProps = {
+  user: null,
 };
 
 export default AppNavbar;

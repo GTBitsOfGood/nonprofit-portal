@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-unfetch';
+import cookie from 'js-cookie';
 
 import config from '../../config';
 
@@ -17,7 +18,16 @@ export const login = async (username, password) => fetch(
     }),
   },
 )
-  .then((response) => response.json());
+  .then((response) => response.json())
+  .then((json) => {
+    if (json == null || json.id == null) {
+      throw new Error('Unable to login at this time.');
+    }
+
+    cookie.set('token', json.id, { expires: 1 });
+
+    return json;
+  });
 
 export const signUp = async (username, password) => fetch(
   config.baseUrl + config.apis.signUp, {
@@ -33,4 +43,13 @@ export const signUp = async (username, password) => fetch(
     }),
   },
 )
-  .then((response) => response.json());
+  .then((response) => response.json())
+  .then((json) => {
+    if (json == null || json.id == null) {
+      throw new Error('Unable to sign up at this time.');
+    }
+
+    cookie.set('token', json.id, { expires: 1 });
+
+    return json;
+  });

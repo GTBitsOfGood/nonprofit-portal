@@ -1,33 +1,28 @@
 import React from 'react';
 import { Container } from 'reactstrap';
-import { useSession } from 'next-session';
 import Router from 'next/router';
+import nextCookie from 'next-cookies';
 import ApplicationsList from '../frontend/components/ApplicationsList';
+import config from '../config';
 
-class IndexPage extends React.PureComponent {
-  static async getInitialProps({ req, res }) {
-    const user = await useSession(req, res);
+class ViewPage extends React.Component {
+  static async getInitialProps(ctx) {
+    const { token } = nextCookie(ctx);
 
-    console.log('user', user)
-
-    const isLoggedIn = user != null && user.userId != null;
-    console.log('isLoggedIn', isLoggedIn)
-
-    if (!isLoggedIn) {
-      if (res) {
-        res.writeHead(302, {
-          Location: '/',
+    if (!token) {
+      if (typeof window === 'undefined') {
+        ctx.res.writeHead(302, {
+          Location: config.pages.login,
         });
-        res.finished = true;
-        res.end();
+        ctx.res.end();
       } else {
-        await Router.push('/');
+        Router.push(config.pages.login);
       }
-    } else {
-      return {
-        user,
-      };
     }
+
+    return {
+      token,
+    };
   }
 
   render() {
@@ -39,4 +34,4 @@ class IndexPage extends React.PureComponent {
   }
 }
 
-export default IndexPage;
+export default ViewPage;

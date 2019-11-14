@@ -11,5 +11,14 @@ export default {
     getApplication: '/api/getApplication',
     updateApplicationState: '/api/updateApplicationState',
     updateApplicationDecision: '/api/updateApplicationDecision',
+    login: '/api/login',
+    signUp: '/api/signUp',
+  },
+  pages: {
+    application: '/appication',
+    index: '/index',
+    login: '/login',
+    submitted: '/submitted',
+    view: '/view',
   },
 };

@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { Container } from 'reactstrap';
 import { withRouter } from 'next/router';
 
-import AppNavbar from '../../frontend/components/AppNavbar';
 import StatusJumbo from '../../frontend/components/StatusJumbo';
 import StatusBar from '../../frontend/components/StatusBar';
 import LandingBody from '../../frontend/components/LandingBody';
-
 import { getApplication } from '../../frontend/actions/applications';
 
 class LandingPage extends React.Component {
@@ -25,21 +23,18 @@ class LandingPage extends React.Component {
     const { application } = this.props;
 
     return (
-      <div className="App">
-        <AppNavbar />
-        <Container>
-          <StatusJumbo
-            status={application.status}
-            name={application.name}
-            decision={application.decision}
-          />
-          <StatusBar status={application.status} />
-          <LandingBody
-            status={application.status}
-            decision={application.decision}
-          />
-        </Container>
-      </div>
+      <Container>
+        <StatusJumbo
+          status={application.status}
+          name={application.name}
+          decision={application.decision}
+        />
+        <StatusBar status={application.status} />
+        <LandingBody
+          status={application.status}
+          decision={application.decision}
+        />
+      </Container>
     );
   }
 }

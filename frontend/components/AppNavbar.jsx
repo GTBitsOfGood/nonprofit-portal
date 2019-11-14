@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import {
   Collapse,
@@ -29,7 +30,10 @@ class AppNavbar extends Component {
   };
 
   render() {
+    const { user } = this.props;
     const { isOpen } = this.state;
+
+    const isLoggedIn = user != null && user.userId != null;
 
     return (
       <div>
@@ -44,11 +48,20 @@ class AppNavbar extends Component {
                     Apply
                   </NavLink>
                 </NavItem>
-                <NavItem>
-                  <NavLink href="/view">
-                    Applications
-                  </NavLink>
-                </NavItem>
+                {(isLoggedIn) && (
+                  <NavItem>
+                    <NavLink href="/view">
+                      Applications
+                    </NavLink>
+                  </NavItem>
+                )}
+                {(!isLoggedIn) && (
+                  <NavItem>
+                    <NavLink href="/login">
+                      Login
+                    </NavLink>
+                  </NavItem>
+                )}
               </Nav>
             </Collapse>
           </Container>
@@ -57,5 +70,12 @@ class AppNavbar extends Component {
     );
   }
 }
+
+AppNavbar.propTypes = {
+  user: PropTypes.shape({
+    username: PropTypes.string,
+    userId: PropTypes.string,
+  }).isRequired,
+};
 
 export default AppNavbar;

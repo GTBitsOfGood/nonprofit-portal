@@ -11,10 +11,12 @@ async function login(username, password) {
       if (user) {
         return bcrypt.compare(password, user.password).then((result) => {
           if (result) return Promise.resolve(user);
-          return Promise.reject(Error('The password you entered is incorrect'));
+
+          return Promise.reject(Error('The password you entered is incorrect.'));
         });
       }
-      return Promise.reject(Error('The username does not exist'));
+
+      return Promise.reject(Error('The username does not exist.'));
     })
     .then((user) => {
       mongoose.connection.close();

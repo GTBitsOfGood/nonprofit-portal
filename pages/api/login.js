@@ -1,22 +1,26 @@
+import { withSession } from 'next-session';
 import { login } from '../../server/mongodb/actions/users';
 
-// @route   GET api/login
+// @route   POST api/login
 // @desc    Get Login a user
 // @access  Public
-export default async function (req, res) {
+async function handler(req, res) {
   const { username, password } = req.body;
 
   await login(username, password)
     .then((user) => {
       req.session.userId = user._id;
+      req.session.username = user.username;
 
       return res.json({
-        status: 'ok',
-        message: `Welcome back, ${user.name}!`,
+        success: true,
+        message: `Welcome back, ${user.username}!`,
       });
     })
     .catch((error) => res.status(400).json({
-      status: 'error',
+      success: false,
       message: error.toString(),
     }));
 }
+
+export default withSession(handler);

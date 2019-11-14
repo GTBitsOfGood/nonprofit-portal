@@ -1,7 +1,7 @@
 import { withSession } from 'next-session';
 import { signUp } from '../../server/mongodb/actions/users';
 
-// @route   GET api/signUp
+// @route   POST api/signUp
 // @desc    Get Sign up a user
 // @access  Public
 async function handler(req, res) {
@@ -10,14 +10,15 @@ async function handler(req, res) {
   await signUp(username, password)
     .then((user) => {
       req.session.userId = user._id;
+      req.session.username = user.username;
 
       res.status(201).json({
-        status: 'ok',
+        success: true,
         message: 'User signed up successfully',
       });
     })
     .catch((error) => res.status(400).json({
-      status: 'error',
+      success: false,
       message: error.toString(),
     }));
 }

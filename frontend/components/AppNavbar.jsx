@@ -65,7 +65,12 @@ class AppNavbar extends Component {
                 )}
                 {(isLoggedIn) ? (
                   <NavItem>
-                    <NavLink onClick={signOut}>
+                    <NavLink
+                      onClick={signOut}
+                      style={{
+                        cursor: 'pointer',
+                      }}
+                    >
                       Logout
                     </NavLink>
                   </NavItem>

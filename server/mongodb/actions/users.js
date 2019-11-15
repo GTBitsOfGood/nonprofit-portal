@@ -4,8 +4,6 @@ const jwt = require('jsonwebtoken');
 const mongoDB = require('../index');
 const User = require('../models/User');
 
-const jwtSecret = 'secret';
-
 async function login(email, password) {
   await mongoDB();
 
@@ -28,7 +26,7 @@ async function login(email, password) {
         id: user._id,
         name: user.name,
         isAdmin: user.isAdmin,
-      }, jwtSecret, {
+      }, process.env.JWT_SECRET, {
         expiresIn: '7d',
       });
     })
@@ -62,7 +60,7 @@ async function signUp(name, email, password) {
         id: user._id,
         name: user.name,
         isAdmin: user.isAdmin,
-      }, jwtSecret, {
+      }, process.env.JWT_SECRET, {
         expiresIn: '7d',
       });
     })

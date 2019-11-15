@@ -2,6 +2,8 @@ import App from 'next/app';
 import React from 'react';
 import { Provider } from 'react-redux';
 import nextCookie from 'next-cookies';
+import cookie from 'js-cookie';
+import jwt from 'jsonwebtoken';
 import withReduxStore from '../frontend/redux/with-redux-store';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../frontend/static/style/App.css';
@@ -10,13 +12,13 @@ import AppNavbar from '../frontend/components/AppNavbar';
 
 class MyApp extends App {
   static async getInitialProps(appContext) {
-    const { token } = nextCookie(appContext.ctx);
+    const token = appContext.ctx.res ? nextCookie(appContext.ctx).token : cookie.get('token');
     const appProps = await App.getInitialProps(appContext);
 
     const user = {};
-    const jwt = require('jsonwebtoken');
     try {
-      const decoded = jwt.verify(token, 'secret');
+      const decoded = appContext.ctx.res
+        ? jwt.verify(token, process.env.JWT_SECRET) : jwt.decode(token);
       user.loggedIn = true;
       user.id = decoded.id;
       user.name = decoded.name;

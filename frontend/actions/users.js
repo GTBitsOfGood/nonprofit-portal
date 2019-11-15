@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-unfetch';
-import cookie from 'js-cookie';
 import Router from 'next/router';
+import cookie from 'js-cookie';
 
 import config from '../../config';
 
@@ -9,7 +9,7 @@ export const login = async (email, password) => fetch(
   config.baseUrl + config.apis.login, {
     method: 'post',
     mode: 'same-origin',
-    credentials: 'include',
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -29,8 +29,6 @@ export const login = async (email, password) => fetch(
       throw new Error('Unable to login at this time.');
     }
 
-    cookie.set('token', json.token, { expires: 7 });
-
     return json;
   });
 
@@ -38,7 +36,7 @@ export const signUp = async (name, email, password) => fetch(
   config.baseUrl + config.apis.signUp, {
     method: 'post',
     mode: 'same-origin',
-    credentials: 'include',
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -58,8 +56,6 @@ export const signUp = async (name, email, password) => fetch(
     } else if (json.token == null) {
       throw new Error('Unable to sign up at this time.');
     }
-
-    cookie.set('token', json.token, { expires: 7 });
 
     return json;
   });

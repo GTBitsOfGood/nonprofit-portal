@@ -1,6 +1,8 @@
 import React from 'react';
 import Router from 'next/router';
 import nextCookie from 'next-cookies';
+import jwt from 'jsonwebtoken';
+import cookie from 'js-cookie';
 import { login } from '../frontend/actions/users';
 import '../frontend/static/style/Login.css';
 import config from '../config';
@@ -8,23 +10,31 @@ import config from '../config';
 
 class LoginPage extends React.PureComponent {
   static async getInitialProps(ctx) {
-    const { token } = nextCookie(ctx);
+    const token = ctx.res ? nextCookie(ctx).token : cookie.get('token');
 
-    const jwt = require('jsonwebtoken');
-    let isValid = true;
-    try {
-      jwt.verify(token, 'secret');
-    } catch (e) {
-      isValid = false;
-    }
+    if (ctx.res) {
+      let isValid = true;
+      try {
+        jwt.verify(token, 'secret');
+      } catch (e) {
+        isValid = false;
+      }
 
-    if (isValid) {
-      if (typeof window === 'undefined') {
+      if (isValid) {
         ctx.res.writeHead(302, {
           Location: config.pages.view,
         });
         ctx.res.end();
-      } else {
+      }
+    } else {
+      let isValid = true;
+      try {
+        jwt.decode(token);
+      } catch (e) {
+        isValid = false;
+      }
+
+      if (isValid) {
         await Router.push(config.pages.view);
       }
     }
@@ -56,8 +66,12 @@ class LoginPage extends React.PureComponent {
     const { email, password } = this.state;
 
     await login(email, password)
-      .then(() => {
-        Router.push({
+      .then(async () => {
+        this.setState({
+          error: null,
+        });
+
+        await Router.push({
           pathname: config.pages.view,
         });
       })

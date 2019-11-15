@@ -4,9 +4,9 @@ import { login } from '../../server/mongodb/actions/users';
 // @desc    Get Login a user
 // @access  Public
 export default async function (req, res) {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  await login(username, password)
+  await login(email, password)
     .then((user) => res.json({
       success: true,
       id: user._id,

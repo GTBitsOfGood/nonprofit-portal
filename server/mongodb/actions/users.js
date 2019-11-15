@@ -3,10 +3,10 @@ const bcrypt = require('bcryptjs');
 const mongoDB = require('../index');
 const User = require('../models/User');
 
-async function login(username, password) {
+async function login(email, password) {
   await mongoDB();
 
-  return User.findOne({ username })
+  return User.findOne({ email })
     .then((user) => {
       if (user) {
         return bcrypt.compare(password, user.password).then((result) => {
@@ -16,7 +16,7 @@ async function login(username, password) {
         });
       }
 
-      return Promise.reject(Error('The username does not exist.'));
+      return Promise.reject(Error('The email does not exist.'));
     })
     .then((user) => {
       mongoose.connection.close();
@@ -30,19 +30,20 @@ async function login(username, password) {
     });
 }
 
-async function signUp(username, password) {
+async function signUp(name, email, password) {
   await mongoDB();
 
-  return User.countDocuments({ username })
+  return User.countDocuments({ email })
     .then((count) => {
       if (count) {
-        return Promise.reject(Error('The username has already been used.'));
+        return Promise.reject(Error('The email has already been used.'));
       }
 
       return bcrypt.hashSync(password);
     })
     .then((hashedPassword) => User.create({
-      username,
+      name,
+      email,
       password: hashedPassword,
     }))
     .then((user) => {

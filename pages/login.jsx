@@ -1,17 +1,38 @@
 import React from 'react';
 import Router from 'next/router';
+import nextCookie from 'next-cookies';
 import { login, signUp } from '../frontend/actions/users';
 import '../frontend/static/style/Login.css';
 import config from '../config';
 
 
 class LoginPage extends React.PureComponent {
+  static async getInitialProps(ctx) {
+    const { token } = nextCookie(ctx);
+
+    if (token) {
+      if (typeof window === 'undefined') {
+        ctx.res.writeHead(302, {
+          Location: config.pages.view,
+        });
+        ctx.res.end();
+      } else {
+        Router.push(config.pages.view);
+      }
+    }
+
+    return {
+      token,
+    };
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
       isLogin: true,
-      username: '',
+      name: '',
+      email: '',
       password: '',
       error: null,
     };
@@ -32,42 +53,32 @@ class LoginPage extends React.PureComponent {
   submitForm = async (event) => {
     event.preventDefault();
 
-    const { isLogin, username, password } = this.state;
+    const {
+      isLogin, name, email, password,
+    } = this.state;
 
     if (isLogin) {
-      await login(username, password)
-        .then((res) => {
-          if (!res.success) {
-            this.setState({
-              error: res.message,
-            });
-          } else {
-            Router.push({
-              pathname: config.pages.view,
-            });
-          }
+      await login(email, password)
+        .then(() => {
+          Router.push({
+            pathname: config.pages.view,
+          });
         })
-        .catch(() => {
+        .catch((e) => {
           this.setState({
-            error: 'There was an error, please try again later!',
+            error: e.message,
           });
         });
     } else {
-      await signUp(username, password)
-        .then((res) => {
-          if (!res.success) {
-            this.setState({
-              error: res.message,
-            });
-          } else {
-            Router.push({
-              pathname: config.pages.view,
-            });
-          }
+      await signUp(name, email, password)
+        .then(() => {
+          Router.push({
+            pathname: config.pages.view,
+          });
         })
-        .catch(() => {
+        .catch((e) => {
           this.setState({
-            error: 'There was an error, please try again later!',
+            error: e.message,
           });
         });
     }
@@ -75,48 +86,60 @@ class LoginPage extends React.PureComponent {
 
   render() {
     const {
-      isLogin, username, password, error,
+      isLogin, name, email, password, error,
     } = this.state;
 
     return (
-        <div className="LoginContainer">
-          <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
-          <form
-            className="LoginForm"
-            onSubmit={this.submitForm}
-          >
-            <label>Username</label>
+      <div className="LoginContainer">
+        <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
+        <form
+          className="LoginForm"
+          onSubmit={this.submitForm}
+        >
+          {(!isLogin) && (
+          <>
+            <label>Name</label>
             <input
-              name="username"
+              name="name"
               type="text"
-              value={username}
+              value={name}
               onChange={this.onChange}
               required
             />
-            <label>Password</label>
-            <input
-              name="password"
-              type="password"
-              value={password}
-              onChange={this.onChange}
-              required
-            />
-            <button type="submit">
-              Submit
-            </button>
-          </form>
-          <button
-            type="button"
-            onClick={this.toggleType}
-          >
-            {`Click to ${isLogin ? 'Sign Up' : 'Login'}`}
-          </button>
-          {(error != null) && (
-            <div className="ErrorModal">
-              <p>{error}</p>
-            </div>
+          </>
           )}
+          <label>Email</label>
+          <input
+            name="email"
+            type="email"
+            value={email}
+            onChange={this.onChange}
+            required
+          />
+          <label>Password</label>
+          <input
+            name="password"
+            type="password"
+            value={password}
+            onChange={this.onChange}
+            required
+          />
+          <button type="submit">
+              Submit
+          </button>
+        </form>
+        <button
+          type="button"
+          onClick={this.toggleType}
+        >
+          {`Click to ${isLogin ? 'Sign Up' : 'Login'}`}
+        </button>
+        {(error != null) && (
+        <div className="ErrorModal">
+          <p>{error}</p>
         </div>
+        )}
+      </div>
     );
   }
 }

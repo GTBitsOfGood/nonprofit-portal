@@ -4,9 +4,9 @@ import { signUp } from '../../server/mongodb/actions/users';
 // @desc    Get Sign up a user
 // @access  Public
 export default async function (req, res) {
-  const { username, password } = req.body;
+  const { name, email, password } = req.body;
 
-  await signUp(username, password)
+  await signUp(name, email, password)
     .then((user) => res.status(201).json({
       success: true,
       id: user._id,

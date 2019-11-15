@@ -9,7 +9,15 @@ class ViewPage extends React.Component {
   static async getInitialProps(ctx) {
     const { token } = nextCookie(ctx);
 
-    if (!token) {
+    const jwt = require('jsonwebtoken');
+    let isValid = true;
+    try {
+      jwt.verify(token, 'secret');
+    } catch (e) {
+      isValid = false;
+    }
+
+    if (!isValid) {
       if (typeof window === 'undefined') {
         ctx.res.writeHead(302, {
           Location: config.pages.login,

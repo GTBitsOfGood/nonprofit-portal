@@ -18,6 +18,7 @@ export default {
     application: '/appication',
     index: '/index',
     login: '/login',
+    register: '/register',
     submitted: '/submitted',
     view: '/view',
   },

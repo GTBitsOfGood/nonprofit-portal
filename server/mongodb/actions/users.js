@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const mongoDB = require('../index');
 const User = require('../models/User');
+
+const jwtSecret = 'secret';
 
 async function login(email, password) {
   await mongoDB();
@@ -21,7 +24,13 @@ async function login(email, password) {
     .then((user) => {
       mongoose.connection.close();
 
-      return user;
+      return jwt.sign({
+        id: user._id,
+        name: user.name,
+        isAdmin: user.isAdmin,
+      }, jwtSecret, {
+        expiresIn: '7d',
+      });
     })
     .catch((error) => {
       mongoose.connection.close();
@@ -49,7 +58,13 @@ async function signUp(name, email, password) {
     .then((user) => {
       mongoose.connection.close();
 
-      return user;
+      return jwt.sign({
+        id: user._id,
+        name: user.name,
+        isAdmin: user.isAdmin,
+      }, jwtSecret, {
+        expiresIn: '7d',
+      });
     })
     .catch((error) => {
       mongoose.connection.close();

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import {
   Collapse,
   Navbar,
@@ -11,6 +10,7 @@ import {
   NavLink,
   Container,
 } from 'reactstrap';
+import { signOut } from '../actions/users';
 
 class AppNavbar extends Component {
   constructor(props) {
@@ -33,7 +33,8 @@ class AppNavbar extends Component {
     const { user } = this.props;
     const { isOpen } = this.state;
 
-    const isLoggedIn = user != null;
+    const isLoggedIn = user != null && user.loggedIn;
+    const isAdmin = user != null && user.isAdmin;
 
     return (
       <div>
@@ -55,7 +56,20 @@ class AppNavbar extends Component {
                     </NavLink>
                   </NavItem>
                 )}
-                {(!isLoggedIn) && (
+                {(isAdmin) && (
+                  <NavItem>
+                    <NavLink href="/register">
+                      Create User
+                    </NavLink>
+                  </NavItem>
+                )}
+                {(isLoggedIn) ? (
+                  <NavItem>
+                    <NavLink onClick={signOut}>
+                      Logout
+                    </NavLink>
+                  </NavItem>
+                ) : (
                   <NavItem>
                     <NavLink href="/login">
                       Login
@@ -72,11 +86,12 @@ class AppNavbar extends Component {
 }
 
 AppNavbar.propTypes = {
-  user: PropTypes.string,
-};
-
-AppNavbar.defaultProps = {
-  user: null,
+  user: PropTypes.shape({
+    loggedIn: PropTypes.bool,
+    id: PropTypes.string,
+    name: PropTypes.string,
+    isAdmin: PropTypes.bool,
+  }).isRequired,
 };
 
 export default AppNavbar;

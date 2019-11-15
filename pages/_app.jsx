@@ -13,9 +13,21 @@ class MyApp extends App {
     const { token } = nextCookie(appContext.ctx);
     const appProps = await App.getInitialProps(appContext);
 
+    const user = {};
+    const jwt = require('jsonwebtoken');
+    try {
+      const decoded = jwt.verify(token, 'secret');
+      user.loggedIn = true;
+      user.id = decoded.id;
+      user.name = decoded.name;
+      user.isAdmin = decoded.isAdmin;
+    } catch (e) {
+      user.loggedIn = false;
+    }
+
     return {
       ...appProps,
-      user: token,
+      user,
     };
   }
 

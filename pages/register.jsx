@@ -1,24 +1,25 @@
 import React from 'react';
 import Router from 'next/router';
 import nextCookie from 'next-cookies';
-import { login } from '../frontend/actions/users';
+import { signUp } from '../frontend/actions/users';
 import '../frontend/static/style/Login.css';
 import config from '../config';
 
 
-class LoginPage extends React.PureComponent {
+class RegisterPage extends React.PureComponent {
   static async getInitialProps(ctx) {
     const { token } = nextCookie(ctx);
 
     const jwt = require('jsonwebtoken');
-    let isValid = true;
+    let isValid = false;
     try {
-      jwt.verify(token, 'secret');
+      const decoded = jwt.verify(token, 'secret');
+      isValid = decoded != null && decoded.isAdmin;
     } catch (e) {
       isValid = false;
     }
 
-    if (isValid) {
+    if (!isValid) {
       if (typeof window === 'undefined') {
         ctx.res.writeHead(302, {
           Location: config.pages.view,
@@ -38,6 +39,7 @@ class LoginPage extends React.PureComponent {
     super(props);
 
     this.state = {
+      name: '',
       email: '',
       password: '',
       error: null,
@@ -53,9 +55,9 @@ class LoginPage extends React.PureComponent {
   submitForm = async (event) => {
     event.preventDefault();
 
-    const { email, password } = this.state;
+    const { name, email, password } = this.state;
 
-    await login(email, password)
+    await signUp(name, email, password)
       .then(() => {
         Router.push({
           pathname: config.pages.view,
@@ -70,16 +72,24 @@ class LoginPage extends React.PureComponent {
 
   render() {
     const {
-      email, password, error,
+      name, email, password, error,
     } = this.state;
 
     return (
       <div className="LoginContainer">
-        <h1>Login</h1>
+        <h1>Create User</h1>
         <form
           className="LoginForm"
           onSubmit={this.submitForm}
         >
+          <label>Name</label>
+          <input
+            name="name"
+            type="text"
+            value={name}
+            onChange={this.onChange}
+            required
+          />
           <label>Email</label>
           <input
             name="email"
@@ -99,13 +109,13 @@ class LoginPage extends React.PureComponent {
           <button type="submit">Submit</button>
         </form>
         {(error != null) && (
-        <div className="ErrorModal">
-          <p>{error}</p>
-        </div>
+          <div className="ErrorModal">
+            <p>{error}</p>
+          </div>
         )}
       </div>
     );
   }
 }
 
-export default LoginPage;
+export default RegisterPage;

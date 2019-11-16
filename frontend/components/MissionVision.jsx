@@ -65,6 +65,7 @@ class MissionVision extends Component {
               placeholder="Organization Mission"
               value={values.mission}
               onChange={onChange}
+              required
             />
           </FormGroup>
         </Collapse>

@@ -62,6 +62,7 @@ class GeneralInformation extends Component {
               placeholder=""
               onChange={onChange}
               value={values.name}
+              required
             />
           </FormGroup>
           <FormGroup>
@@ -73,6 +74,7 @@ class GeneralInformation extends Component {
               placeholder=""
               onChange={onChange}
               value={values.streetaddress}
+              required
             />
           </FormGroup>
           <FormGroup>
@@ -88,16 +90,18 @@ class GeneralInformation extends Component {
                 className="reactstrap-input"
                 value={values.city}
                 inline
+                required
               />
               <CustomInput
                 type="select"
                 name="state"
                 id="state"
-                placeholder="(Optional)"
+                placeholder=""
                 onChange={onChange}
                 style={{ width: '75px', marginLeft: '1%' }}
                 value={values.state}
                 inline
+                required
               >
                 <option hidden disabled selected value>&nbsp;</option>
                 <option>AL</option>
@@ -162,6 +166,7 @@ class GeneralInformation extends Component {
                 value={values.state}
                 className="reactstrap-input"
                 inline
+                required
               />
             </div>
           </FormGroup>
@@ -187,6 +192,7 @@ class GeneralInformation extends Component {
               placeholder=""
               value={values.workPhone}
               onChange={onChange}
+              required
             />
           </FormGroup>
           <FormGroup>
@@ -198,6 +204,7 @@ class GeneralInformation extends Component {
               placeholder=""
               value={values.contactName}
               onChange={onChange}
+              required
             />
             <ErrorMessage name="website" render={(msg) => <div>{msg}</div>} />
           </FormGroup>
@@ -210,6 +217,7 @@ class GeneralInformation extends Component {
               placeholder=""
               value={values.mobilePhone}
               onChange={onChange}
+              required
             />
           </FormGroup>
           <FormGroup>
@@ -222,6 +230,7 @@ class GeneralInformation extends Component {
               value={values.email}
               onChange={onChange}
               onBlur={onBlur}
+              required
             />
             <ErrorMessage name="email" render={(msg) => <div style={{ color: 'red' }}>{msg}</div>} />
           </FormGroup>

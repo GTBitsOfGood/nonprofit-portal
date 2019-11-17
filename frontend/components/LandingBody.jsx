@@ -43,11 +43,12 @@ LandingBody.propTypes = {
     isBooked: PropTypes.bool,
     team: PropTypes.string,
     startDate: PropTypes.string,
-  }).isRequired,
+  }),
 };
 
 LandingBody.defaultProps = {
   decision: null,
+  meeting: null,
 };
 
 export default LandingBody;

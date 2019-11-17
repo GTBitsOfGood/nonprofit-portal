@@ -84,7 +84,11 @@ LandingPage.propTypes = {
     isBooked: PropTypes.bool,
     team: PropTypes.string,
     startDate: PropTypes.string,
-  }).isRequired,
+  }),
+};
+
+LandingPage.defaultProps = {
+  meeting: null,
 };
 
 export default withRouter(LandingPage);

@@ -32,7 +32,11 @@ const DecisionMadeBody = (props) => {
 };
 
 DecisionMadeBody.propTypes = {
-  decision: PropTypes.bool.isRequired,
+  decision: PropTypes.bool,
+};
+
+DecisionMadeBody.defaultProps = {
+  decision: false,
 };
 
 export default DecisionMadeBody;

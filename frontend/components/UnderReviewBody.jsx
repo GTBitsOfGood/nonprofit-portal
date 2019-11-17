@@ -5,11 +5,11 @@ import LandingImage from './LandingImage';
 const UnderViewBody = () => (
   <>
     <LandingBodyMessage width={750}>
-      Congratulations! After careful considerations, we decide that... We enjoyed the meeting
-      with you and believe that our missions align with each other. Lorem ipsum dolor sit amet,
-      consectetur adipiscing elit. Vel interdum facilisi risus donec egestas nisi malesuada eget.
-      Vitae adipiscing sem fermentum leo sollicitudin. Mollis leo nisl id ac lacus vestibulum amet,
-      feugiat ut. Sed leo id semper est in iaculis.
+      We enjoyed the meeting with you! Hang tight for the updates for your
+      application. We still need more time to tell our team about your
+      organization and the product goals to make decisions accordingly.
+      We appreciate your time and patience. Before the decision is made,
+      feel free to contact us if you have any further questions.
     </LandingBodyMessage>
     <LandingImage src="/static/review.svg" alt="Application submitted" />
   </>

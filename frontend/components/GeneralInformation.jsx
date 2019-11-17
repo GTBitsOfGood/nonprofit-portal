@@ -163,7 +163,7 @@ class GeneralInformation extends Component {
                 placeholder=""
                 onChange={onChange}
                 style={{ marginLeft: '2%' }}
-                value={values.state}
+                value={values.zipcode}
                 className="reactstrap-input"
                 inline
                 required

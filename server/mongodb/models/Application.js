@@ -20,7 +20,7 @@ const ApplicationSchema = new Schema({
     type: String,
     required: true,
   },
-  zip: {
+  zipcode: {
     type: String,
     required: true,
   },

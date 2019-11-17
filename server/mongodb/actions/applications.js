@@ -109,6 +109,20 @@ async function updateApplicationDecision(id, decision) {
   return result;
 }
 
+async function updateApplicationMeeting(id, availabilityId) {
+  await mongoDB();
+  let result = {};
+
+  try {
+    result = await Application.findOneAndUpdate({ _id: id }, { meeting: availabilityId },
+      { upsert: false, new: true, useFindAndModify: false });
+  } finally {
+    mongoose.connection.close();
+  }
+
+  return result;
+}
+
 async function getApplication(urlString) {
   await mongoDB();
 
@@ -129,4 +143,5 @@ module.exports = {
   getApplication,
   updateApplicationState,
   updateApplicationDecision,
+  updateApplicationMeeting,
 };

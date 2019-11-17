@@ -50,11 +50,18 @@ class AppNavbar extends Component {
                   </NavLink>
                 </NavItem>
                 {(isLoggedIn) && (
-                  <NavItem>
-                    <NavLink href="/view">
-                      Applications
-                    </NavLink>
-                  </NavItem>
+                  <>
+                    <NavItem>
+                      <NavLink href="/view">
+                        Applications
+                      </NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink href="/schedule">
+                        Availability
+                      </NavLink>
+                    </NavItem>
+                  </>
                 )}
                 {(isAdmin) && (
                   <NavItem>

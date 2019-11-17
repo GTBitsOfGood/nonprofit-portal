@@ -11,12 +11,8 @@ html
       tbody
         tr
           td
-            - const logoURL = `${staticURL}/logo.jpg`
-            img(id="logo" src=logoURL)
-        tr
-          td
-            - const placeholderURL = `${staticURL}/placeholder.jpg`
-            img(id="placeholder" src=placeholderURL)
+            - const placeholderURL = `${staticURL}/header.png`
+            img(id="header" src=placeholderURL)
         tr
           td
             p Dear #{name},
@@ -42,10 +38,27 @@ html
             img(id="status" src=statusURL alt=alt)
         tr
           td
-            p You can revisit this webpage to track your status of application:
+            p You can revisit this webpage to track the status of your application:
             - const link = `${baseUrl}/p/${urlString}`
             a(href=link)
               p #{link}
         tr
           td
             p - Bits of Good Team
+        tr
+          td
+            div(id="footer" style={"background-image": `url("${staticURL}/footer.jpg")`})
+              h1(id="copyright") © 2019 Bits of Good | bitsofgood.org 
+              div(id="socials")
+                - const facebookLogoURL = `${staticURL}/facebook.png`
+                - const twitterLogoURL = `${staticURL}/twitter.png`
+                - const instagramLogoURL = `${staticURL}/instagram.png`
+                - const linkedinLogoURL = `${staticURL}/linkedin.png`
+                a(href="https://www.facebook.com/GTBitsOfGood/")
+                  img(class="social right" src=facebookLogoURL)
+                a(href="https://twitter.com/gtbitsofgood")
+                  img(class="social left right" src=twitterLogoURL)
+                a(href="https://www.instagram.com/gtbitsofgood/")
+                  img(class="social left right" src=instagramLogoURL)
+                a(href="https://www.linkedin.com/company/gtbitsofgood/about/")
+                  img(class="social left" src=linkedinLogoURL)

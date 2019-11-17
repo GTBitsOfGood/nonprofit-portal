@@ -13,10 +13,10 @@ const StatusJumbo = (props) => {
       case 2:
         return `Let's meet and talk about the project, ${name}!`;
       case 3:
-        return `We are completing a final review, ${name}!`;
+        return `We are working on your application, ${name}!`;
       case 4:
         if (decision === true) return `We look forward to working with you, ${name}!`;
-        return `We thank you for applying, ${name}!`;
+        return `Perhaps next time, ${name}!`;
     }
   };
 
@@ -43,9 +43,14 @@ const StatusJumbo = (props) => {
   );
 };
 
+StatusJumbo.defaultProps = {
+  decision: null,
+};
+
 StatusJumbo.propTypes = {
   status: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
+  decision: PropTypes.bool,
 };
 
 export default StatusJumbo;

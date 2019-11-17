@@ -7,11 +7,22 @@ import StatusJumbo from '../../frontend/components/StatusJumbo';
 import StatusBar from '../../frontend/components/StatusBar';
 import LandingBody from '../../frontend/components/LandingBody';
 import { getApplication } from '../../frontend/actions/applications';
+import { getAvailability } from '../../frontend/actions/availabilities';
 
 class LandingPage extends React.Component {
   static async getInitialProps(router) {
     const urlString = router.query.url;
     const application = await getApplication(router.query.url);
+
+    if (application.meeting != null) {
+      const meeting = await getAvailability(application.meeting);
+
+      return {
+        application,
+        urlString,
+        meeting,
+      };
+    }
 
     return {
       application,
@@ -20,21 +31,27 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    const { application } = this.props;
+    const { application, meeting } = this.props;
 
     return (
-      <Container>
-        <StatusJumbo
-          status={application.status}
-          name={application.name}
-          decision={application.decision}
-        />
-        <StatusBar status={application.status} />
-        <LandingBody
-          status={application.status}
-          decision={application.decision}
-        />
-      </Container>
+      <div className="App">
+        <AppNavbar />
+        <Container>
+          <StatusJumbo
+            status={application.status}
+            name={application.name}
+            decision={application.decision}
+          />
+          <StatusBar status={application.status} />
+          <LandingBody
+            status={application.status}
+            name={application.name}
+            decision={application.decision}
+            applicationId={application._id}
+            meeting={meeting}
+          />
+        </Container>
+      </div>
     );
   }
 }
@@ -60,6 +77,16 @@ LandingPage.propTypes = {
     website: PropTypes.string,
     workPhone: PropTypes.string,
   }).isRequired,
+  meeting: PropTypes.shape({
+    _id: PropTypes.string,
+    isBooked: PropTypes.bool,
+    team: PropTypes.string,
+    startDate: PropTypes.string,
+  }),
+};
+
+LandingPage.defaultProps = {
+  meeting: null,
 };
 
 export default withRouter(LandingPage);

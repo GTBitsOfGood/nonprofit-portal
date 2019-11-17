@@ -26,7 +26,7 @@ class Feedback extends Component {
   };
 
   render() {
-    const { onChange } = this.props;
+    const { onChange, values } = this.props;
     const { open } = this.state;
 
     return (
@@ -58,9 +58,10 @@ class Feedback extends Component {
             <Input
               type="textarea"
               name="feedback"
-              id="application"
+              id="feedback"
               placeholder="(Optional)"
               onChange={onChange}
+              value={values.feedback}
             />
           </FormGroup>
         </Collapse>
@@ -71,6 +72,7 @@ class Feedback extends Component {
 
 Feedback.propTypes = {
   onChange: PropTypes.func.isRequired,
+  values: PropTypes.object.isRequired,
 };
 
 export default Feedback;

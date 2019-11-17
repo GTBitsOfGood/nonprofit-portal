@@ -13,7 +13,7 @@ async function getApplications() {
   let applications = [];
   await Application
     .find()
-    .sort({ date: -1 })
+    .sort({ submitted: -1 })
     .then((res) => {
       applications = res;
       mongoose.connection.close();
@@ -77,6 +77,17 @@ async function updateApplicationState(id, state) {
       result = await Application.findOneAndUpdate({ _id: id }, { status: state },
         { upsert: false, new: true, useFindAndModify: false });
     }
+    sendEmail({
+      to: curObject.email,
+      template: 'status',
+      locals: {
+        status: state,
+        name: result.name,
+        baseUrl: config.baseUrl,
+        urlString: result.urlString,
+        decision: result.decision,
+      },
+    });
   } finally {
     mongoose.connection.close();
   }
@@ -90,6 +101,20 @@ async function updateApplicationDecision(id, decision) {
 
   try {
     result = await Application.findOneAndUpdate({ _id: id }, { decision, status: 4 },
+      { upsert: false, new: true, useFindAndModify: false });
+  } finally {
+    mongoose.connection.close();
+  }
+
+  return result;
+}
+
+async function updateApplicationMeeting(id, availabilityId) {
+  await mongoDB();
+  let result = {};
+
+  try {
+    result = await Application.findOneAndUpdate({ _id: id }, { meeting: availabilityId },
       { upsert: false, new: true, useFindAndModify: false });
   } finally {
     mongoose.connection.close();
@@ -118,4 +143,5 @@ module.exports = {
   getApplication,
   updateApplicationState,
   updateApplicationDecision,
+  updateApplicationMeeting,
 };

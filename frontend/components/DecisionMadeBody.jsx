@@ -1,35 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LandingBodyMessage from './LandingBodyMessage';
+import LandingImage from './LandingImage';
 
 const DecisionMadeBody = (props) => {
   const { decision } = props;
 
   if (decision === true) {
     return (
-      <LandingBodyMessage width={750}>
-        Congratulations! After careful considerations, we decide that... We enjoyed the meeting
-        with you and believe that our missions align with each other. Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Vel interdum facilisi risus donec egestas nisi malesuada eget.
-        Vitae adipiscing sem fermentum leo sollicitudin. Mollis leo nisl id ac lacus vestibulum
-        amet, feugiat ut. Sed leo id semper est in iaculis.
-      </LandingBodyMessage>
+      <>
+        <LandingBodyMessage width={750}>
+        Congratulations! After careful consideration, our team has decided to work with you next
+        semester! We enjoyed the meeting with you and believe that our missions align with each
+        other. Let’s build a powerful and meaningful product together to make our community better!
+        </LandingBodyMessage>
+        <LandingImage src="/static/happy.svg" alt="Application submitted" />
+      </>
     );
   }
 
   return (
-    <LandingBodyMessage width={750}>
-      Congratulations! After careful considerations, we decide that... We will not be moving forward
-      with your application at this time. We still appreciate all the good work that you do! Lorem ipsum
-      dolor sit amet, consectetur adipiscing elit. Vel interdum facilisi risus donec egestas nisi malesuada
-      eget. Vitae adipiscing sem fermentum leo sollicitudin. Mollis leo nisl id ac lacus vestibulum amet,
-      feugiat ut. Sed leo id semper est in iaculis.
-    </LandingBodyMessage>
+    <>
+      <LandingBodyMessage width={750}>
+      After careful considerations, we are sorry to inform you that we decide not to move on with
+      your application. We enjoyed learning about your organization and its impact on the community.
+      We appreciate your time and work! Keep in touch!
+      </LandingBodyMessage>
+      <LandingImage src="/static/sad.svg" alt="Application submitted" />
+    </>
   );
 };
 
 DecisionMadeBody.propTypes = {
-  decision: PropTypes.bool.isRequired,
+  decision: PropTypes.bool,
+};
+
+DecisionMadeBody.defaultProps = {
+  decision: false,
 };
 
 export default DecisionMadeBody;

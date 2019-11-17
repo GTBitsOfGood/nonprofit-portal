@@ -1,6 +1,6 @@
 import {
   GET_APPLICATIONS, ADD_APPLICATION, DELETE_APPLICATION, APPLICATIONS_LOADING,
-  UPDATE_APPLICATION_STATE, UPDATE_APPLICATION_DECISION,
+  UPDATE_APPLICATION_STATE, UPDATE_APPLICATION_DECISION, UPDATE_APPLICATION_MEETING,
 } from './types';
 import * as applicationActions from '../../actions/applications';
 
@@ -43,5 +43,12 @@ export const updateApplicationDecision = (id, decision) => (dispatch) => applica
   .updateApplicationDecision(id, decision)
   .then((res) => dispatch({
     type: UPDATE_APPLICATION_DECISION,
+    payload: res,
+  }));
+
+export const updateApplicationMeeting = (id, availabilityId) => (dispatch) => applicationActions
+  .updateApplicationMeeting(id, availabilityId)
+  .then((res) => dispatch({
+    type: UPDATE_APPLICATION_MEETING,
     payload: res,
   }));

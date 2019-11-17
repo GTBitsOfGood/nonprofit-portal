@@ -6,8 +6,11 @@ import {
   Label,
   Collapse,
   Input,
+  CustomInput,
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ErrorMessage } from 'formik';
+import '../static/style/App.css';
 import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 class GeneralInformation extends Component {
@@ -26,7 +29,7 @@ class GeneralInformation extends Component {
   };
 
   render() {
-    const { onChange } = this.props;
+    const { onChange, values, onBlur } = this.props;
     const { open } = this.state;
 
     return (
@@ -55,39 +58,141 @@ class GeneralInformation extends Component {
             <Input
               type="text"
               name="name"
-              id="application"
+              id="name"
               placeholder=""
               onChange={onChange}
+              value={values.name}
+              required
             />
           </FormGroup>
           <FormGroup>
-            <Label for="application">Address</Label>
+            <Label for="application">Street Address</Label>
             <Input
               type="text"
-              name="address"
-              id="application"
+              name="streetaddress"
+              id="streetaddress"
               placeholder=""
               onChange={onChange}
+              value={values.streetaddress}
+              required
             />
+          </FormGroup>
+          <FormGroup>
+            <Label for="application">City & State & Zip</Label>
+            <div>
+              <CustomInput
+                type="text"
+                name="city"
+                id="city"
+                placeholder=""
+                onChange={onChange}
+                label="city"
+                className="reactstrap-input"
+                value={values.city}
+                inline
+                required
+              />
+              <CustomInput
+                type="select"
+                name="state"
+                id="state"
+                placeholder=""
+                onChange={onChange}
+                style={{ width: '75px', marginLeft: '1%' }}
+                value={values.state}
+                inline
+                required
+              >
+                <option hidden disabled selected value>&nbsp;</option>
+                <option>AL</option>
+                <option>AK</option>
+                <option>AZ</option>
+                <option>AR</option>
+                <option>CA</option>
+                <option>CO</option>
+                <option>CT</option>
+                <option>DE</option>
+                <option>FL</option>
+                <option>GA</option>
+                <option>HI</option>
+                <option>ID</option>
+                <option>IL</option>
+                <option>IN</option>
+                <option>IA</option>
+                <option>KS</option>
+                <option>KY</option>
+                <option>LA</option>
+                <option>ME</option>
+                <option>MD</option>
+                <option>MA</option>
+                <option>MI</option>
+                <option>MN</option>
+                <option>MS</option>
+                <option>MO</option>
+                <option>MT</option>
+                <option>NE</option>
+                <option>NV</option>
+                <option>NH</option>
+                <option>NJ</option>
+                <option>NM</option>
+                <option>NY</option>
+                <option>NC</option>
+                <option>ND</option>
+                <option>OH</option>
+                <option>OK</option>
+                <option>OR</option>
+                <option>PA</option>
+                <option>RI</option>
+                <option>SC</option>
+                <option>SD</option>
+                <option>TN</option>
+                <option>TX</option>
+                <option>UT</option>
+                <option>VT</option>
+                <option>VA</option>
+                <option>WA</option>
+                <option>WV</option>
+                <option>WI</option>
+                <option>WY</option>
+                <option>N/A</option>
+              </CustomInput>
+              <CustomInput
+                type="text"
+                name="zipcode"
+                id="zipcode"
+                placeholder=""
+                onChange={onChange}
+                style={{ marginLeft: '2%' }}
+                value={values.zipcode}
+                className="reactstrap-input"
+                inline
+                required
+              />
+            </div>
           </FormGroup>
           <FormGroup>
             <Label for="application">Website</Label>
             <Input
               type="url"
               name="website"
-              id="application"
+              id="website"
               placeholder="(Optional)"
+              value={values.website}
               onChange={onChange}
+              onBlur={onBlur}
             />
+            <ErrorMessage name="website" render={(msg) => <div style={{ color: 'red' }}>{msg}</div>} />
           </FormGroup>
           <FormGroup>
             <Label for="application">Work Phone</Label>
             <Input
               type="text"
               name="workPhone"
-              id="application"
+              id="workPhone"
               placeholder=""
+              value={values.workPhone}
               onChange={onChange}
+              required
             />
           </FormGroup>
           <FormGroup>
@@ -95,19 +200,24 @@ class GeneralInformation extends Component {
             <Input
               type="text"
               name="contactName"
-              id="application"
+              id="contactName"
               placeholder=""
+              value={values.contactName}
               onChange={onChange}
+              required
             />
+            <ErrorMessage name="website" render={(msg) => <div>{msg}</div>} />
           </FormGroup>
           <FormGroup>
             <Label for="application">Mobile Phone</Label>
             <Input
               type="text"
               name="mobilePhone"
-              id="application"
-              placeholder="(Optional)"
+              id="mobilePhone"
+              placeholder=""
+              value={values.mobilePhone}
               onChange={onChange}
+              required
             />
           </FormGroup>
           <FormGroup>
@@ -115,10 +225,14 @@ class GeneralInformation extends Component {
             <Input
               type="email"
               name="email"
-              id="application"
+              id="email"
               placeholder=""
+              value={values.email}
               onChange={onChange}
+              onBlur={onBlur}
+              required
             />
+            <ErrorMessage name="email" render={(msg) => <div style={{ color: 'red' }}>{msg}</div>} />
           </FormGroup>
         </Collapse>
       </>
@@ -128,6 +242,8 @@ class GeneralInformation extends Component {
 
 GeneralInformation.propTypes = {
   onChange: PropTypes.func.isRequired,
+  values: PropTypes.object.isRequired,
+  onBlur: PropTypes.func.isRequired,
 };
 
 export default GeneralInformation;

@@ -77,6 +77,17 @@ async function updateApplicationState(id, state) {
       result = await Application.findOneAndUpdate({ _id: id }, { status: state },
         { upsert: false, new: true, useFindAndModify: false });
     }
+    sendEmail({
+      to: curObject.email,
+      template: 'status',
+      locals: {
+        status: state,
+        name: result.name,
+        baseUrl: config.baseUrl,
+        urlString: result.urlString,
+        decision: result.decision,
+      },
+    });
   } finally {
     mongoose.connection.close();
   }

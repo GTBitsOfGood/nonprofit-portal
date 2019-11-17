@@ -11,6 +11,7 @@ export default {
     getApplication: '/api/getApplication',
     updateApplicationState: '/api/updateApplicationState',
     updateApplicationDecision: '/api/updateApplicationDecision',
+    updateApplicationMeeting: '/api/updateApplicationMeeting',
     getAvailabilities: '/api/getAvailabilities',
     addAvailability: '/api/addAvailability',
     deleteAvailability: '/api/deleteAvailability',

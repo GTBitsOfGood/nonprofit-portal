@@ -90,6 +90,12 @@ const ApplicationSchema = new Schema({
   },
   decision: {
     type: Boolean,
+    default: null,
+  },
+  meeting: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Availability',
+    default: null,
   },
 });
 

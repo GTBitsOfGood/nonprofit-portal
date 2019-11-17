@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import LandingBodyMessage from '../LandingBodyMessage';
 import NonProfitCalendar from '../calendar/NonProfitCalendar';
 import { updateAvailability as updateAvailabilityBase } from '../../redux/actions/availabilityActions';
-import { updateApplicationState as updateApplicationStateBase } from '../../redux/actions/applicationActions';
+import {
+  updateApplicationState as updateApplicationStateBase,
+  updateApplicationMeeting as updateApplicationMeetingBase,
+} from '../../redux/actions/applicationActions';
 
 import './ScheduleInterviewBody.css';
 
@@ -35,7 +38,7 @@ class ScheduleInterviewBody extends React.PureComponent {
     e.preventDefault();
 
     const {
-      name, applicationId, updateAvailability, updateApplicationState,
+      name, applicationId, updateAvailability, updateApplicationState, updateApplicationMeeting,
     } = this.props;
     const { selectedHour, person, phone } = this.state;
 
@@ -51,6 +54,7 @@ class ScheduleInterviewBody extends React.PureComponent {
         phone,
       });
       await updateApplicationState(applicationId, 2);
+      await updateApplicationMeeting(applicationId, selectedHour);
       window.location.reload();
     }
   };
@@ -137,4 +141,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   updateAvailability: updateAvailabilityBase,
   updateApplicationState: updateApplicationStateBase,
+  updateApplicationMeeting: updateApplicationMeetingBase,
 })(ScheduleInterviewBody);

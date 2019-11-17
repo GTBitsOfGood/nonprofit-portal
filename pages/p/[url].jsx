@@ -9,11 +9,22 @@ import StatusBar from '../../frontend/components/StatusBar';
 import LandingBody from '../../frontend/components/LandingBody';
 
 import { getApplication } from '../../frontend/actions/applications';
+import { getAvailability } from '../../frontend/actions/availabilities';
 
 class LandingPage extends React.Component {
   static async getInitialProps(router) {
     const urlString = router.query.url;
     const application = await getApplication(router.query.url);
+
+    if (application.meeting != null) {
+      const meeting = await getAvailability(application.meeting);
+
+      return {
+        application,
+        urlString,
+        meeting,
+      };
+    }
 
     return {
       application,
@@ -22,7 +33,7 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    const { application } = this.props;
+    const { application, meeting } = this.props;
 
     return (
       <div className="App">
@@ -39,6 +50,7 @@ class LandingPage extends React.Component {
             name={application.name}
             decision={application.decision}
             applicationId={application._id}
+            meeting={meeting}
           />
         </Container>
       </div>
@@ -66,6 +78,12 @@ LandingPage.propTypes = {
     urlString: PropTypes.string,
     website: PropTypes.string,
     workPhone: PropTypes.string,
+  }).isRequired,
+  meeting: PropTypes.shape({
+    _id: PropTypes.string,
+    isBooked: PropTypes.bool,
+    team: PropTypes.string,
+    startDate: PropTypes.string,
   }).isRequired,
 };
 

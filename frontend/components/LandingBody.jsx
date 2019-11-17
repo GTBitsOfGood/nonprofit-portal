@@ -2,18 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AppSubmittedBody from './AppSubmittedBody';
 import ScheduleInterviewBody from './ScheduleInterviewBody/ScheduleInterviewBody';
-import InterviewScheduledBody from './InterviewScheduledBody';
+import InterviewScheduledBody from './InterviewScheduledBody/InterviewScheduledBody';
 import UnderReviewBody from './UnderReviewBody';
 import DecisionMadeBody from './DecisionMadeBody';
 
-const getLandingBody = (status, decision, name, applicationId) => {
+const getLandingBody = (status, decision, name, applicationId, meeting) => {
   switch (status) {
     default:
       return <AppSubmittedBody />;
     case 1:
       return <ScheduleInterviewBody name={name} applicationId={applicationId} />;
     case 2:
-      return <InterviewScheduledBody />;
+      return <InterviewScheduledBody meeting={meeting} />;
     case 3:
       return <UnderReviewBody />;
     case 4:
@@ -22,11 +22,13 @@ const getLandingBody = (status, decision, name, applicationId) => {
 };
 
 const LandingBody = (props) => {
-  const { status, decision, name, applicationId } = props;
+  const {
+    status, decision, name, applicationId, meeting,
+  } = props;
 
   return (
     <div style={{ marginTop: '50px', height: '100%', marginBottom: '60px' }}>
-      {getLandingBody(status, decision, name, applicationId)}
+      {getLandingBody(status, decision, name, applicationId, meeting)}
     </div>
   );
 };
@@ -36,6 +38,12 @@ LandingBody.propTypes = {
   name: PropTypes.string.isRequired,
   decision: PropTypes.bool,
   applicationId: PropTypes.string.isRequired,
+  meeting: PropTypes.shape({
+    _id: PropTypes.string,
+    isBooked: PropTypes.bool,
+    team: PropTypes.string,
+    startDate: PropTypes.string,
+  }).isRequired,
 };
 
 LandingBody.defaultProps = {

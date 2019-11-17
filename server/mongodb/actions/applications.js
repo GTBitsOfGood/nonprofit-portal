@@ -13,7 +13,7 @@ async function getApplications() {
   let applications = [];
   await Application
     .find()
-    .sort({ date: -1 })
+    .sort({ submitted: -1 })
     .then((res) => {
       applications = res;
       mongoose.connection.close();

@@ -33,3 +33,11 @@
     margin-top: 30px;
     margin-bottom: 30px;
 }
+
+.reactstrap-input {
+    border-radius: .25rem;
+    border: 1px solid #ced4da;
+    padding: 6px;
+    margin-right: 1%;
+    vertical-align: middle;
+}

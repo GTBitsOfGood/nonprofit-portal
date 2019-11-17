@@ -8,13 +8,21 @@ const ApplicationSchema = new Schema({
     type: String,
     required: true,
   },
-  address: {
+  streetaddress: {
     type: String,
     required: true,
   },
-  website: {
+  city: {
     type: String,
-    required: false,
+    required: true,
+  },
+  state: {
+    type: String,
+    required: true,
+  },
+  zipcode: {
+    type: String,
+    required: true,
   },
   workPhone: {
     type: String,
@@ -26,7 +34,7 @@ const ApplicationSchema = new Schema({
   },
   mobilePhone: {
     type: String,
-    required: false,
+    required: true,
   },
   email: {
     type: String,
@@ -36,16 +44,8 @@ const ApplicationSchema = new Schema({
     type: String,
     required: true,
   },
-  needsWeb: {
-    type: String,
-    required: false,
-  },
-  needsMobile: {
-    type: String,
-    required: false,
-  },
-  needsOther: {
-    type: String,
+  productNeeds: {
+    type: Array,
     required: false,
   },
   needsOtherExpand: {
@@ -86,7 +86,7 @@ const ApplicationSchema = new Schema({
   },
   urlString: {
     type: String,
-    required: true,
+    required: false,
   },
   decision: {
     type: Boolean,
@@ -96,6 +96,10 @@ const ApplicationSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Availability',
     default: null,
+  },
+}, {
+  timestamps: {
+    createdAt: 'submitted',
   },
 });
 

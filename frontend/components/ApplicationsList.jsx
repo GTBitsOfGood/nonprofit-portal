@@ -9,6 +9,7 @@ import {
 } from 'reactstrap';
 import { TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
+import { withSnackbar } from 'notistack';
 import {
   getApplications as getApplicationsBase,
   deleteApplication as deleteApplicationBase,
@@ -18,24 +19,104 @@ import {
 
 class ApplicationsList extends Component {
   componentDidMount() {
-    const { getApplications } = this.props;
-    getApplications();
+    const { getApplications, closeSnackbar, enqueueSnackbar } = this.props;
+
+    getApplications()
+      .then(() => {
+        closeSnackbar(this.getErrorKey);
+        this.getErrorKey = null;
+        this.getErrorMessage = null;
+      })
+      .catch((e) => {
+        if (this.getErrorMessage !== e.message) {
+          closeSnackbar(this.getErrorKey);
+          this.getErrorKey = null;
+        }
+
+        if (this.getErrorKey == null) {
+          this.getErrorMessage = e.message;
+          this.getErrorKey = enqueueSnackbar('Failed to get applications!', {
+            variant: 'error',
+            persist: true,
+          });
+        }
+      });
   }
 
   onDeleteClick = (id) => {
-    const { deleteApplication } = this.props;
-    deleteApplication(id);
+    const { deleteApplication, closeSnackbar, enqueueSnackbar } = this.props;
+
+    deleteApplication(id)
+      .then(() => {
+        closeSnackbar(this.deleteErrorKey);
+        this.deleteErrorKey = null;
+        this.deleteErrorMessage = null;
+      })
+      .catch((e) => {
+        if (this.deleteErrorMessage !== e.message) {
+          closeSnackbar(this.deleteErrorKey);
+          this.deleteErrorKey = null;
+        }
+
+        if (this.deleteErrorKey == null) {
+          this.deleteErrorMessage = e.message;
+          this.deleteErrorKey = enqueueSnackbar('Failed to delete application!', {
+            variant: 'error',
+            persist: true,
+          });
+        }
+      });
   };
 
   changeAppState = async (id, state) => {
-    const { updateApplicationState } = this.props;
-    await updateApplicationState(id, state);
-  }
+    const { updateApplicationState, closeSnackbar, enqueueSnackbar } = this.props;
+
+    await updateApplicationState(id, state)
+      .then(() => {
+        closeSnackbar(this.updateErrorKey);
+        this.updateErrorKey = null;
+        this.updateErrorMessage = null;
+      })
+      .catch((e) => {
+        if (this.updateErrorMessage !== e.message) {
+          closeSnackbar(this.updateErrorKey);
+          this.updateErrorKey = null;
+        }
+
+        if (this.updateErrorKey == null) {
+          this.updateErrorMessage = e.message;
+          this.updateErrorKey = enqueueSnackbar('Failed to update application state!', {
+            variant: 'error',
+            persist: true,
+          });
+        }
+      });
+  };
 
   changeAppDecision = async (id, decision) => {
-    const { updateApplicationDecision } = this.props;
-    await updateApplicationDecision(id, decision);
-  }
+    const { updateApplicationDecision, closeSnackbar, enqueueSnackbar } = this.props;
+
+    await updateApplicationDecision(id, decision)
+      .then(() => {
+        closeSnackbar(this.updateErrorKey);
+        this.updateErrorKey = null;
+        this.updateErrorMessage = null;
+      })
+      .catch((e) => {
+        if (this.updateErrorMessage !== e.message) {
+          closeSnackbar(this.updateErrorKey);
+          this.updateErrorKey = null;
+        }
+
+        if (this.updateErrorKey == null) {
+          this.updateErrorMessage = e.message;
+          this.updateErrorKey = enqueueSnackbar('Failed to update application decision!', {
+            variant: 'error',
+            persist: true,
+          });
+        }
+      });
+  };
 
   render() {
     const { application } = this.props;
@@ -257,6 +338,8 @@ ApplicationsList.propTypes = {
     applications: PropTypes.arrayOf(PropTypes.object),
     loading: PropTypes.bool,
   }).isRequired,
+  enqueueSnackbar: PropTypes.func.isRequired,
+  closeSnackbar: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -268,4 +351,4 @@ export default connect(mapStateToProps, {
   deleteApplication: deleteApplicationBase,
   updateApplicationState: updateApplicationStateBase,
   updateApplicationDecision: updateApplicationDecisionBase,
-})(ApplicationsList);
+})(withSnackbar(ApplicationsList));

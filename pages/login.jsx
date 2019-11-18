@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Router from 'next/router';
 import cookie from 'js-cookie';
+import { withSnackbar } from 'notistack';
 import { login, verifyToken } from '../frontend/actions/users';
 import '../frontend/static/style/Login.css';
 import config from '../config';
@@ -31,7 +33,6 @@ class LoginPage extends React.PureComponent {
     this.state = {
       email: '',
       password: '',
-      error: null,
     };
   }
 
@@ -44,29 +45,36 @@ class LoginPage extends React.PureComponent {
   submitForm = async (event) => {
     event.preventDefault();
 
+    const { enqueueSnackbar, closeSnackbar } = this.props;
     const { email, password } = this.state;
 
     await login(email, password)
       .then(async () => {
-        this.setState({
-          error: null,
-        });
+        closeSnackbar(this.errorKey);
+        this.errorKey = null;
 
         await Router.push({
           pathname: config.pages.view,
         });
       })
       .catch((e) => {
-        this.setState({
-          error: e.message,
-        });
+        if (this.errorMessage !== e.message) {
+          closeSnackbar(this.errorKey);
+          this.errorKey = null;
+        }
+
+        if (this.errorKey == null) {
+          this.errorMessage = e.message;
+          this.errorKey = enqueueSnackbar(e.message, {
+            variant: 'error',
+            persist: true,
+          });
+        }
       });
   };
 
   render() {
-    const {
-      email, password, error,
-    } = this.state;
+    const { email, password } = this.state;
 
     return (
       <div className="LoginContainer">
@@ -93,14 +101,14 @@ class LoginPage extends React.PureComponent {
           />
           <button type="submit">Submit</button>
         </form>
-        {(error != null) && (
-        <div className="ErrorModal">
-          <p>{error}</p>
-        </div>
-        )}
       </div>
     );
   }
 }
 
-export default LoginPage;
+LoginPage.propTypes = {
+  enqueueSnackbar: PropTypes.func.isRequired,
+  closeSnackbar: PropTypes.func.isRequired,
+};
+
+export default withSnackbar(LoginPage);

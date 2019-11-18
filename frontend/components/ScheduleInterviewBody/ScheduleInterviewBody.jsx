@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withSnackbar } from 'notistack';
 import LandingBodyMessage from '../LandingBodyMessage';
 import NonProfitCalendar from '../calendar/NonProfitCalendar';
 import { updateAvailability as updateAvailabilityBase } from '../../redux/actions/availabilityActions';
@@ -39,6 +40,7 @@ class ScheduleInterviewBody extends React.PureComponent {
 
     const {
       name, applicationId, updateAvailability, updateApplicationState, updateApplicationMeeting,
+      enqueueSnackbar, closeSnackbar,
     } = this.props;
     const { selectedHour, person, phone } = this.state;
 
@@ -47,15 +49,34 @@ class ScheduleInterviewBody extends React.PureComponent {
     }
 
     if (selectedHour != null && name != null && person != null && phone != null) {
-      await updateAvailability(selectedHour, {
-        isBooked: true,
-        team: name,
-        person,
-        phone,
-      });
-      await updateApplicationState(applicationId, 2);
-      await updateApplicationMeeting(applicationId, selectedHour);
-      window.location.reload();
+      try {
+        await updateAvailability(selectedHour, {
+          isBooked: true,
+          team: name,
+          person,
+          phone,
+        });
+        await updateApplicationState(applicationId, 2);
+        await updateApplicationMeeting(applicationId, selectedHour);
+
+        closeSnackbar(this.errorKey);
+        this.errorKey = null;
+
+        window.location.reload();
+      } catch (error) {
+        if (this.errorMessage !== e.message) {
+          closeSnackbar(this.errorKey);
+          this.errorKey = null;
+        }
+
+        if (this.errorKey == null) {
+          this.errorMessage = e.message;
+          this.errorKey = enqueueSnackbar('Failed to submit application!', {
+            variant: 'error',
+            persist: true,
+          });
+        }
+      }
     }
   };
 
@@ -112,8 +133,7 @@ class ScheduleInterviewBody extends React.PureComponent {
             </div>
           </div>
           <p style={{ paddingTop: '35px', fontWeight: 600 }}>
-            Can't find a time that works? Feel free to email us at
-            {' '}
+            {'Can\'t find a time that works? Feel free to email us at '}
             <a href="mailto:hello@bitsofgood.org" style={{ color: 'black', textDecoration: 'underline' }}>hello@bitsofgood.org</a>
           </p>
           <button
@@ -127,11 +147,15 @@ class ScheduleInterviewBody extends React.PureComponent {
     );
   }
 }
+
 ScheduleInterviewBody.propTypes = {
   updateAvailability: PropTypes.func.isRequired,
   updateApplicationState: PropTypes.func.isRequired,
+  updateApplicationMeeting: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   applicationId: PropTypes.string.isRequired,
+  enqueueSnackbar: PropTypes.func.isRequired,
+  closeSnackbar: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -142,4 +166,4 @@ export default connect(mapStateToProps, {
   updateAvailability: updateAvailabilityBase,
   updateApplicationState: updateApplicationStateBase,
   updateApplicationMeeting: updateApplicationMeetingBase,
-})(ScheduleInterviewBody);
+})(withSnackbar(ScheduleInterviewBody));

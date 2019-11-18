@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withSnackbar } from 'notistack';
 
 import {
   getAvailabilities as getAvailabilitiesBase,
@@ -219,29 +220,77 @@ class AdminCalendar extends React.PureComponent {
 
   addAvailability = (event) => {
     event.preventDefault();
-    const { addAvailability, deleteAvailability } = this.props;
+    const {
+      addAvailability, deleteAvailability, enqueueSnackbar, closeSnackbar,
+    } = this.props;
     const {
       selectedDays,
       deselectedDays,
       interviewer,
     } = this.state;
 
-    Object.keys(selectedDays).forEach((date) => {
-      if (selectedDays[date] === -1) {
-        const availability = {
-          startDate: date,
-          interviewer,
-        };
-        addAvailability(availability);
-      }
-    });
+    try {
+      Object.keys(selectedDays)
+        .forEach((date) => {
+          if (selectedDays[date] === -1) {
+            const availability = {
+              startDate: date,
+              interviewer,
+            };
+            addAvailability(availability);
+          }
+        });
 
-    Object.keys(deselectedDays).forEach((date) => {
-      if (deselectedDays[date] !== 0) {
-        deleteAvailability(deselectedDays[date]);
+      closeSnackbar(this.addErrorKey);
+      this.addErrorKey = null;
+
+      enqueueSnackbar('Successfully added availabilities!', {
+        variant: 'success',
+      });
+    } catch (e) {
+      if (this.addErrorMessage !== e.message) {
+        closeSnackbar(this.addErrorKey);
+        this.addErrorKey = null;
       }
-    });
-  }
+
+      if (this.addErrorKey == null) {
+        this.addErrorMessage = e.message;
+        this.addErrorKey = enqueueSnackbar('Failed to add availabilities!', {
+          variant: 'error',
+          persist: true,
+        });
+      }
+    }
+
+    try {
+      Object.keys(deselectedDays)
+        .forEach((date) => {
+          if (deselectedDays[date] !== 0) {
+            deleteAvailability(deselectedDays[date]);
+          }
+        });
+
+      closeSnackbar(this.deleteErrorKey);
+      this.deleteErrorKey = null;
+
+      enqueueSnackbar('Successfully deleted availabilities!', {
+        variant: 'success',
+      });
+    } catch (e) {
+      if (this.deleteErrorMessage !== e.message) {
+        closeSnackbar(this.deleteErrorKey);
+        this.deleteErrorKey = null;
+      }
+
+      if (this.deleteErrorKey == null) {
+        this.deleteErrorMessage = e.message;
+        this.deleteErrorKey = enqueueSnackbar('Failed to delete availabilities!', {
+          variant: 'error',
+          persist: true,
+        });
+      }
+    }
+  };
 
   render() {
     const { availability } = this.props;
@@ -380,6 +429,8 @@ AdminCalendar.propTypes = {
     availabilities: PropTypes.arrayOf(PropTypes.object),
     loading: PropTypes.bool,
   }),
+  enqueueSnackbar: PropTypes.func.isRequired,
+  closeSnackbar: PropTypes.func.isRequired,
 };
 
 AdminCalendar.defaultProps = {
@@ -397,4 +448,4 @@ export default connect(mapStateToProps, {
   getAvailabilities: getAvailabilitiesBase,
   addAvailability: addAvailabilityBase,
   deleteAvailability: deleteAvailabilityBase,
-})(AdminCalendar);
+})(withSnackbar(AdminCalendar));

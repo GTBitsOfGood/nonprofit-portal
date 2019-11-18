@@ -4,6 +4,10 @@ import { getAvailabilities } from '../../server/mongodb/actions/availabilities';
 // @desc    Get All Availabilities
 // @access  Public
 export default async function (req, res) {
-  await getAvailabilities()
-    .then((result) => res.json(result));
+  return getAvailabilities()
+    .then((result) => res.json(result))
+    .catch((error) => res.json({
+      success: false,
+      message: error.message,
+    }));
 }

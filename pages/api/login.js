@@ -6,7 +6,7 @@ import { login } from '../../server/mongodb/actions/users';
 export default async function (req, res) {
   const { email, password } = req.body;
 
-  await login(email, password)
+  return login(email, password)
     .then((token) => {
       res.setHeader('Set-Cookie', `token=${token}; Max-Age=604800; SameSite=Lax; Path=/`);
 

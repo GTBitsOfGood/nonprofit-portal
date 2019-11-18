@@ -6,6 +6,10 @@ import { addApplication } from '../../server/mongodb/actions/applications';
 export default async function (req, res) {
   const { application } = req.body;
 
-  await addApplication(application)
-    .then((result) => res.json(result));
+  return addApplication(application)
+    .then((result) => res.json(result))
+    .catch((error) => res.json({
+      success: false,
+      message: error.message,
+    }));
 }

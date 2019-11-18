@@ -6,8 +6,10 @@ import { updateAvailability } from '../../server/mongodb/actions/availabilities'
 export default async function (req, res) {
   const { id, updatedFields } = req.body;
 
-  await updateAvailability(id, updatedFields)
-    .then((result) => {
-      res.json(result);
-    });
+  return updateAvailability(id, updatedFields)
+    .then((result) => res.json(result))
+    .catch((error) => res.json({
+      success: false,
+      message: error.message,
+    }));
 }

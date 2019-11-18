@@ -5,8 +5,11 @@ import { getApplication } from '../../server/mongodb/actions/applications';
 // @access  Public
 export default async function (req, res) {
   const urlString = req.query.url;
-  await getApplication(urlString)
-    .then((result) => {
-      res.json(result);
-    });
+
+  return getApplication(urlString)
+    .then((result) => res.json(result))
+    .catch((error) => res.json({
+      success: false,
+      message: error.message,
+    }));
 }

@@ -21,49 +21,47 @@ const SignupSchema = Yup.object().shape({
   website: Yup.string().url('Website must be a valid URL!'),
 });
 
-const ApplicationForm = (props) => {
-  return (
-    <Formik
-      initialValues={{
-        email: '',
-        website: '',
-      }}
-      validationSchema={SignupSchema}
-      onSubmit={(values) => {
-        const { addApplication } = props;
-        addApplication(values)
-          .then(({ payload }) => {
-            window.location.href = `/p/${payload.urlString}`;
-          });
-      }}
-    >
-      {(formikProps) => (
-        <Form onSubmit={formikProps.handleSubmit}>
-          <GeneralInformation
-            onChange={formikProps.handleChange}
-            values={formikProps.values}
-            onBlur={formikProps.handleBlur}
-          />
-          <MissionVision onChange={formikProps.handleChange} values={formikProps.values} />
-          <ProductNeeds onChange={formikProps.handleChange} values={formikProps.values} />
-          <Feedback onChange={formikProps.handleChange} values={formikProps.values} />
-          <div className="d-flex justify-content-between">
-            <div />
-            <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-              <div className="btn-group mr-2" role="group" aria-label="First group">
-                <Button outline color="dark">Reset</Button>
-              </div>
-              <div className="btn-group mr-2" role="group" aria-label="Second group">
-                <Button type="submit" color="dark" className="btn btn-secondary">Submit</Button>
-              </div>
+const ApplicationForm = (props) => (
+  <Formik
+    initialValues={{
+      email: '',
+      website: '',
+    }}
+    validationSchema={SignupSchema}
+    onSubmit={(values) => {
+      const { addApplication } = props;
+      addApplication(values)
+        .then(({ payload }) => {
+          window.location.href = `/p/${payload.urlString}`;
+        });
+    }}
+  >
+    {(formikProps) => (
+      <Form onSubmit={formikProps.handleSubmit}>
+        <GeneralInformation
+          onChange={formikProps.handleChange}
+          values={formikProps.values}
+          onBlur={formikProps.handleBlur}
+        />
+        <MissionVision onChange={formikProps.handleChange} values={formikProps.values} />
+        <ProductNeeds onChange={formikProps.handleChange} values={formikProps.values} />
+        <Feedback onChange={formikProps.handleChange} values={formikProps.values} />
+        <div className="d-flex justify-content-between">
+          <div />
+          <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div className="btn-group mr-2" role="group" aria-label="First group">
+              <Button outline color="dark">Reset</Button>
             </div>
-            <div />
+            <div className="btn-group mr-2" role="group" aria-label="Second group">
+              <Button type="submit" color="dark" className="btn btn-secondary">Submit</Button>
+            </div>
           </div>
-        </Form>
-      )}
-    </Formik>
-  );
-};
+          <div />
+        </div>
+      </Form>
+    )}
+  </Formik>
+);
 
 ApplicationForm.propTypes = {
   addApplication: PropTypes.func.isRequired,

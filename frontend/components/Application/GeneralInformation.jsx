@@ -242,6 +242,7 @@ class GeneralInformation extends Component {
 
 GeneralInformation.propTypes = {
   onChange: PropTypes.func.isRequired,
+  /* eslint-disable */
   values: PropTypes.object.isRequired,
   onBlur: PropTypes.func.isRequired,
 };

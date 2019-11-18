@@ -72,6 +72,7 @@ class Feedback extends Component {
 
 Feedback.propTypes = {
   onChange: PropTypes.func.isRequired,
+  /* eslint-disable */
   values: PropTypes.object.isRequired,
 };
 

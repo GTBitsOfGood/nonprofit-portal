@@ -76,6 +76,7 @@ class MissionVision extends Component {
 
 MissionVision.propTypes = {
   onChange: PropTypes.func.isRequired,
+  /* eslint-disable */
   values: PropTypes.object.isRequired,
 };
 

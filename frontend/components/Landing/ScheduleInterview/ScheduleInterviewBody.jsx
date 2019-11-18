@@ -43,6 +43,7 @@ class ScheduleInterviewBody extends React.PureComponent {
     const { selectedHour, person, phone } = this.state;
 
     if (selectedHour == null) {
+      /* eslint-disable */
       alert('Please select a time for your interview!');
     }
 
@@ -130,6 +131,7 @@ class ScheduleInterviewBody extends React.PureComponent {
 ScheduleInterviewBody.propTypes = {
   updateAvailability: PropTypes.func.isRequired,
   updateApplicationState: PropTypes.func.isRequired,
+  updateApplicationMeeting: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   applicationId: PropTypes.string.isRequired,
 };

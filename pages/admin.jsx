@@ -1,12 +1,15 @@
 import React from 'react';
+import { Container } from 'reactstrap';
 import AppNavbar from '../frontend/components/AppNavbar';
-import AdminCalendar from '../frontend/components/Calendar/AdminCalendar';
+import ApplicationsList from '../frontend/components/Admin/ApplicationsList';
 
 function IndexPage() {
   return (
     <div className="App">
       <AppNavbar />
-      <AdminCalendar />
+      <Container>
+        <ApplicationsList />
+      </Container>
     </div>
   );
 }

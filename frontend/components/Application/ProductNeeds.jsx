@@ -11,7 +11,7 @@ import {
 import { Field } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import '../static/style/App.css';
+import '../../static/style/App.css';
 
 class ProductNeeds extends Component {
   constructor(props) {

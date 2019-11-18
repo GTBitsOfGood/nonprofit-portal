@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import LandingBodyMessage from '../LandingBodyMessage';
-import NonProfitCalendar from '../calendar/NonProfitCalendar';
-import { updateAvailability as updateAvailabilityBase } from '../../redux/actions/availabilityActions';
+import NonProfitCalendar from './NonProfitCalendar';
+import { updateAvailability as updateAvailabilityBase } from '../../../redux/actions/availabilityActions';
 import {
   updateApplicationState as updateApplicationStateBase,
   updateApplicationMeeting as updateApplicationMeetingBase,
-} from '../../redux/actions/applicationActions';
+} from '../../../redux/actions/applicationActions';
 
 import './ScheduleInterviewBody.css';
 
@@ -112,7 +112,7 @@ class ScheduleInterviewBody extends React.PureComponent {
             </div>
           </div>
           <p style={{ paddingTop: '35px', fontWeight: 600 }}>
-            Can't find a time that works? Feel free to email us at
+            Can&apos;t find a time that works? Feel free to email us at
             {' '}
             <a href="mailto:hello@bitsofgood.org" style={{ color: 'black', textDecoration: 'underline' }}>hello@bitsofgood.org</a>
           </p>

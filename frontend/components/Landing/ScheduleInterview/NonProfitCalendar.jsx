@@ -3,8 +3,8 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { getAvailabilities as getAvailabilitiesBase } from '../../redux/actions/availabilityActions';
-import './calendar.css';
+import { getAvailabilities as getAvailabilitiesBase } from '../../../redux/actions/availabilityActions';
+import '../../../static/style/Calendar.css';
 
 const getHoursPerDay = (day, availabilities) => {
   const hours = [];

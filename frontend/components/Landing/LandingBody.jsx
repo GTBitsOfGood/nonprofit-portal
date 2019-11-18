@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AppSubmittedBody from './AppSubmittedBody';
-import ScheduleInterviewBody from './ScheduleInterviewBody/ScheduleInterviewBody';
-import InterviewScheduledBody from './InterviewScheduledBody/InterviewScheduledBody';
-import UnderReviewBody from './UnderReviewBody';
-import DecisionMadeBody from './DecisionMadeBody';
+import AppSubmittedBody from './AppSubmitted/AppSubmittedBody';
+import ScheduleInterviewBody from './ScheduleInterview/ScheduleInterviewBody';
+import InterviewScheduledBody from './InterviewScheduled/InterviewScheduledBody';
+import UnderReviewBody from './UnderReview/UnderReviewBody';
+import DecisionMadeBody from './DecisionMade/DecisionMadeBody';
 
 const getLandingBody = (status, decision, name, applicationId, meeting) => {
   switch (status) {

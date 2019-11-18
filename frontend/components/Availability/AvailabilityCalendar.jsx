@@ -8,7 +8,8 @@ import {
   addAvailability as addAvailabilityBase,
   deleteAvailability as deleteAvailabilityBase,
 } from '../../redux/actions/availabilityActions';
-import './calendar.css';
+import './AvailabilityCalendar.css';
+import '../../static/style/Calendar.css';
 
 const getHoursPerDay = (day, availabilities) => {
   const hours = [];
@@ -56,7 +57,7 @@ const getHoursPerDay = (day, availabilities) => {
   return hours;
 };
 
-class AdminCalendar extends React.PureComponent {
+class AvailabilityCalendar extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -309,20 +310,20 @@ class AdminCalendar extends React.PureComponent {
             </div> */}
           </div>
         </span>
-        <div className="admincalendar-container">
-          <div className="admincalendar">
-            <div className="admincalendarHeader">
+        <div className="availcalendar-container">
+          <div className="availcalendar">
+            <div className="availcalendarHeader">
               {upcomingDays.map((day) => (
                 <div
                   key={day.toString()}
-                  className="adminheaderDay"
+                  className="availheaderDay"
                 >
                   <p className="weekDay">{day.format('dddd')}</p>
                   <p className="monthDay">{day.format('D')}</p>
                 </div>
               ))}
             </div>
-            <div className="admincalendarBody">
+            <div className="availcalendarBody">
               {upcomingDays.map((day) => (
                 <div
                   key={day.toString()}
@@ -333,7 +334,7 @@ class AdminCalendar extends React.PureComponent {
                       key={time.toString()}
                       type="button"
                       id={isAvailable ? 'notBooked' : 'booked'}
-                      className={`dayHour ${(loading || !(time.toDate() in selectedDays)) ? 'adminhourDisplay' : 'adminhourSelected'}`}
+                      className={`dayHour ${(loading || !(time.toDate() in selectedDays)) ? 'availhourDisplay' : 'availhourSelected'}`}
                       onClick={() => this.addOrRemoveAvailability(time.toDate())}
                       onKeyDown={() => this.addOrRemoveAvailability(time.toDate())}
                       disabled={time.isBefore(moment()) || !isAvailable || time.isSame(moment(), 'day')}
@@ -372,7 +373,7 @@ class AdminCalendar extends React.PureComponent {
   }
 }
 
-AdminCalendar.propTypes = {
+AvailabilityCalendar.propTypes = {
   getAvailabilities: PropTypes.func.isRequired,
   addAvailability: PropTypes.func.isRequired,
   deleteAvailability: PropTypes.func.isRequired,
@@ -382,7 +383,7 @@ AdminCalendar.propTypes = {
   }),
 };
 
-AdminCalendar.defaultProps = {
+AvailabilityCalendar.defaultProps = {
   availability: {
     availabilities: [],
     loading: true,
@@ -397,4 +398,4 @@ export default connect(mapStateToProps, {
   getAvailabilities: getAvailabilitiesBase,
   addAvailability: addAvailabilityBase,
   deleteAvailability: deleteAvailabilityBase,
-})(AdminCalendar);
+})(AvailabilityCalendar);

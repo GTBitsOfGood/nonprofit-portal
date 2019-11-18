@@ -10,7 +10,7 @@ import {
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ErrorMessage } from 'formik';
-import '../static/style/App.css';
+import '../../static/style/App.css';
 import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 class GeneralInformation extends Component {

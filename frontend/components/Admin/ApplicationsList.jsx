@@ -14,7 +14,7 @@ import {
   deleteApplication as deleteApplicationBase,
   updateApplicationState as updateApplicationStateBase,
   updateApplicationDecision as updateApplicationDecisionBase,
-} from '../redux/actions/applicationActions';
+} from '../../redux/actions/applicationActions';
 
 class ApplicationsList extends Component {
   componentDidMount() {

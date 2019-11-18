@@ -45,12 +45,12 @@ class AppNavbar extends Component {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/view">
+                  <NavLink href="/admin">
                     Applications
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/schedule">
+                  <NavLink href="/availability">
                     Availability
                   </NavLink>
                 </NavItem>

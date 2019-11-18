@@ -1,15 +1,12 @@
 import React from 'react';
-import { Container } from 'reactstrap';
 import AppNavbar from '../frontend/components/AppNavbar';
-import ApplicationsList from '../frontend/components/ApplicationsList';
+import AvailabilityCalendar from '../frontend/components/Availability/AvailabilityCalendar';
 
 function IndexPage() {
   return (
     <div className="App">
       <AppNavbar />
-      <Container>
-        <ApplicationsList />
-      </Container>
+      <AvailabilityCalendar />
     </div>
   );
 }

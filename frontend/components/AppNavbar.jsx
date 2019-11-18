@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-
+import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Collapse,
   Navbar,
@@ -10,8 +10,9 @@ import {
   NavLink,
   Container,
 } from 'reactstrap';
+import { signOut } from '../actions/users';
 
-class AppNavbar extends Component {
+class AppNavbar extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -29,7 +30,11 @@ class AppNavbar extends Component {
   };
 
   render() {
+    const { user } = this.props;
     const { isOpen } = this.state;
+
+    const isLoggedIn = user != null;
+    const isAdmin = user != null && user.isAdmin;
 
     return (
       <div>
@@ -44,16 +49,45 @@ class AppNavbar extends Component {
                     Apply
                   </NavLink>
                 </NavItem>
-                <NavItem>
-                  <NavLink href="/admin">
-                    Applications
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="/availability">
-                    Availability
-                  </NavLink>
-                </NavItem>
+                {(isLoggedIn) && (
+                  <>
+                    <NavItem>
+                      <NavLink href="/admin">
+                        Applications
+                      </NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink href="/availability">
+                        Availability
+                      </NavLink>
+                    </NavItem>
+                  </>
+                )}
+                {(isAdmin) && (
+                  <NavItem>
+                    <NavLink href="/register">
+                      Create User
+                    </NavLink>
+                  </NavItem>
+                )}
+                {(isLoggedIn) ? (
+                  <NavItem>
+                    <NavLink
+                      onClick={signOut}
+                      style={{
+                        cursor: 'pointer',
+                      }}
+                    >
+                      Logout
+                    </NavLink>
+                  </NavItem>
+                ) : (
+                  <NavItem>
+                    <NavLink href="/login">
+                      Login
+                    </NavLink>
+                  </NavItem>
+                )}
               </Nav>
             </Collapse>
           </Container>
@@ -62,5 +96,18 @@ class AppNavbar extends Component {
     );
   }
 }
+
+AppNavbar.propTypes = {
+  user: PropTypes.shape({
+    loggedIn: PropTypes.bool,
+    id: PropTypes.string,
+    name: PropTypes.string,
+    isAdmin: PropTypes.bool,
+  }),
+};
+
+AppNavbar.defaultProps = {
+  user: null,
+};
 
 export default AppNavbar;

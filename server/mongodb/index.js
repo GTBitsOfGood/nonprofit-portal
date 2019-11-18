@@ -4,7 +4,7 @@ const config = require('../../config').default;
 module.exports = () => mongoose.connect(config.dbUrl, {
   // avoids deprecated functionality
   useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useUnifiedTopology: false,
   dbName: config.dbName,
 })
   .catch((e) => {

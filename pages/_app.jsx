@@ -2,6 +2,7 @@ import App from 'next/app';
 import React from 'react';
 import { Provider } from 'react-redux';
 import cookie from 'js-cookie';
+import { SnackbarProvider } from 'notistack';
 import { verifyToken } from '../frontend/actions/users';
 import withReduxStore from '../frontend/redux/with-redux-store';
 import AppNavbar from '../frontend/components/AppNavbar';
@@ -35,10 +36,12 @@ class MyApp extends App {
 
     return (
       <Provider store={reduxStore}>
-        <div className="App">
-          <AppNavbar user={user} />
-          <Component {...pageProps} user={user} />
-        </div>
+        <SnackbarProvider maxSnack={3}>
+          <div className="App">
+            <AppNavbar user={user} />
+            <Component {...pageProps} user={user} />
+          </div>
+        </SnackbarProvider>
       </Provider>
     );
   }

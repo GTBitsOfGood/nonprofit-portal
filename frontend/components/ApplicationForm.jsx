@@ -7,12 +7,15 @@ import {
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { useSnackbar } from 'notistack';
 
+import Router from 'next/router';
 import GeneralInformation from './GeneralInformation';
 import MissionVision from './MissionVision';
 import ProductNeeds from './ProductNeeds';
 import Feedback from './Feedback';
 import { addApplication as addApplicationBase } from '../redux/actions/applicationActions';
+import config from '../../config';
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string()
@@ -22,6 +25,8 @@ const SignupSchema = Yup.object().shape({
 });
 
 const ApplicationForm = (props) => {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
   return (
     <Formik
       initialValues={{
@@ -32,8 +37,13 @@ const ApplicationForm = (props) => {
       onSubmit={(values) => {
         const { addApplication } = props;
         addApplication(values)
-          .then(({ payload }) => {
-            window.location.href = `/p/${payload.urlString}`;
+          .then(async ({ payload }) => {
+            closeSnackbar();
+
+            await Router.push(`/p/${payload.urlString}`);
+          })
+          .catch(() => {
+            enqueueSnackbar('Failed to submit application!');
           });
       }}
     >

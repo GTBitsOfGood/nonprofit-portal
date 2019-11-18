@@ -6,7 +6,7 @@ import { signUp } from '../../server/mongodb/actions/users';
 export default async function (req, res) {
   const { name, email, password } = req.body;
 
-  await signUp(name, email, password)
+  return signUp(name, email, password)
     .then((token) => res.status(201).json({
       success: true,
       token,

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Collapse,
@@ -12,7 +12,7 @@ import {
 } from 'reactstrap';
 import { signOut } from '../actions/users';
 
-class AppNavbar extends Component {
+class AppNavbar extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -33,7 +33,7 @@ class AppNavbar extends Component {
     const { user } = this.props;
     const { isOpen } = this.state;
 
-    const isLoggedIn = user != null && user.loggedIn;
+    const isLoggedIn = user != null;
     const isAdmin = user != null && user.isAdmin;
 
     return (
@@ -103,7 +103,11 @@ AppNavbar.propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
     isAdmin: PropTypes.bool,
-  }).isRequired,
+  }),
+};
+
+AppNavbar.defaultProps = {
+  user: null,
 };
 
 export default AppNavbar;

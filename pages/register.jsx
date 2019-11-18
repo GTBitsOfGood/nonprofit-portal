@@ -1,49 +1,36 @@
 import React from 'react';
 import Router from 'next/router';
-import nextCookie from 'next-cookies';
 import cookie from 'js-cookie';
-import jwt from 'jsonwebtoken';
-import { signUp } from '../frontend/actions/users';
+import { signUp, verifyToken } from '../frontend/actions/users';
 import '../frontend/static/style/Login.css';
 import config from '../config';
 
 
 class RegisterPage extends React.PureComponent {
   static async getInitialProps(ctx) {
-    const token = ctx.res ? nextCookie(ctx).token : cookie.get('token');
+    // eslint-disable-next-line global-require
+    const token = ctx.res ? require('next-cookies')(ctx).token : cookie.get('token');
 
-    if (ctx.res) {
-      let isValid = false;
-      try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        isValid = decoded != null && decoded.isAdmin;
-      } catch (e) {
-        isValid = false;
-      }
+    return verifyToken(token)
+      .then((user) => {
+        const isValid = user != null && user.isAdmin;
 
-      if (!isValid) {
-        ctx.res.writeHead(302, {
-          Location: config.pages.view,
-        });
-        ctx.res.end();
-      }
-    } else {
-      let isValid = false;
-      try {
-        const decoded = jwt.decode(token, process.env.JWT_SECRET);
-        isValid = decoded != null && decoded.isAdmin;
-      } catch (e) {
-        isValid = false;
-      }
+        if (!isValid) {
+          throw new Error('User is not an admin!');
+        }
 
-      if (!isValid) {
-        await Router.push(config.pages.view);
-      }
-    }
-
-    return {
-      token,
-    };
+        return user;
+      })
+      .catch(async () => {
+        if (ctx.res) {
+          ctx.res.writeHead(302, {
+            Location: config.pages.application,
+          });
+          ctx.res.end();
+        } else {
+          await Router.push(config.pages.application);
+        }
+      });
   }
 
   constructor(props) {

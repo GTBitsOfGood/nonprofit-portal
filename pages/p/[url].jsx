@@ -34,24 +34,21 @@ class LandingPage extends React.Component {
     const { application, meeting } = this.props;
 
     return (
-      <div className="App">
-        <AppNavbar />
-        <Container>
-          <StatusJumbo
-            status={application.status}
-            name={application.name}
-            decision={application.decision}
-          />
-          <StatusBar status={application.status} />
-          <LandingBody
-            status={application.status}
-            name={application.name}
-            decision={application.decision}
-            applicationId={application._id}
-            meeting={meeting}
-          />
-        </Container>
-      </div>
+      <Container>
+        <StatusJumbo
+          status={application.status}
+          name={application.name}
+          decision={application.decision}
+        />
+        <StatusBar status={application.status} />
+        <LandingBody
+          status={application.status}
+          name={application.name}
+          decision={application.decision}
+          applicationId={application._id}
+          meeting={meeting}
+        />
+      </Container>
     );
   }
 }

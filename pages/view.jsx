@@ -1,46 +1,28 @@
 import React from 'react';
 import { Container } from 'reactstrap';
-import jwt from 'jsonwebtoken';
 import Router from 'next/router';
-import nextCookie from 'next-cookies';
 import cookie from 'js-cookie';
 import ApplicationsList from '../frontend/components/ApplicationsList';
 import config from '../config';
+import { verifyToken } from '../frontend/actions/users';
 
-class ViewPage extends React.Component {
+class ViewPage extends React.PureComponent {
   static async getInitialProps(ctx) {
-    const token = ctx.res ? nextCookie(ctx).token : cookie.get('token');
+    // eslint-disable-next-line global-require
+    const token = ctx.res ? require('next-cookies')(ctx).token : cookie.get('token');
 
-    if (ctx.res) {
-      let isValid = true;
-      try {
-        jwt.verify(token, 'secret');
-      } catch (e) {
-        isValid = false;
-      }
-
-      if (!isValid) {
-        ctx.res.writeHead(302, {
-          Location: config.pages.login,
-        });
-        ctx.res.end();
-      }
-    } else {
-      let isValid = true;
-      try {
-        jwt.decode(token);
-      } catch (e) {
-        isValid = false;
-      }
-
-      if (!isValid) {
-        await Router.push(config.pages.login);
-      }
-    }
-
-    return {
-      token,
-    };
+    return verifyToken(token)
+      .then((user) => user)
+      .catch(async () => {
+        if (ctx.res) {
+          ctx.res.writeHead(302, {
+            Location: config.pages.application,
+          });
+          ctx.res.end();
+        } else {
+          await Router.push(config.pages.application);
+        }
+      });
   }
 
   render() {

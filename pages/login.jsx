@@ -1,47 +1,28 @@
 import React from 'react';
 import Router from 'next/router';
-import nextCookie from 'next-cookies';
-import jwt from 'jsonwebtoken';
 import cookie from 'js-cookie';
-import { login } from '../frontend/actions/users';
+import { login, verifyToken } from '../frontend/actions/users';
 import '../frontend/static/style/Login.css';
 import config from '../config';
 
 
 class LoginPage extends React.PureComponent {
   static async getInitialProps(ctx) {
-    const token = ctx.res ? nextCookie(ctx).token : cookie.get('token');
+    // eslint-disable-next-line global-require
+    const token = ctx.res ? require('next-cookies')(ctx).token : cookie.get('token');
 
-    if (ctx.res) {
-      let isValid = true;
-      try {
-        jwt.verify(token, 'secret');
-      } catch (e) {
-        isValid = false;
-      }
-
-      if (isValid) {
-        ctx.res.writeHead(302, {
-          Location: config.pages.view,
-        });
-        ctx.res.end();
-      }
-    } else {
-      let isValid = true;
-      try {
-        jwt.decode(token);
-      } catch (e) {
-        isValid = false;
-      }
-
-      if (isValid) {
-        await Router.push(config.pages.view);
-      }
-    }
-
-    return {
-      token,
-    };
+    return verifyToken(token)
+      .then(async () => {
+        if (ctx.res) {
+          ctx.res.writeHead(302, {
+            Location: config.pages.view,
+          });
+          ctx.res.end();
+        } else {
+          await Router.push(config.pages.view);
+        }
+      })
+      .catch(() => ({}));
   }
 
   constructor(props) {

@@ -1,14 +1,34 @@
 import React from 'react';
-import AppNavbar from '../frontend/components/AppNavbar';
+import cookie from 'js-cookie';
+import Router from 'next/router';
 import AdminCalendar from '../frontend/components/calendar/AdminCalendar';
+import { verifyToken } from '../frontend/actions/users';
+import config from '../config';
 
-function IndexPage() {
-  return (
-    <div className="App">
-      <AppNavbar />
+class IndexPage extends React.PureComponent {
+  static async getInitialProps(ctx) {
+    // eslint-disable-next-line global-require
+    const token = ctx.res ? require('next-cookies')(ctx).token : cookie.get('token');
+
+    return verifyToken(token)
+      .then((user) => user)
+      .catch(async () => {
+        if (ctx.res) {
+          ctx.res.writeHead(302, {
+            Location: config.pages.application,
+          });
+          ctx.res.end();
+        } else {
+          await Router.push(config.pages.application);
+        }
+      });
+  }
+
+  render() {
+    return (
       <AdminCalendar />
-    </div>
-  );
+    );
+  }
 }
 
 export default IndexPage;

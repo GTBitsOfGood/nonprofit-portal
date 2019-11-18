@@ -71,7 +71,16 @@ async function signUp(name, email, password) {
     });
 }
 
+async function verifyToken(token) {
+  return jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (decoded) return Promise.resolve(decoded);
+
+    return Promise.reject(Error('Invalid token!'));
+  });
+}
+
 module.exports = {
   login,
   signUp,
+  verifyToken,
 };

@@ -19,9 +19,10 @@ export default {
     updateAvailability: '/api/updateAvailability',
     login: '/api/login',
     signUp: '/api/signUp',
+    verifyToken: '/api/verifyToken',
   },
   pages: {
-    application: '/appication',
+    application: '/application',
     index: '/index',
     login: '/login',
     register: '/register',

@@ -60,6 +60,32 @@ export const signUp = async (name, email, password) => fetch(
     return json;
   });
 
+export const verifyToken = async (token) => fetch(
+  config.baseUrl + config.apis.verifyToken, {
+    method: 'post',
+    mode: 'same-origin',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      token,
+    }),
+  },
+)
+  .then((response) => response.json())
+  .then((json) => {
+    if (json == null) {
+      throw new Error('Unable to verify token at this time.');
+    } else if (!json.success) {
+      throw new Error(json.message);
+    } else if (json.user == null) {
+      throw new Error('Unable to verify token at this time.');
+    }
+
+    return json.user;
+  });
+
 export const signOut = () => {
   cookie.remove('token');
 

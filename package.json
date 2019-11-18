@@ -27,6 +27,7 @@
         "next": "^9.0.6",
         "next-cookies": "^2.0.1",
         "next-images": "^1.2.0",
+        "notistack": "^0.9.6",
         "prop-types": "^15.7.2",
         "pug": "^2.0.4",
         "react": "^16.9.0",

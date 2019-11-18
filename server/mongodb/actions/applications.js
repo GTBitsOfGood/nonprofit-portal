@@ -28,7 +28,7 @@ async function getApplications() {
 async function addApplication(application) {
   await mongoDB();
 
-  const pageURLString = generateURLString();
+  const pageURLString = await generateURLString();
 
   return Application.create({
     ...application,

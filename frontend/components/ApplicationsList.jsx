@@ -67,7 +67,7 @@ class ApplicationsList extends Component {
               urlString,
               decision,
             }) => (
-              <ListGroupItem>
+              <ListGroupItem key={_id}>
                 <div style={{ display: 'flex', margin: '30px 0' }}>
                   <Button
                     className="remove-btn"

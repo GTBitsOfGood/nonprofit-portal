@@ -17,5 +17,16 @@ export default {
     deleteAvailability: '/api/deleteAvailability',
     getAvailability: '/api/getAvailability',
     updateAvailability: '/api/updateAvailability',
+    login: '/api/login',
+    signUp: '/api/signUp',
+    verifyToken: '/api/verifyToken',
+  },
+  pages: {
+    application: '/application',
+    index: '/index',
+    login: '/login',
+    register: '/register',
+    submitted: '/submitted',
+    view: '/view',
   },
 };

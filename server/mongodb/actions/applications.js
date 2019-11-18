@@ -28,12 +28,13 @@ async function getApplications() {
 async function addApplication(application) {
   await mongoDB();
 
-  return generateURLString()
-    .then(async (pageURLString) => {
-      const newApplication = new Application(application);
-      newApplication.urlString = pageURLString;
-      const result = await newApplication.save();
+  const pageURLString = generateURLString();
 
+  return Application.create({
+    ...application,
+    urlString: pageURLString,
+  })
+    .then(async (newApplication) => {
       mongoose.connection.close();
 
       await sendEmail({
@@ -47,7 +48,7 @@ async function addApplication(application) {
         },
       });
 
-      return result;
+      return newApplication;
     })
     .catch((e) => {
       mongoose.connection.close();

@@ -36,7 +36,13 @@ class MyApp extends App {
 
     return (
       <Provider store={reduxStore}>
-        <SnackbarProvider maxSnack={3}>
+        <SnackbarProvider
+          maxSnack={3}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+        >
           <div className="App">
             <AppNavbar user={user} />
             <Component {...pageProps} user={user} />

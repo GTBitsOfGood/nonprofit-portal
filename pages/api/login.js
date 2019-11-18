@@ -12,7 +12,7 @@ export default async function (req, res) {
 
       return res.status(200).json({
         success: true,
-        token,
+        payload: token,
       });
     })
     .catch((error) => res.status(400).json({

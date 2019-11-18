@@ -9,7 +9,7 @@ export default async function (req, res) {
   return signUp(name, email, password)
     .then((token) => res.status(201).json({
       success: true,
-      token,
+      payload: token,
     }))
     .catch((error) => res.status(400).json({
       success: false,

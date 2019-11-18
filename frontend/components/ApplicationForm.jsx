@@ -15,7 +15,6 @@ import MissionVision from './MissionVision';
 import ProductNeeds from './ProductNeeds';
 import Feedback from './Feedback';
 import { addApplication as addApplicationBase } from '../redux/actions/applicationActions';
-import config from '../../config';
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string()

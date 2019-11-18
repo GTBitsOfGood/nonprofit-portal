@@ -1,9 +1,5 @@
-import getConfig from 'next/config';
-
 const Email = require('email-templates');
 const { join } = require('path');
-
-const { serverRuntimeConfig } = getConfig();
 
 const fromAddress = '"GT Bits of Good" <hello@bitsofgood.org>';
 
@@ -18,7 +14,7 @@ const transportConfig = {
 };
 
 const sendEmail = (options) => {
-  const emailPath = join(serverRuntimeConfig.PROJECT_ROOT, 'email');
+  const emailPath = join(process.env.PROJECT_ROOT, 'email');
   const email = new Email({
     message: {
       from: fromAddress,

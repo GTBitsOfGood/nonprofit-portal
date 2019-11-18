@@ -7,10 +7,10 @@ export default async function (req, res) {
   const { id } = req.body;
 
   return deleteApplication(id)
-    .then(() => res.json({
+    .then(() => res.status(200).json({
       success: true,
     }))
-    .catch((error) => res.json({
+    .catch((error) => res.status(400).json({
       success: false,
       message: error.message,
     }));

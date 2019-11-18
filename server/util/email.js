@@ -1,5 +1,5 @@
 const Email = require('email-templates');
-const { join } = require('path');
+const path = require('path');
 
 const fromAddress = '"GT Bits of Good" <hello@bitsofgood.org>';
 
@@ -14,7 +14,7 @@ const transportConfig = {
 };
 
 const sendEmail = (options) => {
-  const emailPath = join(process.env.PROJECT_ROOT, 'email');
+  const emailPath = path.join(process.env.PROJECT_ROOT, 'email');
   const email = new Email({
     message: {
       from: fromAddress,
@@ -24,14 +24,14 @@ const sendEmail = (options) => {
     juice: true,
     juiceResources: {
       webResources: {
-        relativeTo: join(emailPath, 'style'),
+        relativeTo: path.join(emailPath, 'style'),
       },
     },
   });
 
   return email.send(
     {
-      template: join(emailPath, 'templates', options.template),
+      template: path.join(emailPath, 'templates', options.template),
       message: {
         to: options.to,
       },

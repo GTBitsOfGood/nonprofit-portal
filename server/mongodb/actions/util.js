@@ -13,7 +13,7 @@ async function generateURLString() {
     try {
       const res = await Application.findOne({ urlString: urlStringAttempt });
       if (!res) {
-        throw new Error('String not found, it can be used!');
+        throw new Error("String not found, it can't be used!");
       }
       attemptCount += 1;
     } catch (e) {

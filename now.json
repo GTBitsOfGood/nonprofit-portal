@@ -6,6 +6,7 @@
     "MAIL_PORT": "@mail_port",
     "MAIL_USER": "@mail_user",
     "MAIL_PASS": "@mail_pass",
-    "JWT_SECRET": "@jwt_secret"
+    "JWT_SECRET": "@jwt_secret",
+    "PASS_SALT": "@pass_salt"
   }
 }

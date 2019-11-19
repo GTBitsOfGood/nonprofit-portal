@@ -8,5 +8,7 @@ module.exports = () => mongoose.connect(config.dbUrl, {
   dbName: config.dbName,
 })
   .catch((e) => {
-    console.error('Error connecting to database.', e);
+    console.error('Error connecting to database.');
+
+    throw e;
   });

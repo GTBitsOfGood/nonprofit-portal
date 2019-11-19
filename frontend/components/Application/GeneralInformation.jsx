@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
+  Col,
+  Row,
   Button,
   FormGroup,
   Label,
@@ -53,30 +55,38 @@ class GeneralInformation extends Component {
         </Button>
         <Collapse isOpen={open}>
           <p>Please fill out the blanks so we can know more about your organization</p>
-          <FormGroup>
-            <Label for="application">Organization Name</Label>
-            <Input
-              type="text"
-              name="name"
-              id="name"
-              placeholder=""
-              onChange={onChange}
-              value={values.name}
-              required
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="application">Street Address</Label>
-            <Input
-              type="text"
-              name="streetaddress"
-              id="streetaddress"
-              placeholder=""
-              onChange={onChange}
-              value={values.streetaddress}
-              required
-            />
-          </FormGroup>
+          <Row form>
+            <Col md={4}>
+              <FormGroup>
+                <Label for="application">Organization Name</Label>
+                <Input
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder=""
+                  onChange={onChange}
+                  value={values.name}
+                  required
+                />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row form>
+            <Col md={10}>
+              <FormGroup>
+                <Label for="application">Street Address</Label>
+                <Input
+                  type="text"
+                  name="streetaddress"
+                  id="streetaddress"
+                  placeholder=""
+                  onChange={onChange}
+                  value={values.streetaddress}
+                  required
+                />
+              </FormGroup>
+            </Col>
+          </Row>
           <FormGroup>
             <Label for="application">City & State & Zip</Label>
             <div>
@@ -170,70 +180,90 @@ class GeneralInformation extends Component {
               />
             </div>
           </FormGroup>
-          <FormGroup>
-            <Label for="application">Website</Label>
-            <Input
-              type="url"
-              name="website"
-              id="website"
-              placeholder="(Optional)"
-              value={values.website}
-              onChange={onChange}
-              onBlur={onBlur}
-            />
-            <ErrorMessage name="website" render={(msg) => <div style={{ color: 'red' }}>{msg}</div>} />
-          </FormGroup>
-          <FormGroup>
-            <Label for="application">Work Phone</Label>
-            <Input
-              type="text"
-              name="workPhone"
-              id="workPhone"
-              placeholder=""
-              value={values.workPhone}
-              onChange={onChange}
-              required
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="application">Person of Contact</Label>
-            <Input
-              type="text"
-              name="contactName"
-              id="contactName"
-              placeholder=""
-              value={values.contactName}
-              onChange={onChange}
-              required
-            />
-            <ErrorMessage name="website" render={(msg) => <div>{msg}</div>} />
-          </FormGroup>
-          <FormGroup>
-            <Label for="application">Mobile Phone</Label>
-            <Input
-              type="text"
-              name="mobilePhone"
-              id="mobilePhone"
-              placeholder=""
-              value={values.mobilePhone}
-              onChange={onChange}
-              required
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="application">Email</Label>
-            <Input
-              type="email"
-              name="email"
-              id="email"
-              placeholder=""
-              value={values.email}
-              onChange={onChange}
-              onBlur={onBlur}
-              required
-            />
-            <ErrorMessage name="email" render={(msg) => <div style={{ color: 'red' }}>{msg}</div>} />
-          </FormGroup>
+          <Row form>
+            <Col md={6}>
+              <FormGroup>
+                <Label for="application">Website</Label>
+                <Input
+                  type="url"
+                  name="website"
+                  id="website"
+                  placeholder="(Optional)"
+                  value={values.website}
+                  onChange={onChange}
+                  onBlur={onBlur}
+                />
+                <ErrorMessage name="website" render={(msg) => <div style={{ color: 'red' }}>{msg}</div>} />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row form>
+            <Col md={4}>
+              <FormGroup>
+                <Label for="application">Work Phone</Label>
+                <Input
+                  type="text"
+                  name="workPhone"
+                  id="workPhone"
+                  placeholder=""
+                  value={values.workPhone}
+                  onChange={onChange}
+                  required
+                />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row form>
+            <Col md={4}>
+              <FormGroup>
+                <Label for="application">Person of Contact</Label>
+                <Input
+                  type="text"
+                  name="contactName"
+                  id="contactName"
+                  placeholder=""
+                  value={values.contactName}
+                  onChange={onChange}
+                  required
+                />
+                <ErrorMessage name="website" render={(msg) => <div>{msg}</div>} />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row form>
+            <Col md={4}>
+              <FormGroup>
+                <Label for="application">Mobile Phone</Label>
+                <Input
+                  type="text"
+                  name="mobilePhone"
+                  id="mobilePhone"
+                  placeholder=""
+                  value={values.mobilePhone}
+                  onChange={onChange}
+                  required
+                />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row form>
+            <Col md={4}>
+              <FormGroup>
+                <Label for="application">Email</Label>
+                <Input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder=""
+                  value={values.email}
+                  onChange={onChange}
+                  onBlur={onBlur}
+                  required
+                />
+                <ErrorMessage name="email" render={(msg) => <div style={{ color: 'red' }}>{msg}</div>} />
+              </FormGroup>
+            </Col>
+          </Row>
         </Collapse>
       </>
     );

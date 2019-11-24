@@ -1,7 +1,7 @@
 import React from 'react';
 import cookie from 'js-cookie';
 import Router from 'next/router';
-import AdminCalendar from '../frontend/components/calendar/AdminCalendar';
+import AdminCalendar from '../frontend/components/Availability/AvailabilityCalendar';
 import { verifyToken } from '../frontend/actions/users';
 import config from '../config';
 

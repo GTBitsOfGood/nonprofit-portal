@@ -10,7 +10,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
-class MissionVision extends Component {
+class Feedback extends Component {
   constructor(props) {
     super(props);
 
@@ -44,28 +44,24 @@ class MissionVision extends Component {
               <FontAwesomeIcon icon={faChevronRight} size="sm" />
             )}
             {' '}
-            Your Mission
+            Your Questions
           </div>
         </Button>
         <Collapse isOpen={open}>
           <FormGroup>
-            <p>
-              At Bits of Good, our mission is to change lives one bit at a time
-              - we serve our community by building powerful applications for local nonprofits.
-            </p>
             <Label for="application">
-              We want to know the mission of your organization. Who do you care to serve?
-              What services do you provide to the community? How could the collaboration
-              with BoG help you achieve your mission?
+              Please let us know if you have any other questions or feedback.
+              You can also reach out to us at
+              <a href="mailto:hello@bitsofgood.org"> hello@bitsofgood.org</a>
+              .
             </Label>
             <Input
               type="textarea"
-              name="mission"
-              id="mission"
-              placeholder="Organization Mission"
-              value={values.mission}
+              name="feedback"
+              id="feedback"
+              placeholder="(Optional)"
               onChange={onChange}
-              required
+              value={values.feedback}
             />
           </FormGroup>
         </Collapse>
@@ -74,9 +70,10 @@ class MissionVision extends Component {
   }
 }
 
-MissionVision.propTypes = {
+Feedback.propTypes = {
   onChange: PropTypes.func.isRequired,
+  /* eslint-disable */
   values: PropTypes.object.isRequired,
 };
 
-export default MissionVision;
+export default Feedback;

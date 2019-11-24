@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import LandingBodyMessage from './LandingBodyMessage';
-import LandingImage from './LandingImage';
+import LandingBodyMessage from '../LandingBodyMessage';
+import LandingImage from '../LandingImage';
 
 const DecisionMadeBody = (props) => {
   const { decision } = props;

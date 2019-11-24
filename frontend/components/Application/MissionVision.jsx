@@ -10,7 +10,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
-class Feedback extends Component {
+class MissionVision extends Component {
   constructor(props) {
     super(props);
 
@@ -44,24 +44,28 @@ class Feedback extends Component {
               <FontAwesomeIcon icon={faChevronRight} size="sm" />
             )}
             {' '}
-            Your Questions
+            Your Mission
           </div>
         </Button>
         <Collapse isOpen={open}>
           <FormGroup>
+            <p>
+              At Bits of Good, our mission is to change lives one bit at a time
+              - we serve our community by building powerful applications for local nonprofits.
+            </p>
             <Label for="application">
-              Please let us know if you have any other questions or feedback.
-              You can also reach out to us at
-              <a href="mailto:hello@bitsofgood.org"> hello@bitsofgood.org</a>
-              .
+              We want to know the mission of your organization. Who do you care to serve?
+              What services do you provide to the community? How could the collaboration
+              with BoG help you achieve your mission?
             </Label>
             <Input
               type="textarea"
-              name="feedback"
-              id="feedback"
-              placeholder="(Optional)"
+              name="mission"
+              id="mission"
+              placeholder="Organization Mission"
+              value={values.mission}
               onChange={onChange}
-              value={values.feedback}
+              required
             />
           </FormGroup>
         </Collapse>
@@ -70,9 +74,10 @@ class Feedback extends Component {
   }
 }
 
-Feedback.propTypes = {
+MissionVision.propTypes = {
   onChange: PropTypes.func.isRequired,
+  /* eslint-disable */
   values: PropTypes.object.isRequired,
 };
 
-export default Feedback;
+export default MissionVision;

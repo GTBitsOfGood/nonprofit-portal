@@ -1,6 +1,6 @@
 import React from 'react';
-import LandingBodyMessage from './LandingBodyMessage';
-import LandingImage from './LandingImage';
+import LandingBodyMessage from '../LandingBodyMessage';
+import LandingImage from '../LandingImage';
 
 const AppSubmittedBody = () => (
   <>

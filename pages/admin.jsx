@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from 'reactstrap';
 import Router from 'next/router';
 import cookie from 'js-cookie';
-import ApplicationsList from '../frontend/components/ApplicationsList';
+import ApplicationsList from '../frontend/components/Admin/ApplicationsList';
 import config from '../config';
 import { verifyToken } from '../frontend/actions/users';
 

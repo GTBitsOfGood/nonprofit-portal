@@ -52,12 +52,12 @@ class AppNavbar extends React.PureComponent {
                 {(isLoggedIn) && (
                   <>
                     <NavItem>
-                      <NavLink href="/view">
+                      <NavLink href="/admin">
                         Applications
                       </NavLink>
                     </NavItem>
                     <NavItem>
-                      <NavLink href="/schedule">
+                      <NavLink href="/availability">
                         Availability
                       </NavLink>
                     </NavItem>

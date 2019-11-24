@@ -8,10 +8,9 @@ import {
   Input,
   CustomInput,
 } from 'reactstrap';
-import { Field } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import '../static/style/App.css';
+import '../../static/style/App.css';
 
 class ProductNeeds extends Component {
   constructor(props) {
@@ -242,6 +241,7 @@ class ProductNeeds extends Component {
 
 ProductNeeds.propTypes = {
   onChange: PropTypes.func.isRequired,
+  /* eslint-disable */
   values: PropTypes.object.isRequired,
 };
 

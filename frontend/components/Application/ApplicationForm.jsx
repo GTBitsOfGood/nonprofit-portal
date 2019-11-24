@@ -12,7 +12,7 @@ import GeneralInformation from './GeneralInformation';
 import MissionVision from './MissionVision';
 import ProductNeeds from './ProductNeeds';
 import Feedback from './Feedback';
-import { addApplication as addApplicationBase } from '../redux/actions/applicationActions';
+import { addApplication as addApplicationBase } from '../../redux/actions/applicationActions';
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string()
@@ -30,14 +30,9 @@ const ApplicationForm = (props) => (
     validationSchema={SignupSchema}
     onSubmit={(values) => {
       const { addApplication } = props;
-
       addApplication(values)
         .then(({ payload }) => {
           window.location.href = `/p/${payload.urlString}`;
-        })
-        .catch((e) => {
-          // TODO: Display error message
-          console.error(e.message);
         });
     }}
   >

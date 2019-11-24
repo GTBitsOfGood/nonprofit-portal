@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { Container } from 'reactstrap';
 import { withRouter } from 'next/router';
 
-import StatusJumbo from '../../frontend/components/StatusJumbo';
-import StatusBar from '../../frontend/components/StatusBar';
-import LandingBody from '../../frontend/components/LandingBody';
+import StatusJumbo from '../../frontend/components/Landing/StatusJumbo';
+import StatusBar from '../../frontend/components/Landing/StatusBar';
+import LandingBody from '../../frontend/components/Landing/LandingBody';
+
 import { getApplication } from '../../frontend/actions/applications';
 import { getAvailability } from '../../frontend/actions/availabilities';
 

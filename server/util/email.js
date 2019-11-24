@@ -21,7 +21,7 @@ function _render(email, view, locals) {
     if (typeof pugTemplate === 'undefined') {
       resolve();
     }
-    email.juiceResources(pug.render(pugTemplate, locals))
+    email.juiceResources(pug.render(pugTemplate, { filename: view, ...locals }))
       .then((juicedHTML) => {
         resolve(juicedHTML);
       })

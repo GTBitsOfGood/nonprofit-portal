@@ -1,6 +1,6 @@
 const pug = require('pug');
 const Email = require('email-templates');
-const emailFolder = require('../../email/import');
+const emailFolder = require('../../email/import/index');
 
 const fromAddress = '"GT Bits of Good" <hello@bitsofgood.org>';
 

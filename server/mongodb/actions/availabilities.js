@@ -6,8 +6,7 @@ const Availability = require('../models/Availability');
 async function getAvailabilities() {
   await mongoDB();
 
-  let availabilities = [];
-  await Availability
+  return Availability
     .find({
       startDate: {
         $gte: moment().startOf('week'),
@@ -16,30 +15,32 @@ async function getAvailabilities() {
     .sort({
       startDate: -1,
     })
-    .then((res) => {
-      availabilities = res;
+    .then((availabilities) => {
       mongoose.connection.close();
-    })
-    .catch(() => {
-      mongoose.connection.close();
-    });
 
-  return availabilities;
+      return availabilities;
+    })
+    .catch((e) => {
+      mongoose.connection.close();
+
+      throw e;
+    });
 }
 
 async function addAvailability(availability) {
   await mongoDB();
 
-  let result = {};
+  return Availability.create(availability)
+    .then((result) => {
+      mongoose.connection.close();
 
-  try {
-    const newAvailability = new Availability(availability);
-    result = await newAvailability.save();
-  } finally {
-    mongoose.connection.close();
-  }
+      return result;
+    })
+    .catch((e) => {
+      mongoose.connection.close();
 
-  return result;
+      throw e;
+    });
 }
 
 async function deleteAvailability(id) {
@@ -50,40 +51,44 @@ async function deleteAvailability(id) {
     .then(() => {
       mongoose.connection.close();
     })
-    .catch(() => {
+    .catch((e) => {
       mongoose.connection.close();
+
+      throw e;
     });
 }
 
 async function updateAvailability(id, updatedFields) {
   await mongoDB();
-  let result = {};
 
-  try {
-    result = await Availability.findOneAndUpdate(
-      { _id: id },
-      updatedFields,
-      { upsert: false, new: true, useFindAndModify: false },
-    );
-  } finally {
-    mongoose.connection.close();
-  }
+  return Availability.findOneAndUpdate({ _id: id }, updatedFields,
+    { upsert: false, new: true, useFindAndModify: false })
+    .then((result) => {
+      mongoose.connection.close();
 
-  return result;
+      return result;
+    })
+    .catch((e) => {
+      mongoose.connection.close();
+
+      throw e;
+    });
 }
 
 async function getAvailability(id) {
   await mongoDB();
 
-  let availability = {};
+  return Availability.findOne({ _id: id })
+    .then((availability) => {
+      mongoose.connection.close();
 
-  try {
-    availability = await Availability.findOne({ _id: id });
-  } finally {
-    mongoose.connection.close();
-  }
+      return availability;
+    })
+    .catch((e) => {
+      mongoose.connection.close();
 
-  return availability;
+      throw e;
+    });
 }
 
 module.exports = {

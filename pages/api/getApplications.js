@@ -4,6 +4,10 @@ import { getApplications } from '../../server/mongodb/actions/applications';
 // @desc    Get All Applications
 // @access  Public
 export default async function (req, res) {
-  await getApplications()
-    .then((applications) => res.json(applications));
+  return getApplications()
+    .then((applications) => res.status(200).json(applications))
+    .catch((error) => res.status(400).json({
+      success: false,
+      message: error.message,
+    }));
 }

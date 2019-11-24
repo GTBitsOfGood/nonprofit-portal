@@ -6,6 +6,10 @@ import { addAvailability } from '../../server/mongodb/actions/availabilities';
 export default async function (req, res) {
   const { availability } = req.body;
 
-  await addAvailability(availability)
-    .then((result) => res.json(result));
+  return addAvailability(availability)
+    .then((result) => res.status(201).json(result))
+    .catch((error) => res.status(400).json({
+      success: false,
+      message: error.message,
+    }));
 }

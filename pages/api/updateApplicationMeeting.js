@@ -6,8 +6,10 @@ import { updateApplicationMeeting } from '../../server/mongodb/actions/applicati
 export default async function (req, res) {
   const { id, availabilityId } = req.body;
 
-  await updateApplicationMeeting(id, availabilityId)
-    .then((result) => {
-      res.json(result);
-    });
+  return updateApplicationMeeting(id, availabilityId)
+    .then((result) => res.status(200).json(result))
+    .catch((error) => res.status(400).json({
+      success: false,
+      message: error.message,
+    }));
 }

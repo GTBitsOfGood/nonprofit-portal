@@ -36,7 +36,7 @@ export const signUp = async (name, email, password) => fetch(
   config.baseUrl + config.apis.signUp, {
     method: 'post',
     mode: 'same-origin',
-    credentials: 'same-origin',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -64,7 +64,7 @@ export const verifyToken = async (token) => fetch(
   config.baseUrl + config.apis.verifyToken, {
     method: 'post',
     mode: 'same-origin',
-    credentials: 'same-origin',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },

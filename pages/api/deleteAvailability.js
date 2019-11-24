@@ -6,7 +6,12 @@ import { deleteAvailability } from '../../server/mongodb/actions/availabilities'
 export default async function (req, res) {
   const { id } = req.body;
 
-  await deleteAvailability(id)
-    .then(() => res.json({ success: true }))
-    .catch(() => res.json({ success: false }));
+  return deleteAvailability(id)
+    .then(() => res.status(200).json({
+      success: true,
+    }))
+    .catch((error) => res.status(400).json({
+      success: false,
+      message: error.message,
+    }));
 }

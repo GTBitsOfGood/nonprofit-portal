@@ -24,7 +24,14 @@ export const addApplication = async (application) => fetch(
     }),
   },
 )
-  .then((response) => response.json());
+  .then((response) => response.json())
+  .then((json) => {
+    if (json == null || !json.success) {
+      throw new Error(json.message);
+    }
+
+    return json.application;
+  });
 
 export const deleteApplication = async (id) => fetch(
   config.baseUrl + config.apis.deleteApplication, {

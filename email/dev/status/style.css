@@ -16,14 +16,14 @@ p {
 img#header {
   width: 560px;
   height: 150px;
-  margin-bottom: 15px;
+  margin-bottom: 50px;
   background-color: #aaa;
 }
 
 img#status {
   width: 560px;
   height:50px;
-  margin-top: 15px;
+  margin-top: 50px;
   margin-bottom: 15px;
 }
 
@@ -38,6 +38,7 @@ img#logo {
 div#footer {
   width: 560px;
   height: 75px;
+  margin-top: 50px;
   background-size: 560px 75px;
   display: block;
   overflow: hidden;

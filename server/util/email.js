@@ -1,5 +1,6 @@
+const pug = require('pug');
 const Email = require('email-templates');
-const path = require('path');
+const emailFolder = require('../../email/import/index');
 
 const fromAddress = '"GT Bits of Good" <hello@bitsofgood.org>';
 
@@ -13,8 +14,23 @@ const transportConfig = {
   },
 };
 
+function _render(email, view, locals) {
+  return new Promise((resolve, reject) => {
+    const viewParts = view.split('/');
+    const pugTemplate = emailFolder[viewParts[0]][`${viewParts[1]}.pug`];
+    if (typeof pugTemplate === 'undefined') {
+      resolve();
+    }
+    email.juiceResources(pug.render(pugTemplate, { filename: view, ...locals }))
+      .then((juicedHTML) => {
+        resolve(juicedHTML);
+      })
+      .catch(reject);
+  });
+}
+
+
 const sendEmail = (options) => {
-  const emailPath = path.join(process.env.PROJECT_ROOT, 'email');
   const email = new Email({
     message: {
       from: fromAddress,
@@ -23,15 +39,14 @@ const sendEmail = (options) => {
     send: true,
     juice: true,
     juiceResources: {
-      webResources: {
-        relativeTo: path.join(emailPath, 'style'),
-      },
+      extraCss: emailFolder[options.template]['style.css'],
     },
+    render: (view, locals) => _render(email, view, locals),
   });
 
   return email.send(
     {
-      template: path.join(emailPath, 'templates', options.template),
+      template: options.template,
       message: {
         to: options.to,
       },

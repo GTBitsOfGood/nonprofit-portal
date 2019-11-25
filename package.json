@@ -4,6 +4,7 @@
     "main": "index.js",
     "scripts": {
         "dev": "next",
+        "hardcode": "hardcode email/dev/** -p email/dev/ -o email/import/",
         "build": "next build",
         "start": "next start",
         "lint": "eslint --ext .js --ext .jsx ."
@@ -18,6 +19,7 @@
         "email-templates": "^6.0.3",
         "font-awesome": "^4.7.0",
         "formik": "^2.0.3",
+        "hardcode": "^1.4.0",
         "isomorphic-unfetch": "^3.0.0",
         "js-cookie": "^2.2.1",
         "jsonwebtoken": "^8.5.1",

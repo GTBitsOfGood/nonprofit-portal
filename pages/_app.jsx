@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import cookie from 'js-cookie';
 import { verifyToken } from '../frontend/actions/users';
 import withReduxStore from '../frontend/redux/with-redux-store';
-import AppNavbar from '../frontend/components/AppNavbar';
+import MainLayout from '../frontend/layouts/Main';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../frontend/static/style/App.css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -35,10 +35,9 @@ class MyApp extends App {
 
     return (
       <Provider store={reduxStore}>
-        <div className="App">
-          <AppNavbar user={user} />
+        <MainLayout user={user}>
           <Component {...pageProps} user={user} />
-        </div>
+        </MainLayout>
       </Provider>
     );
   }

@@ -1,0 +1,33 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.Notification {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    background-color: #c6c3c9;
+    border: 1px solid black;
+    border-radius: 4px;
+    width: 300px;
+    padding: 8px;
+    animation: fadeIn 1s;
+}
+
+.Notification .success {
+    background-color: #00711c;
+}
+
+.Notification .error {
+    background-color: #ff4648;
+}
+
+.Notification > p {
+    margin: 0;
+    font-size: 18px;
+}

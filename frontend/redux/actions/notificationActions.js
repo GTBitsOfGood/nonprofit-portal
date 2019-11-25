@@ -4,17 +4,22 @@ import {
   CLOSE_NOTIFICATIONS,
 } from './types';
 
-export const addNotification = (key, message) => (dispatch) => {
-  const newKey = key || `${Date.now()}${Math.floor(1000 + Math.random() * 9000)}`;
+export const addNotification = (args) => (dispatch) => {
+  const key = args.key || `${Date.now()}${Math.floor(1000 + Math.random() * 9000)}`;
 
   return dispatch({
     type: ADD_NOTIFICATION,
     payload: {
-      key: newKey,
-      message,
+      key,
+      notification: {
+        message: args.message,
+        expiresIn: args.expiresIn || 3000,
+        type: args.type || 'default',
+        persist: args.persist || false,
+      },
     },
   })
-    .then(() => newKey);
+    .then(() => key);
 };
 
 export const deleteNotification = (key) => (dispatch) => dispatch({

@@ -7,18 +7,14 @@ import {
 const initialState = {};
 
 export default function (state = initialState, action) {
-  const { key, ...rest } = action.payload;
-
   switch (action.type) {
     case ADD_NOTIFICATION:
       return {
         ...state,
-        [key]: {
-          ...rest,
-        },
+        [action.payload.key]: action.payload.notification,
       };
     case DELETE_NOTIFICATION:
-      return Object.keys(state).filter((notification) => state[notification].key !== key);
+      return Object.keys(state).filter((key) => key !== action.payload.key);
     case CLOSE_NOTIFICATIONS:
       return {};
     default:

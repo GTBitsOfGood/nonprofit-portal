@@ -58,7 +58,7 @@ class RegisterPage extends React.PureComponent {
     await signUp(name, email, password)
       .then(() => {
         Router.push({
-          pathname: config.pages.view,
+          pathname: config.pages.admin,
         });
       })
       .catch((e) => {

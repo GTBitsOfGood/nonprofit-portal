@@ -11,6 +11,7 @@ import {
   Container,
 } from 'reactstrap';
 import { signOut } from '../actions/users';
+import config from '../../config';
 
 class AppNavbar extends React.PureComponent {
   constructor(props) {
@@ -40,24 +41,24 @@ class AppNavbar extends React.PureComponent {
       <div>
         <Navbar color="dark" dark expand="sm" className="mb-5">
           <Container>
-            <NavbarBrand href="/">Bits of Good Nonprofit Portal</NavbarBrand>
+            <NavbarBrand href={config.pages.application}>Bits of Good Nonprofit Portal</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={isOpen} navbar>
               <Nav className="ml-auto" navbar>
                 <NavItem>
-                  <NavLink href="/application">
+                  <NavLink href={config.pages.application}>
                     Apply
                   </NavLink>
                 </NavItem>
                 {(isLoggedIn) && (
                   <>
                     <NavItem>
-                      <NavLink href="/admin">
+                      <NavLink href={config.pages.admin}>
                         Applications
                       </NavLink>
                     </NavItem>
                     <NavItem>
-                      <NavLink href="/availability">
+                      <NavLink href={config.pages.availability}>
                         Availability
                       </NavLink>
                     </NavItem>
@@ -65,7 +66,7 @@ class AppNavbar extends React.PureComponent {
                 )}
                 {(isAdmin) && (
                   <NavItem>
-                    <NavLink href="/register">
+                    <NavLink href={config.pages.register}>
                       Create User
                     </NavLink>
                   </NavItem>
@@ -83,7 +84,7 @@ class AppNavbar extends React.PureComponent {
                   </NavItem>
                 ) : (
                   <NavItem>
-                    <NavLink href="/login">
+                    <NavLink href={config.pages.login}>
                       Login
                     </NavLink>
                   </NavItem>

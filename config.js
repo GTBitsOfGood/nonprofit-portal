@@ -23,10 +23,10 @@ export default {
   },
   pages: {
     application: '/application',
-    index: '/index',
     login: '/login',
     register: '/register',
     submitted: '/submitted',
-    view: '/view',
+    admin: '/admin',
+    availability: '/availability',
   },
 };

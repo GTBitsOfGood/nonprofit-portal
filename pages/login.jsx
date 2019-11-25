@@ -15,11 +15,11 @@ class LoginPage extends React.PureComponent {
       .then(async () => {
         if (ctx.res) {
           ctx.res.writeHead(302, {
-            Location: config.pages.view,
+            Location: config.pages.admin,
           });
           ctx.res.end();
         } else {
-          await Router.push(config.pages.view);
+          await Router.push(config.pages.admin);
         }
       })
       .catch(() => ({}));
@@ -53,7 +53,7 @@ class LoginPage extends React.PureComponent {
         });
 
         await Router.push({
-          pathname: config.pages.view,
+          pathname: config.pages.admin,
         });
       })
       .catch((e) => {

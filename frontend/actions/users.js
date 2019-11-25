@@ -25,11 +25,11 @@ export const login = async (email, password) => fetch(
       throw new Error('Unable to login at this time.');
     } else if (!json.success) {
       throw new Error(json.message);
-    } else if (json.token == null) {
+    } else if (json.payload == null) {
       throw new Error('Unable to login at this time.');
     }
 
-    return json;
+    return json.payload;
   });
 
 export const signUp = async (name, email, password) => fetch(
@@ -53,11 +53,11 @@ export const signUp = async (name, email, password) => fetch(
       throw new Error('Unable to sign up at this time.');
     } else if (!json.success) {
       throw new Error(json.message);
-    } else if (json.token == null) {
+    } else if (json.payload == null) {
       throw new Error('Unable to sign up at this time.');
     }
 
-    return json;
+    return json.payload;
   });
 
 export const verifyToken = async (token) => fetch(
@@ -79,11 +79,11 @@ export const verifyToken = async (token) => fetch(
       throw new Error('Unable to verify token at this time.');
     } else if (!json.success) {
       throw new Error(json.message);
-    } else if (json.user == null) {
+    } else if (json.payload == null) {
       throw new Error('Unable to verify token at this time.');
     }
 
-    return json.user;
+    return json.payload;
   });
 
 export const signOut = () => {

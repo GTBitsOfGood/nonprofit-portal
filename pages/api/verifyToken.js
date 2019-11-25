@@ -16,7 +16,7 @@ export default async function (req, res) {
   return verifyToken(token)
     .then((user) => res.status(200).json({
       success: true,
-      user,
+      payload: user,
     }))
     .catch((error) => res.status(400).json({
       success: false,

@@ -11,7 +11,9 @@ export const getAvailabilities = async () => fetch(
 )
   .then((response) => response.json())
   .then((json) => {
-    if (json == null || !json.success) {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
       throw new Error(json.message);
     }
 
@@ -33,7 +35,9 @@ export const addAvailability = async (availability) => fetch(
 )
   .then((response) => response.json())
   .then((json) => {
-    if (json == null || !json.success) {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
       throw new Error(json.message);
     }
 
@@ -55,7 +59,9 @@ export const deleteAvailability = async (id) => fetch(
 )
   .then((response) => response.json())
   .then((json) => {
-    if (json == null || !json.success) {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
       throw new Error(json.message);
     }
 
@@ -78,7 +84,9 @@ export const updateAvailability = async (id, updatedFields) => fetch(
 )
   .then((response) => response.json())
   .then((json) => {
-    if (json == null || !json.success) {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
       throw new Error(json.message);
     }
 
@@ -100,7 +108,9 @@ export const getAvailability = async (id) => fetch(
 )
   .then((response) => response.json())
   .then((json) => {
-    if (json == null || !json.success) {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
       throw new Error(json.message);
     }
 

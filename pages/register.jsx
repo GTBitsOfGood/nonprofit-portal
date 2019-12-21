@@ -1,7 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Router from 'next/router';
 import cookie from 'js-cookie';
+import { connect } from 'react-redux';
 import { signUp, verifyToken } from '../frontend/actions/users';
+import {
+  addNotification as addNotificationBase,
+  deleteNotification as deleteNotificationBase,
+} from '../frontend/redux/actions/notificationActions';
 import '../frontend/static/style/Login.css';
 import config from '../config';
 
@@ -40,8 +46,9 @@ class RegisterPage extends React.PureComponent {
       name: '',
       email: '',
       password: '',
-      error: null,
     };
+
+    this.errorKeys = [];
   }
 
   onChange = (event) => {
@@ -53,24 +60,33 @@ class RegisterPage extends React.PureComponent {
   submitForm = async (event) => {
     event.preventDefault();
 
+    const { addNotification, deleteNotification } = this.props;
     const { name, email, password } = this.state;
 
     await signUp(name, email, password)
       .then(() => {
+        if (this.errorKeys.length > 0) {
+          deleteNotification(this.errorKeys);
+        }
+
         Router.push({
           pathname: config.pages.admin,
         });
       })
-      .catch((e) => {
-        this.setState({
-          error: e.message,
+      .catch(async (e) => {
+        const { payload } = await addNotification({
+          header: e.message,
+          body: 'Please try again.',
+          type: 'error',
         });
+
+        this.errorKeys.push(payload.key);
       });
   };
 
   render() {
     const {
-      name, email, password, error,
+      name, email, password,
     } = this.state;
 
     return (
@@ -106,14 +122,17 @@ class RegisterPage extends React.PureComponent {
           />
           <button type="submit">Submit</button>
         </form>
-        {(error != null) && (
-          <div className="ErrorModal">
-            <p>{error}</p>
-          </div>
-        )}
       </div>
     );
   }
 }
 
-export default RegisterPage;
+RegisterPage.propTypes = {
+  addNotification: PropTypes.func.isRequired,
+  deleteNotification: PropTypes.func.isRequired,
+};
+
+export default connect(null, {
+  addNotification: addNotificationBase,
+  deleteNotification: deleteNotificationBase,
+})(RegisterPage);

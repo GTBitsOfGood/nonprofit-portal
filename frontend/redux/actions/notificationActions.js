@@ -31,7 +31,7 @@ const { payload } = await addNotification({..., persist: true });
 const { key } = payload;
 await deleteNotification(key);
  */
-export const deleteNotification = (key) => (dispatch) => dispatch({
+export const deleteNotification = (...key) => (dispatch) => dispatch({
   type: DELETE_NOTIFICATION,
   payload: {
     key,

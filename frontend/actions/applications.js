@@ -11,7 +11,9 @@ export const getApplications = async () => fetch(
 )
   .then((response) => response.json())
   .then((json) => {
-    if (json == null || !json.success) {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
       throw new Error(json.message);
     }
 
@@ -33,7 +35,9 @@ export const addApplication = async (application) => fetch(
 )
   .then((response) => response.json())
   .then((json) => {
-    if (json == null || !json.success) {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
       throw new Error(json.message);
     }
 
@@ -55,7 +59,9 @@ export const deleteApplication = async (id) => fetch(
 )
   .then((response) => response.json())
   .then((json) => {
-    if (json == null || !json.success) {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
       throw new Error(json.message);
     }
 
@@ -78,7 +84,9 @@ export const updateApplicationState = async (id, state) => fetch(
 )
   .then((response) => response.json())
   .then((json) => {
-    if (json == null || !json.success) {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
       throw new Error(json.message);
     }
 
@@ -101,7 +109,9 @@ export const updateApplicationDecision = async (id, decision) => fetch(
 )
   .then((response) => response.json())
   .then((json) => {
-    if (json == null || !json.success) {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
       throw new Error(json.message);
     }
 
@@ -124,7 +134,9 @@ export const updateApplicationMeeting = async (id, availabilityId) => fetch(
 )
   .then((response) => response.json())
   .then((json) => {
-    if (json == null || !json.success) {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
       throw new Error(json.message);
     }
 
@@ -140,7 +152,9 @@ export const getApplication = async (urlString) => fetch(
 )
   .then((response) => response.json())
   .then((json) => {
-    if (json == null || !json.success) {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
       throw new Error(json.message);
     }
 

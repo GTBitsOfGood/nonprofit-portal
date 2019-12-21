@@ -26,11 +26,13 @@ export default function (state = initialState, action) {
       // eslint-disable-next-line no-case-declarations
       const byIdClone = { ...state.byId };
 
-      delete byIdClone[action.payload.key];
+      action.payload.key.forEach((key) => {
+        delete byIdClone[key];
+      });
 
       return {
         byId: byIdClone,
-        byOrder: state.byOrder.filter((key) => key !== action.payload.key),
+        byOrder: state.byOrder.filter((key) => !action.payload.key.includes(key)),
       };
     case CLOSE_NOTIFICATIONS:
       return {

@@ -4,19 +4,39 @@ import {
   CLOSE_NOTIFICATIONS,
 } from '../actions/types';
 
-const initialState = {};
+const initialState = {
+  byId: {},
+  byOrder: [],
+};
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case ADD_NOTIFICATION:
       return {
-        ...state,
-        [action.payload.key]: action.payload.notification,
+        byId: {
+          ...state.byId,
+          [action.payload.key]: action.payload.notification,
+        },
+        byOrder: [
+          ...state.byOrder,
+          action.payload.key,
+        ],
       };
     case DELETE_NOTIFICATION:
-      return Object.keys(state).filter((key) => key !== action.payload.key);
+      // eslint-disable-next-line no-case-declarations
+      const byIdClone = { ...state.byId };
+
+      delete byIdClone[action.payload.key];
+
+      return {
+        byId: byIdClone,
+        byOrder: state.byOrder.filter((key) => key !== action.payload.key),
+      };
     case CLOSE_NOTIFICATIONS:
-      return {};
+      return {
+        byId: {},
+        byOrder: [],
+      };
     default:
       return state;
   }

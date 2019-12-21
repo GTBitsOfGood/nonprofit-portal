@@ -8,45 +8,53 @@ class MainLayout extends React.PureComponent {
   render() {
     const { user, children, notifications } = this.props;
 
+    const { byId, byOrder } = notifications;
+
     return (
-      <div className="App">
-        <AppNavbar user={user} />
-        {children}
+      <>
+        <div className="App">
+          <AppNavbar user={user} />
+          {children}
+        </div>
         <div className="notificationContainer">
-          {notifications.map((notification) => (
+          {byOrder.map((notification) => (
             <Notification
-              key={notification.key}
-              notification={notification}
+              key={byId[notification].key}
+              notification={byId[notification]}
             />
           ))}
         </div>
-      </div>
+      </>
     );
   }
 }
 
 MainLayout.propTypes = {
   user: PropTypes.shape({
-    loggedIn: PropTypes.bool,
     id: PropTypes.string,
     name: PropTypes.string,
     isAdmin: PropTypes.bool,
-  }).isRequired,
+  }),
   children: PropTypes.element.isRequired,
-  notifications: PropTypes.arrayOf(PropTypes.shape({
-    key: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-    type: PropTypes.oneOf(['default', 'success', 'error']).isRequired,
-    expiresIn: PropTypes.number.isRequired,
-    persist: PropTypes.bool.isRequired,
-  })).isRequired,
+  notifications: PropTypes.shape({
+    byOrder: PropTypes.arrayOf(PropTypes.string),
+    byId: PropTypes.objectOf(PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      header: PropTypes.string.isRequired,
+      body: PropTypes.string,
+      type: PropTypes.oneOf(['default', 'success', 'error', 'warning', 'info']).isRequired,
+      expiresIn: PropTypes.number.isRequired,
+      persist: PropTypes.bool.isRequired,
+    })),
+  }).isRequired,
+};
+
+MainLayout.defaultProps = {
+  user: null,
 };
 
 const mapStateToProps = (state) => ({
-  notifications: Object.keys(state).notifications.map((key) => ({
-    key,
-    ...state.notifications[key],
-  })),
+  notifications: state.notifications,
 });
 
 export default connect(mapStateToProps, null)(MainLayout);

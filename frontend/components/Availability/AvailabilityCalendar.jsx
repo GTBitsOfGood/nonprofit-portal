@@ -10,7 +10,6 @@ import {
 } from '../../redux/actions/availabilityActions';
 import {
   addNotification as addNotificationBase,
-  deleteNotification as deleteNotificationBase,
 } from '../../redux/actions/notificationActions';
 import './AvailabilityCalendar.css';
 import '../../static/style/Calendar.css';
@@ -406,7 +405,6 @@ AvailabilityCalendar.propTypes = {
   addAvailability: PropTypes.func.isRequired,
   deleteAvailability: PropTypes.func.isRequired,
   addNotification: PropTypes.func.isRequired,
-  deleteNotification: PropTypes.func.isRequired,
   availability: PropTypes.shape({
     availabilities: PropTypes.arrayOf(PropTypes.object),
     loading: PropTypes.bool,
@@ -429,5 +427,4 @@ export default connect(mapStateToProps, {
   addAvailability: addAvailabilityBase,
   deleteAvailability: deleteAvailabilityBase,
   addNotification: addNotificationBase,
-  deleteNotification: deleteNotificationBase,
 })(AvailabilityCalendar);

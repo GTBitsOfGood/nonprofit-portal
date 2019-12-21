@@ -8,6 +8,9 @@ import {
   updateApplicationState as updateApplicationStateBase,
   updateApplicationMeeting as updateApplicationMeetingBase,
 } from '../../../redux/actions/applicationActions';
+import {
+  addNotification as addNotificationBase,
+} from '../../../redux/actions/notificationActions';
 
 import './ScheduleInterviewBody.css';
 
@@ -38,7 +41,7 @@ class ScheduleInterviewBody extends React.PureComponent {
     e.preventDefault();
 
     const {
-      name, applicationId, updateAvailability, updateApplicationState, updateApplicationMeeting,
+      name, applicationId, updateAvailability, updateApplicationState, updateApplicationMeeting, addNotification
     } = this.props;
     const { selectedHour, person, phone } = this.state;
 
@@ -53,7 +56,15 @@ class ScheduleInterviewBody extends React.PureComponent {
         team: name,
         person,
         phone,
-      });
+      })
+        .catch(async () => {
+          await addNotification({
+            header: 'Failed to schedule meeting!',
+            body: 'Please refresh and try again.',
+            type: 'error',
+          });
+        });
+
       await updateApplicationState(applicationId, 2);
       await updateApplicationMeeting(applicationId, selectedHour);
       window.location.reload();
@@ -132,6 +143,7 @@ ScheduleInterviewBody.propTypes = {
   updateAvailability: PropTypes.func.isRequired,
   updateApplicationState: PropTypes.func.isRequired,
   updateApplicationMeeting: PropTypes.func.isRequired,
+  addNotification: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   applicationId: PropTypes.string.isRequired,
 };
@@ -144,4 +156,5 @@ export default connect(mapStateToProps, {
   updateAvailability: updateAvailabilityBase,
   updateApplicationState: updateApplicationStateBase,
   updateApplicationMeeting: updateApplicationMeetingBase,
+  addNotification: addNotificationBase,
 })(ScheduleInterviewBody);

@@ -8,6 +8,10 @@ import {
   addAvailability as addAvailabilityBase,
   deleteAvailability as deleteAvailabilityBase,
 } from '../../redux/actions/availabilityActions';
+import {
+  addNotification as addNotificationBase,
+  deleteNotification as deleteNotificationBase,
+} from '../../redux/actions/notificationActions';
 import './AvailabilityCalendar.css';
 import '../../static/style/Calendar.css';
 
@@ -92,8 +96,17 @@ class AvailabilityCalendar extends React.PureComponent {
   }
 
   async componentDidMount() {
-    const { getAvailabilities } = this.props;
-    let availabilityCheck = await getAvailabilities();
+    const { getAvailabilities, addNotification } = this.props;
+
+    let availabilityCheck = await getAvailabilities()
+      .catch(async () => {
+        await addNotification({
+          header: 'Failed retrieving availabilities!',
+          body: 'Please refresh and try again.',
+          type: 'error',
+        });
+      });
+
     availabilityCheck = availabilityCheck.payload;
     availabilityCheck.forEach((availability) => {
       this.setState((prevState) => ({
@@ -220,7 +233,7 @@ class AvailabilityCalendar extends React.PureComponent {
 
   addAvailability = (event) => {
     event.preventDefault();
-    const { addAvailability, deleteAvailability } = this.props;
+    const { addAvailability, deleteAvailability, addNotification } = this.props;
     const {
       selectedDays,
       deselectedDays,
@@ -233,13 +246,28 @@ class AvailabilityCalendar extends React.PureComponent {
           startDate: date,
           interviewer,
         };
-        addAvailability(availability);
+
+        addAvailability(availability)
+          .catch(async () => {
+            await addNotification({
+              header: 'Failed adding availability!',
+              body: 'Please refresh and try again.',
+              type: 'error',
+            });
+          });
       }
     });
 
     Object.keys(deselectedDays).forEach((date) => {
       if (deselectedDays[date] !== 0) {
-        deleteAvailability(deselectedDays[date]);
+        deleteAvailability(deselectedDays[date])
+          .catch(async () => {
+            await addNotification({
+              header: 'Failed deleting availability!',
+              body: 'Please refresh and try again.',
+              type: 'error',
+            });
+          });
       }
     });
   }
@@ -377,6 +405,8 @@ AvailabilityCalendar.propTypes = {
   getAvailabilities: PropTypes.func.isRequired,
   addAvailability: PropTypes.func.isRequired,
   deleteAvailability: PropTypes.func.isRequired,
+  addNotification: PropTypes.func.isRequired,
+  deleteNotification: PropTypes.func.isRequired,
   availability: PropTypes.shape({
     availabilities: PropTypes.arrayOf(PropTypes.object),
     loading: PropTypes.bool,
@@ -398,4 +428,6 @@ export default connect(mapStateToProps, {
   getAvailabilities: getAvailabilitiesBase,
   addAvailability: addAvailabilityBase,
   deleteAvailability: deleteAvailabilityBase,
+  addNotification: addNotificationBase,
+  deleteNotification: deleteNotificationBase,
 })(AvailabilityCalendar);

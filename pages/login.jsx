@@ -56,9 +56,7 @@ class LoginPage extends React.PureComponent {
 
     await login(email, password)
       .then(async () => {
-        if (this.errorKeys.length > 0) {
-          deleteNotification(this.errorKeys);
-        }
+        deleteNotification(...this.errorKeys);
 
         await Router.push({
           pathname: config.pages.admin,

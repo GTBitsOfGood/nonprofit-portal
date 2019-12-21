@@ -15,27 +15,62 @@ import {
   updateApplicationState as updateApplicationStateBase,
   updateApplicationDecision as updateApplicationDecisionBase,
 } from '../../redux/actions/applicationActions';
+import {
+  addNotification as addNotificationBase,
+} from '../../redux/actions/notificationActions';
 
 class ApplicationsList extends Component {
   componentDidMount() {
-    const { getApplications } = this.props;
-    getApplications();
+    const { getApplications, addNotification } = this.props;
+
+    getApplications()
+      .catch(async () => {
+        await addNotification({
+          header: 'Failed retrieving applications!',
+          body: 'Please refresh and try again.',
+          type: 'error',
+        });
+      });
   }
 
-  onDeleteClick = (id) => {
-    const { deleteApplication } = this.props;
-    deleteApplication(id);
+  onDeleteClick = async (id) => {
+    const { deleteApplication, addNotification } = this.props;
+
+    await deleteApplication(id)
+      .catch(async () => {
+        await addNotification({
+          header: 'Failed to delete application!',
+          body: 'Please refresh and try again.',
+          type: 'error',
+        });
+      });
   };
 
   changeAppState = async (id, state) => {
-    const { updateApplicationState } = this.props;
-    await updateApplicationState(id, state);
-  }
+    const { updateApplicationState, addNotification } = this.props;
+
+    await updateApplicationState(id, state)
+      .catch(async () => {
+        await addNotification({
+          header: 'Failed to change application state!',
+          body: 'Please refresh and try again.',
+          type: 'error',
+        });
+      });
+  };
 
   changeAppDecision = async (id, decision) => {
-    const { updateApplicationDecision } = this.props;
-    await updateApplicationDecision(id, decision);
-  }
+    const { updateApplicationDecision, addNotification } = this.props;
+
+    await updateApplicationDecision(id, decision)
+      .catch(async () => {
+        await addNotification({
+          header: 'Failed to change application decision!',
+          body: 'Please refresh and try again.',
+          type: 'error',
+        });
+      });
+  };
 
   render() {
     const { application } = this.props;
@@ -253,6 +288,7 @@ ApplicationsList.propTypes = {
   deleteApplication: PropTypes.func.isRequired,
   updateApplicationState: PropTypes.func.isRequired,
   updateApplicationDecision: PropTypes.func.isRequired,
+  addNotification: PropTypes.func.isRequired,
   application: PropTypes.shape({
     applications: PropTypes.arrayOf(PropTypes.object),
     loading: PropTypes.bool,
@@ -268,4 +304,5 @@ export default connect(mapStateToProps, {
   deleteApplication: deleteApplicationBase,
   updateApplicationState: updateApplicationStateBase,
   updateApplicationDecision: updateApplicationDecisionBase,
+  addNotification: addNotificationBase,
 })(ApplicationsList);

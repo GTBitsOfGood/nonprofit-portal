@@ -64,12 +64,10 @@ class RegisterPage extends React.PureComponent {
     const { name, email, password } = this.state;
 
     await signUp(name, email, password)
-      .then(() => {
-        if (this.errorKeys.length > 0) {
-          deleteNotification(this.errorKeys);
-        }
+      .then(async () => {
+        deleteNotification(...this.errorKeys);
 
-        Router.push({
+        await Router.push({
           pathname: config.pages.admin,
         });
       })

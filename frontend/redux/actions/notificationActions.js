@@ -17,7 +17,7 @@ export const addNotification = ({
         key,
         header,
         body,
-        expiresIn: expiresIn || 5000,
+        expiresIn: expiresIn || 8000,
         type: type || 'default',
         persist: persist || false,
       },

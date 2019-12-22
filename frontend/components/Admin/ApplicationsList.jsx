@@ -29,6 +29,7 @@ class ApplicationsList extends Component {
           header: 'Failed retrieving applications!',
           body: 'Please refresh and try again.',
           type: 'error',
+          persist: true,
         });
       });
   }
@@ -48,6 +49,7 @@ class ApplicationsList extends Component {
           header: 'Failed to delete application!',
           body: 'Please refresh and try again.',
           type: 'error',
+          persist: true,
         });
       });
   };
@@ -67,6 +69,7 @@ class ApplicationsList extends Component {
           header: 'Failed to change application state!',
           body: 'Please refresh and try again.',
           type: 'error',
+          persist: true,
         });
       });
   };
@@ -86,13 +89,13 @@ class ApplicationsList extends Component {
           header: 'Failed to change application decision!',
           body: 'Please refresh and try again.',
           type: 'error',
+          persist: true,
         });
       });
   };
 
   render() {
-    const { application } = this.props;
-    const { applications } = application;
+    const { applications } = this.props;
 
     return (
       <Container>
@@ -307,14 +310,11 @@ ApplicationsList.propTypes = {
   updateApplicationState: PropTypes.func.isRequired,
   updateApplicationDecision: PropTypes.func.isRequired,
   addNotification: PropTypes.func.isRequired,
-  application: PropTypes.shape({
-    applications: PropTypes.arrayOf(PropTypes.object),
-    loading: PropTypes.bool,
-  }).isRequired,
+  applications: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  application: state.application,
+  applications: state.application.applications,
 });
 
 export default connect(mapStateToProps, {

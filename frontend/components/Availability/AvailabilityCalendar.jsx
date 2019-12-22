@@ -108,6 +108,7 @@ class AvailabilityCalendar extends React.PureComponent {
         header: 'Failed to retrieve availabilities!',
         body: 'Please refresh and try again.',
         type: 'error',
+        persist: true,
       });
     }
   }
@@ -256,6 +257,7 @@ class AvailabilityCalendar extends React.PureComponent {
         header: 'Failed update availabilities!',
         body: 'Please refresh and try again.',
         type: 'error',
+        persist: true,
       });
     }
   }

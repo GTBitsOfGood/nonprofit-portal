@@ -86,6 +86,7 @@ class NonProfitCalendar extends React.PureComponent {
           header: 'Failed to retrieve availabilities!',
           body: 'Please refresh and try again.',
           type: 'error',
+          persist: true,
         });
       });
   }

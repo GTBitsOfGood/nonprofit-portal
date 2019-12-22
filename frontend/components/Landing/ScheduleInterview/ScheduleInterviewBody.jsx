@@ -75,6 +75,7 @@ class ScheduleInterviewBody extends React.PureComponent {
           header: 'Failed to schedule interview!',
           body: 'Please refresh and try again.',
           type: 'error',
+          persist: true,
         });
       }
     }

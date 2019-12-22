@@ -75,18 +75,18 @@ class Notification extends React.PureComponent {
 
     return (
       <div className={`Notification${disappearing ? ' exit' : ' enter'}`}>
-        <div
-          className="NotificationClose"
-          onClick={this.onDelete}
-        >
-          <FontAwesomeIcon icon={faTimes} size="sm" />
-        </div>
         <div className={`NotificationIcon ${type || ''}`}>
           {this.getIcon()}
         </div>
         <div className="NotificationText">
           <h3>{header}</h3>
           <p>{body}</p>
+        </div>
+        <div
+          className="NotificationClose"
+          onClick={this.onDelete}
+        >
+          <FontAwesomeIcon icon={faTimes} size="sm" />
         </div>
       </div>
     );

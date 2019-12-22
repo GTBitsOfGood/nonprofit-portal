@@ -6,7 +6,7 @@
     background-color: #ffffff;
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
     border-radius: 12px;
-    width: 350px;
+    width: 300px;
     padding: 0 8px;
     transform-origin: center bottom;
     box-sizing: content-box;
@@ -26,7 +26,7 @@
     to {
         opacity: 1;
         max-height: 300px;
-        min-height: 100px;
+        min-height: 75px;
         padding-top: 8px;
         padding-bottom: 8px;
         margin-top: 8px;
@@ -36,7 +36,7 @@
 .Notification.enter {
     animation: fadeIn 1s;
     opacity: 1;
-    min-height: 100px;
+    min-height: 75px;
     padding-top: 8px;
     padding-bottom: 8px;
     margin-top: 8px;
@@ -46,7 +46,7 @@
     from {
         opacity: 1;
         max-height: 300px;
-        min-height: 100px;
+        min-height: 75px;
         padding-top: 8px;
         padding-bottom: 8px;
         margin-top: 8px;
@@ -75,9 +75,7 @@
 }
 
 .NotificationClose {
-    position: absolute;
-    top: 8px;
-    right: 8px;
+    align-self: flex-start;
     width: 25px;
     height: 25px;
     display: flex;

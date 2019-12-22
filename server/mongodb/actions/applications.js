@@ -51,6 +51,8 @@ export async function updateApplicationState(id, state) {
     .then(async (curObject) => {
       let result = {};
 
+      console.log('curObject', curObject)
+
       if (curObject.status < 3) {
         result = await Application.findOneAndUpdate({ _id: id }, { status: state, decision: null },
           { upsert: false, new: true });
@@ -59,8 +61,10 @@ export async function updateApplicationState(id, state) {
           { upsert: false, new: true });
       }
 
+      console.log('result', result)
+
       await sendEmail({
-        to: curObject.email,
+        to: result.email,
         template: 'status',
         locals: {
           status: state,

@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import mongoDB from '../index';
 import Application from '../models/Application';
 import { generateURLString } from './util';
@@ -10,17 +9,7 @@ export async function getApplications() {
 
   return Application
     .find()
-    .sort({ submitted: -1 })
-    .then((applications) => {
-      mongoose.connection.close();
-
-      return applications;
-    })
-    .catch((e) => {
-      mongoose.connection.close();
-
-      throw e;
-    });
+    .sort({ submitted: -1 });
 }
 
 export async function addApplication(application) {
@@ -33,8 +22,6 @@ export async function addApplication(application) {
     urlString: pageURLString,
   })
     .then(async (newApplication) => {
-      mongoose.connection.close();
-
       await sendEmail({
         to: newApplication.email,
         template: 'status',
@@ -47,11 +34,6 @@ export async function addApplication(application) {
       });
 
       return newApplication;
-    })
-    .catch((e) => {
-      mongoose.connection.close();
-
-      throw e;
     });
 }
 
@@ -59,15 +41,7 @@ export async function deleteApplication(id) {
   await mongoDB();
 
   await Application.findById(id)
-    .then((application) => application.remove())
-    .then(() => {
-      mongoose.connection.close();
-    })
-    .catch((e) => {
-      mongoose.connection.close();
-
-      throw e;
-    });
+    .then((application) => application.remove());
 }
 
 export async function updateApplicationState(id, state) {
@@ -79,13 +53,11 @@ export async function updateApplicationState(id, state) {
 
       if (curObject.status < 3) {
         result = await Application.findOneAndUpdate({ _id: id }, { status: state, decision: null },
-          { upsert: false, new: true, useFindAndModify: false });
+          { upsert: false, new: true });
       } else {
         result = await Application.findOneAndUpdate({ _id: id }, { status: state },
-          { upsert: false, new: true, useFindAndModify: false });
+          { upsert: false, new: true });
       }
-
-      mongoose.connection.close();
 
       await sendEmail({
         to: curObject.email,
@@ -100,11 +72,6 @@ export async function updateApplicationState(id, state) {
       });
 
       return result;
-    })
-    .catch((e) => {
-      mongoose.connection.close();
-
-      throw e;
     });
 }
 
@@ -112,48 +79,18 @@ export async function updateApplicationDecision(id, decision) {
   await mongoDB();
 
   return Application.findOneAndUpdate({ _id: id }, { decision, status: 4 },
-    { upsert: false, new: true, useFindAndModify: false })
-    .then((application) => {
-      mongoose.connection.close();
-
-      return application;
-    })
-    .catch((e) => {
-      mongoose.connection.close();
-
-      throw e;
-    });
+    { upsert: false, new: true });
 }
 
 export async function updateApplicationMeeting(id, availabilityId) {
   await mongoDB();
 
   return Application.findOneAndUpdate({ _id: id }, { meeting: availabilityId },
-    { upsert: false, new: true, useFindAndModify: false })
-    .then((application) => {
-      mongoose.connection.close();
-
-      return application;
-    })
-    .catch((e) => {
-      mongoose.connection.close();
-
-      throw e;
-    });
+    { upsert: false, new: true });
 }
 
 export async function getApplication(urlString) {
   await mongoDB();
 
-  return Application.findOne({ urlString })
-    .then((application) => {
-      mongoose.connection.close();
-
-      return application;
-    })
-    .catch((e) => {
-      mongoose.connection.close();
-
-      throw e;
-    });
+  return Application.findOne({ urlString });
 }

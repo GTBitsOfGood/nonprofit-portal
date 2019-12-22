@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import mongoDB from '../index';
@@ -19,22 +18,13 @@ export async function login(email, password) {
 
       return Promise.reject(Error('The email does not exist.'));
     })
-    .then((user) => {
-      mongoose.connection.close();
-
-      return jwt.sign({
-        id: user._id,
-        name: user.name,
-        isAdmin: user.isAdmin,
-      }, process.env.JWT_SECRET, {
-        expiresIn: '7d',
-      });
-    })
-    .catch((error) => {
-      mongoose.connection.close();
-
-      throw error;
-    });
+    .then((user) => jwt.sign({
+      id: user._id,
+      name: user.name,
+      isAdmin: user.isAdmin,
+    }, process.env.JWT_SECRET, {
+      expiresIn: '7d',
+    }));
 }
 
 export async function signUp(name, email, password) {
@@ -53,22 +43,13 @@ export async function signUp(name, email, password) {
       email,
       password: hashedPassword,
     }))
-    .then((user) => {
-      mongoose.connection.close();
-
-      return jwt.sign({
-        id: user._id,
-        name: user.name,
-        isAdmin: user.isAdmin,
-      }, process.env.JWT_SECRET, {
-        expiresIn: '7d',
-      });
-    })
-    .catch((error) => {
-      mongoose.connection.close();
-
-      throw error;
-    });
+    .then((user) => jwt.sign({
+      id: user._id,
+      name: user.name,
+      isAdmin: user.isAdmin,
+    }, process.env.JWT_SECRET, {
+      expiresIn: '7d',
+    }));
 }
 
 export async function verifyToken(token) {

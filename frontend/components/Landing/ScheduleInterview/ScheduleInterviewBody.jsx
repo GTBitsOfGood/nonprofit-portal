@@ -41,7 +41,8 @@ class ScheduleInterviewBody extends React.PureComponent {
     e.preventDefault();
 
     const {
-      name, applicationId, updateAvailability, updateApplicationState, updateApplicationMeeting, addNotification
+      name, applicationId, updateAvailability, updateApplicationState,
+      updateApplicationMeeting, addNotification,
     } = this.props;
     const { selectedHour, person, phone } = this.state;
 
@@ -51,23 +52,31 @@ class ScheduleInterviewBody extends React.PureComponent {
     }
 
     if (selectedHour != null && name != null && person != null && phone != null) {
-      await updateAvailability(selectedHour, {
-        isBooked: true,
-        team: name,
-        person,
-        phone,
-      })
-        .catch(async () => {
-          await addNotification({
-            header: 'Failed to schedule meeting!',
-            body: 'Please refresh and try again.',
-            type: 'error',
-          });
+      try {
+        await updateAvailability(selectedHour, {
+          isBooked: true,
+          team: name,
+          person,
+          phone,
         });
 
-      await updateApplicationState(applicationId, 2);
-      await updateApplicationMeeting(applicationId, selectedHour);
-      window.location.reload();
+        await updateApplicationState(applicationId, 2);
+
+        await updateApplicationMeeting(applicationId, selectedHour);
+
+        await addNotification({
+          header: 'Successfully scheduled interview!',
+          type: 'success',
+        });
+
+        window.location.reload();
+      } catch (e) {
+        await addNotification({
+          header: 'Failed to schedule interview!',
+          body: 'Please refresh and try again.',
+          type: 'error',
+        });
+      }
     }
   };
 

@@ -39,8 +39,14 @@ const ApplicationForm = (props) => {
         const { addApplication, addNotification, deleteNotification } = props;
 
         addApplication(values)
-          .then(({ payload }) => {
+          .then(async ({ payload }) => {
             deleteNotification(...errorKeys);
+
+            await addNotification({
+              header: 'Successfully submitted application!',
+              type: 'success',
+            });
+
             window.location.href = `/p/${payload.urlString}`;
           })
           .catch(async () => {

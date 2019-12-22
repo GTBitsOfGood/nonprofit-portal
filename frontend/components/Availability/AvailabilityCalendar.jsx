@@ -71,16 +71,10 @@ class AvailabilityCalendar extends React.PureComponent {
     }
 
     const upcomingDays = [];
-    // const upcomingMonths = [];
-
 
     for (let i = 0; i < 5; i += 1) {
       upcomingDays.push(weekStart.clone().add(i, 'day').startOf('day'));
     }
-
-    // for (let i = 0; i < 2; i += 1) {
-    //   upcomingMonths.push(moment().add(i, 'month'));
-    // }
 
     this.state = {
       upcomingDays,
@@ -90,31 +84,32 @@ class AvailabilityCalendar extends React.PureComponent {
       interviewer: '',
       firstWeek: true,
       lastWeek: false,
-      // upcomingMonths,
     };
   }
 
   async componentDidMount() {
     const { getAvailabilities, addNotification } = this.props;
 
-    let availabilityCheck = await getAvailabilities()
-      .catch(async () => {
-        await addNotification({
-          header: 'Failed retrieving availabilities!',
-          body: 'Please refresh and try again.',
-          type: 'error',
-        });
-      });
+    try {
+      const availabilityCheck = await getAvailabilities();
 
-    availabilityCheck = availabilityCheck.payload;
-    availabilityCheck.forEach((availability) => {
-      this.setState((prevState) => ({
-        selectedDays: {
-          ...prevState.selectedDays,
-          [moment(availability.startDate).toDate()]: availability._id,
-        },
-      }));
-    });
+      const { payload } = availabilityCheck;
+
+      payload.forEach((availability) => {
+        this.setState((prevState) => ({
+          selectedDays: {
+            ...prevState.selectedDays,
+            [moment(availability.startDate).toDate()]: availability._id,
+          },
+        }));
+      });
+    } catch (e) {
+      await addNotification({
+        header: 'Failed to retrieve availabilities!',
+        body: 'Please refresh and try again.',
+        type: 'error',
+      });
+    }
   }
 
   addOrRemoveAvailability = (availableDate) => {
@@ -214,12 +209,6 @@ class AvailabilityCalendar extends React.PureComponent {
     });
   }
 
-  updateMonthYear = (selectedMonth) => {
-    this.setState({
-      monthYear: selectedMonth,
-    });
-  }
-
   handleChangeInterviewer = (event) => {
     let eventClone = event.target.value;
     if (eventClone === '') {
@@ -230,8 +219,9 @@ class AvailabilityCalendar extends React.PureComponent {
     });
   }
 
-  addAvailability = (event) => {
+  addAvailability = async (event) => {
     event.preventDefault();
+
     const { addAvailability, deleteAvailability, addNotification } = this.props;
     const {
       selectedDays,
@@ -239,36 +229,35 @@ class AvailabilityCalendar extends React.PureComponent {
       interviewer,
     } = this.state;
 
-    Object.keys(selectedDays).forEach((date) => {
-      if (selectedDays[date] === -1) {
-        const availability = {
-          startDate: date,
-          interviewer,
-        };
+    try {
+      Object.keys(selectedDays).forEach((date) => {
+        if (selectedDays[date] === -1) {
+          const availability = {
+            startDate: date,
+            interviewer,
+          };
 
-        addAvailability(availability)
-          .catch(async () => {
-            await addNotification({
-              header: 'Failed adding availability!',
-              body: 'Please refresh and try again.',
-              type: 'error',
-            });
-          });
-      }
-    });
+          addAvailability(availability);
+        }
+      });
 
-    Object.keys(deselectedDays).forEach((date) => {
-      if (deselectedDays[date] !== 0) {
-        deleteAvailability(deselectedDays[date])
-          .catch(async () => {
-            await addNotification({
-              header: 'Failed deleting availability!',
-              body: 'Please refresh and try again.',
-              type: 'error',
-            });
-          });
-      }
-    });
+      Object.keys(deselectedDays).forEach((date) => {
+        if (deselectedDays[date] !== 0) {
+          deleteAvailability(deselectedDays[date]);
+        }
+      });
+
+      await addNotification({
+        header: 'Successfully updated availabilities!',
+        type: 'success',
+      });
+    } catch (e) {
+      await addNotification({
+        header: 'Failed update availabilities!',
+        body: 'Please refresh and try again.',
+        type: 'error',
+      });
+    }
   }
 
   render() {
@@ -280,7 +269,6 @@ class AvailabilityCalendar extends React.PureComponent {
       interviewer,
       firstWeek,
       lastWeek,
-      // upcomingMonths,
     } = this.state;
     const { availabilities, loading } = availability;
 
@@ -304,7 +292,6 @@ class AvailabilityCalendar extends React.PureComponent {
             style={{ marginLeft: '50px' }}
             onClick={() => this.getNextWeek(monthYear)}
             disabled={lastWeek}
-
           >
             Next Week
             {' >'}
@@ -323,18 +310,6 @@ class AvailabilityCalendar extends React.PureComponent {
             >
               {monthYear.format('MMMM YYYY')}
             </button>
-            {/* <div className="dropdownMonthList">
-              {upcomingMonths.map((month) => (
-                <button
-                  key={month}
-                  className="monthItem"
-                  type="button"
-                  onClick={() => this.updateMonthYear(month)}
-                >
-                  {month.format('MMMM YYYY')}
-                </button>
-              ))}
-            </div> */}
           </div>
         </span>
         <div className="availcalendar-container">

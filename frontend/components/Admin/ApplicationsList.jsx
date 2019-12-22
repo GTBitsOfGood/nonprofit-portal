@@ -37,6 +37,12 @@ class ApplicationsList extends Component {
     const { deleteApplication, addNotification } = this.props;
 
     await deleteApplication(id)
+      .then(async () => {
+        await addNotification({
+          header: 'Successfully deleted application!',
+          type: 'success',
+        });
+      })
       .catch(async () => {
         await addNotification({
           header: 'Failed to delete application!',
@@ -50,6 +56,12 @@ class ApplicationsList extends Component {
     const { updateApplicationState, addNotification } = this.props;
 
     await updateApplicationState(id, state)
+      .then(async () => {
+        await addNotification({
+          header: 'Successfully changed application state!',
+          type: 'success',
+        });
+      })
       .catch(async () => {
         await addNotification({
           header: 'Failed to change application state!',
@@ -63,6 +75,12 @@ class ApplicationsList extends Component {
     const { updateApplicationDecision, addNotification } = this.props;
 
     await updateApplicationDecision(id, decision)
+      .then(async () => {
+        await addNotification({
+          header: 'Successfully changed application decision!',
+          type: 'success',
+        });
+      })
       .catch(async () => {
         await addNotification({
           header: 'Failed to change application decision!',

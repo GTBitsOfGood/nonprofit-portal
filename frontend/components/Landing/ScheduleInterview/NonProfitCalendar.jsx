@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getAvailabilities as getAvailabilitiesBase } from '../../../redux/actions/availabilityActions';
+import { addNotification as addNotificationBase } from '../../../redux/actions/notificationActions';
 import '../../../static/style/Calendar.css';
 
 const getHoursPerDay = (day, availabilities) => {
@@ -77,9 +78,16 @@ class NonProfitCalendar extends React.PureComponent {
   }
 
   async componentDidMount() {
-    const { getAvailabilities } = this.props;
+    const { getAvailabilities, addNotification } = this.props;
 
-    await getAvailabilities();
+    await getAvailabilities()
+      .catch(async () => {
+        await addNotification({
+          header: 'Failed to retrieve availabilities!',
+          body: 'Please refresh and try again.',
+          type: 'error',
+        });
+      });
   }
 
   getNextWeek = (curWeek) => {
@@ -212,6 +220,7 @@ class NonProfitCalendar extends React.PureComponent {
 
 NonProfitCalendar.propTypes = {
   getAvailabilities: PropTypes.func.isRequired,
+  addNotification: PropTypes.func.isRequired,
   availability: PropTypes.shape({
     availabilities: PropTypes.arrayOf(PropTypes.object),
     loading: PropTypes.bool,
@@ -234,4 +243,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getAvailabilities: getAvailabilitiesBase,
+  addNotification: addNotificationBase,
 })(NonProfitCalendar);

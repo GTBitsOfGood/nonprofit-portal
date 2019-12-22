@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const config = require('../../config').default;
+import mongoose from 'mongoose';
+import config from '../../config';
 
-module.exports = () => mongoose.connect(config.dbUrl, {
+export default () => mongoose.connect(config.dbUrl, {
   // avoids deprecated functionality
   useNewUrlParser: true,
   useUnifiedTopology: true,

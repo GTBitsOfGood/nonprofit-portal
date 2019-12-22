@@ -230,22 +230,22 @@ class AvailabilityCalendar extends React.PureComponent {
     } = this.state;
 
     try {
-      Object.keys(selectedDays).forEach((date) => {
+      await Promise.all(Object.keys(selectedDays).map(async (date) => {
         if (selectedDays[date] === -1) {
           const availability = {
             startDate: date,
             interviewer,
           };
 
-          addAvailability(availability);
+          await addAvailability(availability);
         }
-      });
+      }));
 
-      Object.keys(deselectedDays).forEach((date) => {
+      await Promise.all(Object.keys(deselectedDays).map(async (date) => {
         if (deselectedDays[date] !== 0) {
-          deleteAvailability(deselectedDays[date]);
+          await deleteAvailability(deselectedDays[date]);
         }
-      });
+      }));
 
       await addNotification({
         header: 'Successfully updated availabilities!',

@@ -1,9 +1,9 @@
-const Application = require('../models/Application');
-const { randomString } = require('../../util/random');
+import Application from '../models/Application';
+import { randomString } from '../../util/random';
 
 /* eslint no-await-in-loop: "off" */
 
-async function generateURLString() {
+export async function generateURLString() {
   let urlStringAttempt;
   let attemptCount = 0;
 
@@ -24,7 +24,3 @@ async function generateURLString() {
   // all attempts failed, throw error
   throw new Error('Internal server error: unique page URL generation failed.');
 }
-
-module.exports = {
-  generateURLString,
-};

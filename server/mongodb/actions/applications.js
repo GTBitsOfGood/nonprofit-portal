@@ -1,13 +1,11 @@
+import mongoose from 'mongoose';
+import mongoDB from '../index';
+import Application from '../models/Application';
+import { generateURLString } from './util';
+import { sendEmail } from '../../util/email';
 import config from '../../../config';
 
-const mongoose = require('mongoose');
-const mongoDB = require('../index');
-const Application = require('../models/Application');
-
-const { generateURLString } = require('./util');
-const { sendEmail } = require('../../util/email');
-
-async function getApplications() {
+export async function getApplications() {
   await mongoDB();
 
   return Application
@@ -25,7 +23,7 @@ async function getApplications() {
     });
 }
 
-async function addApplication(application) {
+export async function addApplication(application) {
   await mongoDB();
 
   const pageURLString = await generateURLString();
@@ -57,7 +55,7 @@ async function addApplication(application) {
     });
 }
 
-async function deleteApplication(id) {
+export async function deleteApplication(id) {
   await mongoDB();
 
   await Application.findById(id)
@@ -72,7 +70,7 @@ async function deleteApplication(id) {
     });
 }
 
-async function updateApplicationState(id, state) {
+export async function updateApplicationState(id, state) {
   await mongoDB();
 
   return Application.findOne({ _id: id }, { status: 1 })
@@ -110,7 +108,7 @@ async function updateApplicationState(id, state) {
     });
 }
 
-async function updateApplicationDecision(id, decision) {
+export async function updateApplicationDecision(id, decision) {
   await mongoDB();
 
   return Application.findOneAndUpdate({ _id: id }, { decision, status: 4 },
@@ -127,7 +125,7 @@ async function updateApplicationDecision(id, decision) {
     });
 }
 
-async function updateApplicationMeeting(id, availabilityId) {
+export async function updateApplicationMeeting(id, availabilityId) {
   await mongoDB();
 
   return Application.findOneAndUpdate({ _id: id }, { meeting: availabilityId },
@@ -144,7 +142,7 @@ async function updateApplicationMeeting(id, availabilityId) {
     });
 }
 
-async function getApplication(urlString) {
+export async function getApplication(urlString) {
   await mongoDB();
 
   return Application.findOne({ urlString })
@@ -159,13 +157,3 @@ async function getApplication(urlString) {
       throw e;
     });
 }
-
-module.exports = {
-  getApplications,
-  addApplication,
-  deleteApplication,
-  getApplication,
-  updateApplicationState,
-  updateApplicationDecision,
-  updateApplicationMeeting,
-};

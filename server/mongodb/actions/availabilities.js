@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
-const moment = require('moment');
-const mongoDB = require('../index');
-const Availability = require('../models/Availability');
+import mongoose from 'mongoose';
+import moment from 'moment';
+import mongoDB from '../index';
+import Availability from '../models/Availability';
 
-async function getAvailabilities() {
+export async function getAvailabilities() {
   await mongoDB();
 
   return Availability
@@ -27,7 +27,7 @@ async function getAvailabilities() {
     });
 }
 
-async function addAvailability(availability) {
+export async function addAvailability(availability) {
   await mongoDB();
 
   return Availability.create(availability)
@@ -43,7 +43,7 @@ async function addAvailability(availability) {
     });
 }
 
-async function deleteAvailability(id) {
+export async function deleteAvailability(id) {
   await mongoDB();
 
   await Availability.findById(id)
@@ -58,7 +58,7 @@ async function deleteAvailability(id) {
     });
 }
 
-async function updateAvailability(id, updatedFields) {
+export async function updateAvailability(id, updatedFields) {
   await mongoDB();
 
   return Availability.findOneAndUpdate({ _id: id }, updatedFields,
@@ -75,7 +75,7 @@ async function updateAvailability(id, updatedFields) {
     });
 }
 
-async function getAvailability(id) {
+export async function getAvailability(id) {
   await mongoDB();
 
   return Availability.findOne({ _id: id })
@@ -90,11 +90,3 @@ async function getAvailability(id) {
       throw e;
     });
 }
-
-module.exports = {
-  getAvailabilities,
-  addAvailability,
-  deleteAvailability,
-  updateAvailability,
-  getAvailability,
-};

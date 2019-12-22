@@ -24,12 +24,4 @@ const UserSchema = new Schema({
   },
 });
 
-let Application;
-
-if (mongoose.models.User) {
-  Application = mongoose.model('User');
-} else {
-  Application = mongoose.model('User', UserSchema);
-}
-
-module.exports = Application;
+export default mongoose.models.User || mongoose.model('User', UserSchema);

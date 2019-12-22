@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
@@ -103,12 +103,4 @@ const ApplicationSchema = new Schema({
   },
 });
 
-let Application;
-
-if (mongoose.models.Application) {
-  Application = mongoose.model('Application');
-} else {
-  Application = mongoose.model('Application', ApplicationSchema);
-}
-
-module.exports = Application;
+export default mongoose.models.Application || mongoose.model('Application', ApplicationSchema);

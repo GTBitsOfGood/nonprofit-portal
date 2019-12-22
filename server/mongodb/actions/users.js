@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const mongoDB = require('../index');
-const User = require('../models/User');
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import mongoDB from '../index';
+import User from '../models/User';
 
-async function login(email, password) {
+export async function login(email, password) {
   await mongoDB();
 
   return User.findOne({ email })
@@ -37,7 +37,7 @@ async function login(email, password) {
     });
 }
 
-async function signUp(name, email, password) {
+export async function signUp(name, email, password) {
   await mongoDB();
 
   return User.countDocuments({ email })
@@ -71,16 +71,10 @@ async function signUp(name, email, password) {
     });
 }
 
-async function verifyToken(token) {
+export async function verifyToken(token) {
   return jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (decoded) return Promise.resolve(decoded);
 
     return Promise.reject(Error('Invalid token!'));
   });
 }
-
-module.exports = {
-  login,
-  signUp,
-  verifyToken,
-};

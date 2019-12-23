@@ -11,8 +11,8 @@ import {
 import {
   addNotification as addNotificationBase,
 } from '../../redux/actions/notificationActions';
-import './AvailabilityCalendar.css';
 import '../../static/style/Calendar.css';
+import './AvailabilityCalendar.css';
 
 const getHoursPerDay = (day, availabilities) => {
   const hours = [];
@@ -28,6 +28,8 @@ const getHoursPerDay = (day, availabilities) => {
         startDate,
         id: curDay._id,
         isBooked: curDay.isBooked,
+        team: curDay.team,
+        interviewer: curDay.interviewer,
       });
     }
   }
@@ -39,6 +41,8 @@ const getHoursPerDay = (day, availabilities) => {
     const time = startHours.clone().add(i, 'hour');
     let isAvailable = true;
     let id = null;
+    let team = null;
+    let interviewer = null;
 
     for (let j = 0; j < availHours.length; j += 1) {
       const curHour = availHours[j];
@@ -46,6 +50,8 @@ const getHoursPerDay = (day, availabilities) => {
       if (time.isSame(curHour.startDate, 'hour')) {
         isAvailable = !curHour.isBooked;
         id = curHour.id;
+        team = curHour.team;
+        interviewer = curHour.interviewer;
         break;
       }
     }
@@ -54,6 +60,8 @@ const getHoursPerDay = (day, availabilities) => {
       time,
       isAvailable,
       id,
+      teamName: team,
+      interviewerName: interviewer,
     });
   }
 
@@ -254,7 +262,7 @@ class AvailabilityCalendar extends React.PureComponent {
       });
     } catch (e) {
       await addNotification({
-        header: 'Failed update availabilities!',
+        header: 'Failed updating availabilities!',
         body: 'Please refresh and try again.',
         type: 'error',
         persist: true,
@@ -273,6 +281,8 @@ class AvailabilityCalendar extends React.PureComponent {
       lastWeek,
     } = this.state;
     const { availabilities, loading } = availability;
+
+    const endOfDay = moment().endOf('day');
 
     return (
       <div>
@@ -333,7 +343,9 @@ class AvailabilityCalendar extends React.PureComponent {
                   key={day.toString()}
                   className="dayColumn"
                 >
-                  {getHoursPerDay(day, availabilities).map(({ time, isAvailable }) => (
+                  {getHoursPerDay(day, availabilities).map(({
+                    time, isAvailable, interviewerName, teamName,
+                  }) => (
                     <button
                       key={time.toString()}
                       type="button"
@@ -341,11 +353,21 @@ class AvailabilityCalendar extends React.PureComponent {
                       className={`dayHour ${(loading || !(time.toDate() in selectedDays)) ? 'availhourDisplay' : 'availhourSelected'}`}
                       onClick={() => this.addOrRemoveAvailability(time.toDate())}
                       onKeyDown={() => this.addOrRemoveAvailability(time.toDate())}
-                      disabled={time.isBefore(moment()) || !isAvailable || time.isSame(moment(), 'day')}
+                      disabled={time.isBefore(endOfDay) || !isAvailable}
                     >
                       <p className="time">
                         {time.format('h:mm a')}
                       </p>
+                      {(interviewerName != null) && (
+                        <p className="time smallText">
+                          {`Interviewer: ${interviewerName}`}
+                        </p>
+                      )}
+                      {(teamName != null) && (
+                        <p className="time smallText">
+                          {`Team: ${teamName}`}
+                        </p>
+                      )}
                     </button>
                   ))}
                 </div>
@@ -370,7 +392,12 @@ class AvailabilityCalendar extends React.PureComponent {
               required
             />
           </label>
-          <button className="submitAvailability" type="submit">Submit</button>
+          <button
+            className="submitAvailability"
+            type="submit"
+          >
+            Submit
+          </button>
         </form>
       </div>
     );

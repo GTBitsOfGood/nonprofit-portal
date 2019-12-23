@@ -3,7 +3,7 @@
     margin-left: 10%;
     margin-right: 10%;
     width: 80%;
-    height: 550px;
+    height: 650px;
 }
 
 .availcalendar {
@@ -60,4 +60,8 @@
     padding: 0;
     border: 2px solid black;
     border-radius: 5px;
+}
+
+.smallText {
+    font-size: 10px;
 }

@@ -106,8 +106,6 @@ class Application extends React.PureComponent {
       decision,
     } = info;
 
-    console.log('info', info)
-
     return (
       <div className="applicationWrapper">
         <div className="nameHeader">
@@ -223,7 +221,7 @@ class Application extends React.PureComponent {
             </p>
           )}
           { status >= 3 && (
-            <p>
+            <>
               <span style={{ fontWeight: '600', marginRight: '15px' }}>Make Decision: </span>
               <ButtonGroup>
                 <Button
@@ -239,7 +237,7 @@ class Application extends React.PureComponent {
                   Decline
                 </Button>
               </ButtonGroup>
-            </p>
+            </>
           )}
         </div>
       </div>

@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import {
+  InputGroup, Input, InputGroupAddon, InputGroupText,
+} from 'reactstrap';
+import { debounce } from 'lodash';
+import {
   getApplications as getApplicationsBase,
   deleteApplication as deleteApplicationBase,
 } from '../../redux/actions/applicationActions';
@@ -16,7 +20,13 @@ class ApplicationsList extends Component {
 
     this.state = {
       selectedApp: 0,
+      curSearch: '',
+      debouncedSearch: '',
     };
+
+    this.setStateDebounced = debounce((newState) => {
+      this.setState(newState);
+    }, 500);
   }
 
   componentDidMount() {
@@ -63,23 +73,63 @@ class ApplicationsList extends Component {
       });
   };
 
+  setSearch = (event) => {
+    const curValue = event.target.value;
+
+    this.setState({
+      curSearch: curValue,
+    });
+
+    this.setStateDebounced({
+      debouncedSearch: curValue.toLowerCase(),
+    });
+  };
+
+  clearSearch = () => {
+    this.setState({
+      curSearch: '',
+      debouncedSearch: '',
+    });
+  };
+
   render() {
     const { applications } = this.props;
-    const { selectedApp } = this.state;
+    const { selectedApp, curSearch, debouncedSearch } = this.state;
+
+    const filteredApps = applications
+      .filter((item) => item.name.toLowerCase().includes(debouncedSearch));
 
     return (
       <div className="flexHorizontal">
-        <div className="appNameList">
-          {applications.map((info, index) => (
-            <div
-              key={info._id}
-              className={`appNameContainer${index === selectedApp ? ' nameSelected' : ''}`}
-              onClick={() => this.selectApplication(index)}
-            >
-              <h3>{info.name}</h3>
-              <p>{`Submitted: ${moment(info.submitted).format('MMMM Do, YYYY')}`}</p>
-            </div>
-          ))}
+        <div className="flexVertical">
+          <div className="appListSearch">
+            <InputGroup>
+              <Input
+                placeholder="Name"
+                value={curSearch}
+                onChange={this.setSearch}
+              />
+              <InputGroupAddon
+                addonType="append"
+                onClick={this.clearSearch}
+                style={{ cursor: 'pointer' }}
+              >
+                <InputGroupText>Clear</InputGroupText>
+              </InputGroupAddon>
+            </InputGroup>
+          </div>
+          <div className="appNameList">
+            {filteredApps.map((info, index) => (
+              <div
+                key={info._id}
+                className={`appNameContainer${index === selectedApp ? ' nameSelected' : ''}`}
+                onClick={() => this.selectApplication(index)}
+              >
+                <h3>{info.name}</h3>
+                <p>{`Submitted: ${moment(info.submitted).format('MMMM Do, YYYY')}`}</p>
+              </div>
+            ))}
+          </div>
         </div>
         <div className="appView">
           {(selectedApp != null && applications != null && selectedApp < applications.length) && (

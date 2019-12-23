@@ -27,9 +27,7 @@ class ViewPage extends React.PureComponent {
 
   render() {
     return (
-      <Container>
-        <ApplicationsList />
-      </Container>
+      <ApplicationsList />
     );
   }
 }

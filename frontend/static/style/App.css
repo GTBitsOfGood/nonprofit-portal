@@ -5,6 +5,8 @@ html, body, #__next {
 
 .App {
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .remove-btn {

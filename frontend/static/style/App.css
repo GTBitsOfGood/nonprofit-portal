@@ -67,3 +67,27 @@ html, body, #__next {
     padding: 8px;
     overflow: hidden;
 }
+
+.formCollapseController {
+    padding: 16px;
+    margin-bottom: 16px;
+    border: 2px solid #cacaca;
+    border-radius: 5px;
+}
+
+.formCollapseController.open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.formCollapse {
+    margin-top: -16px;
+    margin-bottom: 16px;
+}
+
+.formCollapse > div {
+    padding: 32px;
+    border: 2px solid #cacaca;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+}

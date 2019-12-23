@@ -34,8 +34,8 @@ class MissionVision extends Component {
         <Button
           color="#F0F4F7"
           onClick={this.toggleCollapse}
-          style={{ marginBottom: '1rem' }}
           block
+          className={`formCollapseController${open ? ' open' : ''}`}
         >
           <div align="left">
             {open ? (
@@ -47,27 +47,29 @@ class MissionVision extends Component {
             Your Mission
           </div>
         </Button>
-        <Collapse isOpen={open}>
-          <FormGroup>
-            <p>
-              At Bits of Good, our mission is to change lives one bit at a time
-              - we serve our community by building powerful applications for local nonprofits.
-            </p>
-            <Label for="application">
-              We want to know the mission of your organization. Who do you care to serve?
-              What services do you provide to the community? How could the collaboration
-              with BoG help you achieve your mission?
-            </Label>
-            <Input
-              type="textarea"
-              name="mission"
-              id="mission"
-              placeholder="Organization Mission"
-              value={values.mission}
-              onChange={onChange}
-              required
-            />
-          </FormGroup>
+        <Collapse isOpen={open} className="formCollapse">
+          <div>
+            <FormGroup>
+              <p>
+                At Bits of Good, our mission is to change lives one bit at a time
+                - we serve our community by building powerful applications for local nonprofits.
+              </p>
+              <Label for="application">
+                We want to know the mission of your organization. Who do you care to serve?
+                What services do you provide to the community? How could the collaboration
+                with BoG help you achieve your mission?
+              </Label>
+              <Input
+                type="textarea"
+                name="mission"
+                id="mission"
+                placeholder="Organization Mission"
+                value={values.mission}
+                onChange={onChange}
+                required
+              />
+            </FormGroup>
+          </div>
         </Collapse>
       </>
     );

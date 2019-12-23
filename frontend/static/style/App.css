@@ -91,3 +91,7 @@ html, body, #__next {
     border-top: none;
     border-radius: 0 0 5px 5px;
 }
+
+.formCollapse > div > .form-group:nth-last-child(1) {
+    margin-bottom: 0;
+}

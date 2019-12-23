@@ -6,6 +6,8 @@ import {
   InputGroup, Input, InputGroupAddon, InputGroupText,
 } from 'reactstrap';
 import { debounce } from 'lodash';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import {
   getApplications as getApplicationsBase,
   deleteApplication as deleteApplicationBase,
@@ -125,8 +127,17 @@ class ApplicationsList extends Component {
                 className={`appNameContainer${index === selectedApp ? ' nameSelected' : ''}`}
                 onClick={() => this.selectApplication(index)}
               >
-                <h3>{info.name}</h3>
-                <p>{`Submitted: ${moment(info.submitted).format('MMMM Do, YYYY')}`}</p>
+                <div className="nameTextContainer">
+                  <h3>{info.name}</h3>
+                  <p>{`Submitted: ${moment(info.submitted).format('MMMM Do, YYYY')}`}</p>
+                </div>
+                {(info.status === 0) && (
+                  <FontAwesomeIcon
+                    icon={faExclamationCircle}
+                    color="#afafaf"
+                    size="lg"
+                  />
+                )}
               </div>
             ))}
           </div>

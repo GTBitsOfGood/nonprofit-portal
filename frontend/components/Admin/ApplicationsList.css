@@ -39,10 +39,13 @@
 
 .appNameContainer {
     cursor: pointer;
-    padding: 8px;
+    padding: 8px 16px;
     border-left: 4px solid transparent;
     border-bottom: 1px solid #cdcdcd;
     flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .appNameContainer:hover {
@@ -54,15 +57,21 @@
     border-left: 4px solid #007cff;
 }
 
-.appNameContainer > * {
+.nameTextContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.nameTextContainer > * {
     margin: 0;
 }
 
-.appNameContainer > h3 {
+.nameTextContainer > h3 {
     font-size: 18px;
 }
 
-.appNameContainer > p {
+.nameTextContainer > p {
     font-size: 12px;
     color: #737373;
 }

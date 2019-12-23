@@ -36,7 +36,7 @@ export async function signUp(name, email, password) {
         return Promise.reject(Error('The email has already been used.'));
       }
 
-      return bcrypt.hashSync(password, process.env.PASS_SALT);
+      return bcrypt.hashSync(password, 10);
     })
     .then((hashedPassword) => User.create({
       name,

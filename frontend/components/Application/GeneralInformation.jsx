@@ -74,6 +74,7 @@ class GeneralInformation extends Component {
                     id="name"
                     placeholder=""
                     onChange={onChange}
+                    onBlur={onBlur}
                     value={values.name}
                     required
                   />
@@ -90,6 +91,7 @@ class GeneralInformation extends Component {
                     id="streetaddress"
                     placeholder=""
                     onChange={onChange}
+                    onBlur={onBlur}
                     value={values.streetaddress}
                     required
                   />
@@ -106,6 +108,7 @@ class GeneralInformation extends Component {
                     id="city"
                     placeholder=""
                     onChange={onChange}
+                    onBlur={onBlur}
                     label="city"
                     value={values.city}
                     required
@@ -121,10 +124,11 @@ class GeneralInformation extends Component {
                     id="state"
                     placeholder=""
                     onChange={onChange}
+                    onBlur={onBlur}
                     value={values.state}
                     required
                   >
-                    <option hidden disabled selected value>&nbsp;</option>
+                    <option hidden disabled value="">&nbsp;</option>
                     {stateAbbreviations.map((abbrev) => (
                       <option key={abbrev}>{abbrev}</option>
                     ))}
@@ -140,8 +144,9 @@ class GeneralInformation extends Component {
                     id="zipcode"
                     placeholder=""
                     onChange={onChange}
+                    onBlur={onBlur}
                     value={values.zipcode}
-                    inline
+                    inline="true"
                     required
                   />
                 </FormGroup>
@@ -175,6 +180,7 @@ class GeneralInformation extends Component {
                     placeholder=""
                     value={values.workPhone}
                     onChange={onChange}
+                    onBlur={onBlur}
                     required
                   />
                 </FormGroup>
@@ -191,6 +197,7 @@ class GeneralInformation extends Component {
                     placeholder=""
                     value={values.contactName}
                     onChange={onChange}
+                    onBlur={onBlur}
                     required
                   />
                   <ErrorMessage name="website" render={(msg) => <div>{msg}</div>} />
@@ -208,6 +215,7 @@ class GeneralInformation extends Component {
                     placeholder=""
                     value={values.mobilePhone}
                     onChange={onChange}
+                    onBlur={onBlur}
                     required
                   />
                 </FormGroup>

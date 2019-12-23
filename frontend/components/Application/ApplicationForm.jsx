@@ -31,8 +31,25 @@ const ApplicationForm = (props) => {
   return (
     <Formik
       initialValues={{
-        email: '',
+        name: '',
+        streetaddress: '',
+        city: '',
+        state: '',
+        zipcode: '',
         website: '',
+        workPhone: '',
+        contactName: '',
+        mobilePhone: '',
+        email: '',
+        mission: '',
+        productNeeds: [],
+        needsOtherExpand: '',
+        stageRadio: '',
+        stageOtherExpand: '',
+        availRadio: '',
+        fieldRadio: '',
+        productExtra: '',
+        feedback: '',
       }}
       validationSchema={SignupSchema}
       onSubmit={(values) => {
@@ -67,14 +84,23 @@ const ApplicationForm = (props) => {
             values={formikProps.values}
             onBlur={formikProps.handleBlur}
           />
-          <MissionVision onChange={formikProps.handleChange} values={formikProps.values} />
-          <ProductNeeds onChange={formikProps.handleChange} values={formikProps.values} />
-          <Feedback onChange={formikProps.handleChange} values={formikProps.values} />
+          <MissionVision
+            onChange={formikProps.handleChange}
+            values={formikProps.values}
+          />
+          <ProductNeeds
+            onChange={formikProps.handleChange}
+            values={formikProps.values}
+          />
+          <Feedback
+            onChange={formikProps.handleChange}
+            values={formikProps.values}
+          />
           <div className="d-flex justify-content-between">
             <div />
             <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
               <div className="btn-group mr-2" role="group" aria-label="First group">
-                <Button outline color="dark">Reset</Button>
+                <Button outline color="dark" onClick={formikProps.handleReset}>Reset</Button>
               </div>
               <div className="btn-group mr-2" role="group" aria-label="Second group">
                 <Button type="submit" color="dark" className="btn btn-secondary">Submit</Button>

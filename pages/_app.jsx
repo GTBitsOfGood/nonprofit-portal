@@ -2,6 +2,7 @@ import App from 'next/app';
 import React from 'react';
 import { Provider } from 'react-redux';
 import cookie from 'js-cookie';
+import Head from 'next/head';
 import { verifyToken } from '../frontend/actions/users';
 import withReduxStore from '../frontend/redux/with-redux-store';
 import MainLayout from '../frontend/layouts/Main';
@@ -34,11 +35,16 @@ class MyApp extends App {
     } = this.props;
 
     return (
-      <Provider store={reduxStore}>
-        <MainLayout user={user}>
-          <Component {...pageProps} user={user} />
-        </MainLayout>
-      </Provider>
+      <>
+        <Head>
+          <title>BoG NPP</title>
+        </Head>
+        <Provider store={reduxStore}>
+          <MainLayout user={user}>
+            <Component {...pageProps} user={user} />
+          </MainLayout>
+        </Provider>
+      </>
     );
   }
 }

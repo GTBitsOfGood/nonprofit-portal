@@ -14,7 +14,6 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <title>BoG NPP</title>
           <link rel="shortcut icon" type="image/png" href="/static/favicon.png" />
         </Head>
         <body>

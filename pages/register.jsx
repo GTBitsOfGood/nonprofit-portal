@@ -67,8 +67,15 @@ class RegisterPage extends React.PureComponent {
       .then(async () => {
         deleteNotification(...this.errorKeys);
 
-        await Router.push({
-          pathname: config.pages.admin,
+        await addNotification({
+          header: 'Successfully created account!',
+          type: 'success',
+        });
+
+        this.setState({
+          name: '',
+          email: '',
+          password: '',
         });
       })
       .catch(async (e) => {

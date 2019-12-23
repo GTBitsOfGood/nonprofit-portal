@@ -83,9 +83,7 @@ class RegisterPage extends React.PureComponent {
   };
 
   render() {
-    const {
-      name, email, password,
-    } = this.state;
+    const { name, email, password } = this.state;
 
     return (
       <div className="LoginContainer">
@@ -94,30 +92,36 @@ class RegisterPage extends React.PureComponent {
           className="LoginForm"
           onSubmit={this.submitForm}
         >
-          <label>Name</label>
-          <input
-            name="name"
-            type="text"
-            value={name}
-            onChange={this.onChange}
-            required
-          />
-          <label>Email</label>
-          <input
-            name="email"
-            type="email"
-            value={email}
-            onChange={this.onChange}
-            required
-          />
-          <label>Password</label>
-          <input
-            name="password"
-            type="password"
-            value={password}
-            onChange={this.onChange}
-            required
-          />
+          <div className="InputContainer">
+            <label>Name</label>
+            <input
+              name="name"
+              type="text"
+              value={name}
+              onChange={this.onChange}
+              required
+            />
+          </div>
+          <div className="InputContainer">
+            <label>Email</label>
+            <input
+              name="email"
+              type="email"
+              value={email}
+              onChange={this.onChange}
+              required
+            />
+          </div>
+          <div className="InputContainer">
+            <label>Password</label>
+            <input
+              name="password"
+              type="password"
+              value={password}
+              onChange={this.onChange}
+              required
+            />
+          </div>
           <button type="submit">Submit</button>
         </form>
       </div>

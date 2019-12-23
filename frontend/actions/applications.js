@@ -65,7 +65,7 @@ export const deleteApplication = async (id) => fetch(
       throw new Error(json.message);
     }
 
-    return json;
+    return json.success;
   });
 
 export const updateApplicationState = async (id, state) => fetch(

@@ -65,7 +65,7 @@ export const deleteAvailability = async (id) => fetch(
       throw new Error(json.message);
     }
 
-    return json;
+    return json.success;
   });
 
 export const updateAvailability = async (id, updatedFields) => fetch(

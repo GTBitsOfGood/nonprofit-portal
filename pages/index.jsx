@@ -1,24 +1,11 @@
 import React from 'react';
-import Router from 'next/router';
-import config from '../config';
+import { Container } from 'reactstrap';
+import WelcomeJumbo from '../frontend/components/Application/WelcomeJumbo';
+import ApplicationForm from '../frontend/components/Application/ApplicationForm';
 
-class IndexPage extends React.PureComponent {
-  static async getInitialProps(ctx) {
-    if (ctx.res) {
-      ctx.res.writeHead(302, {
-        Location: config.pages.application,
-      });
-      ctx.res.end();
-    } else {
-      await Router.push(config.pages.application);
-    }
-  }
-
-  render() {
-    return (
-      <div />
-    );
-  }
-}
-
-export default IndexPage;
+export default () => (
+  <Container>
+    <WelcomeJumbo />
+    <ApplicationForm />
+  </Container>
+);

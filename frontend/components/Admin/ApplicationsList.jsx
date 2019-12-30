@@ -21,7 +21,7 @@ class ApplicationsList extends Component {
     super(props);
 
     this.state = {
-      selectedApp: 0,
+      selectedApp: null,
       curSearch: '',
       debouncedSearch: '',
     };
@@ -45,9 +45,9 @@ class ApplicationsList extends Component {
       });
   }
 
-  selectApplication = (index) => {
+  selectApplication = (id) => {
     this.setState({
-      selectedApp: index,
+      selectedApp: id,
     });
   };
 
@@ -121,11 +121,11 @@ class ApplicationsList extends Component {
             </InputGroup>
           </div>
           <div className="appNameList">
-            {filteredApps.map((info, index) => (
+            {filteredApps.map((info) => (
               <div
                 key={info._id}
-                className={`appNameContainer${index === selectedApp ? ' nameSelected' : ''}`}
-                onClick={() => this.selectApplication(index)}
+                className={`appNameContainer${info._id === selectedApp ? ' nameSelected' : ''}`}
+                onClick={() => this.selectApplication(info._id)}
               >
                 <div className="nameTextContainer">
                   <h3>{info.name}</h3>
@@ -143,9 +143,9 @@ class ApplicationsList extends Component {
           </div>
         </div>
         <div className="appView">
-          {(selectedApp != null && applications != null && selectedApp < applications.length) && (
+          {(selectedApp != null && applications != null) && (
             <Application
-              info={applications[selectedApp]}
+              info={applications.find((app) => app._id === selectedApp)}
               deleteHandler={this.onDeleteClick}
             />
           )}

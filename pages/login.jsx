@@ -1,7 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Router from 'next/router';
 import cookie from 'js-cookie';
+import { connect } from 'react-redux';
 import { login, verifyToken } from '../frontend/actions/users';
+import {
+  addNotification as addNotificationBase,
+  deleteNotification as deleteNotificationBase,
+} from '../frontend/redux/actions/notificationActions';
 import '../frontend/static/style/Login.css';
 import config from '../config';
 
@@ -15,11 +21,11 @@ class LoginPage extends React.PureComponent {
       .then(async () => {
         if (ctx.res) {
           ctx.res.writeHead(302, {
-            Location: config.pages.view,
+            Location: config.pages.admin,
           });
           ctx.res.end();
         } else {
-          await Router.push(config.pages.view);
+          await Router.push(config.pages.admin);
         }
       })
       .catch(() => ({}));
@@ -31,8 +37,9 @@ class LoginPage extends React.PureComponent {
     this.state = {
       email: '',
       password: '',
-      error: null,
     };
+
+    this.errorKeys = [];
   }
 
   onChange = (event) => {
@@ -44,29 +51,30 @@ class LoginPage extends React.PureComponent {
   submitForm = async (event) => {
     event.preventDefault();
 
+    const { addNotification, deleteNotification } = this.props;
     const { email, password } = this.state;
 
     await login(email, password)
       .then(async () => {
-        this.setState({
-          error: null,
-        });
+        deleteNotification(...this.errorKeys);
 
         await Router.push({
-          pathname: config.pages.view,
+          pathname: config.pages.admin,
         });
       })
-      .catch((e) => {
-        this.setState({
-          error: e.message,
+      .catch(async (e) => {
+        const { payload } = await addNotification({
+          header: e.message,
+          body: 'Please try again.',
+          type: 'error',
         });
+
+        this.errorKeys.push(payload.key);
       });
   };
 
   render() {
-    const {
-      email, password, error,
-    } = this.state;
+    const { email, password } = this.state;
 
     return (
       <div className="LoginContainer">
@@ -75,32 +83,39 @@ class LoginPage extends React.PureComponent {
           className="LoginForm"
           onSubmit={this.submitForm}
         >
-          <label>Email</label>
-          <input
-            name="email"
-            type="email"
-            value={email}
-            onChange={this.onChange}
-            required
-          />
-          <label>Password</label>
-          <input
-            name="password"
-            type="password"
-            value={password}
-            onChange={this.onChange}
-            required
-          />
+          <div className="InputContainer">
+            <label>Email</label>
+            <input
+              name="email"
+              type="email"
+              value={email}
+              onChange={this.onChange}
+              required
+            />
+          </div>
+          <div className="InputContainer">
+            <label>Password</label>
+            <input
+              name="password"
+              type="password"
+              value={password}
+              onChange={this.onChange}
+              required
+            />
+          </div>
           <button type="submit">Submit</button>
         </form>
-        {(error != null) && (
-        <div className="ErrorModal">
-          <p>{error}</p>
-        </div>
-        )}
       </div>
     );
   }
 }
 
-export default LoginPage;
+LoginPage.propTypes = {
+  addNotification: PropTypes.func.isRequired,
+  deleteNotification: PropTypes.func.isRequired,
+};
+
+export default connect(null, {
+  addNotification: addNotificationBase,
+  deleteNotification: deleteNotificationBase,
+})(LoginPage);

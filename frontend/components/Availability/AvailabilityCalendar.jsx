@@ -8,8 +8,11 @@ import {
   addAvailability as addAvailabilityBase,
   deleteAvailability as deleteAvailabilityBase,
 } from '../../redux/actions/availabilityActions';
-import './AvailabilityCalendar.css';
+import {
+  addNotification as addNotificationBase,
+} from '../../redux/actions/notificationActions';
 import '../../static/style/Calendar.css';
+import './AvailabilityCalendar.css';
 
 const getHoursPerDay = (day, availabilities) => {
   const hours = [];
@@ -25,6 +28,8 @@ const getHoursPerDay = (day, availabilities) => {
         startDate,
         id: curDay._id,
         isBooked: curDay.isBooked,
+        team: curDay.team,
+        interviewer: curDay.interviewer,
       });
     }
   }
@@ -36,6 +41,8 @@ const getHoursPerDay = (day, availabilities) => {
     const time = startHours.clone().add(i, 'hour');
     let isAvailable = true;
     let id = null;
+    let team = null;
+    let interviewer = null;
 
     for (let j = 0; j < availHours.length; j += 1) {
       const curHour = availHours[j];
@@ -43,6 +50,8 @@ const getHoursPerDay = (day, availabilities) => {
       if (time.isSame(curHour.startDate, 'hour')) {
         isAvailable = !curHour.isBooked;
         id = curHour.id;
+        team = curHour.team;
+        interviewer = curHour.interviewer;
         break;
       }
     }
@@ -51,6 +60,8 @@ const getHoursPerDay = (day, availabilities) => {
       time,
       isAvailable,
       id,
+      teamName: team,
+      interviewerName: interviewer,
     });
   }
 
@@ -68,16 +79,10 @@ class AvailabilityCalendar extends React.PureComponent {
     }
 
     const upcomingDays = [];
-    // const upcomingMonths = [];
-
 
     for (let i = 0; i < 5; i += 1) {
       upcomingDays.push(weekStart.clone().add(i, 'day').startOf('day'));
     }
-
-    // for (let i = 0; i < 2; i += 1) {
-    //   upcomingMonths.push(moment().add(i, 'month'));
-    // }
 
     this.state = {
       upcomingDays,
@@ -87,22 +92,33 @@ class AvailabilityCalendar extends React.PureComponent {
       interviewer: '',
       firstWeek: true,
       lastWeek: false,
-      // upcomingMonths,
     };
   }
 
   async componentDidMount() {
-    const { getAvailabilities } = this.props;
-    let availabilityCheck = await getAvailabilities();
-    availabilityCheck = availabilityCheck.payload;
-    availabilityCheck.forEach((availability) => {
-      this.setState((prevState) => ({
-        selectedDays: {
-          ...prevState.selectedDays,
-          [moment(availability.startDate).toDate()]: availability._id,
-        },
-      }));
-    });
+    const { getAvailabilities, addNotification } = this.props;
+
+    try {
+      const availabilityCheck = await getAvailabilities();
+
+      const { payload } = availabilityCheck;
+
+      payload.forEach((availability) => {
+        this.setState((prevState) => ({
+          selectedDays: {
+            ...prevState.selectedDays,
+            [moment(availability.startDate).toDate()]: availability._id,
+          },
+        }));
+      });
+    } catch (e) {
+      await addNotification({
+        header: 'Failed to retrieve availabilities!',
+        body: 'Please refresh and try again.',
+        type: 'error',
+        persist: true,
+      });
+    }
   }
 
   addOrRemoveAvailability = (availableDate) => {
@@ -202,12 +218,6 @@ class AvailabilityCalendar extends React.PureComponent {
     });
   }
 
-  updateMonthYear = (selectedMonth) => {
-    this.setState({
-      monthYear: selectedMonth,
-    });
-  }
-
   handleChangeInterviewer = (event) => {
     let eventClone = event.target.value;
     if (eventClone === '') {
@@ -218,30 +228,46 @@ class AvailabilityCalendar extends React.PureComponent {
     });
   }
 
-  addAvailability = (event) => {
+  addAvailability = async (event) => {
     event.preventDefault();
-    const { addAvailability, deleteAvailability } = this.props;
+
+    const { addAvailability, deleteAvailability, addNotification } = this.props;
     const {
       selectedDays,
       deselectedDays,
       interviewer,
     } = this.state;
 
-    Object.keys(selectedDays).forEach((date) => {
-      if (selectedDays[date] === -1) {
-        const availability = {
-          startDate: date,
-          interviewer,
-        };
-        addAvailability(availability);
-      }
-    });
+    try {
+      await Promise.all(Object.keys(selectedDays).map(async (date) => {
+        if (selectedDays[date] === -1) {
+          const availability = {
+            startDate: date,
+            interviewer,
+          };
 
-    Object.keys(deselectedDays).forEach((date) => {
-      if (deselectedDays[date] !== 0) {
-        deleteAvailability(deselectedDays[date]);
-      }
-    });
+          await addAvailability(availability);
+        }
+      }));
+
+      await Promise.all(Object.keys(deselectedDays).map(async (date) => {
+        if (deselectedDays[date] !== 0) {
+          await deleteAvailability(deselectedDays[date]);
+        }
+      }));
+
+      await addNotification({
+        header: 'Successfully updated availabilities!',
+        type: 'success',
+      });
+    } catch (e) {
+      await addNotification({
+        header: 'Failed updating availabilities!',
+        body: 'Please refresh and try again.',
+        type: 'error',
+        persist: true,
+      });
+    }
   }
 
   render() {
@@ -253,9 +279,10 @@ class AvailabilityCalendar extends React.PureComponent {
       interviewer,
       firstWeek,
       lastWeek,
-      // upcomingMonths,
     } = this.state;
     const { availabilities, loading } = availability;
+
+    const endOfDay = moment().endOf('day');
 
     return (
       <div>
@@ -277,7 +304,6 @@ class AvailabilityCalendar extends React.PureComponent {
             style={{ marginLeft: '50px' }}
             onClick={() => this.getNextWeek(monthYear)}
             disabled={lastWeek}
-
           >
             Next Week
             {' >'}
@@ -296,18 +322,6 @@ class AvailabilityCalendar extends React.PureComponent {
             >
               {monthYear.format('MMMM YYYY')}
             </button>
-            {/* <div className="dropdownMonthList">
-              {upcomingMonths.map((month) => (
-                <button
-                  key={month}
-                  className="monthItem"
-                  type="button"
-                  onClick={() => this.updateMonthYear(month)}
-                >
-                  {month.format('MMMM YYYY')}
-                </button>
-              ))}
-            </div> */}
           </div>
         </span>
         <div className="availcalendar-container">
@@ -329,7 +343,9 @@ class AvailabilityCalendar extends React.PureComponent {
                   key={day.toString()}
                   className="dayColumn"
                 >
-                  {getHoursPerDay(day, availabilities).map(({ time, isAvailable }) => (
+                  {getHoursPerDay(day, availabilities).map(({
+                    time, isAvailable, interviewerName, teamName,
+                  }) => (
                     <button
                       key={time.toString()}
                       type="button"
@@ -337,11 +353,21 @@ class AvailabilityCalendar extends React.PureComponent {
                       className={`dayHour ${(loading || !(time.toDate() in selectedDays)) ? 'availhourDisplay' : 'availhourSelected'}`}
                       onClick={() => this.addOrRemoveAvailability(time.toDate())}
                       onKeyDown={() => this.addOrRemoveAvailability(time.toDate())}
-                      disabled={time.isBefore(moment()) || !isAvailable || time.isSame(moment(), 'day')}
+                      disabled={time.isBefore(endOfDay) || !isAvailable}
                     >
                       <p className="time">
                         {time.format('h:mm a')}
                       </p>
+                      {(interviewerName != null) && (
+                        <p className="time smallText">
+                          {`Interviewer: ${interviewerName}`}
+                        </p>
+                      )}
+                      {(teamName != null) && (
+                        <p className="time smallText">
+                          {`Team: ${teamName}`}
+                        </p>
+                      )}
                     </button>
                   ))}
                 </div>
@@ -366,7 +392,12 @@ class AvailabilityCalendar extends React.PureComponent {
               required
             />
           </label>
-          <button className="submitAvailability" type="submit">Submit</button>
+          <button
+            className="submitAvailability"
+            type="submit"
+          >
+            Submit
+          </button>
         </form>
       </div>
     );
@@ -377,6 +408,7 @@ AvailabilityCalendar.propTypes = {
   getAvailabilities: PropTypes.func.isRequired,
   addAvailability: PropTypes.func.isRequired,
   deleteAvailability: PropTypes.func.isRequired,
+  addNotification: PropTypes.func.isRequired,
   availability: PropTypes.shape({
     availabilities: PropTypes.arrayOf(PropTypes.object),
     loading: PropTypes.bool,
@@ -398,4 +430,5 @@ export default connect(mapStateToProps, {
   getAvailabilities: getAvailabilitiesBase,
   addAvailability: addAvailabilityBase,
   deleteAvailability: deleteAvailabilityBase,
+  addNotification: addNotificationBase,
 })(AvailabilityCalendar);

@@ -1,7 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Router from 'next/router';
 import cookie from 'js-cookie';
+import { connect } from 'react-redux';
 import { signUp, verifyToken } from '../frontend/actions/users';
+import {
+  addNotification as addNotificationBase,
+  deleteNotification as deleteNotificationBase,
+} from '../frontend/redux/actions/notificationActions';
 import '../frontend/static/style/Login.css';
 import config from '../config';
 
@@ -40,8 +46,9 @@ class RegisterPage extends React.PureComponent {
       name: '',
       email: '',
       password: '',
-      error: null,
     };
+
+    this.errorKeys = [];
   }
 
   onChange = (event) => {
@@ -53,25 +60,37 @@ class RegisterPage extends React.PureComponent {
   submitForm = async (event) => {
     event.preventDefault();
 
+    const { addNotification, deleteNotification } = this.props;
     const { name, email, password } = this.state;
 
     await signUp(name, email, password)
-      .then(() => {
-        Router.push({
-          pathname: config.pages.view,
+      .then(async () => {
+        deleteNotification(...this.errorKeys);
+
+        await addNotification({
+          header: 'Successfully created account!',
+          type: 'success',
+        });
+
+        this.setState({
+          name: '',
+          email: '',
+          password: '',
         });
       })
-      .catch((e) => {
-        this.setState({
-          error: e.message,
+      .catch(async (e) => {
+        const { payload } = await addNotification({
+          header: e.message,
+          body: 'Please try again.',
+          type: 'error',
         });
+
+        this.errorKeys.push(payload.key);
       });
   };
 
   render() {
-    const {
-      name, email, password, error,
-    } = this.state;
+    const { name, email, password } = this.state;
 
     return (
       <div className="LoginContainer">
@@ -80,40 +99,49 @@ class RegisterPage extends React.PureComponent {
           className="LoginForm"
           onSubmit={this.submitForm}
         >
-          <label>Name</label>
-          <input
-            name="name"
-            type="text"
-            value={name}
-            onChange={this.onChange}
-            required
-          />
-          <label>Email</label>
-          <input
-            name="email"
-            type="email"
-            value={email}
-            onChange={this.onChange}
-            required
-          />
-          <label>Password</label>
-          <input
-            name="password"
-            type="password"
-            value={password}
-            onChange={this.onChange}
-            required
-          />
+          <div className="InputContainer">
+            <label>Name</label>
+            <input
+              name="name"
+              type="text"
+              value={name}
+              onChange={this.onChange}
+              required
+            />
+          </div>
+          <div className="InputContainer">
+            <label>Email</label>
+            <input
+              name="email"
+              type="email"
+              value={email}
+              onChange={this.onChange}
+              required
+            />
+          </div>
+          <div className="InputContainer">
+            <label>Password</label>
+            <input
+              name="password"
+              type="password"
+              value={password}
+              onChange={this.onChange}
+              required
+            />
+          </div>
           <button type="submit">Submit</button>
         </form>
-        {(error != null) && (
-          <div className="ErrorModal">
-            <p>{error}</p>
-          </div>
-        )}
       </div>
     );
   }
 }
 
-export default RegisterPage;
+RegisterPage.propTypes = {
+  addNotification: PropTypes.func.isRequired,
+  deleteNotification: PropTypes.func.isRequired,
+};
+
+export default connect(null, {
+  addNotification: addNotificationBase,
+  deleteNotification: deleteNotificationBase,
+})(RegisterPage);

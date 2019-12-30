@@ -1,14 +1,20 @@
-const mongoose = require('mongoose');
-const config = require('../../config').default;
+import mongoose from 'mongoose';
+import config from '../../config';
 
-module.exports = () => mongoose.connect(config.dbUrl, {
-  // avoids deprecated functionality
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  dbName: config.dbName,
-})
-  .catch((e) => {
-    console.error('Error connecting to database.');
+export default async () => {
+  if (mongoose.connections[0].readyState) return;
 
-    throw e;
-  });
+  await mongoose.connect(config.dbUrl, {
+    // avoids deprecated functionality
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+    dbName: config.dbName,
+  })
+    .catch((e) => {
+      console.error('Error connecting to database.');
+
+      throw e;
+    });
+};

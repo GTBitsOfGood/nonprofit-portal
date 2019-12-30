@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
@@ -30,12 +30,4 @@ const AvailabilitySchema = new Schema({
   },
 });
 
-let Availability;
-
-if (mongoose.models.Availability) {
-  Availability = mongoose.model('Availability');
-} else {
-  Availability = mongoose.model('Availability', AvailabilitySchema);
-}
-
-module.exports = Availability;
+export default mongoose.models.Availability || mongoose.model('Availability', AvailabilitySchema);

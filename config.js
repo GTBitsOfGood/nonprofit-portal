@@ -22,11 +22,11 @@ export default {
     verifyToken: '/api/verifyToken',
   },
   pages: {
-    application: '/application',
-    index: '/index',
+    application: '/',
     login: '/login',
     register: '/register',
     submitted: '/submitted',
-    view: '/view',
+    admin: '/admin',
+    availability: '/availability',
   },
 };

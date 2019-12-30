@@ -1,6 +1,6 @@
-const pug = require('pug');
-const Email = require('email-templates');
-const emailFolder = require('../../email/import/index');
+import pug from 'pug';
+import Email from 'email-templates';
+import emailFolder from '../../email/import/index';
 
 const fromAddress = '"GT Bits of Good" <hello@bitsofgood.org>';
 
@@ -29,14 +29,14 @@ function _render(email, view, locals) {
   });
 }
 
-
-const sendEmail = (options) => {
+export const sendEmail = (options) => {
   const email = new Email({
     message: {
       from: fromAddress,
     },
     transport: transportConfig,
-    send: true,
+    // Only send emails in dev if mail_host is set, this prevents error being thrown in testing
+    send: process.env.MAIL_HOST != null,
     juice: true,
     juiceResources: {
       extraCss: emailFolder[options.template]['style.css'],
@@ -54,5 +54,3 @@ const sendEmail = (options) => {
     },
   );
 };
-
-module.exports = { sendEmail };

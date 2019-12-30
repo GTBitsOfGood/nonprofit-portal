@@ -10,54 +10,36 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
-.LoginForm > label {
+.LoginForm > .InputContainer {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 32px;
+}
+
+.InputContainer > label {
     margin: 0;
     font-weight: bold;
 }
 
-.LoginForm > input {
-    flex: 1;
+.InputContainer > input {
+    width: 100%;
     padding: 6px;
-    margin: 8px 0;
+    margin: 2px 0 0;
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
 
 .LoginForm > button {
+    width: 100%;
+    max-width: 600px;
     background-color: #4CAF50;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
     cursor: pointer;
-    width: 100%;
-}
-
-.ErrorModal {
-    position: absolute;
-    right: 8px;
-    bottom: 8px;
-    background-color: #ff4648;
-    border: 1px solid black;
-    border-radius: 4px;
-    width: 300px;
-    padding: 8px;
-    animation: fadeIn 1s;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-.ErrorModal > p {
-    margin: 0;
-    font-size: 18px;
 }

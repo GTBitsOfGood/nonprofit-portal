@@ -9,7 +9,16 @@ export const getApplications = async () => fetch(
     credentials: 'include',
   },
 )
-  .then((response) => response.json());
+  .then((response) => response.json())
+  .then((json) => {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
+      throw new Error(json.message);
+    }
+
+    return json.payload;
+  });
 
 export const addApplication = async (application) => fetch(
   config.baseUrl + config.apis.addApplication, {
@@ -26,11 +35,13 @@ export const addApplication = async (application) => fetch(
 )
   .then((response) => response.json())
   .then((json) => {
-    if (json == null || !json.success) {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
       throw new Error(json.message);
     }
 
-    return json.application;
+    return json.payload;
   });
 
 export const deleteApplication = async (id) => fetch(
@@ -46,7 +57,16 @@ export const deleteApplication = async (id) => fetch(
     }),
   },
 )
-  .then((response) => response.json());
+  .then((response) => response.json())
+  .then((json) => {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
+      throw new Error(json.message);
+    }
+
+    return json.success;
+  });
 
 export const updateApplicationState = async (id, state) => fetch(
   config.baseUrl + config.apis.updateApplicationState, {
@@ -62,7 +82,16 @@ export const updateApplicationState = async (id, state) => fetch(
     }),
   },
 )
-  .then((response) => response.json());
+  .then((response) => response.json())
+  .then((json) => {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
+      throw new Error(json.message);
+    }
+
+    return json.payload;
+  });
 
 export const updateApplicationDecision = async (id, decision) => fetch(
   config.baseUrl + config.apis.updateApplicationDecision, {
@@ -78,7 +107,16 @@ export const updateApplicationDecision = async (id, decision) => fetch(
     }),
   },
 )
-  .then((response) => response.json());
+  .then((response) => response.json())
+  .then((json) => {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
+      throw new Error(json.message);
+    }
+
+    return json.payload;
+  });
 
 export const updateApplicationMeeting = async (id, availabilityId) => fetch(
   config.baseUrl + config.apis.updateApplicationMeeting, {
@@ -94,7 +132,16 @@ export const updateApplicationMeeting = async (id, availabilityId) => fetch(
     }),
   },
 )
-  .then((response) => response.json());
+  .then((response) => response.json())
+  .then((json) => {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
+      throw new Error(json.message);
+    }
+
+    return json.payload;
+  });
 
 export const getApplication = async (urlString) => fetch(
   `${config.baseUrl}${config.apis.getApplication}?url=${urlString}`, {
@@ -103,4 +150,13 @@ export const getApplication = async (urlString) => fetch(
     credentials: 'include',
   },
 )
-  .then((response) => response.json());
+  .then((response) => response.json())
+  .then((json) => {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
+      throw new Error(json.message);
+    }
+
+    return json.payload;
+  });

@@ -1,31 +1,18 @@
+import mongoDB from '../index';
+import Application from '../models/Application';
+import { generateURLString } from './util';
+import { sendEmail } from '../../util/email';
 import config from '../../../config';
 
-const mongoose = require('mongoose');
-const mongoDB = require('../index');
-const Application = require('../models/Application');
-
-const { generateURLString } = require('./util');
-const { sendEmail } = require('../../util/email');
-
-async function getApplications() {
+export async function getApplications() {
   await mongoDB();
 
   return Application
     .find()
-    .sort({ submitted: -1 })
-    .then((applications) => {
-      mongoose.connection.close();
-
-      return applications;
-    })
-    .catch((e) => {
-      mongoose.connection.close();
-
-      throw e;
-    });
+    .sort({ submitted: -1 });
 }
 
-async function addApplication(application) {
+export async function addApplication(application) {
   await mongoDB();
 
   const pageURLString = await generateURLString();
@@ -35,8 +22,6 @@ async function addApplication(application) {
     urlString: pageURLString,
   })
     .then(async (newApplication) => {
-      mongoose.connection.close();
-
       await sendEmail({
         to: newApplication.email,
         template: 'status',
@@ -49,30 +34,17 @@ async function addApplication(application) {
       });
 
       return newApplication;
-    })
-    .catch((e) => {
-      mongoose.connection.close();
-
-      throw e;
     });
 }
 
-async function deleteApplication(id) {
+export async function deleteApplication(id) {
   await mongoDB();
 
   await Application.findById(id)
-    .then((application) => application.remove())
-    .then(() => {
-      mongoose.connection.close();
-    })
-    .catch((e) => {
-      mongoose.connection.close();
-
-      throw e;
-    });
+    .then((application) => application.remove());
 }
 
-async function updateApplicationState(id, state) {
+export async function updateApplicationState(id, state) {
   await mongoDB();
 
   return Application.findOne({ _id: id }, { status: 1 })
@@ -81,16 +53,14 @@ async function updateApplicationState(id, state) {
 
       if (curObject.status < 3) {
         result = await Application.findOneAndUpdate({ _id: id }, { status: state, decision: null },
-          { upsert: false, new: true, useFindAndModify: false });
+          { upsert: false, new: true });
       } else {
         result = await Application.findOneAndUpdate({ _id: id }, { status: state },
-          { upsert: false, new: true, useFindAndModify: false });
+          { upsert: false, new: true });
       }
 
-      mongoose.connection.close();
-
       await sendEmail({
-        to: curObject.email,
+        to: result.email,
         template: 'status',
         locals: {
           status: state,
@@ -102,70 +72,25 @@ async function updateApplicationState(id, state) {
       });
 
       return result;
-    })
-    .catch((e) => {
-      mongoose.connection.close();
-
-      throw e;
     });
 }
 
-async function updateApplicationDecision(id, decision) {
+export async function updateApplicationDecision(id, decision) {
   await mongoDB();
 
   return Application.findOneAndUpdate({ _id: id }, { decision, status: 4 },
-    { upsert: false, new: true, useFindAndModify: false })
-    .then((application) => {
-      mongoose.connection.close();
-
-      return application;
-    })
-    .catch((e) => {
-      mongoose.connection.close();
-
-      throw e;
-    });
+    { upsert: false, new: true });
 }
 
-async function updateApplicationMeeting(id, availabilityId) {
+export async function updateApplicationMeeting(id, availabilityId) {
   await mongoDB();
 
   return Application.findOneAndUpdate({ _id: id }, { meeting: availabilityId },
-    { upsert: false, new: true, useFindAndModify: false })
-    .then((application) => {
-      mongoose.connection.close();
-
-      return application;
-    })
-    .catch((e) => {
-      mongoose.connection.close();
-
-      throw e;
-    });
+    { upsert: false, new: true });
 }
 
-async function getApplication(urlString) {
+export async function getApplication(urlString) {
   await mongoDB();
 
-  return Application.findOne({ urlString })
-    .then((application) => {
-      mongoose.connection.close();
-
-      return application;
-    })
-    .catch((e) => {
-      mongoose.connection.close();
-
-      throw e;
-    });
+  return Application.findOne({ urlString });
 }
-
-module.exports = {
-  getApplications,
-  addApplication,
-  deleteApplication,
-  getApplication,
-  updateApplicationState,
-  updateApplicationDecision,
-  updateApplicationMeeting,
-};

@@ -1,10 +1,9 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const mongoDB = require('../index');
-const User = require('../models/User');
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import mongoDB from '../index';
+import User from '../models/User';
 
-async function login(email, password) {
+export async function login(email, password) {
   await mongoDB();
 
   return User.findOne({ email })
@@ -19,25 +18,16 @@ async function login(email, password) {
 
       return Promise.reject(Error('The email does not exist.'));
     })
-    .then((user) => {
-      mongoose.connection.close();
-
-      return jwt.sign({
-        id: user._id,
-        name: user.name,
-        isAdmin: user.isAdmin,
-      }, process.env.JWT_SECRET, {
-        expiresIn: '7d',
-      });
-    })
-    .catch((error) => {
-      mongoose.connection.close();
-
-      throw error;
-    });
+    .then((user) => jwt.sign({
+      id: user._id,
+      name: user.name,
+      isAdmin: user.isAdmin,
+    }, process.env.JWT_SECRET, {
+      expiresIn: '7d',
+    }));
 }
 
-async function signUp(name, email, password) {
+export async function signUp(name, email, password) {
   await mongoDB();
 
   return User.countDocuments({ email })
@@ -46,41 +36,26 @@ async function signUp(name, email, password) {
         return Promise.reject(Error('The email has already been used.'));
       }
 
-      return bcrypt.hashSync(password, process.env.PASS_SALT);
+      return bcrypt.hashSync(password, 10);
     })
     .then((hashedPassword) => User.create({
       name,
       email,
       password: hashedPassword,
     }))
-    .then((user) => {
-      mongoose.connection.close();
-
-      return jwt.sign({
-        id: user._id,
-        name: user.name,
-        isAdmin: user.isAdmin,
-      }, process.env.JWT_SECRET, {
-        expiresIn: '7d',
-      });
-    })
-    .catch((error) => {
-      mongoose.connection.close();
-
-      throw error;
-    });
+    .then((user) => jwt.sign({
+      id: user._id,
+      name: user.name,
+      isAdmin: user.isAdmin,
+    }, process.env.JWT_SECRET, {
+      expiresIn: '7d',
+    }));
 }
 
-async function verifyToken(token) {
+export async function verifyToken(token) {
   return jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (decoded) return Promise.resolve(decoded);
 
     return Promise.reject(Error('Invalid token!'));
   });
 }
-
-module.exports = {
-  login,
-  signUp,
-  verifyToken,
-};

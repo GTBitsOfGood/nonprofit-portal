@@ -34,8 +34,8 @@ class Feedback extends Component {
         <Button
           color="#F0F4F7"
           onClick={this.toggleCollapse}
-          style={{ marginBottom: '1rem' }}
           block
+          className={`formCollapseController${open ? ' open' : ''}`}
         >
           <div align="left">
             {open ? (
@@ -47,23 +47,25 @@ class Feedback extends Component {
             Your Questions
           </div>
         </Button>
-        <Collapse isOpen={open}>
-          <FormGroup>
-            <Label for="application">
-              Please let us know if you have any other questions or feedback.
-              You can also reach out to us at
-              <a href="mailto:hello@bitsofgood.org"> hello@bitsofgood.org</a>
-              .
-            </Label>
-            <Input
-              type="textarea"
-              name="feedback"
-              id="feedback"
-              placeholder="(Optional)"
-              onChange={onChange}
-              value={values.feedback}
-            />
-          </FormGroup>
+        <Collapse isOpen={open} className="formCollapse">
+          <div>
+            <FormGroup>
+              <Label for="application">
+                Please let us know if you have any other questions or feedback.
+                You can also reach out to us at
+                <a href="mailto:hello@bitsofgood.org"> hello@bitsofgood.org</a>
+                .
+              </Label>
+              <Input
+                type="textarea"
+                name="feedback"
+                id="feedback"
+                placeholder="(Optional)"
+                onChange={onChange}
+                value={values.feedback}
+              />
+            </FormGroup>
+          </div>
         </Collapse>
       </>
     );

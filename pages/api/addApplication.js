@@ -9,7 +9,7 @@ export default async function (req, res) {
   return addApplication(application)
     .then((result) => res.status(201).json({
       success: true,
-      application: result,
+      payload: result,
     }))
     .catch((error) => res.status(400).json({
       success: false,

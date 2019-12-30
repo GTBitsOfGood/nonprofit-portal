@@ -2,9 +2,10 @@ import App from 'next/app';
 import React from 'react';
 import { Provider } from 'react-redux';
 import cookie from 'js-cookie';
+import Head from 'next/head';
 import { verifyToken } from '../frontend/actions/users';
 import withReduxStore from '../frontend/redux/with-redux-store';
-import AppNavbar from '../frontend/components/AppNavbar';
+import MainLayout from '../frontend/layouts/Main';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../frontend/static/style/App.css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -34,12 +35,16 @@ class MyApp extends App {
     } = this.props;
 
     return (
-      <Provider store={reduxStore}>
-        <div className="App">
-          <AppNavbar user={user} />
-          <Component {...pageProps} user={user} />
-        </div>
-      </Provider>
+      <>
+        <Head>
+          <title>BoG NPP</title>
+        </Head>
+        <Provider store={reduxStore}>
+          <MainLayout user={user}>
+            <Component {...pageProps} user={user} />
+          </MainLayout>
+        </Provider>
+      </>
     );
   }
 }

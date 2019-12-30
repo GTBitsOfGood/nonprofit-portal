@@ -9,7 +9,16 @@ export const getAvailabilities = async () => fetch(
     credentials: 'include',
   },
 )
-  .then((response) => response.json());
+  .then((response) => response.json())
+  .then((json) => {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
+      throw new Error(json.message);
+    }
+
+    return json.payload;
+  });
 
 export const addAvailability = async (availability) => fetch(
   config.baseUrl + config.apis.addAvailability, {
@@ -24,7 +33,16 @@ export const addAvailability = async (availability) => fetch(
     }),
   },
 )
-  .then((response) => response.json());
+  .then((response) => response.json())
+  .then((json) => {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
+      throw new Error(json.message);
+    }
+
+    return json.payload;
+  });
 
 export const deleteAvailability = async (id) => fetch(
   config.baseUrl + config.apis.deleteAvailability, {
@@ -39,7 +57,16 @@ export const deleteAvailability = async (id) => fetch(
     }),
   },
 )
-  .then((response) => response.json());
+  .then((response) => response.json())
+  .then((json) => {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
+      throw new Error(json.message);
+    }
+
+    return json.success;
+  });
 
 export const updateAvailability = async (id, updatedFields) => fetch(
   config.baseUrl + config.apis.updateAvailability, {
@@ -55,7 +82,16 @@ export const updateAvailability = async (id, updatedFields) => fetch(
     }),
   },
 )
-  .then((response) => response.json());
+  .then((response) => response.json())
+  .then((json) => {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
+      throw new Error(json.message);
+    }
+
+    return json.payload;
+  });
 
 export const getAvailability = async (id) => fetch(
   config.baseUrl + config.apis.getAvailability, {
@@ -70,4 +106,13 @@ export const getAvailability = async (id) => fetch(
     }),
   },
 )
-  .then((response) => response.json());
+  .then((response) => response.json())
+  .then((json) => {
+    if (json == null) {
+      throw new Error('Could not connect to API!');
+    } else if (!json.success) {
+      throw new Error(json.message);
+    }
+
+    return json.payload;
+  });

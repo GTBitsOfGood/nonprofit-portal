@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import AppNavbar from '../components/AppNavbar';
+import AppNavbar from '../components/AppNavbar/AppNavbar';
 import Notification from '../components/Notification/Notification';
 
 class MainLayout extends React.PureComponent {

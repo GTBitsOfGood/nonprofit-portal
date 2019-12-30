@@ -1,0 +1,24 @@
+.appNavbar {
+    background-color: #FFFFFF;
+    border-top: solid;
+    border-bottom: solid;
+    border-width: 4px;
+    border-color: #CCCCCC;
+}
+
+.appNavbarNav {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0 32px !important;
+}
+
+.appNavLeft {
+    margin-right: auto !important;
+}
+
+.appNavItem {
+    color: #747474;
+    font-size: 16px;
+    font-weight: bolder;
+    margin: 0 16px;
+}

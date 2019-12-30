@@ -44,7 +44,7 @@ class AppNavbar extends React.PureComponent {
 
     return (
       <Navbar light expand="sm" className="mb-5 appNavbar">
-        <Container>
+        <Container className="navContainer">
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav navbar className="appNavbarNav">

@@ -1,3 +1,7 @@
+.navContainer {
+    max-width: unset !important;
+}
+
 .appNavbar {
     background-color: #FFFFFF;
     border-top: solid;

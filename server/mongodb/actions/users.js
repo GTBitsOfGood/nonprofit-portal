@@ -23,7 +23,7 @@ export async function login(email, password) {
       name: user.name,
       isAdmin: user.isAdmin,
     }, process.env.JWT_SECRET, {
-      expiresIn: '7d',
+      expiresIn: '1d',
     }));
 }
 

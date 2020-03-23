@@ -7,6 +7,7 @@
     "MAIL_USER": "@mail_user",
     "MAIL_PASS": "@mail_pass",
     "JWT_SECRET": "@jwt_secret",
-    "PROD_BASE_URL": "@prod_base_url"
+    "PROD_BASE_URL": "@prod_base_url",
+    "ADMINPASS": "@adminpass"
   }
 }

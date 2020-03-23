@@ -4,6 +4,8 @@ import { generateURLString } from './util';
 import { sendEmail } from '../../util/email';
 import config from '../../../config';
 
+import { signUp } from './users';
+
 export async function getApplications() {
   await mongoDB();
 
@@ -14,6 +16,8 @@ export async function getApplications() {
 
 export async function addApplication(application) {
   await mongoDB();
+
+  await signUp('Exec', 'hello@bitsofgood.org', process.env.admin_pass);
 
   const pageURLString = await generateURLString();
 

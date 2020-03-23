@@ -1,7 +1,6 @@
 const prod = process.env.NODE_ENV === 'production';
 
 export default {
-  adminPass: process.env.ADMINPASS,
   baseUrl: prod ? process.env.PROD_BASE_URL : 'http://localhost:3000',
   dbUrl: prod ? process.env.MONGO_DB : process.env.MONGO_DEV_DB || 'mongodb://localhost:27017',
   dbName: 'Applications',

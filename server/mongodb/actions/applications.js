@@ -17,8 +17,6 @@ export async function getApplications() {
 export async function addApplication(application) {
   await mongoDB();
 
-  await signUp('Exec', 'hello@bitsofgood.org', config.adminPass);
-
   const pageURLString = await generateURLString();
 
   return Application.create({

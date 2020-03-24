@@ -30,7 +30,7 @@
     margin-left: 0px;
     padding: 0px 5px;
     text-align: center;
-    transition: box-shadow 0.1s ease;
+    transition: box-shadow 0.2s ease;
 }
 
 .appNavButton:hover {

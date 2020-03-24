@@ -13,11 +13,6 @@ import { signOut } from '../../actions/users';
 import config from '../../../config';
 import './AppNavbar.css';
 
-const homeLink = 'https://bitsofgood.org/';
-const aboutLink = 'https://bitsofgood.org/about-us';
-const projectsLink = 'https://bitsofgood.org/projects';
-const contactLink = 'https://www.facebook.com/GTBitsOfGood';
-
 class AppNavbar extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -43,36 +38,11 @@ class AppNavbar extends React.PureComponent {
     const isAdmin = user != null && user.isAdmin;
 
     return (
-      <Navbar light expand="sm" className="mb-5 appNavbar">
+      <Navbar light expand="sm" className={`mb-5${isLoggedIn ? ' appNavbar' : ''}`}>
         <Container className="navContainer">
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav navbar className="appNavbarNav">
-              <NavItem className="appNavItem">
-                <NavLink href={homeLink}>
-                  Home
-                </NavLink>
-              </NavItem>
-              <NavItem className="appNavItem">
-                <NavLink href={aboutLink}>
-                  About Us
-                </NavLink>
-              </NavItem>
-              <NavItem className="appNavItem">
-                <NavLink href={projectsLink}>
-                  Projects
-                </NavLink>
-              </NavItem>
-              <NavItem className="appNavItem appNavLeft">
-                <NavLink href={config.pages.application}>
-                  Apply
-                </NavLink>
-              </NavItem>
-              <NavItem className="appNavItem">
-                <NavLink href={contactLink}>
-                  Contact Us
-                </NavLink>
-              </NavItem>
               {(isLoggedIn) && (
               <>
                 <NavItem className="appNavItem">

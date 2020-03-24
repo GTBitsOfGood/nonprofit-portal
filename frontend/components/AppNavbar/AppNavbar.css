@@ -12,7 +12,7 @@
 
 .appNavbarNav {
     width: 100%;
-    justify-content: flex-start;
+    justify-content: flex-end;
     padding: 0 32px !important;
 }
 

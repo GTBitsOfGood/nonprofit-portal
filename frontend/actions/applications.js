@@ -1,9 +1,10 @@
 import fetch from 'isomorphic-unfetch';
 
 import config from '../../config';
+import apiRoute from './util';
 
-export const getApplications = async () => fetch(
-  config.apis.getApplications, {
+export const getApplications = async (res) => fetch(
+  apiRoute(res, config.apis.getApplications), {
     method: 'get',
     mode: 'same-origin',
     credentials: 'include',
@@ -20,8 +21,8 @@ export const getApplications = async () => fetch(
     return json.payload;
   });
 
-export const addApplication = async (application) => fetch(
-  config.apis.addApplication, {
+export const addApplication = async (application, res) => fetch(
+  apiRoute(res, config.apis.addApplication), {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',
@@ -44,8 +45,8 @@ export const addApplication = async (application) => fetch(
     return json.payload;
   });
 
-export const deleteApplication = async (id) => fetch(
-  config.apis.deleteApplication, {
+export const deleteApplication = async (id, res) => fetch(
+  apiRoute(res, config.apis.deleteApplication), {
     method: 'delete',
     mode: 'same-origin',
     credentials: 'include',
@@ -68,8 +69,8 @@ export const deleteApplication = async (id) => fetch(
     return json.success;
   });
 
-export const updateApplicationState = async (id, state) => fetch(
-  config.apis.updateApplicationState, {
+export const updateApplicationState = async (id, state, res) => fetch(
+  apiRoute(res, config.apis.updateApplicationState), {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',
@@ -93,8 +94,8 @@ export const updateApplicationState = async (id, state) => fetch(
     return json.payload;
   });
 
-export const updateApplicationDecision = async (id, decision) => fetch(
-  config.apis.updateApplicationDecision, {
+export const updateApplicationDecision = async (id, decision, res) => fetch(
+  apiRoute(res, config.apis.updateApplicationDecision), {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',
@@ -118,8 +119,8 @@ export const updateApplicationDecision = async (id, decision) => fetch(
     return json.payload;
   });
 
-export const updateApplicationMeeting = async (id, availabilityId) => fetch(
-  config.apis.updateApplicationMeeting, {
+export const updateApplicationMeeting = async (id, availabilityId, res) => fetch(
+  apiRoute(res, config.apis.updateApplicationMeeting), {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',
@@ -143,8 +144,8 @@ export const updateApplicationMeeting = async (id, availabilityId) => fetch(
     return json.payload;
   });
 
-export const getApplication = async (urlString) => fetch(
-  `${config.baseUrl}${config.apis.getApplication}?url=${urlString}`, {
+export const getApplication = async (urlString, res) => fetch(
+  apiRoute(res, `${config.apis.getApplication}?url=${urlString}`), {
     method: 'get',
     mode: 'same-origin',
     credentials: 'include',

@@ -1,9 +1,10 @@
 import fetch from 'isomorphic-unfetch';
 
 import config from '../../config';
+import apiRoute from './util';
 
-export const getAvailabilities = async () => fetch(
-  config.apis.getAvailabilities, {
+export const getAvailabilities = async (res) => fetch(
+  apiRoute(res, config.apis.getAvailabilities), {
     method: 'get',
     mode: 'same-origin',
     credentials: 'include',
@@ -20,8 +21,8 @@ export const getAvailabilities = async () => fetch(
     return json.payload;
   });
 
-export const addAvailability = async (availability) => fetch(
-  config.apis.addAvailability, {
+export const addAvailability = async (availability, res) => fetch(
+  apiRoute(res, config.apis.addAvailability), {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',
@@ -44,8 +45,8 @@ export const addAvailability = async (availability) => fetch(
     return json.payload;
   });
 
-export const deleteAvailability = async (id) => fetch(
-  config.apis.deleteAvailability, {
+export const deleteAvailability = async (id, res) => fetch(
+  apiRoute(res, config.apis.deleteAvailability), {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',
@@ -68,8 +69,8 @@ export const deleteAvailability = async (id) => fetch(
     return json.success;
   });
 
-export const updateAvailability = async (id, updatedFields) => fetch(
-  config.apis.updateAvailability, {
+export const updateAvailability = async (id, updatedFields, res) => fetch(
+  apiRoute(res, config.apis.updateAvailability), {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',
@@ -93,8 +94,8 @@ export const updateAvailability = async (id, updatedFields) => fetch(
     return json.payload;
   });
 
-export const getAvailability = async (id) => fetch(
-  config.apis.getAvailability, {
+export const getAvailability = async (id, res) => fetch(
+  apiRoute(res, config.apis.getAvailability), {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',

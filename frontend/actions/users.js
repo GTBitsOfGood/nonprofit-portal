@@ -1,13 +1,13 @@
 import fetch from 'isomorphic-unfetch';
 import Router from 'next/router';
 import cookie from 'js-cookie';
-import join from 'path';
 
 import config from '../../config';
+import apiRoute from './util';
 
 
-export const login = async (email, password) => fetch(
-  config.apis.login, {
+export const login = async (email, password, res) => fetch(
+  apiRoute(res, config.apis.login), {
     method: 'post',
     mode: 'same-origin',
     credentials: 'same-origin',
@@ -33,8 +33,8 @@ export const login = async (email, password) => fetch(
     return json.payload;
   });
 
-export const signUp = async (name, email, password) => fetch(
-  config.apis.signUp, {
+export const signUp = async (name, email, password, res) => fetch(
+  apiRoute(res, config.apis.signUp), {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',
@@ -61,8 +61,8 @@ export const signUp = async (name, email, password) => fetch(
     return json.payload;
   });
 
-export const verifyToken = async (token) => fetch(
-  join(config.baseUrl, config.apis.verifyToken), {
+export const verifyToken = async (token, res) => fetch(
+  apiRoute(res, config.apis.verifyToken), {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',

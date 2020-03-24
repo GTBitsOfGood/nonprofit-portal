@@ -10,7 +10,7 @@ class ViewPage extends React.PureComponent {
     // eslint-disable-next-line global-require
     const token = ctx.res ? require('next-cookies')(ctx).token : cookie.get('token');
 
-    return verifyToken(token)
+    return verifyToken(token, ctx.res)
       .then((user) => user)
       .catch(async () => {
         if (ctx.res) {

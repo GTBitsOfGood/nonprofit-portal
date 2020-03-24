@@ -11,12 +11,12 @@ import { getApplication } from '../../frontend/actions/applications';
 import { getAvailability } from '../../frontend/actions/availabilities';
 
 class LandingPage extends React.Component {
-  static async getInitialProps(router) {
-    const urlString = router.query.url;
-    const application = await getApplication(router.query.url);
+  static async getInitialProps(ctx) {
+    const urlString = ctx.query.url;
+    const application = await getApplication(ctx.query.url, ctx.res);
 
     if (application.meeting != null) {
-      const meeting = await getAvailability(application.meeting);
+      const meeting = await getAvailability(application.meeting, ctx.res);
 
       return {
         application,

@@ -3,7 +3,7 @@ import fetch from 'isomorphic-unfetch';
 import config from '../../config';
 
 export const getApplications = async () => fetch(
-  config.baseUrl + config.apis.getApplications, {
+  config.apis.getApplications, {
     method: 'get',
     mode: 'same-origin',
     credentials: 'include',
@@ -21,7 +21,7 @@ export const getApplications = async () => fetch(
   });
 
 export const addApplication = async (application) => fetch(
-  config.baseUrl + config.apis.addApplication, {
+  config.apis.addApplication, {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',
@@ -45,7 +45,7 @@ export const addApplication = async (application) => fetch(
   });
 
 export const deleteApplication = async (id) => fetch(
-  config.baseUrl + config.apis.deleteApplication, {
+  config.apis.deleteApplication, {
     method: 'delete',
     mode: 'same-origin',
     credentials: 'include',
@@ -69,7 +69,7 @@ export const deleteApplication = async (id) => fetch(
   });
 
 export const updateApplicationState = async (id, state) => fetch(
-  config.baseUrl + config.apis.updateApplicationState, {
+  config.apis.updateApplicationState, {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',
@@ -94,7 +94,7 @@ export const updateApplicationState = async (id, state) => fetch(
   });
 
 export const updateApplicationDecision = async (id, decision) => fetch(
-  config.baseUrl + config.apis.updateApplicationDecision, {
+  config.apis.updateApplicationDecision, {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',
@@ -119,7 +119,7 @@ export const updateApplicationDecision = async (id, decision) => fetch(
   });
 
 export const updateApplicationMeeting = async (id, availabilityId) => fetch(
-  config.baseUrl + config.apis.updateApplicationMeeting, {
+  config.apis.updateApplicationMeeting, {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',

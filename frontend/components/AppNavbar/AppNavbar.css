@@ -12,17 +12,26 @@
 
 .appNavbarNav {
     width: 100%;
-    justify-content: flex-end;
     padding: 0 20px !important;
-}
-
-.appNavLeft {
-    margin-right: auto !important;
+    margin-top: 10px;
 }
 
 .appNavItem {
     color: #747474;
     font-size: 16px;
     font-weight: bolder;
-    margin: 0 16px;
+    margin: 0 8px;
+}
+
+.appNavButton {
+    border-radius: 5px;
+    background-color: #ffc55a;
+    color: black;
+    margin-left: 0px;
+    padding: 0px 5px;
+    box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.15);
+}
+
+.appNavButton > a {
+    color: black !important;
 }

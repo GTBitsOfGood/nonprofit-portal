@@ -43,6 +43,15 @@ class AppNavbar extends React.PureComponent {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav navbar className="appNavbarNav">
+              {(!isLoggedIn) && (
+                <>
+                  <NavItem className="appNavItem appNavButton">
+                    <NavLink href={config.pages.home}>
+                      Back to Homepage
+                    </NavLink>
+                  </NavItem>
+                </>
+              )}
               {(isLoggedIn) && (
               <>
                 <NavItem className="appNavItem">
@@ -65,7 +74,7 @@ class AppNavbar extends React.PureComponent {
                 </NavItem>
               )}
               {(isLoggedIn) ? (
-                <NavItem className="appNavItem">
+                <NavItem className="appNavItem right">
                   <NavLink
                     onClick={signOut}
                     style={{

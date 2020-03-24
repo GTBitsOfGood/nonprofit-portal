@@ -28,5 +28,6 @@ export default {
     submitted: '/submitted',
     admin: '/admin',
     availability: '/availability',
+    home: 'https://bitsofgood.org',
   },
 };

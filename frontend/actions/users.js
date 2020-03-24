@@ -61,7 +61,7 @@ export const signUp = async (name, email, password) => fetch(
   });
 
 export const verifyToken = async (token, serverSide) => fetch(
-  `${serverSide && config.baseUrl}${config.apis.verifyToken}`, {
+  `${serverSide ? config.baseUrl : ''}${config.apis.verifyToken}`, {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',

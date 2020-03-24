@@ -1,5 +1,4 @@
 import React from 'react';
-import { Container } from 'reactstrap';
 import Router from 'next/router';
 import cookie from 'js-cookie';
 import ApplicationsList from '../frontend/components/Admin/ApplicationsList';
@@ -13,11 +12,10 @@ class ViewPage extends React.PureComponent {
 
     return verifyToken(token)
       .then((user) => user)
-      .catch(async () => {
+      .catch(async (err) => {
         if (ctx.res) {
-          ctx.res.writeHead(302, {
-            Location: config.pages.application,
-          });
+          ctx.res.write(err.message.toString());
+          ctx.res.writeHead(200);
           ctx.res.end();
         } else {
           await Router.push(config.pages.application);

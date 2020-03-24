@@ -13,7 +13,7 @@
 .appNavbarNav {
     width: 100%;
     justify-content: flex-end;
-    padding: 0 32px !important;
+    padding: 0 16px !important;
 }
 
 .appNavLeft {

@@ -48,7 +48,7 @@ export async function signUp(name, email, password) {
       name: user.name,
       isAdmin: user.isAdmin,
     }, process.env.JWT_SECRET, {
-      expiresIn: '1d',
+      expiresIn: '7d',
     }));
 }
 

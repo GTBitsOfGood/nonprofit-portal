@@ -12,10 +12,11 @@ class ViewPage extends React.PureComponent {
 
     return verifyToken(token)
       .then((user) => user)
-      .catch(async (err) => {
+      .catch(async () => {
         if (ctx.res) {
-          ctx.res.write(err.message.toString());
-          ctx.res.writeHead(200);
+          ctx.res.writeHead(302, {
+            Location: config.pages.application,
+          });
           ctx.res.end();
         } else {
           await Router.push(config.pages.application);

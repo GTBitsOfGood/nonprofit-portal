@@ -37,7 +37,7 @@ class MyApp extends App {
     return (
       <>
         <Head>
-          <title>BoG NPP</title>
+          <title>Nonprofit Portal</title>
         </Head>
         <Provider store={reduxStore}>
           <MainLayout user={user}>

@@ -4,8 +4,6 @@ import { generateURLString } from './util';
 import { sendEmail } from '../../util/email';
 import config from '../../../config';
 
-import { signUp } from './users';
-
 export async function getApplications() {
   await mongoDB();
 

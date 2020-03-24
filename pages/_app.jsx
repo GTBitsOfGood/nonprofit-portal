@@ -17,7 +17,7 @@ class MyApp extends App {
     // eslint-disable-next-line global-require
     const token = appContext.ctx.res ? require('next-cookies')(appContext.ctx).token : cookie.get('token');
 
-    return verifyToken(token)
+    return verifyToken(token, typeof appContext.ctx.res !== 'undefined')
       .then((decoded) => ({
         ...appProps,
         user: {

@@ -17,7 +17,7 @@ class RegisterPage extends React.PureComponent {
     // eslint-disable-next-line global-require
     const token = ctx.res ? require('next-cookies')(ctx).token : cookie.get('token');
 
-    return verifyToken(token)
+    return verifyToken(token, typeof ctx.res !== 'undefined')
       .then((user) => {
         const isValid = user != null && user.isAdmin;
 

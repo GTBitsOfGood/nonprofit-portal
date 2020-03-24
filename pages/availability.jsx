@@ -10,7 +10,7 @@ class IndexPage extends React.PureComponent {
     // eslint-disable-next-line global-require
     const token = ctx.res ? require('next-cookies')(ctx).token : cookie.get('token');
 
-    return verifyToken(token, typeof ctx.res !== 'undefined')
+    return verifyToken(token)
       .then((user) => user)
       .catch(async () => {
         if (ctx.res) {

@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-unfetch';
 import Router from 'next/router';
 import cookie from 'js-cookie';
+import join from 'path';
 
 import config from '../../config';
 
@@ -60,8 +61,8 @@ export const signUp = async (name, email, password) => fetch(
     return json.payload;
   });
 
-export const verifyToken = async (token, serverSide) => fetch(
-  `${serverSide ? config.baseUrl : ''}${config.apis.verifyToken}`, {
+export const verifyToken = async (token) => fetch(
+  join(config.baseUrl, config.apis.verifyToken), {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',

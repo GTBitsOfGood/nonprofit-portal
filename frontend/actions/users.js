@@ -6,7 +6,7 @@ import config from '../../config';
 
 
 export const login = async (email, password) => fetch(
-  config.apis.login, {
+  config.baseUrl + config.apis.login, {
     method: 'post',
     mode: 'same-origin',
     credentials: 'same-origin',
@@ -33,7 +33,7 @@ export const login = async (email, password) => fetch(
   });
 
 export const signUp = async (name, email, password) => fetch(
-  config.apis.signUp, {
+  config.baseUrl + config.apis.signUp, {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',

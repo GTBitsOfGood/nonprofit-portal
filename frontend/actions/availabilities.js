@@ -3,7 +3,7 @@ import fetch from 'isomorphic-unfetch';
 import config from '../../config';
 
 export const getAvailabilities = async () => fetch(
-  config.apis.getAvailabilities, {
+  config.baseUrl + config.apis.getAvailabilities, {
     method: 'get',
     mode: 'same-origin',
     credentials: 'include',
@@ -21,7 +21,7 @@ export const getAvailabilities = async () => fetch(
   });
 
 export const addAvailability = async (availability) => fetch(
-  config.apis.addAvailability, {
+  config.baseUrl + config.apis.addAvailability, {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',
@@ -45,7 +45,7 @@ export const addAvailability = async (availability) => fetch(
   });
 
 export const deleteAvailability = async (id) => fetch(
-  config.apis.deleteAvailability, {
+  config.baseUrl + config.apis.deleteAvailability, {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',
@@ -69,7 +69,7 @@ export const deleteAvailability = async (id) => fetch(
   });
 
 export const updateAvailability = async (id, updatedFields) => fetch(
-  config.apis.updateAvailability, {
+  config.baseUrl + config.apis.updateAvailability, {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',
@@ -94,7 +94,7 @@ export const updateAvailability = async (id, updatedFields) => fetch(
   });
 
 export const getAvailability = async (id) => fetch(
-  config.apis.getAvailability, {
+  config.baseUrl + config.apis.getAvailability, {
     method: 'post',
     mode: 'same-origin',
     credentials: 'include',

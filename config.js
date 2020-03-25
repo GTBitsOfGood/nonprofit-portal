@@ -30,5 +30,5 @@ export default {
     availability: '/availability',
     home: 'https://bitsofgood.org',
   },
-  bogEmail: 'max.karpawich@gmail.com',
+  bogEmail: 'hello@bitsofgood.org',
 };

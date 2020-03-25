@@ -33,6 +33,14 @@ export async function addApplication(application) {
         },
       });
 
+      await sendEmail({
+        to: config.bogEmail,
+        template: 'notification',
+        locals: {
+          name: newApplication.name,
+        },
+      });
+
       return newApplication;
     });
 }

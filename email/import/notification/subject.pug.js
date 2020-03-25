@@ -1,0 +1,1 @@
+module.exports = "= `NONPROFIT APPLICATION SUBMITTED`";

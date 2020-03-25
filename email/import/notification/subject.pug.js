@@ -1,1 +1,1 @@
-module.exports = "= `NONPROFIT APPLICATION SUBMITTED`";
+module.exports = "= `Nonprofit application: ${name}`";

@@ -27,7 +27,7 @@
         "moment": "^2.24.0",
         "mongodb": "^3.3.2",
         "mongoose": "^5.7.11",
-        "next": "^9.0.6",
+        "next": "^9.3.2",
         "next-cookies": "^2.0.1",
         "next-images": "^1.2.0",
         "prop-types": "^15.7.2",

@@ -1,108 +1,23 @@
 import urls from "../utils/urls";
+import { apiGet, apiPost, apiPut, apiDelete } from "../utils/api";
 
-export const getAvailabilities = async () =>
-  fetch(urls.apis.availability, {
-    method: "get",
-    mode: "same-origin",
-    credentials: "include",
-  })
-    .then((response) => response.json())
-    .then((json) => {
-      if (json == null) {
-        throw new Error("Could not connect to API!");
-      } else if (!json.success) {
-        throw new Error(json.message);
-      }
-
-      return json.payload;
-    });
+export const getAvailabilities = async () => apiGet(urls.apis.availability);
 
 export const getAvailability = async (id) =>
-  fetch(urls.apis.availability + `?id=${id}`, {
-    method: "get",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response.json())
-    .then((json) => {
-      if (json == null) {
-        throw new Error("Could not connect to API!");
-      } else if (!json.success) {
-        throw new Error(json.message);
-      }
-
-      return json.payload;
-    });
+  apiGet(urls.apis.availability + `?id=${id}`);
 
 export const addAvailability = async (availability) =>
-  fetch(urls.apis.availability, {
-    method: "post",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      availability,
-    }),
-  })
-    .then((response) => response.json())
-    .then((json) => {
-      if (json == null) {
-        throw new Error("Could not connect to API!");
-      } else if (!json.success) {
-        throw new Error(json.message);
-      }
-
-      return json.payload;
-    });
+  apiPost(urls.apis.availability, {
+    availability,
+  });
 
 export const deleteAvailability = async (id) =>
-  fetch(urls.apis.availability, {
-    method: "delete",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      id,
-    }),
-  })
-    .then((response) => response.json())
-    .then((json) => {
-      if (json == null) {
-        throw new Error("Could not connect to API!");
-      } else if (!json.success) {
-        throw new Error(json.message);
-      }
-
-      return json.success;
-    });
+  apiDelete(urls.apis.availability, {
+    id,
+  });
 
 export const updateAvailability = async (id, updatedFields) =>
-  fetch(urls.apis.availability, {
-    method: "put",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      id,
-      updatedFields,
-    }),
-  })
-    .then((response) => response.json())
-    .then((json) => {
-      if (json == null) {
-        throw new Error("Could not connect to API!");
-      } else if (!json.success) {
-        throw new Error(json.message);
-      }
-
-      return json.payload;
-    });
+  apiPut(urls.apis.availability, {
+    id,
+    updatedFields,
+  });

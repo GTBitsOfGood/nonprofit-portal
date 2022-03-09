@@ -2,78 +2,27 @@ import React from "react";
 import Router from "next/router";
 import useSWR from "swr";
 import urls from "../utils/urls";
+import { apiGet, apiPost } from "../utils/api";
+
+export const getUser = async () => apiGet(urls.apis.getUser);
 
 export const login = async (email, password) =>
-  fetch(urls.apis.login, {
-    method: "post",
-    mode: "same-origin",
-    credentials: "same-origin",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email,
-      password,
-    }),
-  })
-    .then((response) => response.json())
-    .then((json) => {
-      if (json == null) {
-        throw new Error("Unable to login at this time.");
-      } else if (!json.success) {
-        throw new Error(json.message);
-      } else if (json.payload == null) {
-        throw new Error("Unable to login at this time.");
-      }
-
-      return json.payload;
-    });
+  apiPost(urls.apis.login, {
+    email,
+    password,
+  });
 
 export const signUp = async (name, email, password) =>
-  fetch(urls.apis.signUp, {
-    method: "post",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name,
-      email,
-      password,
-    }),
-  })
-    .then((response) => response.json())
-    .then((json) => {
-      if (json == null) {
-        throw new Error("Unable to sign up at this time.");
-      } else if (!json.success) {
-        throw new Error(json.message);
-      } else if (json.payload == null) {
-        throw new Error("Unable to sign up at this time.");
-      }
+  apiPost(urls.apis.signUp, {
+    name,
+    email,
+    password,
+  });
 
-      return json.payload;
-    });
-
-export const signOut = () =>
-  fetch(urls.apis.logout, {
-    method: "GET",
-    mode: "same-origin",
-    credentials: "include",
-  })
-    .then((response) => response.json())
-    .then((json) => {
-      if (json == null) {
-        throw new Error("Could not connect to API!");
-      }
-
-      return json.success;
-    });
+export const signOut = () => apiGet(urls.apis.logout);
 
 export const useUser = ({ redirectTo = "", redirectIfFound = false } = {}) => {
-  const { data, mutate: mutateUser } = useSWR(urls.apis.getUser);
-  const user = data?.payload;
+  const { data: user, mutate: mutateUser } = useSWR(urls.apis.getUser, getUser);
 
   React.useEffect(() => {
     // if no redirect needed, just return (example: already on /dashboard)
@@ -90,5 +39,8 @@ export const useUser = ({ redirectTo = "", redirectIfFound = false } = {}) => {
     }
   }, [user, redirectIfFound, redirectTo]);
 
-  return { user, mutateUser };
+  return {
+    user,
+    mutateUser,
+  };
 };

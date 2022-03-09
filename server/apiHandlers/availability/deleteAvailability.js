@@ -4,7 +4,7 @@ import { deleteAvailability } from "../../mongodb/actions/availabilities";
 // @desc    Delete An Availability
 // @access  Public
 export default async function (req, res) {
-  const { id } = req.body;
+  const { id } = req.query;
   const user = req.session.user;
 
   if (!user || user.isLoggedIn === false) {

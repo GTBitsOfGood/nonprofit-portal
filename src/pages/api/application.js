@@ -23,7 +23,7 @@ export default async function (req, res) {
     case "DELETE": {
       return deleteApplication(req, res);
     }
-    case "PUT": {
+    case "PATCH": {
       if (req?.body?.decision) {
         return updateApplicationDecision(req, res);
       }

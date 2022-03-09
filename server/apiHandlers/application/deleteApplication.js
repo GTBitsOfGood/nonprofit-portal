@@ -4,7 +4,7 @@ import { deleteApplication } from "../../mongodb/actions/applications";
 // @desc    Delete An Application
 // @access  Public
 export default async function (req, res) {
-  const { id } = req.body;
+  const { id } = req.query;
   const user = req.session.user;
 
   if (!user || user.isLoggedIn === false) {

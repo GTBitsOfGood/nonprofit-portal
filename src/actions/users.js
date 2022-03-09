@@ -1,25 +1,25 @@
+import axios from "axios";
 import React from "react";
 import Router from "next/router";
 import useSWR from "swr";
 import urls from "../utils/urls";
-import { apiGet, apiPost } from "../utils/api";
 
-export const getUser = async () => apiGet(urls.apis.getUser);
+export const getUser = async () => axios.get(urls.apis.getUser);
 
 export const login = async (email, password) =>
-  apiPost(urls.apis.login, {
+  axios.post(urls.apis.login, {
     email,
     password,
   });
 
 export const signUp = async (name, email, password) =>
-  apiPost(urls.apis.signUp, {
+  axios.post(urls.apis.signUp, {
     name,
     email,
     password,
   });
 
-export const signOut = () => apiGet(urls.apis.logout);
+export const signOut = () => axios.get(urls.apis.logout);
 
 export const useUser = ({ redirectTo = "", redirectIfFound = false } = {}) => {
   const { data: user, mutate: mutateUser } = useSWR(urls.apis.getUser, getUser);

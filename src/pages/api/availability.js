@@ -18,7 +18,7 @@ export default async function (req, res) {
     case "POST": {
       return addAvailability(req, res);
     }
-    case "PUT": {
+    case "PATCH": {
       return updateAvailability(req, res);
     }
     case "DELETE": {

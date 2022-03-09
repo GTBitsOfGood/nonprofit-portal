@@ -1,23 +1,29 @@
+import axios from "axios";
 import urls from "../utils/urls";
-import { apiGet, apiPost, apiPut, apiDelete } from "../utils/api";
 
-export const getAvailabilities = async () => apiGet(urls.apis.availability);
+export const getAvailabilities = async () => axios.get(urls.apis.availability);
 
 export const getAvailability = async (id) =>
-  apiGet(urls.apis.availability + `?id=${id}`);
+  axios.get(urls.apis.availability, {
+    params: {
+      id,
+    },
+  });
 
 export const addAvailability = async (availability) =>
-  apiPost(urls.apis.availability, {
+  axios.post(urls.apis.availability, {
     availability,
   });
 
 export const deleteAvailability = async (id) =>
-  apiDelete(urls.apis.availability, {
-    id,
+  axios.delete(urls.apis.availability, {
+    params: {
+      id,
+    },
   });
 
 export const updateAvailability = async (id, updatedFields) =>
-  apiPut(urls.apis.availability, {
+  axios.patch(urls.apis.availability, {
     id,
     updatedFields,
   });

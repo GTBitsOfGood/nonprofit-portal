@@ -1,35 +1,41 @@
+import axios from "axios";
 import urls from "../utils/urls";
-import { apiGet, apiPost, apiPut, apiDelete } from "../utils/api";
 
-export const getApplications = async () => apiGet(urls.apis.application);
+export const getApplications = async () => axios.get(urls.apis.application);
 
-export const getApplication = async (urlString) =>
-  apiGet(urls.apis.application + `?url=${urlString}`);
+export const getApplication = async (url) =>
+  axios.get(urls.apis.application, {
+    params: {
+      url,
+    },
+  });
 
 export const addApplication = async (application) =>
-  apiPost(urls.apis.application, {
+  axios.post(urls.apis.application, {
     application,
   });
 
-export const deleteApplication = async (id) =>
-  apiDelete(urls.apis.application, {
-    id,
-  });
-
 export const updateApplicationState = async (id, state) =>
-  apiPut(urls.apis.application, {
+  axios.patch(urls.apis.application, {
     id,
     state,
   });
 
 export const updateApplicationDecision = async (id, decision) =>
-  apiPut(urls.apis.application, {
+  axios.patch(urls.apis.application, {
     id,
     decision,
   });
 
 export const updateApplicationMeeting = async (id, availabilityId) =>
-  apiPut(urls.apis.application, {
+  axios.patch(urls.apis.application, {
     id,
     availabilityId,
+  });
+
+export const deleteApplication = async (id) =>
+  axios.delete(urls.apis.application, {
+    params: {
+      id,
+    },
   });

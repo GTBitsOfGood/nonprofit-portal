@@ -21,7 +21,7 @@
   flex-direction: column;
 }
 
-input {
+.formInputs > input {
   width: 300px;
   height: 48px;
   border-radius: 4px;

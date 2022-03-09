@@ -9,18 +9,13 @@ const dbName = process.env.DB_NAME || "Applications";
 export default async () => {
   if (mongoose.connections[0].readyState) return;
 
-  await mongoose
-    .connect(dbUrl, {
-      // avoids deprecated functionality
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false,
-      useCreateIndex: true,
+  try {
+    await mongoose.connect(dbUrl, {
       dbName,
-    })
-    .catch((e) => {
-      console.error("Error connecting to database.");
-
-      throw e;
     });
+  } catch (error) {
+    console.error("Error connecting to database.");
+
+    throw error;
+  }
 };

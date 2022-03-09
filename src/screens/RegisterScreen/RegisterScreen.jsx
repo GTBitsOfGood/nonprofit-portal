@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { signUp, useUser } from "../actions/users";
+import { signUp, useUser } from "../../actions/users";
 import {
   addNotification as addNotificationBase,
   deleteNotification as deleteNotificationBase,

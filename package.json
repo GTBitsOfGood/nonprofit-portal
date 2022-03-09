@@ -7,7 +7,7 @@
         "hardcode": "hardcode server/email/dev/** -p email/dev/ -o email/import/",
         "build": "next build",
         "start": "next start",
-        "lint": "eslint --ext .js --ext .jsx ."
+        "lint": "next lint"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.2.25",
@@ -43,12 +43,7 @@
         "yup": "^0.32.11"
     },
     "devDependencies": {
-        "babel-eslint": "^10.1.0",
-        "eslint": "^8.10.0",
-        "eslint-config-airbnb": "^19.0.4",
-        "eslint-plugin-import": "^2.25.4",
-        "eslint-plugin-jsx-a11y": "^6.5.1",
-        "eslint-plugin-react": "^7.29.3",
-        "eslint-plugin-react-hooks": "^4.3.0"
+        "eslint": "8.10.0",
+        "eslint-config-next": "12.1.0"
     }
 }

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import AppNavbar from "./AppNavbar/AppNavbar";
-import Notification from "../Notification/Notification";
+import Notification from "../Notification";
 
 function MainLayout({ user, children, notifications }) {
   const { byId, byOrder } = notifications;

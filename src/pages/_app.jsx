@@ -8,6 +8,7 @@ import MainLayout from "../components/MainLayout";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "../styles/App.css";
+import "../styles/Calendar.css";
 
 function MyApp({ Component, pageProps, reduxStore, user }) {
   return (

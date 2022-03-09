@@ -7,9 +7,9 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import {
   updateApplicationState as updateApplicationStateBase,
   updateApplicationDecision as updateApplicationDecisionBase,
-} from "../../redux/actions/applicationActions";
-import { addNotification as addNotificationBase } from "../../redux/actions/notificationActions";
-import "./Application.css";
+} from "../../../redux/actions/applicationActions";
+import { addNotification as addNotificationBase } from "../../../redux/actions/notificationActions";
+import classes from "./Application.module.css";
 
 const stageButtons = [
   "Initial Application",
@@ -118,8 +118,8 @@ class Application extends React.PureComponent {
     } = info;
 
     return (
-      <div className="applicationWrapper">
-        <div className="nameHeader">
+      <div className={classes.applicationWrapper}>
+        <div className={classes.nameHeader}>
           <h3>{name}</h3>
           <Button
             className="remove-btn"
@@ -131,7 +131,7 @@ class Application extends React.PureComponent {
             <h4>Delete</h4>
           </Button>
         </div>
-        <div className="applicationContent">
+        <div className={classes.applicationContent}>
           <ButtonGroup style={{ marginBottom: "30px" }}>
             {stageButtons.map((buttonName, stageIndex) => (
               <Button

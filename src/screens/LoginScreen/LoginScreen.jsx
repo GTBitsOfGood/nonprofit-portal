@@ -6,7 +6,7 @@ import {
   addNotification as addNotificationBase,
   deleteNotification as deleteNotificationBase,
 } from "../../redux/actions/notificationActions";
-import "./LoginScreen.css";
+import classes from "./LoginScreen.module.css";
 import urls from "../../utils/urls";
 
 function LoginScreen({ addNotification, deleteNotification }) {
@@ -41,14 +41,14 @@ function LoginScreen({ addNotification, deleteNotification }) {
   };
 
   return (
-    <div className="LoginContainer">
+    <div className={classes.LoginContainer}>
       <h1>Login</h1>
-      <form className="LoginForm" onSubmit={handleSubmit}>
-        <div className="InputContainer">
+      <form className={classes.LoginForm} onSubmit={handleSubmit}>
+        <div className={classes.InputContainer}>
           <label>Email</label>
           <input name="email" type="email" required />
         </div>
-        <div className="InputContainer">
+        <div className={classes.InputContainer}>
           <label>Password</label>
           <input name="password" type="password" required />
         </div>

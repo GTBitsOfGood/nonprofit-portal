@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import clsx from "clsx";
 import {
   Collapse,
   Navbar,
@@ -11,7 +12,7 @@ import {
 } from "reactstrap";
 import { signOut } from "../../../actions/users";
 import config from "../../../utils/urls";
-import "./AppNavbar.css";
+import classes from "./AppNavbar.module.css";
 
 class AppNavbar extends React.PureComponent {
   constructor(props) {
@@ -41,25 +42,27 @@ class AppNavbar extends React.PureComponent {
       <Navbar
         light
         expand="sm"
-        className={`mb-5${isLoggedIn ? " appNavbar" : ""}`}
+        className={clsx("mb-5", isLoggedIn && classes.appNavbar)}
       >
-        <Container className="navContainer">
+        <Container className={classes.navContainer}>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={isOpen} navbar>
-            <Nav navbar className="appNavbarNav">
+            <Nav navbar className={classes.appNavbarNav}>
               {!isLoggedIn && (
                 <>
-                  <NavItem className="appNavItem appNavButton">
+                  <NavItem
+                    className={clsx(classes.appNavItem, classes.appNavButton)}
+                  >
                     <NavLink href={config.pages.home}>Back to Homepage</NavLink>
                   </NavItem>
                 </>
               )}
               {isLoggedIn && (
                 <>
-                  <NavItem className="appNavItem">
+                  <NavItem className={classes.appNavItem}>
                     <NavLink href={config.pages.admin}>Applications</NavLink>
                   </NavItem>
-                  <NavItem className="appNavItem">
+                  <NavItem className={classes.appNavItem}>
                     <NavLink href={config.pages.availability}>
                       Availability
                     </NavLink>
@@ -67,12 +70,12 @@ class AppNavbar extends React.PureComponent {
                 </>
               )}
               {isAdmin && (
-                <NavItem className="appNavItem">
+                <NavItem className={classes.appNavItem}>
                   <NavLink href={config.pages.register}>Create User</NavLink>
                 </NavItem>
               )}
               {isLoggedIn ? (
-                <NavItem className="appNavItem right">
+                <NavItem className={clsx(classes.appNavItem, "right")}>
                   <NavLink
                     onClick={signOut}
                     style={{
@@ -83,7 +86,7 @@ class AppNavbar extends React.PureComponent {
                   </NavLink>
                 </NavItem>
               ) : (
-                <NavItem className="appNavItem">
+                <NavItem className={classes.appNavItem}>
                   <NavLink href={config.pages.login}>Login</NavLink>
                 </NavItem>
               )}

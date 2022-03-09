@@ -1,6 +1,7 @@
 import React from "react";
 import moment from "moment";
 import PropTypes from "prop-types";
+import clsx from "clsx";
 import { connect } from "react-redux";
 import {
   getAvailabilities as getAvailabilitiesBase,
@@ -8,8 +9,7 @@ import {
   deleteAvailability as deleteAvailabilityBase,
 } from "../../redux/actions/availabilityActions";
 import { addNotification as addNotificationBase } from "../../redux/actions/notificationActions";
-import "../../styles/Calendar.css";
-import "./AvailabilityScreen.css";
+import classes from "./AvailabilityScreen.module.css";
 import { useUser } from "../../actions/users";
 import urls from "../../utils/urls";
 
@@ -294,17 +294,17 @@ function AvailabilityScreen({
           </button>
         </div>
       </span>
-      <div className="availcalendar-container">
-        <div className="availcalendar">
-          <div className="availcalendarHeader">
+      <div className={classes.availcalendarContainer}>
+        <div className={classes.availcalendar}>
+          <div className={classes.availcalendarHeader}>
             {upcomingDays.map((day) => (
-              <div key={day.toString()} className="availheaderDay">
+              <div key={day.toString()} className={classes.availheaderDay}>
                 <p className="weekDay">{day.format("dddd")}</p>
                 <p className="monthDay">{day.format("D")}</p>
               </div>
             ))}
           </div>
-          <div className="availcalendarBody">
+          <div className={classes.availcalendarBody}>
             {upcomingDays.map((day) => (
               <div key={day.toString()} className="dayColumn">
                 {getHoursPerDay(day, availabilities).map(
@@ -313,23 +313,26 @@ function AvailabilityScreen({
                       key={time.toString()}
                       type="button"
                       id={isAvailable ? "notBooked" : "booked"}
-                      className={`dayHour ${
+                      className={clsx(
+                        "dayHour",
                         loading || !(time.toDate() in selectedDays)
-                          ? "availhourDisplay"
-                          : "availhourSelected"
-                      }`}
+                          ? classes.availhourDisplay
+                          : classes.availhourSelected
+                      )}
                       onClick={() => addOrRemoveAvailability(time.toDate())}
                       onKeyDown={() => addOrRemoveAvailability(time.toDate())}
                       disabled={time.isBefore(endOfDay) || !isAvailable}
                     >
                       <p className="time">{time.format("h:mm a")}</p>
                       {interviewerName != null && (
-                        <p className="time smallText">
+                        <p className={clsx("time", classes.smallText)}>
                           {`Interviewer: ${interviewerName}`}
                         </p>
                       )}
                       {teamName != null && (
-                        <p className="time smallText">{`Team: ${teamName}`}</p>
+                        <p
+                          className={clsx("time", classes.smallText)}
+                        >{`Team: ${teamName}`}</p>
                       )}
                     </button>
                   )

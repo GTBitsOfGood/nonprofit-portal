@@ -9,8 +9,7 @@ import {
   updateApplicationMeeting as updateApplicationMeetingBase,
 } from "../../../../redux/actions/applicationActions";
 import { addNotification as addNotificationBase } from "../../../../redux/actions/notificationActions";
-
-import "./ScheduleInterviewBody.css";
+import classes from "./ScheduleInterviewBody.module.css";
 
 class ScheduleInterviewBody extends React.PureComponent {
   constructor(props) {
@@ -106,9 +105,9 @@ class ScheduleInterviewBody extends React.PureComponent {
           selectedHour={selectedHour}
           selectHourHandler={this.selectHour}
         />
-        <form className="formSection" onSubmit={this.submitForm}>
-          <div className="formInputs">
-            <div className="singleInput">
+        <form className={classes.formSection} onSubmit={this.submitForm}>
+          <div className={classes.formInputs}>
+            <div className={classes.singleInput}>
               <p style={{ fontWeight: 600 }}>Person Of Contact</p>
               <input
                 type="text"
@@ -122,7 +121,7 @@ class ScheduleInterviewBody extends React.PureComponent {
                 required
               />
             </div>
-            <div className="singleInput">
+            <div className={classes.singleInput}>
               <p style={{ fontWeight: 600 }}>Mobile Phone</p>
               <input
                 type="tel"
@@ -147,7 +146,7 @@ class ScheduleInterviewBody extends React.PureComponent {
               hello@bitsofgood.org
             </a>
           </p>
-          <button className="submitButton" type="submit">
+          <button className={classes.submitButton} type="submit">
             Submit
           </button>
         </form>

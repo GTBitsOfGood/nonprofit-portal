@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import clsx from "clsx";
 import moment from "moment";
 import { connect } from "react-redux";
 import { InputGroup, Input, InputGroupAddon, InputGroupText } from "reactstrap";
@@ -11,8 +12,8 @@ import {
   deleteApplication as deleteApplicationBase,
 } from "../../redux/actions/applicationActions";
 import { addNotification as addNotificationBase } from "../../redux/actions/notificationActions";
-import Application from "../../components/Admin/Application";
-import "./AdminScreen.css";
+import Application from "./Application";
+import classes from "./AdminScreen.module.css";
 import { useUser } from "../../actions/users";
 import urls from "../../utils/urls";
 
@@ -81,14 +82,17 @@ function AdminScreen({
   };
 
   const filteredApps = React.useMemo(
-    applications.filter((item) => item.name.toLowerCase().includes(debSearch)),
+    () =>
+      applications.filter((item) =>
+        item.name.toLowerCase().includes(debSearch)
+      ),
     [applications, debSearch]
   );
 
   return (
-    <div className="flexHorizontal">
-      <div className="flexVertical">
-        <div className="appListSearch">
+    <div className={classes.flexHorizontal}>
+      <div className={classes.flexVertical}>
+        <div className={classes.appListSearch}>
           <InputGroup>
             <Input placeholder="Name" value={curSearch} onChange={setSearch} />
             <InputGroupAddon
@@ -100,16 +104,17 @@ function AdminScreen({
             </InputGroupAddon>
           </InputGroup>
         </div>
-        <div className="appNameList">
+        <div className={classes.appNameList}>
           {filteredApps.map((info) => (
             <div
               key={info._id}
-              className={`appNameContainer${
-                info._id === selectedApp ? " nameSelected" : ""
-              }`}
-              onClick={() => selectApplication(info._id)}
+              className={clsx(
+                classes.appNameContainer,
+                info._id === selectedApp && classes.nameSelected
+              )}
+              onClick={() => setSelApp(info._id)}
             >
-              <div className="nameTextContainer">
+              <div className={classes.nameTextContainer}>
                 <h3>{info.name}</h3>
                 <p>{`Submitted: ${moment(info.submitted).format(
                   "MMMM Do, YYYY"
@@ -126,7 +131,7 @@ function AdminScreen({
           ))}
         </div>
       </div>
-      <div className="appView">
+      <div className={classes.appView}>
         {selectedApp != null && (
           <Application
             info={applications.find((app) => app._id === selectedApp)}

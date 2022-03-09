@@ -6,7 +6,7 @@ import { withSessionRoute } from "../../../utils/session";
 // @access  Public
 const handler = async (req, res) => {
   try {
-    const user = await signUp(req.body);
+    const user = await signUp(req.body.name, req.body.email, req.body.password);
 
     req.session.user = {
       ...user,

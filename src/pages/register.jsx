@@ -1,137 +1,71 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Router from "next/router";
-import cookie from "js-cookie";
 import { connect } from "react-redux";
-import { signUp, verifyToken } from "../actions/users";
+import { signUp, useUser } from "../actions/users";
 import {
   addNotification as addNotificationBase,
   deleteNotification as deleteNotificationBase,
 } from "../redux/actions/notificationActions";
 import "../static/style/Login.css";
-import config from "../../config";
+import urls from "../utils/urls";
 
-class RegisterPage extends React.PureComponent {
-  static async getInitialProps(ctx) {
-    // eslint-disable-next-line global-require
-    const token = ctx.res
-      ? require("next-cookies")(ctx).token
-      : cookie.get("token");
+function RegisterPage({ addNotification, deleteNotification }) {
+  const { mutateUser } = useUser({
+    redirectTo: urls.pages.admin,
+    redirectIfFound: true,
+  });
+  const [errorKeys, setErrorKeys] = React.useState([]);
 
-    return verifyToken(token, ctx.res)
-      .then((user) => {
-        const isValid = user != null && user.isAdmin;
-
-        if (!isValid) {
-          throw new Error("User is not an admin!");
-        }
-
-        return user;
-      })
-      .catch(async () => {
-        if (ctx.res) {
-          ctx.res.writeHead(302, {
-            Location: config.pages.application,
-          });
-          ctx.res.end();
-        } else {
-          await Router.push(config.pages.application);
-        }
-      });
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      name: "",
-      email: "",
-      password: "",
-    };
-
-    this.errorKeys = [];
-  }
-
-  onChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  submitForm = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const { addNotification, deleteNotification } = this.props;
-    const { name, email, password } = this.state;
+    const name = event.currentTarget.name.value;
+    const email = event.currentTarget.email.value;
+    const password = event.currentTarget.password.value;
 
-    await signUp(name, email, password)
-      .then(async () => {
-        deleteNotification(...this.errorKeys);
+    try {
+      deleteNotification(...errorKeys);
+      mutateUser(await signUp(name, email, password));
 
-        await addNotification({
-          header: "Successfully created account!",
-          type: "success",
-        });
-
-        this.setState({
-          name: "",
-          email: "",
-          password: "",
-        });
-      })
-      .catch(async (e) => {
-        const { payload } = await addNotification({
-          header: e.message,
-          body: "Please try again.",
-          type: "error",
-        });
-
-        this.errorKeys.push(payload.key);
+      await addNotification({
+        header: "Successfully created account!",
+        type: "success",
       });
+
+      // await Router.push({
+      //   pathname: config.pages.admin,
+      // });
+    } catch (error) {
+      const { payload } = await addNotification({
+        header: error.message,
+        body: "Please try again.",
+        type: "error",
+      });
+
+      setErrorKeys((prevState) => [...prevState, payload.key]);
+    }
   };
 
-  render() {
-    const { name, email, password } = this.state;
-
-    return (
-      <div className="LoginContainer">
-        <h1>Create User</h1>
-        <form className="LoginForm" onSubmit={this.submitForm}>
-          <div className="InputContainer">
-            <label>Name</label>
-            <input
-              name="name"
-              type="text"
-              value={name}
-              onChange={this.onChange}
-              required
-            />
-          </div>
-          <div className="InputContainer">
-            <label>Email</label>
-            <input
-              name="email"
-              type="email"
-              value={email}
-              onChange={this.onChange}
-              required
-            />
-          </div>
-          <div className="InputContainer">
-            <label>Password</label>
-            <input
-              name="password"
-              type="password"
-              value={password}
-              onChange={this.onChange}
-              required
-            />
-          </div>
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-    );
-  }
+  return (
+    <div className="LoginContainer">
+      <h1>Create User</h1>
+      <form className="LoginForm" onSubmit={handleSubmit}>
+        <div className="InputContainer">
+          <label>Name</label>
+          <input name="name" type="text" required />
+        </div>
+        <div className="InputContainer">
+          <label>Email</label>
+          <input name="email" type="email" required />
+        </div>
+        <div className="InputContainer">
+          <label>Password</label>
+          <input name="password" type="password" required />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  );
 }
 
 RegisterPage.propTypes = {

@@ -2,10 +2,6 @@ const prod = process.env.NODE_ENV === "production";
 
 export default {
   baseUrl: prod ? process.env.PROD_BASE_URL : "http://localhost:3000",
-  dbUrl: prod
-    ? process.env.MONGO_DB
-    : process.env.MONGO_DEV_DB || "mongodb://localhost:27017",
-  dbName: "Applications",
   apis: {
     getApplications: "/api/getApplications",
     addApplication: "/api/addApplication",
@@ -19,9 +15,10 @@ export default {
     deleteAvailability: "/api/deleteAvailability",
     getAvailability: "/api/getAvailability",
     updateAvailability: "/api/updateAvailability",
-    login: "/api/login",
-    signUp: "/api/signUp",
-    verifyToken: "/api/verifyToken",
+    getUser: "/api/user",
+    login: "/api/user/login",
+    signUp: "/api/user/signUp",
+    logout: "/api/user/logout",
   },
   pages: {
     application: "/",
@@ -32,5 +29,4 @@ export default {
     availability: "/availability",
     home: "https://bitsofgood.org",
   },
-  bogEmail: "hello@bitsofgood.org",
 };

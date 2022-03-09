@@ -10,7 +10,7 @@ import {
   Container,
 } from "reactstrap";
 import { signOut } from "../../actions/users";
-import config from "../../../config";
+import config from "../../utils/urls";
 import "./AppNavbar.css";
 
 class AppNavbar extends React.PureComponent {

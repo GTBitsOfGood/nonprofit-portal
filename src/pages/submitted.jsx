@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Progress } from "reactstrap";
 
-function IndexPage() {
+function SubmittedPage() {
   return (
     <Container style={{ textAlign: "center" }}>
       <h1>Thank you so much for your interest!</h1>
@@ -17,4 +17,4 @@ function IndexPage() {
   );
 }
 
-export default IndexPage;
+export default SubmittedPage;

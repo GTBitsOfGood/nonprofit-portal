@@ -1,77 +1,74 @@
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import mongoDB from "../index";
 import User from "../models/User";
 
 export async function login(email, password) {
+  if (email == null || password == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
   await mongoDB();
 
-  return User.findOne({ email })
-    .then((user) => {
-      if (user) {
-        return bcrypt.compare(password, user.password).then((result) => {
-          if (result) return Promise.resolve(user);
+  const user = await User.findOne({ email });
 
-          return Promise.reject(
-            Error("The password you entered is incorrect.")
-          );
-        });
-      }
+  if (user) {
+    const didMatch = bcrypt.compare(password, user.password);
 
-      return Promise.reject(Error("The email does not exist."));
-    })
-    .then((user) =>
-      jwt.sign(
-        {
-          id: user._id,
-          name: user.name,
-          isAdmin: user.isAdmin,
-        },
-        process.env.JWT_SECRET,
-        {
-          expiresIn: "7d",
-        }
-      )
-    );
+    if (!didMatch) {
+      throw new Error("The password you entered is incorrect!");
+    }
+  } else {
+    throw new Error("User does not exist!");
+  }
+
+  return {
+    id: user._id,
+  };
 }
 
 export async function signUp(name, email, password) {
+  if (name == null || email == null || password == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
   await mongoDB();
 
-  return User.countDocuments({ email })
-    .then((count) => {
-      if (count) {
-        return Promise.reject(Error("The email has already been used."));
-      }
+  const exists = await User.countDocuments({ email });
 
-      return bcrypt.hashSync(password, 10);
-    })
-    .then((hashedPassword) =>
-      User.create({
-        name,
-        email,
-        password: hashedPassword,
-      })
-    )
-    .then((user) =>
-      jwt.sign(
-        {
-          id: user._id,
-          name: user.name,
-          isAdmin: user.isAdmin,
-        },
-        process.env.JWT_SECRET,
-        {
-          expiresIn: "7d",
-        }
-      )
-    );
+  if (exists) {
+    throw new Error("The email has already been used!");
+  }
+
+  const hashedPassword = await bcrypt.hashSync(password, 10);
+
+  const user = await User.create({
+    name,
+    email,
+    password: hashedPassword,
+  });
+
+  return {
+    id: user._id,
+  };
 }
 
-export async function verifyToken(token) {
-  return jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (decoded) return Promise.resolve(decoded);
+export async function getUserFromId(id) {
+  await mongoDB();
 
-    return Promise.reject(Error("Invalid token!"));
-  });
+  try {
+    const user = await User.findById(id);
+
+    if (user == null) {
+      throw new Error("User does not exist!");
+    }
+
+    return {
+      id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    };
+  } catch (e) {
+    throw new Error("Invalid token!");
+  }
 }

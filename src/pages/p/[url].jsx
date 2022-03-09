@@ -1,57 +1,54 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Container } from "reactstrap";
-import { withRouter } from "next/router";
-
 import StatusJumbo from "../../components/Landing/StatusJumbo";
 import StatusBar from "../../components/Landing/StatusBar";
 import LandingBody from "../../components/Landing/LandingBody";
-
 import { getApplication } from "../../actions/applications";
 import { getAvailability } from "../../actions/availabilities";
 
-class LandingPage extends React.Component {
-  static async getInitialProps(ctx) {
-    const urlString = ctx.query.url;
-    const application = await getApplication(ctx.query.url, ctx.res);
+function LandingPage({ application, meeting }) {
+  return (
+    <Container>
+      <StatusJumbo
+        status={application.status}
+        name={application.name}
+        decision={application.decision}
+      />
+      <StatusBar status={application.status} />
+      <LandingBody
+        status={application.status}
+        name={application.name}
+        decision={application.decision}
+        applicationId={application._id}
+        meeting={meeting}
+      />
+    </Container>
+  );
+}
 
-    if (application.meeting != null) {
-      const meeting = await getAvailability(application.meeting, ctx.res);
+export async function getServerSideProps(context) {
+  const urlString = context.query.url;
+  const application = await getApplication(context.query.url);
 
-      return {
+  if (application.meeting != null) {
+    const meeting = await getAvailability(application.meeting);
+
+    return {
+      props: {
         application,
         urlString,
         meeting,
-      };
-    }
-
-    return {
-      application,
-      urlString,
+      },
     };
   }
 
-  render() {
-    const { application, meeting } = this.props;
-
-    return (
-      <Container>
-        <StatusJumbo
-          status={application.status}
-          name={application.name}
-          decision={application.decision}
-        />
-        <StatusBar status={application.status} />
-        <LandingBody
-          status={application.status}
-          name={application.name}
-          decision={application.decision}
-          applicationId={application._id}
-          meeting={meeting}
-        />
-      </Container>
-    );
-  }
+  return {
+    props: {
+      application,
+      urlString,
+    },
+  };
 }
 
 LandingPage.propTypes = {
@@ -87,4 +84,4 @@ LandingPage.defaultProps = {
   meeting: null,
 };
 
-export default withRouter(LandingPage);
+export default LandingPage;

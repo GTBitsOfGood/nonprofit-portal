@@ -1,14 +1,13 @@
-import App from "next/app";
 import React from "react";
 import { Provider } from "react-redux";
-import cookie from "js-cookie";
 import Head from "next/head";
-import { verifyToken } from "../actions/users";
+import { SWRConfig } from "swr";
 import withReduxStore from "../redux/with-redux-store";
+import fetchJson from "../utils/fetchJson";
 import MainLayout from "../layouts/Main";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../static/style/App.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import "../static/style/App.css";
 
 function MyApp({ Component, pageProps, reduxStore, user }) {
   return (
@@ -16,34 +15,22 @@ function MyApp({ Component, pageProps, reduxStore, user }) {
       <Head>
         <title>Nonprofit Portal</title>
       </Head>
-      <Provider store={reduxStore}>
-        <MainLayout user={user}>
-          <Component {...pageProps} user={user} />
-        </MainLayout>
-      </Provider>
+      <SWRConfig
+        value={{
+          fetcher: fetchJson,
+          onError: (err) => {
+            console.error(err);
+          },
+        }}
+      >
+        <Provider store={reduxStore}>
+          <MainLayout user={user}>
+            <Component {...pageProps} user={user} />
+          </MainLayout>
+        </Provider>
+      </SWRConfig>
     </>
   );
 }
-
-MyApp.getInitialProps = async (appContext) => {
-  // calls page's `getInitialProps` and fills `appProps.pageProps`
-  const appProps = await App.getInitialProps(appContext);
-
-  // eslint-disable-next-line global-require
-  const token = appContext.ctx.res
-    ? require("next-cookies")(appContext.ctx).token
-    : cookie.get("token");
-
-  return verifyToken(token, appContext.ctx.res)
-    .then((decoded) => ({
-      ...appProps,
-      user: {
-        id: decoded.id,
-        name: decoded.name,
-        isAdmin: decoded.isAdmin,
-      },
-    }))
-    .catch(() => appProps);
-};
 
 export default withReduxStore(MyApp);

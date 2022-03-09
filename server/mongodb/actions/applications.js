@@ -2,7 +2,7 @@ import mongoDB from "../index";
 import Application from "../models/Application";
 import { generateURLString } from "./util";
 import { sendEmail } from "../../util/email";
-import config from "../../../config";
+import urls from "../../../src/utils/urls";
 
 export async function getApplications() {
   await mongoDB();
@@ -15,75 +15,75 @@ export async function addApplication(application) {
 
   const pageURLString = await generateURLString();
 
-  return Application.create({
+  const newApplication = await Application.create({
     ...application,
     urlString: pageURLString,
-  }).then(async (newApplication) => {
-    await sendEmail({
-      to: newApplication.email,
-      template: "status",
-      locals: {
-        status: 0,
-        name: newApplication.name,
-        baseUrl: config.baseUrl,
-        urlString: newApplication.urlString,
-      },
-    });
-
-    await sendEmail({
-      to: config.bogEmail,
-      template: "notification",
-      locals: {
-        name: newApplication.name,
-      },
-    });
-
-    return newApplication;
   });
+
+  await sendEmail({
+    to: newApplication.email,
+    template: "status",
+    locals: {
+      status: 0,
+      name: newApplication.name,
+      baseUrl: urls.baseUrl,
+      urlString: newApplication.urlString,
+    },
+  });
+
+  await sendEmail({
+    to: process.env.EMAIL_ADDRESS,
+    template: "notification",
+    locals: {
+      name: newApplication.name,
+    },
+  });
+
+  return newApplication;
 }
 
 export async function deleteApplication(id) {
   await mongoDB();
 
-  await Application.findById(id).then((application) => application.remove());
+  const application = await Application.findById(id);
+
+  application.remove();
 }
 
 export async function updateApplicationState(id, state) {
   await mongoDB();
 
-  return Application.findOne({ _id: id }, { status: 1 }).then(
-    async (curObject) => {
-      let result = {};
+  const curObject = await Application.findOne({ _id: id }, { status: 1 });
 
-      if (curObject.status < 3) {
-        result = await Application.findOneAndUpdate(
-          { _id: id },
-          { status: state, decision: null },
-          { upsert: false, new: true }
-        );
-      } else {
-        result = await Application.findOneAndUpdate(
-          { _id: id },
-          { status: state },
-          { upsert: false, new: true }
-        );
-      }
+  let result = {};
 
-      await sendEmail({
-        to: result.email,
-        template: "status",
-        locals: {
-          status: state,
-          name: result.name,
-          baseUrl: config.baseUrl,
-          urlString: result.urlString,
-          decision: result.decision,
-        },
-      });
+  if (curObject.status < 3) {
+    result = await Application.findOneAndUpdate(
+      { _id: id },
+      { status: state, decision: null },
+      { upsert: false, new: true }
+    );
+  } else {
+    result = await Application.findOneAndUpdate(
+      { _id: id },
+      { status: state },
+      { upsert: false, new: true }
+    );
+  }
 
-      return result;
-    }
-  );
+  await sendEmail({
+    to: result.email,
+    template: "status",
+    locals: {
+      status: state,
+      name: result.name,
+      baseUrl: urls.baseUrl,
+      urlString: result.urlString,
+      decision: result.decision,
+    },
+  });
+
+  return result;
 }
 
 export async function updateApplicationDecision(id, decision) {

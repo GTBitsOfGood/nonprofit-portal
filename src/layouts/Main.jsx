@@ -4,29 +4,25 @@ import { connect } from "react-redux";
 import AppNavbar from "../components/AppNavbar/AppNavbar";
 import Notification from "../components/Notification/Notification";
 
-class MainLayout extends React.PureComponent {
-  render() {
-    const { user, children, notifications } = this.props;
+function MainLayout({ user, children, notifications }) {
+  const { byId, byOrder } = notifications;
 
-    const { byId, byOrder } = notifications;
-
-    return (
-      <>
-        <div className="App">
-          <AppNavbar user={user} />
-          {children}
-        </div>
-        <div className="notificationContainer">
-          {byOrder.map((notification) => (
-            <Notification
-              key={byId[notification].key}
-              notification={byId[notification]}
-            />
-          ))}
-        </div>
-      </>
-    );
-  }
+  return (
+    <>
+      <div className="App">
+        <AppNavbar user={user} />
+        {children}
+      </div>
+      <div className="notificationContainer">
+        {byOrder.map((notification) => (
+          <Notification
+            key={byId[notification].key}
+            notification={byId[notification]}
+          />
+        ))}
+      </div>
+    </>
+  );
 }
 
 MainLayout.propTypes = {

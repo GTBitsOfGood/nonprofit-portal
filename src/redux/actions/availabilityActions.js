@@ -5,7 +5,12 @@ import {
   UPDATE_AVAILABILITY,
   AVAILABILITIES_LOADING,
 } from "./types";
-import * as availabilityActions from "../../actions/availabilities";
+import {
+  getAvailabilities as getAvailabilitiesBase,
+  addAvailability as addAvailabilityBase,
+  deleteAvailability as deleteAvailabilityBase,
+  updateAvailability as updateAvailabilityBase,
+} from "../../actions/availabilities";
 
 export const setAvailabilitiesLoading = () => ({
   type: AVAILABILITIES_LOADING,
@@ -14,7 +19,7 @@ export const setAvailabilitiesLoading = () => ({
 export const getAvailabilities = () => (dispatch) => {
   dispatch(setAvailabilitiesLoading());
 
-  return availabilityActions.getAvailabilities().then((res) =>
+  return getAvailabilitiesBase().then((res) =>
     dispatch({
       type: GET_AVAILABILITIES,
       payload: res,
@@ -23,7 +28,7 @@ export const getAvailabilities = () => (dispatch) => {
 };
 
 export const addAvailability = (availability) => (dispatch) =>
-  availabilityActions.addAvailability(availability).then((res) =>
+  addAvailabilityBase(availability).then((res) =>
     dispatch({
       type: ADD_AVAILABILITY,
       payload: res,
@@ -31,7 +36,7 @@ export const addAvailability = (availability) => (dispatch) =>
   );
 
 export const deleteAvailability = (id) => (dispatch) =>
-  availabilityActions.deleteAvailability(id).then(() =>
+  deleteAvailabilityBase(id).then(() =>
     dispatch({
       type: DELETE_AVAILABILITY,
       payload: id,
@@ -39,7 +44,7 @@ export const deleteAvailability = (id) => (dispatch) =>
   );
 
 export const updateAvailability = (id, updatedFields) => (dispatch) =>
-  availabilityActions.updateAvailability(id, updatedFields).then((res) =>
+  updateAvailabilityBase(id, updatedFields).then((res) =>
     dispatch({
       type: UPDATE_AVAILABILITY,
       payload: res,

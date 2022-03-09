@@ -2,7 +2,24 @@ import fetch from "isomorphic-unfetch";
 import urls from "../utils/urls";
 
 export const getApplications = async () =>
-  fetch(urls.baseUrl + urls.apis.getApplications, {
+  fetch(urls.baseUrl + urls.apis.application, {
+    method: "get",
+    mode: "same-origin",
+    credentials: "include",
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
+
+      return json.payload;
+    });
+
+export const getApplication = async (urlString) =>
+  fetch(urls.baseUrl + urls.apis.application + `?url=${urlString}`, {
     method: "get",
     mode: "same-origin",
     credentials: "include",
@@ -19,7 +36,7 @@ export const getApplications = async () =>
     });
 
 export const addApplication = async (application) =>
-  fetch(urls.baseUrl + urls.apis.addApplication, {
+  fetch(urls.baseUrl + urls.apis.application, {
     method: "post",
     mode: "same-origin",
     credentials: "include",
@@ -42,7 +59,7 @@ export const addApplication = async (application) =>
     });
 
 export const deleteApplication = async (id) =>
-  fetch(urls.baseUrl + urls.apis.deleteApplication, {
+  fetch(urls.baseUrl + urls.apis.application, {
     method: "delete",
     mode: "same-origin",
     credentials: "include",
@@ -65,8 +82,8 @@ export const deleteApplication = async (id) =>
     });
 
 export const updateApplicationState = async (id, state) =>
-  fetch(urls.baseUrl + urls.apis.updateApplicationState, {
-    method: "post",
+  fetch(urls.baseUrl + urls.apis.application, {
+    method: "put",
     mode: "same-origin",
     credentials: "include",
     headers: {
@@ -89,8 +106,8 @@ export const updateApplicationState = async (id, state) =>
     });
 
 export const updateApplicationDecision = async (id, decision) =>
-  fetch(urls.baseUrl + urls.apis.updateApplicationDecision, {
-    method: "post",
+  fetch(urls.baseUrl + urls.apis.application, {
+    method: "put",
     mode: "same-origin",
     credentials: "include",
     headers: {
@@ -113,8 +130,8 @@ export const updateApplicationDecision = async (id, decision) =>
     });
 
 export const updateApplicationMeeting = async (id, availabilityId) =>
-  fetch(urls.baseUrl + urls.apis.updateApplicationMeeting, {
-    method: "post",
+  fetch(urls.baseUrl + urls.apis.application, {
+    method: "put",
     mode: "same-origin",
     credentials: "include",
     headers: {
@@ -124,23 +141,6 @@ export const updateApplicationMeeting = async (id, availabilityId) =>
       id,
       availabilityId,
     }),
-  })
-    .then((response) => response.json())
-    .then((json) => {
-      if (json == null) {
-        throw new Error("Could not connect to API!");
-      } else if (!json.success) {
-        throw new Error(json.message);
-      }
-
-      return json.payload;
-    });
-
-export const getApplication = async (urlString) =>
-  fetch(urls.baseUrl + urls.apis.getApplication + `?url=${urlString}`, {
-    method: "get",
-    mode: "same-origin",
-    credentials: "include",
   })
     .then((response) => response.json())
     .then((json) => {

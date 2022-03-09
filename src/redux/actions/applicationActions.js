@@ -7,7 +7,14 @@ import {
   UPDATE_APPLICATION_DECISION,
   UPDATE_APPLICATION_MEETING,
 } from "./types";
-import * as applicationActions from "../../actions/applications";
+import {
+  getApplications as getApplicationsBase,
+  addApplication as addApplicationBase,
+  deleteApplication as deleteApplicationBase,
+  updateApplicationState as updateApplicationStateBase,
+  updateApplicationDecision as updateApplicationDecisionBase,
+  updateApplicationMeeting as updateApplicationMeetingBase,
+} from "../../actions/applications";
 
 export const setApplicationsLoading = () => ({
   type: APPLICATIONS_LOADING,
@@ -15,7 +22,8 @@ export const setApplicationsLoading = () => ({
 
 export const getApplications = () => (dispatch) => {
   dispatch(setApplicationsLoading());
-  return applicationActions.getApplications().then((res) =>
+
+  return getApplicationsBase().then((res) =>
     dispatch({
       type: GET_APPLICATIONS,
       payload: res,
@@ -24,7 +32,7 @@ export const getApplications = () => (dispatch) => {
 };
 
 export const addApplication = (application) => (dispatch) =>
-  applicationActions.addApplication(application).then((res) =>
+  addApplicationBase(application).then((res) =>
     dispatch({
       type: ADD_APPLICATION,
       payload: res,
@@ -32,7 +40,7 @@ export const addApplication = (application) => (dispatch) =>
   );
 
 export const deleteApplication = (id) => (dispatch) =>
-  applicationActions.deleteApplication(id).then(() =>
+  deleteApplicationBase(id).then(() =>
     dispatch({
       type: DELETE_APPLICATION,
       payload: id,
@@ -40,7 +48,7 @@ export const deleteApplication = (id) => (dispatch) =>
   );
 
 export const updateApplicationState = (id, state) => (dispatch) =>
-  applicationActions.updateApplicationState(id, state).then((res) =>
+  updateApplicationStateBase(id, state).then((res) =>
     dispatch({
       type: UPDATE_APPLICATION_STATE,
       payload: res,
@@ -48,7 +56,7 @@ export const updateApplicationState = (id, state) => (dispatch) =>
   );
 
 export const updateApplicationDecision = (id, decision) => (dispatch) =>
-  applicationActions.updateApplicationDecision(id, decision).then((res) =>
+  updateApplicationDecisionBase(id, decision).then((res) =>
     dispatch({
       type: UPDATE_APPLICATION_DECISION,
       payload: res,
@@ -56,7 +64,7 @@ export const updateApplicationDecision = (id, decision) => (dispatch) =>
   );
 
 export const updateApplicationMeeting = (id, availabilityId) => (dispatch) =>
-  applicationActions.updateApplicationMeeting(id, availabilityId).then((res) =>
+  updateApplicationMeetingBase(id, availabilityId).then((res) =>
     dispatch({
       type: UPDATE_APPLICATION_MEETING,
       payload: res,

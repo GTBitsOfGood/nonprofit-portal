@@ -1,4 +1,4 @@
-import { updateApplicationDecision } from "../../../../server/mongodb/actions/applications";
+import { updateApplicationDecision } from "../../mongodb/actions/applications";
 
 // @route   GET api/updateApplicationDecision
 // @desc    Update the decision of an application

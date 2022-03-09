@@ -1,15 +1,14 @@
-import { deleteAvailability } from "../../../../server/mongodb/actions/availabilities";
+import { getApplications } from "../../mongodb/actions/applications";
 
-// @route   DELETE api/deleteAvailability
-// @desc    Delete An Availability
+// @route   GET api/getApplications
+// @desc    Get All Applications
 // @access  Public
 export default async function (req, res) {
-  const { id } = req.body;
-
-  return deleteAvailability(id)
-    .then(() =>
+  return getApplications()
+    .then((applications) =>
       res.status(200).json({
         success: true,
+        payload: applications,
       })
     )
     .catch((error) =>

@@ -1,14 +1,14 @@
-import { getApplication } from "../../../../server/mongodb/actions/applications";
+import { addApplication } from "../../mongodb/actions/applications";
 
-// @route   GET api/getApplication
-// @desc    Get An Application
+// @route   POST api/addApplication
+// @desc    Create An Application
 // @access  Public
 export default async function (req, res) {
-  const urlString = req.query.url;
+  const { application } = req.body;
 
-  return getApplication(urlString)
+  return addApplication(application)
     .then((result) =>
-      res.status(200).json({
+      res.status(201).json({
         success: true,
         payload: result,
       })

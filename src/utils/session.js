@@ -7,7 +7,7 @@ if (password.length < 30) {
 
 export const sessionOptions = {
   cookieName: "__session",
-  password: process.env.JWT_SECRET,
+  password,
   secure: process.env.NODE_ENV === "production", // should be used in production (HTTPS) but can't be used in development (HTTP)
   cookieOptions: {
     secure: process.env.NODE_ENV === "production",

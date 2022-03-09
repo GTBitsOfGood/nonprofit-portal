@@ -1,5 +1,10 @@
 import { withIronSessionApiRoute, withIronSessionSsr } from "iron-session/next";
 
+let password = process.env.JWT_SECRET || "TEST";
+if (password.length < 30) {
+  password = password.repeat(Math.ceil(31 / password.length));
+}
+
 export const sessionOptions = {
   cookieName: "__session",
   password: process.env.JWT_SECRET,

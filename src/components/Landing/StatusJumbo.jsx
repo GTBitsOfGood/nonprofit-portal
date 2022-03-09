@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 const StatusJumbo = (props) => {
   const { status, name, decision } = props;
@@ -15,7 +15,8 @@ const StatusJumbo = (props) => {
       case 3:
         return `We are working on your application, ${name}!`;
       case 4:
-        if (decision === true) return `We look forward to working with you, ${name}!`;
+        if (decision === true)
+          return `We look forward to working with you, ${name}!`;
         return `Perhaps next time, ${name}!`;
     }
   };
@@ -24,14 +25,14 @@ const StatusJumbo = (props) => {
     <div>
       <div
         style={{
-          background: 'transparent',
-          marginBottom: '30px',
+          background: "transparent",
+          marginBottom: "30px",
         }}
         className="Jumbotron"
       >
         <h4
           style={{
-            font: 'Open Sans',
+            font: "Open Sans",
             fontWeight: 600,
           }}
           align="center"

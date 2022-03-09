@@ -1,14 +1,11 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Button, FormGroup, Label, Collapse, Input } from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  Button,
-  FormGroup,
-  Label,
-  Collapse,
-  Input,
-} from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+  faChevronDown,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 class MissionVision extends Component {
   constructor(props) {
@@ -35,15 +32,14 @@ class MissionVision extends Component {
           color="#F0F4F7"
           onClick={this.toggleCollapse}
           block
-          className={`formCollapseController${open ? ' open' : ''}`}
+          className={`formCollapseController${open ? " open" : ""}`}
         >
           <div align="left">
             {open ? (
               <FontAwesomeIcon icon={faChevronDown} size="sm" />
             ) : (
               <FontAwesomeIcon icon={faChevronRight} size="sm" />
-            )}
-            {' '}
+            )}{" "}
             Your Mission
           </div>
         </Button>
@@ -51,13 +47,15 @@ class MissionVision extends Component {
           <div>
             <FormGroup>
               <p>
-                At Bits of Good, our mission is to change lives one bit at a time
-                - we serve our community by building powerful applications for local nonprofits.
+                At Bits of Good, our mission is to change lives one bit at a
+                time - we serve our community by building powerful applications
+                for local nonprofits.
               </p>
               <Label for="application">
-                We want to know the mission of your organization. Who do you care to serve?
-                What services do you provide to the community? How could the collaboration
-                with BoG help you achieve your mission?
+                We want to know the mission of your organization. Who do you
+                care to serve? What services do you provide to the community?
+                How could the collaboration with BoG help you achieve your
+                mission?
               </Label>
               <Input
                 type="textarea"

@@ -1,7 +1,7 @@
-import { combineReducers } from 'redux';
-import applicationReducer from './applicationReducer';
-import availabilityReducer from './availabilityReducer';
-import notificationReducer from './notificationReducer';
+import { combineReducers } from "redux";
+import applicationReducer from "./applicationReducer";
+import availabilityReducer from "./availabilityReducer";
+import notificationReducer from "./notificationReducer";
 
 export default combineReducers({
   application: applicationReducer,

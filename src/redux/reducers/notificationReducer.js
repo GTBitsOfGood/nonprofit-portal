@@ -2,7 +2,7 @@ import {
   ADD_NOTIFICATION,
   DELETE_NOTIFICATION,
   CLOSE_NOTIFICATIONS,
-} from '../actions/types';
+} from "../actions/types";
 
 const initialState = {
   byId: {},
@@ -17,10 +17,7 @@ export default function (state = initialState, action) {
           ...state.byId,
           [action.payload.key]: action.payload.notification,
         },
-        byOrder: [
-          ...state.byOrder,
-          action.payload.key,
-        ],
+        byOrder: [...state.byOrder, action.payload.key],
       };
     case DELETE_NOTIFICATION:
       // eslint-disable-next-line no-case-declarations
@@ -32,7 +29,9 @@ export default function (state = initialState, action) {
 
       return {
         byId: byIdClone,
-        byOrder: state.byOrder.filter((key) => !action.payload.key.includes(key)),
+        byOrder: state.byOrder.filter(
+          (key) => !action.payload.key.includes(key)
+        ),
       };
     case CLOSE_NOTIFICATIONS:
       return {

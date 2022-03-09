@@ -1,14 +1,15 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faTimes, faCheck, faExclamation, faInfo,
-} from '@fortawesome/free-solid-svg-icons';
-import {
-  deleteNotification as deleteNotificationBase,
-} from '../../redux/actions/notificationActions';
-import './Notification.css';
+  faTimes,
+  faCheck,
+  faExclamation,
+  faInfo,
+} from "@fortawesome/free-solid-svg-icons";
+import { deleteNotification as deleteNotificationBase } from "../../redux/actions/notificationActions";
+import "./Notification.css";
 
 class Notification extends React.PureComponent {
   constructor(props) {
@@ -51,16 +52,16 @@ class Notification extends React.PureComponent {
     const { notification } = this.props;
     const { type } = notification;
 
-    const size = '2x';
+    const size = "2x";
 
     switch (type) {
-      case 'success':
+      case "success":
         return <FontAwesomeIcon icon={faCheck} size={size} />;
-      case 'error':
+      case "error":
         return <FontAwesomeIcon icon={faTimes} size={size} />;
-      case 'warning':
+      case "warning":
         return <FontAwesomeIcon icon={faExclamation} size={size} />;
-      case 'info':
+      case "info":
         return <FontAwesomeIcon icon={faInfo} size={size} />;
       default:
         return null;
@@ -74,18 +75,13 @@ class Notification extends React.PureComponent {
     const { type, header, body } = notification;
 
     return (
-      <div className={`Notification${disappearing ? ' exit' : ' enter'}`}>
-        <div className={`NotificationIcon ${type || ''}`}>
-          {this.getIcon()}
-        </div>
+      <div className={`Notification${disappearing ? " exit" : " enter"}`}>
+        <div className={`NotificationIcon ${type || ""}`}>{this.getIcon()}</div>
         <div className="NotificationText">
           <h3>{header}</h3>
           <p>{body}</p>
         </div>
-        <div
-          className="NotificationClose"
-          onClick={this.onDelete}
-        >
+        <div className="NotificationClose" onClick={this.onDelete}>
           <FontAwesomeIcon icon={faTimes} size="sm" />
         </div>
       </div>
@@ -98,7 +94,7 @@ Notification.propTypes = {
     key: PropTypes.string.isRequired,
     header: PropTypes.string.isRequired,
     body: PropTypes.string,
-    type: PropTypes.oneOf(['default', 'success', 'error', 'warning', 'info']),
+    type: PropTypes.oneOf(["default", "success", "error", "warning", "info"]),
     expiresIn: PropTypes.number.isRequired,
     persist: PropTypes.bool.isRequired,
   }).isRequired,

@@ -1,5 +1,5 @@
-import Application from '../models/Application';
-import { randomString } from '../../util/random';
+import Application from "../models/Application";
+import { randomString } from "../../util/random";
 
 /* eslint no-await-in-loop: "off" */
 
@@ -22,5 +22,5 @@ export async function generateURLString() {
   }
 
   // all attempts failed, throw error
-  throw new Error('Internal server error: unique page URL generation failed.');
+  throw new Error("Internal server error: unique page URL generation failed.");
 }

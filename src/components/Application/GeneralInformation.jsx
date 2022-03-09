@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 import {
   Col,
   Row,
@@ -9,18 +9,76 @@ import {
   Collapse,
   Input,
   CustomInput,
-} from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ErrorMessage } from 'formik';
-import '../../static/style/App.css';
-import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+} from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ErrorMessage } from "formik";
+import "../../static/style/App.css";
+import {
+  faChevronDown,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 const stateAbbreviations = [
-  'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA',
-  'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA',
-  'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND',
-  'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT',
-  'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY', 'N/A',
+  "AL",
+  "AK",
+  "AS",
+  "AZ",
+  "AR",
+  "CA",
+  "CO",
+  "CT",
+  "DE",
+  "DC",
+  "FM",
+  "FL",
+  "GA",
+  "GU",
+  "HI",
+  "ID",
+  "IL",
+  "IN",
+  "IA",
+  "KS",
+  "KY",
+  "LA",
+  "ME",
+  "MH",
+  "MD",
+  "MA",
+  "MI",
+  "MN",
+  "MS",
+  "MO",
+  "MT",
+  "NE",
+  "NV",
+  "NH",
+  "NJ",
+  "NM",
+  "NY",
+  "NC",
+  "ND",
+  "MP",
+  "OH",
+  "OK",
+  "OR",
+  "PW",
+  "PA",
+  "PR",
+  "RI",
+  "SC",
+  "SD",
+  "TN",
+  "TX",
+  "UT",
+  "VT",
+  "VI",
+  "VA",
+  "WA",
+  "WV",
+  "WI",
+  "WY",
+  "N/A",
 ];
 
 class GeneralInformation extends Component {
@@ -49,21 +107,23 @@ class GeneralInformation extends Component {
           color="#F0F4F7"
           onClick={this.toggleCollapse}
           block
-          className={`formCollapseController${open ? ' open' : ''}`}
+          className={`formCollapseController${open ? " open" : ""}`}
         >
           <div align="left">
-            { open ? (
-              <FontAwesomeIcon icon={faChevronDown} style={{ }} />
+            {open ? (
+              <FontAwesomeIcon icon={faChevronDown} style={{}} />
             ) : (
               <FontAwesomeIcon icon={faChevronRight} size="sm" />
-            )}
-            {' '}
+            )}{" "}
             Your General Information
           </div>
         </Button>
         <Collapse isOpen={open} className="formCollapse">
           <div>
-            <p>Please fill out the blanks so we can know more about your organization</p>
+            <p>
+              Please fill out the blanks so we can know more about your
+              organization
+            </p>
             <Row form>
               <Col md={4}>
                 <FormGroup>
@@ -128,7 +188,9 @@ class GeneralInformation extends Component {
                     value={values.state}
                     required
                   >
-                    <option hidden disabled value="">&nbsp;</option>
+                    <option hidden disabled value="">
+                      &nbsp;
+                    </option>
                     {stateAbbreviations.map((abbrev) => (
                       <option key={abbrev}>{abbrev}</option>
                     ))}
@@ -165,7 +227,10 @@ class GeneralInformation extends Component {
                     onChange={onChange}
                     onBlur={onBlur}
                   />
-                  <ErrorMessage name="website" render={(msg) => <div style={{ color: 'red' }}>{msg}</div>} />
+                  <ErrorMessage
+                    name="website"
+                    render={(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                  />
                 </FormGroup>
               </Col>
             </Row>
@@ -200,7 +265,10 @@ class GeneralInformation extends Component {
                     onBlur={onBlur}
                     required
                   />
-                  <ErrorMessage name="website" render={(msg) => <div>{msg}</div>} />
+                  <ErrorMessage
+                    name="website"
+                    render={(msg) => <div>{msg}</div>}
+                  />
                 </FormGroup>
               </Col>
             </Row>
@@ -235,7 +303,10 @@ class GeneralInformation extends Component {
                     onBlur={onBlur}
                     required
                   />
-                  <ErrorMessage name="email" render={(msg) => <div style={{ color: 'red' }}>{msg}</div>} />
+                  <ErrorMessage
+                    name="email"
+                    render={(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                  />
                 </FormGroup>
               </Col>
             </Row>

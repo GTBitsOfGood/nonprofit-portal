@@ -1,15 +1,15 @@
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import rootReducer from './reducers';
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import rootReducer from "./reducers";
 
 const initState = {};
 
 const middleware = [thunk];
 
 const bindMiddleware = (mware) => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== "production") {
     // eslint-disable-next-line global-require
-    const { composeWithDevTools } = require('redux-devtools-extension');
+    const { composeWithDevTools } = require("redux-devtools-extension");
 
     return composeWithDevTools(applyMiddleware(...mware));
   }
@@ -18,9 +18,5 @@ const bindMiddleware = (mware) => {
 };
 
 export default function initializeStore(initialState = initState) {
-  return createStore(
-    rootReducer,
-    initialState,
-    bindMiddleware(middleware),
-  );
+  return createStore(rootReducer, initialState, bindMiddleware(middleware));
 }

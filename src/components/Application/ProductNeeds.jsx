@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 import {
   Button,
   FormGroup,
@@ -7,10 +7,13 @@ import {
   Collapse,
   Input,
   CustomInput,
-} from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import '../../static/style/App.css';
+} from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronDown,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
+import "../../static/style/App.css";
 
 class ProductNeeds extends Component {
   constructor(props) {
@@ -37,15 +40,14 @@ class ProductNeeds extends Component {
           color="#F0F4F7"
           onClick={this.toggleCollapse}
           block
-          className={`formCollapseController${open ? ' open' : ''}`}
+          className={`formCollapseController${open ? " open" : ""}`}
         >
           <div align="left">
             {open ? (
               <FontAwesomeIcon icon={faChevronDown} size="sm" />
             ) : (
               <FontAwesomeIcon icon={faChevronRight} size="sm" />
-            )}
-            {' '}
+            )}{" "}
             Your Product Needs
           </div>
         </Button>
@@ -94,7 +96,9 @@ class ProductNeeds extends Component {
               </div>
             </FormGroup>
             <FormGroup>
-              <Label for="application">What is the stage of the product development?</Label>
+              <Label for="application">
+                What is the stage of the product development?
+              </Label>
               <div>
                 <CustomInput
                   type="radio"
@@ -141,8 +145,9 @@ class ProductNeeds extends Component {
             </FormGroup>
             <FormGroup>
               <Label for="application">
-              What is your availability to work with us in the upcoming semester?
-              The time you devote to us may directly influence the success of the project.
+                What is your availability to work with us in the upcoming
+                semester? The time you devote to us may directly influence the
+                success of the project.
               </Label>
               <div>
                 <CustomInput
@@ -189,8 +194,8 @@ class ProductNeeds extends Component {
             </FormGroup>
             <FormGroup>
               <Label for="application">
-              Can you provide a field tour for us to know more about your organization and users?
-              (i.e. observe or interview the users)
+                Can you provide a field tour for us to know more about your
+                organization and users? (i.e. observe or interview the users)
               </Label>
               <div>
                 <CustomInput
@@ -221,7 +226,8 @@ class ProductNeeds extends Component {
             </FormGroup>
             <FormGroup>
               <Label for="productExtra">
-                Is there anything else related to your product needs you want to share with us?
+                Is there anything else related to your product needs you want to
+                share with us?
               </Label>
               <div>
                 <Input

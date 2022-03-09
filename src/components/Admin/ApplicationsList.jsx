@@ -1,20 +1,18 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment';
-import { connect } from 'react-redux';
-import {
-  InputGroup, Input, InputGroupAddon, InputGroupText,
-} from 'reactstrap';
-import { debounce } from 'lodash';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import moment from "moment";
+import { connect } from "react-redux";
+import { InputGroup, Input, InputGroupAddon, InputGroupText } from "reactstrap";
+import { debounce } from "lodash";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import {
   getApplications as getApplicationsBase,
   deleteApplication as deleteApplicationBase,
-} from '../../redux/actions/applicationActions';
-import { addNotification as addNotificationBase } from '../../redux/actions/notificationActions';
-import Application from './Application';
-import './ApplicationsList.css';
+} from "../../redux/actions/applicationActions";
+import { addNotification as addNotificationBase } from "../../redux/actions/notificationActions";
+import Application from "./Application";
+import "./ApplicationsList.css";
 
 class ApplicationsList extends Component {
   constructor(props) {
@@ -22,8 +20,8 @@ class ApplicationsList extends Component {
 
     this.state = {
       selectedApp: null,
-      curSearch: '',
-      debouncedSearch: '',
+      curSearch: "",
+      debouncedSearch: "",
     };
 
     this.setStateDebounced = debounce((newState) => {
@@ -34,15 +32,14 @@ class ApplicationsList extends Component {
   componentDidMount() {
     const { getApplications, addNotification } = this.props;
 
-    getApplications()
-      .catch(async () => {
-        await addNotification({
-          header: 'Failed retrieving applications!',
-          body: 'Please refresh and try again.',
-          type: 'error',
-          persist: true,
-        });
+    getApplications().catch(async () => {
+      await addNotification({
+        header: "Failed retrieving applications!",
+        body: "Please refresh and try again.",
+        type: "error",
+        persist: true,
       });
+    });
   }
 
   selectApplication = (id) => {
@@ -57,8 +54,8 @@ class ApplicationsList extends Component {
     await deleteApplication(id)
       .then(async () => {
         await addNotification({
-          header: 'Successfully deleted application!',
-          type: 'success',
+          header: "Successfully deleted application!",
+          type: "success",
         });
 
         this.setState({
@@ -67,9 +64,9 @@ class ApplicationsList extends Component {
       })
       .catch(async () => {
         await addNotification({
-          header: 'Failed to delete application!',
-          body: 'Please refresh and try again.',
-          type: 'error',
+          header: "Failed to delete application!",
+          body: "Please refresh and try again.",
+          type: "error",
           persist: true,
         });
       });
@@ -89,8 +86,8 @@ class ApplicationsList extends Component {
 
   clearSearch = () => {
     this.setState({
-      curSearch: '',
-      debouncedSearch: '',
+      curSearch: "",
+      debouncedSearch: "",
     });
   };
 
@@ -98,8 +95,9 @@ class ApplicationsList extends Component {
     const { applications } = this.props;
     const { selectedApp, curSearch, debouncedSearch } = this.state;
 
-    const filteredApps = applications
-      .filter((item) => item.name.toLowerCase().includes(debouncedSearch));
+    const filteredApps = applications.filter((item) =>
+      item.name.toLowerCase().includes(debouncedSearch)
+    );
 
     return (
       <div className="flexHorizontal">
@@ -114,7 +112,7 @@ class ApplicationsList extends Component {
               <InputGroupAddon
                 addonType="append"
                 onClick={this.clearSearch}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: "pointer" }}
               >
                 <InputGroupText>Clear</InputGroupText>
               </InputGroupAddon>
@@ -124,14 +122,18 @@ class ApplicationsList extends Component {
             {filteredApps.map((info) => (
               <div
                 key={info._id}
-                className={`appNameContainer${info._id === selectedApp ? ' nameSelected' : ''}`}
+                className={`appNameContainer${
+                  info._id === selectedApp ? " nameSelected" : ""
+                }`}
                 onClick={() => this.selectApplication(info._id)}
               >
                 <div className="nameTextContainer">
                   <h3>{info.name}</h3>
-                  <p>{`Submitted: ${moment(info.submitted).format('MMMM Do, YYYY')}`}</p>
+                  <p>{`Submitted: ${moment(info.submitted).format(
+                    "MMMM Do, YYYY"
+                  )}`}</p>
                 </div>
-                {(info.status === 0) && (
+                {info.status === 0 && (
                   <FontAwesomeIcon
                     icon={faExclamationCircle}
                     color="#afafaf"
@@ -143,7 +145,7 @@ class ApplicationsList extends Component {
           </div>
         </div>
         <div className="appView">
-          {(selectedApp != null && applications != null) && (
+          {selectedApp != null && applications != null && (
             <Application
               info={applications.find((app) => app._id === selectedApp)}
               deleteHandler={this.onDeleteClick}

@@ -5,7 +5,7 @@ import {
   APPLICATIONS_LOADING,
   UPDATE_APPLICATION_STATE,
   UPDATE_APPLICATION_DECISION,
-} from '../actions/types';
+} from "../actions/types";
 
 const initialState = {
   applications: [],
@@ -24,7 +24,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         applications: state.applications.filter(
-          (application) => application._id !== action.payload,
+          (application) => application._id !== action.payload
         ),
       };
     case ADD_APPLICATION:

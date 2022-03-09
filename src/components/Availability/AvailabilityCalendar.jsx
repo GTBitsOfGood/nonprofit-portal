@@ -1,18 +1,16 @@
-import React from 'react';
-import moment from 'moment';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React from "react";
+import moment from "moment";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 import {
   getAvailabilities as getAvailabilitiesBase,
   addAvailability as addAvailabilityBase,
   deleteAvailability as deleteAvailabilityBase,
-} from '../../redux/actions/availabilityActions';
-import {
-  addNotification as addNotificationBase,
-} from '../../redux/actions/notificationActions';
-import '../../static/style/Calendar.css';
-import './AvailabilityCalendar.css';
+} from "../../redux/actions/availabilityActions";
+import { addNotification as addNotificationBase } from "../../redux/actions/notificationActions";
+import "../../static/style/Calendar.css";
+import "./AvailabilityCalendar.css";
 
 const getHoursPerDay = (day, availabilities) => {
   const hours = [];
@@ -23,7 +21,7 @@ const getHoursPerDay = (day, availabilities) => {
 
     const startDate = moment(curDay.startDate);
 
-    if (day.isSame(startDate, 'date')) {
+    if (day.isSame(startDate, "date")) {
       availHours.push({
         startDate,
         id: curDay._id,
@@ -35,10 +33,10 @@ const getHoursPerDay = (day, availabilities) => {
   }
 
   const startHour = 9;
-  const startHours = moment(day).startOf('day').add(startHour, 'hour');
+  const startHours = moment(day).startOf("day").add(startHour, "hour");
 
   for (let i = 0; i < 8; i += 1) {
-    const time = startHours.clone().add(i, 'hour');
+    const time = startHours.clone().add(i, "hour");
     let isAvailable = true;
     let id = null;
     let team = null;
@@ -47,7 +45,7 @@ const getHoursPerDay = (day, availabilities) => {
     for (let j = 0; j < availHours.length; j += 1) {
       const curHour = availHours[j];
 
-      if (time.isSame(curHour.startDate, 'hour')) {
+      if (time.isSame(curHour.startDate, "hour")) {
         isAvailable = !curHour.isBooked;
         id = curHour.id;
         team = curHour.team;
@@ -72,16 +70,16 @@ class AvailabilityCalendar extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    let weekStart = moment().startOf('week').add(1, 'day');
+    let weekStart = moment().startOf("week").add(1, "day");
 
     if (moment().weekday() >= 5) {
-      weekStart = weekStart.add(1, 'weeks').startOf('isoWeek');
+      weekStart = weekStart.add(1, "weeks").startOf("isoWeek");
     }
 
     const upcomingDays = [];
 
     for (let i = 0; i < 5; i += 1) {
-      upcomingDays.push(weekStart.clone().add(i, 'day').startOf('day'));
+      upcomingDays.push(weekStart.clone().add(i, "day").startOf("day"));
     }
 
     this.state = {
@@ -89,7 +87,7 @@ class AvailabilityCalendar extends React.PureComponent {
       selectedDays: {},
       deselectedDays: {},
       monthYear: weekStart,
-      interviewer: '',
+      interviewer: "",
       firstWeek: true,
       lastWeek: false,
     };
@@ -113,9 +111,9 @@ class AvailabilityCalendar extends React.PureComponent {
       });
     } catch (e) {
       await addNotification({
-        header: 'Failed to retrieve availabilities!',
-        body: 'Please refresh and try again.',
-        type: 'error',
+        header: "Failed to retrieve availabilities!",
+        body: "Please refresh and try again.",
+        type: "error",
         persist: true,
       });
     }
@@ -163,10 +161,10 @@ class AvailabilityCalendar extends React.PureComponent {
         },
       }));
     }
-  }
+  };
 
   getNextWeek = (curWeek) => {
-    if (curWeek.diff(moment(), 'weeks') > 3) {
+    if (curWeek.diff(moment(), "weeks") > 3) {
       this.setState({
         lastWeek: true,
       });
@@ -174,10 +172,10 @@ class AvailabilityCalendar extends React.PureComponent {
     }
 
     const nextWeek = [];
-    const nextDay = curWeek.add(1, 'weeks').startOf('isoWeek');
+    const nextDay = curWeek.add(1, "weeks").startOf("isoWeek");
 
     for (let i = 0; i < 5; i += 1) {
-      nextWeek.push(nextDay.clone().add(i, 'day').startOf('day'));
+      nextWeek.push(nextDay.clone().add(i, "day").startOf("day"));
     }
 
     this.setState({
@@ -185,11 +183,11 @@ class AvailabilityCalendar extends React.PureComponent {
       lastWeek: false,
       firstWeek: false,
     });
-  }
+  };
 
   getPreviousWeek = (curWeek) => {
     if (moment().weekday() === 5) {
-      if (curWeek.isBefore(moment().add(1, 'week'))) {
+      if (curWeek.isBefore(moment().add(1, "week"))) {
         this.setState({
           firstWeek: true,
         });
@@ -205,10 +203,10 @@ class AvailabilityCalendar extends React.PureComponent {
       return;
     }
     const prevWeek = [];
-    const prevDay = curWeek.subtract(1, 'weeks').startOf('isoWeek');
+    const prevDay = curWeek.subtract(1, "weeks").startOf("isoWeek");
 
     for (let i = 0; i < 5; i += 1) {
-      prevWeek.push(prevDay.clone().add(i, 'day').startOf('day'));
+      prevWeek.push(prevDay.clone().add(i, "day").startOf("day"));
     }
 
     this.setState({
@@ -216,59 +214,59 @@ class AvailabilityCalendar extends React.PureComponent {
       firstWeek: false,
       lastWeek: false,
     });
-  }
+  };
 
   handleChangeInterviewer = (event) => {
     let eventClone = event.target.value;
-    if (eventClone === '') {
+    if (eventClone === "") {
       eventClone = null;
     }
     this.setState({
       interviewer: eventClone,
     });
-  }
+  };
 
   addAvailability = async (event) => {
     event.preventDefault();
 
     const { addAvailability, deleteAvailability, addNotification } = this.props;
-    const {
-      selectedDays,
-      deselectedDays,
-      interviewer,
-    } = this.state;
+    const { selectedDays, deselectedDays, interviewer } = this.state;
 
     try {
-      await Promise.all(Object.keys(selectedDays).map(async (date) => {
-        if (selectedDays[date] === -1) {
-          const availability = {
-            startDate: date,
-            interviewer,
-          };
+      await Promise.all(
+        Object.keys(selectedDays).map(async (date) => {
+          if (selectedDays[date] === -1) {
+            const availability = {
+              startDate: date,
+              interviewer,
+            };
 
-          await addAvailability(availability);
-        }
-      }));
+            await addAvailability(availability);
+          }
+        })
+      );
 
-      await Promise.all(Object.keys(deselectedDays).map(async (date) => {
-        if (deselectedDays[date] !== 0) {
-          await deleteAvailability(deselectedDays[date]);
-        }
-      }));
+      await Promise.all(
+        Object.keys(deselectedDays).map(async (date) => {
+          if (deselectedDays[date] !== 0) {
+            await deleteAvailability(deselectedDays[date]);
+          }
+        })
+      );
 
       await addNotification({
-        header: 'Successfully updated availabilities!',
-        type: 'success',
+        header: "Successfully updated availabilities!",
+        type: "success",
       });
     } catch (e) {
       await addNotification({
-        header: 'Failed updating availabilities!',
-        body: 'Please refresh and try again.',
-        type: 'error',
+        header: "Failed updating availabilities!",
+        body: "Please refresh and try again.",
+        type: "error",
         persist: true,
       });
     }
-  }
+  };
 
   render() {
     const { availability } = this.props;
@@ -282,45 +280,47 @@ class AvailabilityCalendar extends React.PureComponent {
     } = this.state;
     const { availabilities, loading } = availability;
 
-    const endOfDay = moment().endOf('day');
+    const endOfDay = moment().endOf("day");
 
     return (
       <div>
-        <h1 style={{ fontWeight: 600, marginLeft: '10%' }}>Select your availability</h1>
+        <h1 style={{ fontWeight: 600, marginLeft: "10%" }}>
+          Select your availability
+        </h1>
         <span>
           <button
             type="button"
             className="navigationButton"
-            style={{ marginLeft: '10%' }}
+            style={{ marginLeft: "10%" }}
             onClick={() => this.getPreviousWeek(monthYear)}
             disabled={firstWeek}
           >
-            {'< '}
+            {"< "}
             Previous Week
           </button>
           <button
             type="button"
             className="navigationButton"
-            style={{ marginLeft: '50px' }}
+            style={{ marginLeft: "50px" }}
             onClick={() => this.getNextWeek(monthYear)}
             disabled={lastWeek}
           >
             Next Week
-            {' >'}
+            {" >"}
           </button>
           <div className="dropdown">
             <button
               type="button"
               className="monthSelected"
               style={{
-                marginTop: '-40px',
-                width: '300px',
-                backgroundColor: '#C4C4C4',
-                float: 'right',
-                marginRight: '10%',
+                marginTop: "-40px",
+                width: "300px",
+                backgroundColor: "#C4C4C4",
+                float: "right",
+                marginRight: "10%",
               }}
             >
-              {monthYear.format('MMMM YYYY')}
+              {monthYear.format("MMMM YYYY")}
             </button>
           </div>
         </span>
@@ -328,48 +328,48 @@ class AvailabilityCalendar extends React.PureComponent {
           <div className="availcalendar">
             <div className="availcalendarHeader">
               {upcomingDays.map((day) => (
-                <div
-                  key={day.toString()}
-                  className="availheaderDay"
-                >
-                  <p className="weekDay">{day.format('dddd')}</p>
-                  <p className="monthDay">{day.format('D')}</p>
+                <div key={day.toString()} className="availheaderDay">
+                  <p className="weekDay">{day.format("dddd")}</p>
+                  <p className="monthDay">{day.format("D")}</p>
                 </div>
               ))}
             </div>
             <div className="availcalendarBody">
               {upcomingDays.map((day) => (
-                <div
-                  key={day.toString()}
-                  className="dayColumn"
-                >
-                  {getHoursPerDay(day, availabilities).map(({
-                    time, isAvailable, interviewerName, teamName,
-                  }) => (
-                    <button
-                      key={time.toString()}
-                      type="button"
-                      id={isAvailable ? 'notBooked' : 'booked'}
-                      className={`dayHour ${(loading || !(time.toDate() in selectedDays)) ? 'availhourDisplay' : 'availhourSelected'}`}
-                      onClick={() => this.addOrRemoveAvailability(time.toDate())}
-                      onKeyDown={() => this.addOrRemoveAvailability(time.toDate())}
-                      disabled={time.isBefore(endOfDay) || !isAvailable}
-                    >
-                      <p className="time">
-                        {time.format('h:mm a')}
-                      </p>
-                      {(interviewerName != null) && (
-                        <p className="time smallText">
-                          {`Interviewer: ${interviewerName}`}
-                        </p>
-                      )}
-                      {(teamName != null) && (
-                        <p className="time smallText">
-                          {`Team: ${teamName}`}
-                        </p>
-                      )}
-                    </button>
-                  ))}
+                <div key={day.toString()} className="dayColumn">
+                  {getHoursPerDay(day, availabilities).map(
+                    ({ time, isAvailable, interviewerName, teamName }) => (
+                      <button
+                        key={time.toString()}
+                        type="button"
+                        id={isAvailable ? "notBooked" : "booked"}
+                        className={`dayHour ${
+                          loading || !(time.toDate() in selectedDays)
+                            ? "availhourDisplay"
+                            : "availhourSelected"
+                        }`}
+                        onClick={() =>
+                          this.addOrRemoveAvailability(time.toDate())
+                        }
+                        onKeyDown={() =>
+                          this.addOrRemoveAvailability(time.toDate())
+                        }
+                        disabled={time.isBefore(endOfDay) || !isAvailable}
+                      >
+                        <p className="time">{time.format("h:mm a")}</p>
+                        {interviewerName != null && (
+                          <p className="time smallText">
+                            {`Interviewer: ${interviewerName}`}
+                          </p>
+                        )}
+                        {teamName != null && (
+                          <p className="time smallText">
+                            {`Team: ${teamName}`}
+                          </p>
+                        )}
+                      </button>
+                    )
+                  )}
                 </div>
               ))}
             </div>
@@ -384,18 +384,15 @@ class AvailabilityCalendar extends React.PureComponent {
               value={interviewer}
               onChange={this.handleChangeInterviewer}
               style={{
-                marginLeft: '15px',
-                borderRadius: '5px',
-                border: '1px solid black',
-                padding: '0px 15px',
+                marginLeft: "15px",
+                borderRadius: "5px",
+                border: "1px solid black",
+                padding: "0px 15px",
               }}
               required
             />
           </label>
-          <button
-            className="submitAvailability"
-            type="submit"
-          >
+          <button className="submitAvailability" type="submit">
             Submit
           </button>
         </form>

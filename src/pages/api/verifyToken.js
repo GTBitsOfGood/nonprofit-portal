@@ -1,4 +1,4 @@
-import { verifyToken } from '../../../server/mongodb/actions/users';
+import { verifyToken } from "../../../server/mongodb/actions/users";
 
 // @route   POST api/verifyToken
 // @desc    Get Verify a user token
@@ -9,17 +9,21 @@ export default async function (req, res) {
   if (token == null) {
     return res.status(400).json({
       success: false,
-      message: 'Client has no cookie!',
+      message: "Client has no cookie!",
     });
   }
 
   return verifyToken(token)
-    .then((user) => res.status(200).json({
-      success: true,
-      payload: user,
-    }))
-    .catch((error) => res.status(400).json({
-      success: false,
-      message: error.message,
-    }));
+    .then((user) =>
+      res.status(200).json({
+        success: true,
+        payload: user,
+      })
+    )
+    .catch((error) =>
+      res.status(400).json({
+        success: false,
+        message: error.message,
+      })
+    );
 }

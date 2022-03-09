@@ -1,28 +1,29 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Router from 'next/router';
-import cookie from 'js-cookie';
-import { connect } from 'react-redux';
-import { signUp, verifyToken } from '../actions/users';
+import React from "react";
+import PropTypes from "prop-types";
+import Router from "next/router";
+import cookie from "js-cookie";
+import { connect } from "react-redux";
+import { signUp, verifyToken } from "../actions/users";
 import {
   addNotification as addNotificationBase,
   deleteNotification as deleteNotificationBase,
-} from '../redux/actions/notificationActions';
-import '../static/style/Login.css';
-import config from '../../config';
-
+} from "../redux/actions/notificationActions";
+import "../static/style/Login.css";
+import config from "../../config";
 
 class RegisterPage extends React.PureComponent {
   static async getInitialProps(ctx) {
     // eslint-disable-next-line global-require
-    const token = ctx.res ? require('next-cookies')(ctx).token : cookie.get('token');
+    const token = ctx.res
+      ? require("next-cookies")(ctx).token
+      : cookie.get("token");
 
     return verifyToken(token, ctx.res)
       .then((user) => {
         const isValid = user != null && user.isAdmin;
 
         if (!isValid) {
-          throw new Error('User is not an admin!');
+          throw new Error("User is not an admin!");
         }
 
         return user;
@@ -43,9 +44,9 @@ class RegisterPage extends React.PureComponent {
     super(props);
 
     this.state = {
-      name: '',
-      email: '',
-      password: '',
+      name: "",
+      email: "",
+      password: "",
     };
 
     this.errorKeys = [];
@@ -68,21 +69,21 @@ class RegisterPage extends React.PureComponent {
         deleteNotification(...this.errorKeys);
 
         await addNotification({
-          header: 'Successfully created account!',
-          type: 'success',
+          header: "Successfully created account!",
+          type: "success",
         });
 
         this.setState({
-          name: '',
-          email: '',
-          password: '',
+          name: "",
+          email: "",
+          password: "",
         });
       })
       .catch(async (e) => {
         const { payload } = await addNotification({
           header: e.message,
-          body: 'Please try again.',
-          type: 'error',
+          body: "Please try again.",
+          type: "error",
         });
 
         this.errorKeys.push(payload.key);
@@ -95,10 +96,7 @@ class RegisterPage extends React.PureComponent {
     return (
       <div className="LoginContainer">
         <h1>Create User</h1>
-        <form
-          className="LoginForm"
-          onSubmit={this.submitForm}
-        >
+        <form className="LoginForm" onSubmit={this.submitForm}>
           <div className="InputContainer">
             <label>Name</label>
             <input

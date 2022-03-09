@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import StatusCircle from './StatusCircle';
-import StatusLine from './StatusLine';
-import StatusLabel from './StatusLabel';
+import React from "react";
+import PropTypes from "prop-types";
+import StatusCircle from "./StatusCircle";
+import StatusLine from "./StatusLine";
+import StatusLabel from "./StatusLabel";
 
 const getCircleStatus = (status, target) => {
   if (status > target) {
@@ -23,10 +23,11 @@ const StatusBar = (props) => {
 
   return (
     <div>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-      }}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
       >
         <StatusCircle status={getCircleStatus(status, 0)} />
         <StatusLine status={getLineStatus(status, 1)} />
@@ -38,18 +39,31 @@ const StatusBar = (props) => {
         <StatusLine status={getLineStatus(status, 4)} />
         <StatusCircle status={getCircleStatus(status, 4)} />
       </div>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        marginTop: '10px',
-        fontSize: '13px',
-      }}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "10px",
+          fontSize: "13px",
+        }}
       >
-        <StatusLabel label="Application submitted" status={getCircleStatus(status, 0)} />
-        <StatusLabel label="Schedule interview" status={getCircleStatus(status, 1)} />
-        <StatusLabel label="Interview scheduled" status={getCircleStatus(status, 2)} />
+        <StatusLabel
+          label="Application submitted"
+          status={getCircleStatus(status, 0)}
+        />
+        <StatusLabel
+          label="Schedule interview"
+          status={getCircleStatus(status, 1)}
+        />
+        <StatusLabel
+          label="Interview scheduled"
+          status={getCircleStatus(status, 2)}
+        />
         <StatusLabel label="Under review" status={getCircleStatus(status, 3)} />
-        <StatusLabel label="Decision made" status={getCircleStatus(status, 4)} />
+        <StatusLabel
+          label="Decision made"
+          status={getCircleStatus(status, 4)}
+        />
       </div>
     </div>
   );

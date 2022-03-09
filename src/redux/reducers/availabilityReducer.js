@@ -1,7 +1,10 @@
 import {
-  GET_AVAILABILITIES, ADD_AVAILABILITY, DELETE_AVAILABILITY,
-  UPDATE_AVAILABILITY, AVAILABILITIES_LOADING,
-} from '../actions/types';
+  GET_AVAILABILITIES,
+  ADD_AVAILABILITY,
+  DELETE_AVAILABILITY,
+  UPDATE_AVAILABILITY,
+  AVAILABILITIES_LOADING,
+} from "../actions/types";
 
 const initialState = {
   availabilities: [],
@@ -20,7 +23,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         availabilities: state.availabilities.filter(
-          (availability) => availability._id !== action.payload,
+          (availability) => availability._id !== action.payload
         ),
       };
     case ADD_AVAILABILITY:

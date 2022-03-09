@@ -1,23 +1,32 @@
-import React from 'react';
-import { Button, ButtonGroup } from 'reactstrap';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import React from "react";
+import { Button, ButtonGroup } from "reactstrap";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import {
   updateApplicationState as updateApplicationStateBase,
   updateApplicationDecision as updateApplicationDecisionBase,
-} from '../../redux/actions/applicationActions';
-import {
-  addNotification as addNotificationBase,
-} from '../../redux/actions/notificationActions';
-import './Application.css';
+} from "../../redux/actions/applicationActions";
+import { addNotification as addNotificationBase } from "../../redux/actions/notificationActions";
+import "./Application.css";
 
-const stageButtons = ['Initial Application', 'Request Interview', 'Interview Scheduled',
-  'Review', 'Post Decision'];
+const stageButtons = [
+  "Initial Application",
+  "Request Interview",
+  "Interview Scheduled",
+  "Review",
+  "Post Decision",
+];
 
-const statusNames = ['Submitted', 'Waiting for Interview Schedule', 'Interview Scheduled',
-  'Reviewing', 'Decision Reached: Rejected', 'Decision Reached: Accepted'];
+const statusNames = [
+  "Submitted",
+  "Waiting for Interview Schedule",
+  "Interview Scheduled",
+  "Reviewing",
+  "Decision Reached: Rejected",
+  "Decision Reached: Accepted",
+];
 
 class Application extends React.PureComponent {
   onDeleteClick = async () => {
@@ -26,7 +35,9 @@ class Application extends React.PureComponent {
     const { _id } = info;
 
     // eslint-disable-next-line no-alert
-    const confirm = window.confirm('Are you sure you want to delete this application?');
+    const confirm = window.confirm(
+      "Are you sure you want to delete this application?"
+    );
 
     if (confirm === true) {
       await deleteHandler(_id);
@@ -41,15 +52,15 @@ class Application extends React.PureComponent {
     await updateApplicationState(_id, state)
       .then(async () => {
         await addNotification({
-          header: 'Successfully changed application state!',
-          type: 'success',
+          header: "Successfully changed application state!",
+          type: "success",
         });
       })
       .catch(async () => {
         await addNotification({
-          header: 'Failed to change application state!',
-          body: 'Please refresh and try again.',
-          type: 'error',
+          header: "Failed to change application state!",
+          body: "Please refresh and try again.",
+          type: "error",
           persist: true,
         });
       });
@@ -63,15 +74,15 @@ class Application extends React.PureComponent {
     await updateApplicationDecision(_id, decision)
       .then(async () => {
         await addNotification({
-          header: 'Successfully changed application decision!',
-          type: 'success',
+          header: "Successfully changed application decision!",
+          type: "success",
         });
       })
       .catch(async () => {
         await addNotification({
-          header: 'Failed to change application decision!',
-          body: 'Please refresh and try again.',
-          type: 'error',
+          header: "Failed to change application decision!",
+          body: "Please refresh and try again.",
+          type: "error",
           persist: true,
         });
       });
@@ -116,71 +127,81 @@ class Application extends React.PureComponent {
             size="sm"
             onClick={this.onDeleteClick}
           >
-            <FontAwesomeIcon
-              icon={faTimes}
-              color="white"
-              size="2x"
-            />
+            <FontAwesomeIcon icon={faTimes} color="white" size="2x" />
             <h4>Delete</h4>
           </Button>
         </div>
         <div className="applicationContent">
-          <ButtonGroup style={{ marginBottom: '30px' }}>
+          <ButtonGroup style={{ marginBottom: "30px" }}>
             {stageButtons.map((buttonName, stageIndex) => (
               <Button
                 key={buttonName}
                 color="primary"
                 onClick={() => this.changeAppState(stageIndex)}
-                {... status === stageIndex ? { active: true } : {}}
+                {...(status === stageIndex ? { active: true } : {})}
               >
                 {buttonName}
               </Button>
             ))}
           </ButtonGroup>
-          <p style={{ fontWeight: '600' }}>
-            <a href={`/p/${urlString}`} target="_blank" rel="noopener noreferrer">View Application Page</a>
+          <p style={{ fontWeight: "600" }}>
+            <a
+              href={`/p/${urlString}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Application Page
+            </a>
           </p>
           <p>
-            <span style={{ fontWeight: '600' }}>Stage: </span>
-            <span>{statusNames[status + ((status === 4 && decision === true) ? 1 : 0)]}</span>
+            <span style={{ fontWeight: "600" }}>Stage: </span>
+            <span>
+              {
+                statusNames[
+                  status + (status === 4 && decision === true ? 1 : 0)
+                ]
+              }
+            </span>
           </p>
           <p>
-            <span style={{ fontWeight: '600' }}>Address: </span>
+            <span style={{ fontWeight: "600" }}>Address: </span>
             {address}
           </p>
-          { website && (
+          {website && (
             <p>
-              <span style={{ fontWeight: '600' }}>Website: </span>
-              <a href={website} target="_blank" rel="noopener noreferrer">{website}</a>
+              <span style={{ fontWeight: "600" }}>Website: </span>
+              <a href={website} target="_blank" rel="noopener noreferrer">
+                {website}
+              </a>
             </p>
           )}
           <p>
-            <span style={{ fontWeight: '600' }}>Work Phone: </span>
+            <span style={{ fontWeight: "600" }}>Work Phone: </span>
             {workPhone}
           </p>
           <p>
-            <span style={{ fontWeight: '600' }}>Contact Name: </span>
+            <span style={{ fontWeight: "600" }}>Contact Name: </span>
             {contactName}
           </p>
-          { mobilePhone && (
+          {mobilePhone && (
             <p>
-              <span style={{ fontWeight: '600' }}>Mobile Phone: </span>
+              <span style={{ fontWeight: "600" }}>Mobile Phone: </span>
               {mobilePhone}
             </p>
           )}
           <p>
-            <span style={{ fontWeight: '600' }}>Email: </span>
+            <span style={{ fontWeight: "600" }}>Email: </span>
             {email}
           </p>
           <p>
-            <span style={{ fontWeight: '600' }}>Mission: </span>
+            <span style={{ fontWeight: "600" }}>Mission: </span>
             {mission}
           </p>
-          {(productNeeds.length > 0) && (
+          {productNeeds.length > 0 && (
             <>
-              <p style={{ fontWeight: '600' }}>Needs:</p>
+              <p style={{ fontWeight: "600" }}>Needs:</p>
               {productNeeds.map((need) => {
-                if (need === 'Other' && needsOtherExpand) {
+                if (need === "Other" && needsOtherExpand) {
                   return <p key={need}>{`- ${need}: ${needsOtherExpand}`}</p>;
                 }
 
@@ -188,51 +209,53 @@ class Application extends React.PureComponent {
               })}
             </>
           )}
-          { stageRadio !== 'Other' && (
+          {stageRadio !== "Other" && (
             <p>
-              <span style={{ fontWeight: '600' }}>Stage of Development: </span>
+              <span style={{ fontWeight: "600" }}>Stage of Development: </span>
               {stageRadio}
             </p>
           )}
-          { stageOtherExpand && (
+          {stageOtherExpand && (
             <p>
-              <span style={{ fontWeight: '600' }}>Stage of Development: </span>
+              <span style={{ fontWeight: "600" }}>Stage of Development: </span>
               {stageOtherExpand}
             </p>
           )}
           <p>
-            <span style={{ fontWeight: '600' }}>Availability: </span>
+            <span style={{ fontWeight: "600" }}>Availability: </span>
             {availRadio}
           </p>
           <p>
-            <span style={{ fontWeight: '600' }}>Field Test? </span>
+            <span style={{ fontWeight: "600" }}>Field Test? </span>
             {fieldRadio}
           </p>
-          { productExtra && (
+          {productExtra && (
             <p>
-              <span style={{ fontWeight: '600' }}>Other Product Needs: </span>
+              <span style={{ fontWeight: "600" }}>Other Product Needs: </span>
               {productExtra}
             </p>
           )}
-          { feedback && (
+          {feedback && (
             <p>
-              <span style={{ fontWeight: '600' }}>Feedback: </span>
+              <span style={{ fontWeight: "600" }}>Feedback: </span>
               {feedback}
             </p>
           )}
-          { status >= 3 && (
+          {status >= 3 && (
             <>
-              <span style={{ fontWeight: '600', marginRight: '15px' }}>Make Decision: </span>
+              <span style={{ fontWeight: "600", marginRight: "15px" }}>
+                Make Decision:{" "}
+              </span>
               <ButtonGroup>
                 <Button
                   onClick={() => this.changeAppDecision(true)}
-                  {... decision ? { color: 'success' } : {}}
+                  {...(decision ? { color: "success" } : {})}
                 >
                   Accept
                 </Button>
                 <Button
                   onClick={() => this.changeAppDecision(false)}
-                  {... decision === false ? { color: 'danger' } : {}}
+                  {...(decision === false ? { color: "danger" } : {})}
                 >
                   Decline
                 </Button>

@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import AppNavbar from '../components/AppNavbar/AppNavbar';
-import Notification from '../components/Notification/Notification';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import AppNavbar from "../components/AppNavbar/AppNavbar";
+import Notification from "../components/Notification/Notification";
 
 class MainLayout extends React.PureComponent {
   render() {
@@ -38,14 +38,22 @@ MainLayout.propTypes = {
   children: PropTypes.element.isRequired,
   notifications: PropTypes.shape({
     byOrder: PropTypes.arrayOf(PropTypes.string),
-    byId: PropTypes.objectOf(PropTypes.shape({
-      key: PropTypes.string.isRequired,
-      header: PropTypes.string.isRequired,
-      body: PropTypes.string,
-      type: PropTypes.oneOf(['default', 'success', 'error', 'warning', 'info']).isRequired,
-      expiresIn: PropTypes.number.isRequired,
-      persist: PropTypes.bool.isRequired,
-    })),
+    byId: PropTypes.objectOf(
+      PropTypes.shape({
+        key: PropTypes.string.isRequired,
+        header: PropTypes.string.isRequired,
+        body: PropTypes.string,
+        type: PropTypes.oneOf([
+          "default",
+          "success",
+          "error",
+          "warning",
+          "info",
+        ]).isRequired,
+        expiresIn: PropTypes.number.isRequired,
+        persist: PropTypes.bool.isRequired,
+      })
+    ),
   }).isRequired,
 };
 

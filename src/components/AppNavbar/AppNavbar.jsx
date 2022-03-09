@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 import {
   Collapse,
   Navbar,
@@ -8,10 +8,10 @@ import {
   NavItem,
   NavLink,
   Container,
-} from 'reactstrap';
-import { signOut } from '../../actions/users';
-import config from '../../../config';
-import './AppNavbar.css';
+} from "reactstrap";
+import { signOut } from "../../actions/users";
+import config from "../../../config";
+import "./AppNavbar.css";
 
 class AppNavbar extends React.PureComponent {
   constructor(props) {
@@ -38,47 +38,45 @@ class AppNavbar extends React.PureComponent {
     const isAdmin = user != null && user.isAdmin;
 
     return (
-      <Navbar light expand="sm" className={`mb-5${isLoggedIn ? ' appNavbar' : ''}`}>
+      <Navbar
+        light
+        expand="sm"
+        className={`mb-5${isLoggedIn ? " appNavbar" : ""}`}
+      >
         <Container className="navContainer">
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav navbar className="appNavbarNav">
-              {(!isLoggedIn) && (
+              {!isLoggedIn && (
                 <>
                   <NavItem className="appNavItem appNavButton">
-                    <NavLink href={config.pages.home}>
-                      Back to Homepage
+                    <NavLink href={config.pages.home}>Back to Homepage</NavLink>
+                  </NavItem>
+                </>
+              )}
+              {isLoggedIn && (
+                <>
+                  <NavItem className="appNavItem">
+                    <NavLink href={config.pages.admin}>Applications</NavLink>
+                  </NavItem>
+                  <NavItem className="appNavItem">
+                    <NavLink href={config.pages.availability}>
+                      Availability
                     </NavLink>
                   </NavItem>
                 </>
               )}
-              {(isLoggedIn) && (
-              <>
+              {isAdmin && (
                 <NavItem className="appNavItem">
-                  <NavLink href={config.pages.admin}>
-                    Applications
-                  </NavLink>
-                </NavItem>
-                <NavItem className="appNavItem">
-                  <NavLink href={config.pages.availability}>
-                    Availability
-                  </NavLink>
-                </NavItem>
-              </>
-              )}
-              {(isAdmin) && (
-                <NavItem className="appNavItem">
-                  <NavLink href={config.pages.register}>
-                    Create User
-                  </NavLink>
+                  <NavLink href={config.pages.register}>Create User</NavLink>
                 </NavItem>
               )}
-              {(isLoggedIn) ? (
+              {isLoggedIn ? (
                 <NavItem className="appNavItem right">
                   <NavLink
                     onClick={signOut}
                     style={{
-                      cursor: 'pointer',
+                      cursor: "pointer",
                     }}
                   >
                     Logout
@@ -86,9 +84,7 @@ class AppNavbar extends React.PureComponent {
                 </NavItem>
               ) : (
                 <NavItem className="appNavItem">
-                  <NavLink href={config.pages.login}>
-                    Login
-                  </NavLink>
+                  <NavLink href={config.pages.login}>Login</NavLink>
                 </NavItem>
               )}
             </Nav>

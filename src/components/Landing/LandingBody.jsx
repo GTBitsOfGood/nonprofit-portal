@@ -1,17 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import AppSubmittedBody from './AppSubmitted/AppSubmittedBody';
-import ScheduleInterviewBody from './ScheduleInterview/ScheduleInterviewBody';
-import InterviewScheduledBody from './InterviewScheduled/InterviewScheduledBody';
-import UnderReviewBody from './UnderReview/UnderReviewBody';
-import DecisionMadeBody from './DecisionMade/DecisionMadeBody';
+import React from "react";
+import PropTypes from "prop-types";
+import AppSubmittedBody from "./AppSubmitted/AppSubmittedBody";
+import ScheduleInterviewBody from "./ScheduleInterview/ScheduleInterviewBody";
+import InterviewScheduledBody from "./InterviewScheduled/InterviewScheduledBody";
+import UnderReviewBody from "./UnderReview/UnderReviewBody";
+import DecisionMadeBody from "./DecisionMade/DecisionMadeBody";
 
 const getLandingBody = (status, decision, name, applicationId, meeting) => {
   switch (status) {
     default:
       return <AppSubmittedBody />;
     case 1:
-      return <ScheduleInterviewBody name={name} applicationId={applicationId} />;
+      return (
+        <ScheduleInterviewBody name={name} applicationId={applicationId} />
+      );
     case 2:
       return <InterviewScheduledBody meeting={meeting} />;
     case 3:
@@ -22,12 +24,10 @@ const getLandingBody = (status, decision, name, applicationId, meeting) => {
 };
 
 const LandingBody = (props) => {
-  const {
-    status, decision, name, applicationId, meeting,
-  } = props;
+  const { status, decision, name, applicationId, meeting } = props;
 
   return (
-    <div style={{ marginTop: '50px', height: '100%', marginBottom: '60px' }}>
+    <div style={{ marginTop: "50px", height: "100%", marginBottom: "60px" }}>
       {getLandingBody(status, decision, name, applicationId, meeting)}
     </div>
   );

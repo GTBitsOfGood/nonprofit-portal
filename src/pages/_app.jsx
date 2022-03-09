@@ -1,21 +1,23 @@
-import App from 'next/app';
-import React from 'react';
-import { Provider } from 'react-redux';
-import cookie from 'js-cookie';
-import Head from 'next/head';
-import { verifyToken } from '../actions/users';
-import withReduxStore from '../redux/with-redux-store';
-import MainLayout from '../layouts/Main';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../static/style/App.css';
-import '@fortawesome/fontawesome-svg-core/styles.css';
+import App from "next/app";
+import React from "react";
+import { Provider } from "react-redux";
+import cookie from "js-cookie";
+import Head from "next/head";
+import { verifyToken } from "../actions/users";
+import withReduxStore from "../redux/with-redux-store";
+import MainLayout from "../layouts/Main";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../static/style/App.css";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 
 class MyApp extends App {
   static async getInitialProps(appContext) {
     const appProps = await App.getInitialProps(appContext);
 
     // eslint-disable-next-line global-require
-    const token = appContext.ctx.res ? require('next-cookies')(appContext.ctx).token : cookie.get('token');
+    const token = appContext.ctx.res
+      ? require("next-cookies")(appContext.ctx).token
+      : cookie.get("token");
 
     return verifyToken(token, appContext.ctx.res)
       .then((decoded) => ({
@@ -30,9 +32,7 @@ class MyApp extends App {
   }
 
   render() {
-    const {
-      Component, pageProps, reduxStore, user,
-    } = this.props;
+    const { Component, pageProps, reduxStore, user } = this.props;
 
     return (
       <>

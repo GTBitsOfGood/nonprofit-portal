@@ -1,14 +1,11 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Button, FormGroup, Label, Collapse, Input } from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  Button,
-  FormGroup,
-  Label,
-  Collapse,
-  Input,
-} from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+  faChevronDown,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 class Feedback extends Component {
   constructor(props) {
@@ -35,15 +32,14 @@ class Feedback extends Component {
           color="#F0F4F7"
           onClick={this.toggleCollapse}
           block
-          className={`formCollapseController${open ? ' open' : ''}`}
+          className={`formCollapseController${open ? " open" : ""}`}
         >
           <div align="left">
             {open ? (
               <FontAwesomeIcon icon={faChevronDown} size="sm" />
             ) : (
               <FontAwesomeIcon icon={faChevronRight} size="sm" />
-            )}
-            {' '}
+            )}{" "}
             Your Questions
           </div>
         </Button>
@@ -53,8 +49,7 @@ class Feedback extends Component {
               <Label for="application">
                 Please let us know if you have any other questions or feedback.
                 You can also reach out to us at
-                <a href="mailto:hello@bitsofgood.org"> hello@bitsofgood.org</a>
-                .
+                <a href="mailto:hello@bitsofgood.org"> hello@bitsofgood.org</a>.
               </Label>
               <Input
                 type="textarea"

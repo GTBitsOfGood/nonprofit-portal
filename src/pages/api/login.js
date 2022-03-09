@@ -1,4 +1,4 @@
-import { login } from '../../../server/mongodb/actions/users';
+import { login } from "../../../server/mongodb/actions/users";
 
 // @route   POST api/login
 // @desc    Get Login a user
@@ -8,15 +8,20 @@ export default async function (req, res) {
 
   return login(email, password)
     .then((token) => {
-      res.setHeader('Set-Cookie', `token=${token}; Max-Age=604800; SameSite=Lax; Path=/`);
+      res.setHeader(
+        "Set-Cookie",
+        `token=${token}; Max-Age=604800; SameSite=Lax; Path=/`
+      );
 
       return res.status(200).json({
         success: true,
         payload: token,
       });
     })
-    .catch((error) => res.status(400).json({
-      success: false,
-      message: error.toString(),
-    }));
+    .catch((error) =>
+      res.status(400).json({
+        success: false,
+        message: error.toString(),
+      })
+    );
 }

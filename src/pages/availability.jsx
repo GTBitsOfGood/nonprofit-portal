@@ -1,14 +1,16 @@
-import React from 'react';
-import cookie from 'js-cookie';
-import Router from 'next/router';
-import AdminCalendar from '../components/Availability/AvailabilityCalendar';
-import { verifyToken } from '../actions/users';
-import config from '../../config';
+import React from "react";
+import cookie from "js-cookie";
+import Router from "next/router";
+import AdminCalendar from "../components/Availability/AvailabilityCalendar";
+import { verifyToken } from "../actions/users";
+import config from "../../config";
 
 class IndexPage extends React.PureComponent {
   static async getInitialProps(ctx) {
     // eslint-disable-next-line global-require
-    const token = ctx.res ? require('next-cookies')(ctx).token : cookie.get('token');
+    const token = ctx.res
+      ? require("next-cookies")(ctx).token
+      : cookie.get("token");
 
     return verifyToken(token, ctx.res)
       .then((user) => user)
@@ -25,9 +27,7 @@ class IndexPage extends React.PureComponent {
   }
 
   render() {
-    return (
-      <AdminCalendar />
-    );
+    return <AdminCalendar />;
   }
 }
 

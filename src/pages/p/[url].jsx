@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Container } from 'reactstrap';
-import { withRouter } from 'next/router';
+import React from "react";
+import PropTypes from "prop-types";
+import { Container } from "reactstrap";
+import { withRouter } from "next/router";
 
-import StatusJumbo from '../../components/Landing/StatusJumbo';
-import StatusBar from '../../components/Landing/StatusBar';
-import LandingBody from '../../components/Landing/LandingBody';
+import StatusJumbo from "../../components/Landing/StatusJumbo";
+import StatusBar from "../../components/Landing/StatusBar";
+import LandingBody from "../../components/Landing/LandingBody";
 
-import { getApplication } from '../../actions/applications';
-import { getAvailability } from '../../actions/availabilities';
+import { getApplication } from "../../actions/applications";
+import { getAvailability } from "../../actions/availabilities";
 
 class LandingPage extends React.Component {
   static async getInitialProps(ctx) {

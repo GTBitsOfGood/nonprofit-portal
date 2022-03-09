@@ -1,11 +1,11 @@
-import React from 'react';
-import moment from 'moment';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React from "react";
+import moment from "moment";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-import { getAvailabilities as getAvailabilitiesBase } from '../../../redux/actions/availabilityActions';
-import { addNotification as addNotificationBase } from '../../../redux/actions/notificationActions';
-import '../../../static/style/Calendar.css';
+import { getAvailabilities as getAvailabilitiesBase } from "../../../redux/actions/availabilityActions";
+import { addNotification as addNotificationBase } from "../../../redux/actions/notificationActions";
+import "../../../static/style/Calendar.css";
 
 const getHoursPerDay = (day, availabilities) => {
   const hours = [];
@@ -16,7 +16,7 @@ const getHoursPerDay = (day, availabilities) => {
 
     const startDate = moment(curDay.startDate);
 
-    if (day.isSame(startDate, 'date')) {
+    if (day.isSame(startDate, "date")) {
       availHours.push({
         startDate,
         id: curDay._id,
@@ -26,17 +26,17 @@ const getHoursPerDay = (day, availabilities) => {
   }
 
   const startHour = 9;
-  const startHours = moment(day).startOf('day').add(startHour, 'hour');
+  const startHours = moment(day).startOf("day").add(startHour, "hour");
 
   for (let i = 0; i < 8; i += 1) {
-    const time = startHours.clone().add(i, 'hour');
+    const time = startHours.clone().add(i, "hour");
     let isAvailable = false;
     let id = null;
 
     for (let j = 0; j < availHours.length; j += 1) {
       const curHour = availHours[j];
 
-      if (time.isSame(curHour.startDate, 'hour')) {
+      if (time.isSame(curHour.startDate, "hour")) {
         isAvailable = !curHour.isBooked;
         id = curHour.id;
         break;
@@ -57,16 +57,16 @@ class NonProfitCalendar extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    let weekStart = moment().startOf('week').add(1, 'day');
+    let weekStart = moment().startOf("week").add(1, "day");
 
     if (moment().weekday() >= 5) {
-      weekStart = weekStart.add(1, 'weeks').startOf('isoWeek');
+      weekStart = weekStart.add(1, "weeks").startOf("isoWeek");
     }
 
     const upcomingDays = [];
 
     for (let i = 0; i < 5; i += 1) {
-      upcomingDays.push(weekStart.clone().add(i, 'day').startOf('day'));
+      upcomingDays.push(weekStart.clone().add(i, "day").startOf("day"));
     }
 
     this.state = {
@@ -80,19 +80,18 @@ class NonProfitCalendar extends React.PureComponent {
   async componentDidMount() {
     const { getAvailabilities, addNotification } = this.props;
 
-    await getAvailabilities()
-      .catch(async () => {
-        await addNotification({
-          header: 'Failed to retrieve availabilities!',
-          body: 'Please refresh and try again.',
-          type: 'error',
-          persist: true,
-        });
+    await getAvailabilities().catch(async () => {
+      await addNotification({
+        header: "Failed to retrieve availabilities!",
+        body: "Please refresh and try again.",
+        type: "error",
+        persist: true,
       });
+    });
   }
 
   getNextWeek = (curWeek) => {
-    if (curWeek.diff(moment(), 'weeks') > 3) {
+    if (curWeek.diff(moment(), "weeks") > 3) {
       this.setState({
         lastWeek: true,
       });
@@ -100,10 +99,10 @@ class NonProfitCalendar extends React.PureComponent {
     }
 
     const nextWeek = [];
-    const nextDay = curWeek.add(1, 'weeks').startOf('isoWeek');
+    const nextDay = curWeek.add(1, "weeks").startOf("isoWeek");
 
     for (let i = 0; i < 5; i += 1) {
-      nextWeek.push(nextDay.clone().add(i, 'day').startOf('day'));
+      nextWeek.push(nextDay.clone().add(i, "day").startOf("day"));
     }
 
     this.setState({
@@ -111,11 +110,11 @@ class NonProfitCalendar extends React.PureComponent {
       lastWeek: false,
       firstWeek: false,
     });
-  }
+  };
 
   getPreviousWeek = (curWeek) => {
     if (moment().weekday() === 5) {
-      if (curWeek.isBefore(moment().add(1, 'week'))) {
+      if (curWeek.isBefore(moment().add(1, "week"))) {
         this.setState({
           firstWeek: true,
         });
@@ -131,10 +130,10 @@ class NonProfitCalendar extends React.PureComponent {
       return;
     }
     const prevWeek = [];
-    const prevDay = curWeek.subtract(1, 'weeks').startOf('isoWeek');
+    const prevDay = curWeek.subtract(1, "weeks").startOf("isoWeek");
 
     for (let i = 0; i < 5; i += 1) {
-      prevWeek.push(prevDay.clone().add(i, 'day').startOf('day'));
+      prevWeek.push(prevDay.clone().add(i, "day").startOf("day"));
     }
 
     this.setState({
@@ -142,16 +141,11 @@ class NonProfitCalendar extends React.PureComponent {
       firstWeek: false,
       lastWeek: false,
     });
-  }
+  };
 
   render() {
     const { availability, selectedHour, selectHourHandler } = this.props;
-    const {
-      upcomingDays,
-      monthYear,
-      firstWeek,
-      lastWeek,
-    } = this.state;
+    const { upcomingDays, monthYear, firstWeek, lastWeek } = this.state;
 
     const { availabilities, loading } = availability;
 
@@ -164,52 +158,57 @@ class NonProfitCalendar extends React.PureComponent {
             onClick={() => this.getPreviousWeek(monthYear)}
             disabled={firstWeek}
           >
-            {'< '}
+            {"< "}
             Previous Week
           </button>
           <button
             type="button"
             className="navigationButton"
-            style={{ float: 'right' }}
+            style={{ float: "right" }}
             onClick={() => this.getNextWeek(monthYear)}
             disabled={lastWeek}
-
           >
             Next Week
-            {' >'}
+            {" >"}
           </button>
         </span>
         <div className="calendar">
           <div className="calendarHeader">
             {upcomingDays.map((day) => (
-              <div
-                key={day.toString()}
-                className="headerDay"
-              >
-                <p className="weekDay">{day.format('dddd')}</p>
-                <p className="monthDay">{day.format('MMM D')}</p>
+              <div key={day.toString()} className="headerDay">
+                <p className="weekDay">{day.format("dddd")}</p>
+                <p className="monthDay">{day.format("MMM D")}</p>
               </div>
             ))}
           </div>
           <div className="calendarBody">
             {upcomingDays.map((day) => (
-              <div
-                key={day.toString()}
-                className="dayColumn"
-              >
-                {getHoursPerDay(day, availabilities).map(({ time, isAvailable, id }) => (
-                  <button
-                    type="button"
-                    key={time.toString()}
-                    className={`dayHour ${((!loading && isAvailable && time.isAfter(moment()))) ? 'hourAvail' : 'hourNotAvail'}${(selectedHour != null && selectedHour === id) ? ' hourSelected' : ''}`}
-                    onClick={id != null ? () => selectHourHandler(id) : () => {}}
-                    onKeyDown={id != null ? () => selectHourHandler(id) : () => {}}
-                  >
-                    <p className="time">
-                      {time.format('h:mm a')}
-                    </p>
-                  </button>
-                ))}
+              <div key={day.toString()} className="dayColumn">
+                {getHoursPerDay(day, availabilities).map(
+                  ({ time, isAvailable, id }) => (
+                    <button
+                      type="button"
+                      key={time.toString()}
+                      className={`dayHour ${
+                        !loading && isAvailable && time.isAfter(moment())
+                          ? "hourAvail"
+                          : "hourNotAvail"
+                      }${
+                        selectedHour != null && selectedHour === id
+                          ? " hourSelected"
+                          : ""
+                      }`}
+                      onClick={
+                        id != null ? () => selectHourHandler(id) : () => {}
+                      }
+                      onKeyDown={
+                        id != null ? () => selectHourHandler(id) : () => {}
+                      }
+                    >
+                      <p className="time">{time.format("h:mm a")}</p>
+                    </button>
+                  )
+                )}
               </div>
             ))}
           </div>

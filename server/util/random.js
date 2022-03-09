@@ -1,4 +1,4 @@
-import { randomBytes } from 'crypto';
+import { randomBytes } from "crypto";
 
 /**
  * Generates a random hexadecimal string
@@ -9,7 +9,7 @@ export function randomString(length) {
   return new Promise((resolve, reject) => {
     randomBytes(length / 2, (err, buf) => {
       if (err) reject(err);
-      resolve(buf.toString('hex'));
+      resolve(buf.toString("hex"));
     });
   });
 }

@@ -1,42 +1,42 @@
 .navContainer {
-    max-width: unset !important;
+  max-width: unset !important;
 }
 
 .appNavbar {
-    background-color: #FFFFFF;
-    border-top: solid;
-    border-bottom: solid;
-    border-width: 4px;
-    border-color: #CCCCCC;
+  background-color: #ffffff;
+  border-top: solid;
+  border-bottom: solid;
+  border-width: 4px;
+  border-color: #cccccc;
 }
 
 .appNavbarNav {
-    width: 100%;
-    padding: 0 20px !important;
-    margin-top: 10px;
+  width: 100%;
+  padding: 0 20px !important;
+  margin-top: 10px;
 }
 
 .appNavItem {
-    color: #747474;
-    font-size: 16px;
-    font-weight: bolder;
-    margin: 0 8px;
+  color: #747474;
+  font-size: 16px;
+  font-weight: bolder;
+  margin: 0 8px;
 }
 
 .appNavButton {
-    max-width: 200px;
-    border-radius: 5px;
-    background-color: #ffc55a;
-    margin-left: 0px;
-    padding: 0px 5px;
-    text-align: center;
-    transition: box-shadow 0.2s ease;
+  max-width: 200px;
+  border-radius: 5px;
+  background-color: #ffc55a;
+  margin-left: 0px;
+  padding: 0px 5px;
+  text-align: center;
+  transition: box-shadow 0.2s ease;
 }
 
 .appNavButton:hover {
-    box-shadow: 2px 2px 5px rgb(0, 0, 0, 0.15);
+  box-shadow: 2px 2px 5px rgb(0, 0, 0, 0.15);
 }
 
 .appNavButton > a {
-    color: black !important;
+  color: black !important;
 }

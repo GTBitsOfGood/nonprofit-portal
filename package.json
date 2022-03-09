@@ -7,7 +7,9 @@
         "hardcode": "hardcode server/email/dev/** -p email/dev/ -o email/import/",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "lint:fix": "next lint --fix",
+        "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss}\""
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.2.25",
@@ -44,6 +46,9 @@
     },
     "devDependencies": {
         "eslint": "8.10.0",
-        "eslint-config-next": "12.1.0"
+        "eslint-config-next": "12.1.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "prettier": "^2.5.1"
     }
 }

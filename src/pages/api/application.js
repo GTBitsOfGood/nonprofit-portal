@@ -6,7 +6,7 @@ import updateApplicationDecision from "../../../server/apiHandlers/application/u
 import updateApplicationMeeting from "../../../server/apiHandlers/application/updateApplicationMeeting";
 import updateApplicationState from "../../../server/apiHandlers/application/updateApplicationState";
 
-// @route   POST api/application
+// @route   api/application
 // @access  Private
 export default async function (req, res) {
   switch (req.method) {

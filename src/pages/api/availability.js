@@ -4,7 +4,7 @@ import addAvailability from "../../../server/apiHandlers/availability/addAvailab
 import deleteAvailability from "../../../server/apiHandlers/availability/deleteAvailability";
 import updateAvailability from "../../../server/apiHandlers/availability/updateAvailability";
 
-// @route   POST api/application
+// @route   api/availability
 // @access  Private
 export default async function (req, res) {
   switch (req.method) {

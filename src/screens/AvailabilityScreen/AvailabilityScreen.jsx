@@ -95,7 +95,7 @@ function AvailabilityScreen({
   addNotification,
 }) {
   const { user } = useUser({
-    redirectTo: urls.pages.application,
+    redirectTo: urls.pages.index,
   });
   const weekStart = getWeekStart();
   const [upcomingDays, setUpcoming] = React.useState(getUpcoming(weekStart));

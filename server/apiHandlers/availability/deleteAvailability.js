@@ -5,6 +5,12 @@ import { deleteAvailability } from "../../mongodb/actions/availabilities";
 // @access  Public
 export default async function (req, res) {
   const { id } = req.body;
+  const user = req.session.user;
+
+  if (!user || user.isLoggedIn === false) {
+    res.status(401).end();
+    return;
+  }
 
   return deleteAvailability(id)
     .then(() =>

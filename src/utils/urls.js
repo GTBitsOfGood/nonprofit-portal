@@ -11,7 +11,7 @@ export default {
     logout: "/api/user/logout",
   },
   pages: {
-    application: "/",
+    index: "/",
     login: "/login",
     register: "/register",
     submitted: "/submitted",

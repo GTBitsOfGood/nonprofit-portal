@@ -5,6 +5,12 @@ import { updateApplicationDecision } from "../../mongodb/actions/applications";
 // @access  Public
 export default async function (req, res) {
   const { id, decision } = req.body;
+  const user = req.session.user;
+
+  if (!user || user.isLoggedIn === false) {
+    res.status(401).end();
+    return;
+  }
 
   return updateApplicationDecision(id, decision)
     .then((result) =>

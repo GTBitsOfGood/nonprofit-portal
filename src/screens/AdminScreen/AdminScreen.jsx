@@ -24,7 +24,7 @@ function AdminScreen({
   addNotification,
 }) {
   const { user } = useUser({
-    redirectTo: urls.pages.application,
+    redirectTo: urls.pages.index,
   });
   const [selectedApp, setSelApp] = React.useState(null);
   const [curSearch, setCurSearch] = React.useState("");

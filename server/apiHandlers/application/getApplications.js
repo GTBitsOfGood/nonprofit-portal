@@ -4,6 +4,13 @@ import { getApplications } from "../../mongodb/actions/applications";
 // @desc    Get All Applications
 // @access  Public
 export default async function (req, res) {
+  const user = req.session.user;
+
+  if (!user || user.isLoggedIn === false) {
+    res.status(401).end();
+    return;
+  }
+
   return getApplications()
     .then((applications) =>
       res.status(200).json({

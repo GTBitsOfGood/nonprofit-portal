@@ -6,6 +6,7 @@ import {
   UPDATE_APPLICATION_STATE,
   UPDATE_APPLICATION_DECISION,
 } from "../actions/types";
+import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   applications: [],
@@ -14,6 +15,11 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case [HYDRATE]:
+      return {
+        ...state,
+        ...action.payload,
+      };
     case GET_APPLICATIONS:
       return {
         ...state,

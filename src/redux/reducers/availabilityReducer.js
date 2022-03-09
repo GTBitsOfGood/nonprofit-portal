@@ -5,6 +5,7 @@ import {
   UPDATE_AVAILABILITY,
   AVAILABILITIES_LOADING,
 } from "../actions/types";
+import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   availabilities: [],
@@ -13,6 +14,11 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case [HYDRATE]:
+      return {
+        ...state,
+        ...action.payload,
+      };
     case GET_AVAILABILITIES:
       return {
         ...state,

@@ -3,6 +3,7 @@ import {
   DELETE_NOTIFICATION,
   CLOSE_NOTIFICATIONS,
 } from "../actions/types";
+import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   byId: {},
@@ -11,6 +12,11 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case [HYDRATE]:
+      return {
+        ...state,
+        ...action.payload,
+      };
     case ADD_NOTIFICATION:
       return {
         byId: {

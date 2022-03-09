@@ -1,22 +1,18 @@
 import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
+import thunkMiddleware from "redux-thunk";
+import { createWrapper } from "next-redux-wrapper";
 import rootReducer from "./reducers";
 
-const initState = {};
-
-const middleware = [thunk];
-
-const bindMiddleware = (mware) => {
+const bindMiddleware = (middleware) => {
   if (process.env.NODE_ENV !== "production") {
-    // eslint-disable-next-line global-require
     const { composeWithDevTools } = require("redux-devtools-extension");
-
-    return composeWithDevTools(applyMiddleware(...mware));
+    return composeWithDevTools(applyMiddleware(...middleware));
   }
-
-  return applyMiddleware(...mware);
+  return applyMiddleware(...middleware);
 };
 
-export default function initializeStore(initialState = initState) {
-  return createStore(rootReducer, initialState, bindMiddleware(middleware));
-}
+const initializeStore = () => {
+  return createStore(rootReducer, bindMiddleware([thunkMiddleware]));
+};
+
+export const wrapper = createWrapper(initializeStore);

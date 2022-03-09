@@ -1,26 +1,24 @@
 import React from "react";
-import { Provider } from "react-redux";
 import Head from "next/head";
-import withReduxStore from "../redux/with-redux-store";
+import { wrapper } from "../redux/store";
 import MainLayout from "../components/MainLayout";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "../styles/App.css";
 import "../styles/Calendar.css";
 
-function MyApp({ Component, pageProps, reduxStore, user }) {
+function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
         <title>Nonprofit Portal</title>
       </Head>
-      <Provider store={reduxStore}>
-        <MainLayout user={user}>
-          <Component {...pageProps} user={user} />
-        </MainLayout>
-      </Provider>
+
+      <MainLayout>
+        <Component {...pageProps} />
+      </MainLayout>
     </>
   );
 }
 
-export default withReduxStore(MyApp);
+export default wrapper.withRedux(MyApp);

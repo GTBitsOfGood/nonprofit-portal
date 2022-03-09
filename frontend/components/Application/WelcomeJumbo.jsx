@@ -18,18 +18,6 @@ const WelcomeJumbo = () => (
       </p>
       <p align="center" className="lead"><strong>Application Timelines:</strong></p>
       <dl className="row w-75" style={{ marginLeft: 'auto', marginRight: 'auto' }}>
-        <dt className="col-sm-3 text-right">September 7, 2021 - November 16, 2021</dt>
-        <dd className="col-sm-9">
-          Expect to hear back within a week to set up
-          a follow-up meeting and you will be considered on the Spring 2022 project cycle.
-        </dd>
-
-        <dt className="col-sm-3 text-right">November 17, 2021 - January 24, 2022</dt>
-        <dd className="col-sm-9">
-          Expect to hear back by January 25, 2022
-          to set up a follow-up meeting and you will be considered on the Fall 2022 project cycle.
-        </dd>
-
         <dt className="col-sm-3 text-right">January 25, 2022 and beyond</dt>
         <dd className="col-sm-9">
           Expect to hear back from us within a week to set up

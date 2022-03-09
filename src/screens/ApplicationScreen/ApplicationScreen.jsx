@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Container } from "reactstrap";
-import StatusJumbo from "../../components/Landing/StatusJumbo";
-import StatusBar from "../../components/Landing/StatusBar";
-import LandingBody from "../../components/Landing/LandingBody";
+import StatusJumbo from "./Stages/StatusJumbo";
+import StatusBar from "./Stages/StatusBar";
+import LandingBody from "./Stages/LandingBody";
 
 function LandingPage({ application, meeting }) {
   return (

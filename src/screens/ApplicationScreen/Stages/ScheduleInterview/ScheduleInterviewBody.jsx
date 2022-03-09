@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import LandingBodyMessage from "../LandingBodyMessage";
 import NonProfitCalendar from "./NonProfitCalendar";
-import { updateAvailability as updateAvailabilityBase } from "../../../redux/actions/availabilityActions";
+import { updateAvailability as updateAvailabilityBase } from "../../../../redux/actions/availabilityActions";
 import {
   updateApplicationState as updateApplicationStateBase,
   updateApplicationMeeting as updateApplicationMeetingBase,
-} from "../../../redux/actions/applicationActions";
-import { addNotification as addNotificationBase } from "../../../redux/actions/notificationActions";
+} from "../../../../redux/actions/applicationActions";
+import { addNotification as addNotificationBase } from "../../../../redux/actions/notificationActions";
 
 import "./ScheduleInterviewBody.css";
 

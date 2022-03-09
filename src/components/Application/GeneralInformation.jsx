@@ -12,7 +12,6 @@ import {
 } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ErrorMessage } from "formik";
-import "../../static/style/App.css";
 import {
   faChevronDown,
   faChevronRight,

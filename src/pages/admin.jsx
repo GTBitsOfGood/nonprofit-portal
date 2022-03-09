@@ -1,14 +1,3 @@
-import React from "react";
-import ApplicationsList from "../components/Admin/ApplicationsList";
-import urls from "../utils/urls";
-import { useUser } from "../actions/users";
+import AdminScreen from "../screens/AdminScreen";
 
-function AdminPage() {
-  const { user } = useUser({
-    redirectTo: urls.pages.application,
-  });
-
-  return <ApplicationsList />;
-}
-
-export default AdminPage;
+export default AdminScreen;

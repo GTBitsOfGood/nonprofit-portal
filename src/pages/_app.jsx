@@ -4,10 +4,10 @@ import Head from "next/head";
 import { SWRConfig } from "swr";
 import withReduxStore from "../redux/with-redux-store";
 import fetchJson from "../utils/fetchJson";
-import MainLayout from "../layouts/Main";
+import MainLayout from "../components/MainLayout";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import "../static/style/App.css";
+import "../styles/App.css";
 
 function MyApp({ Component, pageProps, reduxStore, user }) {
   return (

@@ -9,7 +9,7 @@ import {
   deleteAvailability as deleteAvailabilityBase,
 } from "../../redux/actions/availabilityActions";
 import { addNotification as addNotificationBase } from "../../redux/actions/notificationActions";
-import "../../static/style/Calendar.css";
+import "../../styles/Calendar.css";
 import "./AvailabilityCalendar.css";
 
 const getHoursPerDay = (day, availabilities) => {

@@ -13,7 +13,6 @@ import {
   faChevronDown,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import "../../static/style/App.css";
 
 class ProductNeeds extends Component {
   constructor(props) {

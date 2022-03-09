@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import { getAvailabilities as getAvailabilitiesBase } from "../../../redux/actions/availabilityActions";
 import { addNotification as addNotificationBase } from "../../../redux/actions/notificationActions";
-import "../../../static/style/Calendar.css";
+import "../../../styles/Calendar.css";
 
 const getHoursPerDay = (day, availabilities) => {
   const hours = [];

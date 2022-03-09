@@ -77,7 +77,10 @@ class Notification extends React.PureComponent {
 
     return (
       <div
-        className={clsx(classes.Notification, disappearing ? "exit" : "enter")}
+        className={clsx(
+          classes.Notification,
+          disappearing ? classes.exit : classes.enter
+        )}
       >
         <div className={clsx(classes.NotificationIcon, type)}>
           {this.getIcon()}

@@ -1,4 +1,8 @@
 import ApplicationScreen from "../../screens/ApplicationScreen";
+import { getApplication } from "../../actions/applications";
+import { getAvailability } from "../../actions/availabilities";
+
+export default ApplicationScreen;
 
 export async function getServerSideProps(context) {
   const urlString = context.query.url;
@@ -23,5 +27,3 @@ export async function getServerSideProps(context) {
     },
   };
 }
-
-export default ApplicationScreen;

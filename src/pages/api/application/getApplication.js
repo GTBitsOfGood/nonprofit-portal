@@ -1,12 +1,12 @@
-import { updateApplicationState } from "../../../server/mongodb/actions/applications";
+import { getApplication } from "../../../../server/mongodb/actions/applications";
 
-// @route   GET api/updateApplicationState
-// @desc    Update the status of an application
+// @route   GET api/getApplication
+// @desc    Get An Application
 // @access  Public
 export default async function (req, res) {
-  const { id, state } = req.body;
+  const urlString = req.query.url;
 
-  return updateApplicationState(id, state)
+  return getApplication(urlString)
     .then((result) =>
       res.status(200).json({
         success: true,

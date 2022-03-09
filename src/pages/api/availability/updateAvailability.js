@@ -1,12 +1,12 @@
-import { updateApplicationDecision } from "../../../server/mongodb/actions/applications";
+import { updateAvailability } from "../../../../server/mongodb/actions/availabilities";
 
-// @route   GET api/updateApplicationDecision
-// @desc    Update the decision of an application
+// @route   POST api/updateAvailability
+// @desc    Update the status of an availability
 // @access  Public
 export default async function (req, res) {
-  const { id, decision } = req.body;
+  const { id, updatedFields } = req.body;
 
-  return updateApplicationDecision(id, decision)
+  return updateAvailability(id, updatedFields)
     .then((result) =>
       res.status(200).json({
         success: true,

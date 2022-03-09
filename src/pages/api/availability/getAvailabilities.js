@@ -1,14 +1,12 @@
-import { addApplication } from "../../../server/mongodb/actions/applications";
+import { getAvailabilities } from "../../../../server/mongodb/actions/availabilities";
 
-// @route   POST api/addApplication
-// @desc    Create An Application
+// @route   GET api/getAvailabilities
+// @desc    Get All Availabilities
 // @access  Public
 export default async function (req, res) {
-  const { application } = req.body;
-
-  return addApplication(application)
+  return getAvailabilities()
     .then((result) =>
-      res.status(201).json({
+      res.status(200).json({
         success: true,
         payload: result,
       })

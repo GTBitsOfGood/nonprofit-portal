@@ -1,4 +1,4 @@
-import { deleteApplication } from "../../../server/mongodb/actions/applications";
+import { deleteApplication } from "../../../../server/mongodb/actions/applications";
 
 // @route   DELETE api/deleteApplication
 // @desc    Delete An Application

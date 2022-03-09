@@ -3,11 +3,11 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import cookie from 'js-cookie';
 import Head from 'next/head';
-import { verifyToken } from '../frontend/actions/users';
-import withReduxStore from '../frontend/redux/with-redux-store';
-import MainLayout from '../frontend/layouts/Main';
+import { verifyToken } from '../actions/users';
+import withReduxStore from '../redux/with-redux-store';
+import MainLayout from '../layouts/Main';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../frontend/static/style/App.css';
+import '../static/style/App.css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 
 class MyApp extends App {

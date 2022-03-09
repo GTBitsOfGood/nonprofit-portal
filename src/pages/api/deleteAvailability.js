@@ -1,4 +1,4 @@
-import { deleteAvailability } from '../../server/mongodb/actions/availabilities';
+import { deleteAvailability } from '../../../server/mongodb/actions/availabilities';
 
 // @route   DELETE api/deleteAvailability
 // @desc    Delete An Availability

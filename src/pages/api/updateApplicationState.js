@@ -1,12 +1,12 @@
-import { updateAvailability } from '../../server/mongodb/actions/availabilities';
+import { updateApplicationState } from '../../../server/mongodb/actions/applications';
 
-// @route   POST api/updateAvailability
-// @desc    Update the status of an availability
+// @route   GET api/updateApplicationState
+// @desc    Update the status of an application
 // @access  Public
 export default async function (req, res) {
-  const { id, updatedFields } = req.body;
+  const { id, state } = req.body;
 
-  return updateAvailability(id, updatedFields)
+  return updateApplicationState(id, state)
     .then((result) => res.status(200).json({
       success: true,
       payload: result,

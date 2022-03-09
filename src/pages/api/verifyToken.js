@@ -1,4 +1,4 @@
-import { verifyToken } from '../../server/mongodb/actions/users';
+import { verifyToken } from '../../../server/mongodb/actions/users';
 
 // @route   POST api/verifyToken
 // @desc    Get Verify a user token

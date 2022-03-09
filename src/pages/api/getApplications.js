@@ -1,4 +1,4 @@
-import { getApplications } from '../../server/mongodb/actions/applications';
+import { getApplications } from '../../../server/mongodb/actions/applications';
 
 // @route   GET api/getApplications
 // @desc    Get All Applications

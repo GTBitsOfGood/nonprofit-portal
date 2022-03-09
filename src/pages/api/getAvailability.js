@@ -1,10 +1,12 @@
-import { getAvailabilities } from '../../server/mongodb/actions/availabilities';
+import { getAvailability } from '../../../server/mongodb/actions/availabilities';
 
-// @route   GET api/getAvailabilities
-// @desc    Get All Availabilities
+// @route   POST api/getAvailability
+// @desc    Get An Availability
 // @access  Public
 export default async function (req, res) {
-  return getAvailabilities()
+  const { id } = req.body;
+
+  return getAvailability(id)
     .then((result) => res.status(200).json({
       success: true,
       payload: result,

@@ -1,6 +1,6 @@
 import pug from 'pug';
 import Email from 'email-templates';
-import emailFolder from '../../email/import/index';
+import emailFolder from '../email/import/index';
 
 const fromAddress = '"GT Bits of Good" <hello@bitsofgood.org>';
 

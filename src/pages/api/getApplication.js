@@ -1,12 +1,12 @@
-import { updateApplicationDecision } from '../../server/mongodb/actions/applications';
+import { getApplication } from '../../../server/mongodb/actions/applications';
 
-// @route   GET api/updateApplicationDecision
-// @desc    Update the decision of an application
+// @route   GET api/getApplication
+// @desc    Get An Application
 // @access  Public
 export default async function (req, res) {
-  const { id, decision } = req.body;
+  const urlString = req.query.url;
 
-  return updateApplicationDecision(id, decision)
+  return getApplication(urlString)
     .then((result) => res.status(200).json({
       success: true,
       payload: result,

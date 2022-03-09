@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import Router from 'next/router';
 import cookie from 'js-cookie';
 import { connect } from 'react-redux';
-import { signUp, verifyToken } from '../frontend/actions/users';
+import { signUp, verifyToken } from '../actions/users';
 import {
   addNotification as addNotificationBase,
   deleteNotification as deleteNotificationBase,
-} from '../frontend/redux/actions/notificationActions';
-import '../frontend/static/style/Login.css';
-import config from '../config';
+} from '../redux/actions/notificationActions';
+import '../static/style/Login.css';
+import config from '../../config';
 
 
 class RegisterPage extends React.PureComponent {

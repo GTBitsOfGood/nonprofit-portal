@@ -1,4 +1,4 @@
-import { login } from '../../server/mongodb/actions/users';
+import { login } from '../../../server/mongodb/actions/users';
 
 // @route   POST api/login
 // @desc    Get Login a user

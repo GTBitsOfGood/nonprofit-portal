@@ -1,9 +1,9 @@
 import React from 'react';
 import Router from 'next/router';
 import cookie from 'js-cookie';
-import ApplicationsList from '../frontend/components/Admin/ApplicationsList';
-import config from '../config';
-import { verifyToken } from '../frontend/actions/users';
+import ApplicationsList from '../components/Admin/ApplicationsList';
+import config from '../../config';
+import { verifyToken } from '../actions/users';
 
 class ViewPage extends React.PureComponent {
   static async getInitialProps(ctx) {

@@ -1,12 +1,12 @@
-import { updateApplicationMeeting } from '../../server/mongodb/actions/applications';
+import { updateApplicationDecision } from '../../../server/mongodb/actions/applications';
 
-// @route   POST api/updateApplicationDecision
+// @route   GET api/updateApplicationDecision
 // @desc    Update the decision of an application
 // @access  Public
 export default async function (req, res) {
-  const { id, availabilityId } = req.body;
+  const { id, decision } = req.body;
 
-  return updateApplicationMeeting(id, availabilityId)
+  return updateApplicationDecision(id, decision)
     .then((result) => res.status(200).json({
       success: true,
       payload: result,

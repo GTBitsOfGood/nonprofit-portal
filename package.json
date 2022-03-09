@@ -4,7 +4,7 @@
     "main": "index.js",
     "scripts": {
         "dev": "next",
-        "hardcode": "hardcode email/dev/** -p email/dev/ -o email/import/",
+        "hardcode": "hardcode server/email/dev/** -p email/dev/ -o email/import/",
         "build": "next build",
         "start": "next start",
         "lint": "eslint --ext .js --ext .jsx ."

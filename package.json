@@ -24,7 +24,6 @@
     "formik": "^2.2.9",
     "hardcode": "^1.4.0",
     "iron-session": "^6.0.5",
-    "isomorphic-unfetch": "^3.1.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "mongodb": "^4.4.1",

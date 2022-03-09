@@ -1,8 +1,7 @@
-import fetch from "isomorphic-unfetch";
 import urls from "../utils/urls";
 
 export const getApplications = async () =>
-  fetch(urls.baseUrl + urls.apis.application, {
+  fetch(urls.apis.application, {
     method: "get",
     mode: "same-origin",
     credentials: "include",
@@ -19,7 +18,7 @@ export const getApplications = async () =>
     });
 
 export const getApplication = async (urlString) =>
-  fetch(urls.baseUrl + urls.apis.application + `?url=${urlString}`, {
+  fetch(urls.apis.application + `?url=${urlString}`, {
     method: "get",
     mode: "same-origin",
     credentials: "include",
@@ -36,7 +35,7 @@ export const getApplication = async (urlString) =>
     });
 
 export const addApplication = async (application) =>
-  fetch(urls.baseUrl + urls.apis.application, {
+  fetch(urls.apis.application, {
     method: "post",
     mode: "same-origin",
     credentials: "include",
@@ -59,7 +58,7 @@ export const addApplication = async (application) =>
     });
 
 export const deleteApplication = async (id) =>
-  fetch(urls.baseUrl + urls.apis.application, {
+  fetch(urls.apis.application, {
     method: "delete",
     mode: "same-origin",
     credentials: "include",
@@ -82,7 +81,7 @@ export const deleteApplication = async (id) =>
     });
 
 export const updateApplicationState = async (id, state) =>
-  fetch(urls.baseUrl + urls.apis.application, {
+  fetch(urls.apis.application, {
     method: "put",
     mode: "same-origin",
     credentials: "include",
@@ -106,7 +105,7 @@ export const updateApplicationState = async (id, state) =>
     });
 
 export const updateApplicationDecision = async (id, decision) =>
-  fetch(urls.baseUrl + urls.apis.application, {
+  fetch(urls.apis.application, {
     method: "put",
     mode: "same-origin",
     credentials: "include",
@@ -130,7 +129,7 @@ export const updateApplicationDecision = async (id, decision) =>
     });
 
 export const updateApplicationMeeting = async (id, availabilityId) =>
-  fetch(urls.baseUrl + urls.apis.application, {
+  fetch(urls.apis.application, {
     method: "put",
     mode: "same-origin",
     credentials: "include",

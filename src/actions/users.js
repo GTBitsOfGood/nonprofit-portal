@@ -1,11 +1,10 @@
 import React from "react";
-import fetch from "isomorphic-unfetch";
 import Router from "next/router";
 import useSWR from "swr";
 import urls from "../utils/urls";
 
 export const login = async (email, password) =>
-  fetch(urls.baseUrl + urls.apis.login, {
+  fetch(urls.apis.login, {
     method: "post",
     mode: "same-origin",
     credentials: "same-origin",
@@ -31,7 +30,7 @@ export const login = async (email, password) =>
     });
 
 export const signUp = async (name, email, password) =>
-  fetch(urls.baseUrl + urls.apis.signUp, {
+  fetch(urls.apis.signUp, {
     method: "post",
     mode: "same-origin",
     credentials: "include",
@@ -58,7 +57,7 @@ export const signUp = async (name, email, password) =>
     });
 
 export const signOut = () =>
-  fetch(urls.baseUrl + urls.apis.logout, {
+  fetch(urls.apis.logout, {
     method: "GET",
     mode: "same-origin",
     credentials: "include",

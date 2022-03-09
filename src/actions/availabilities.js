@@ -1,8 +1,7 @@
-import fetch from "isomorphic-unfetch";
 import urls from "../utils/urls";
 
 export const getAvailabilities = async () =>
-  fetch(urls.baseUrl + urls.apis.availability, {
+  fetch(urls.apis.availability, {
     method: "get",
     mode: "same-origin",
     credentials: "include",
@@ -19,7 +18,7 @@ export const getAvailabilities = async () =>
     });
 
 export const getAvailability = async (id) =>
-  fetch(urls.baseUrl + urls.apis.availability + `?id=${id}`, {
+  fetch(urls.apis.availability + `?id=${id}`, {
     method: "get",
     mode: "same-origin",
     credentials: "include",
@@ -39,7 +38,7 @@ export const getAvailability = async (id) =>
     });
 
 export const addAvailability = async (availability) =>
-  fetch(urls.baseUrl + urls.apis.availability, {
+  fetch(urls.apis.availability, {
     method: "post",
     mode: "same-origin",
     credentials: "include",
@@ -62,7 +61,7 @@ export const addAvailability = async (availability) =>
     });
 
 export const deleteAvailability = async (id) =>
-  fetch(urls.baseUrl + urls.apis.availability, {
+  fetch(urls.apis.availability, {
     method: "delete",
     mode: "same-origin",
     credentials: "include",
@@ -85,7 +84,7 @@ export const deleteAvailability = async (id) =>
     });
 
 export const updateAvailability = async (id, updatedFields) =>
-  fetch(urls.baseUrl + urls.apis.availability, {
+  fetch(urls.apis.availability, {
     method: "put",
     mode: "same-origin",
     credentials: "include",

@@ -5,7 +5,7 @@ import { signUp, useUser } from "../actions/users";
 import {
   addNotification as addNotificationBase,
   deleteNotification as deleteNotificationBase,
-} from "../redux/actions/notificationActions";
+} from "../../redux/actions/notificationActions";
 import classes from "./RegisterScreen.module.css";
 import urls from "../../utils/urls";
 

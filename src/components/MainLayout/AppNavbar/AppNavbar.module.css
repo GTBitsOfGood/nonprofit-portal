@@ -25,10 +25,12 @@
 }
 
 .appNavItem:hover {
+  color: #747474;
   text-decoration: none;
 }
 
 .appNavButton {
+  min-height: 40px;
   border-radius: 5px;
   background-color: #ffc55a;
   margin-left: 0px;

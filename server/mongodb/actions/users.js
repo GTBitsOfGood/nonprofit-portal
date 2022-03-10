@@ -15,7 +15,7 @@ export async function login(email, password) {
     throw new Error("User does not exist!");
   }
 
-  const didMatch = bcrypt.compare(password, user.password);
+  const didMatch = await bcrypt.compare(password, user.password);
   if (!didMatch) {
     throw new Error("The password you entered is incorrect!");
   }

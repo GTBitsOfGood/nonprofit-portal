@@ -10,7 +10,7 @@ import { withSessionRoute } from "../../utils/session";
 const handler = (req, res) => {
   switch (req.method) {
     case "GET": {
-      if (req?.query?.id) {
+      if (req?.query?.id != null) {
         return getAvailability(req, res);
       } else {
         return getAvailabilities(req, res);
@@ -26,7 +26,7 @@ const handler = (req, res) => {
       return deleteAvailability(req, res);
     }
     default: {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
         message: "Invalid API Request!",
       });

@@ -12,7 +12,7 @@ import { withSessionRoute } from "../../utils/session";
 const handler = (req, res) => {
   switch (req.method) {
     case "GET": {
-      if (req?.query?.url) {
+      if (req?.query?.url != null) {
         return getApplication(req, res);
       } else {
         return getApplications(req, res);
@@ -25,18 +25,18 @@ const handler = (req, res) => {
       return deleteApplication(req, res);
     }
     case "PATCH": {
-      if (req?.body?.decision) {
+      if (req?.body?.decision != null) {
         return updateApplicationDecision(req, res);
       }
-      if (req?.body?.availabilityId) {
+      if (req?.body?.availabilityId != null) {
         return updateApplicationMeeting(req, res);
       }
-      if (req?.body?.state) {
+      if (req?.body?.state != null) {
         return updateApplicationState(req, res);
       }
     }
     default: {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
         message: "Invalid API Request!",
       });

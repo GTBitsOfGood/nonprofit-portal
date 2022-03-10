@@ -10,92 +10,74 @@ import {
   NavLink,
   Container,
 } from "reactstrap";
-import { signOut } from "../../../actions/users";
-import config from "../../../utils/urls";
+import { useUser, signOut } from "../../../actions/users";
+import urls from "../../../utils/urls";
 import classes from "./AppNavbar.module.css";
 
-class AppNavbar extends React.PureComponent {
-  constructor(props) {
-    super(props);
+function AppNavbar() {
+  const { user } = useUser();
+  const [isOpen, setIsOpen] = React.useState(false);
 
-    this.state = {
-      isOpen: false,
-    };
-  }
+  const toggleOpen = () => setIsOpen((prevState) => !prevState);
 
-  toggle = () => {
-    const { isOpen } = this.state;
+  const isLoggedIn = user != null;
+  const isAdmin = user != null && user.isAdmin;
 
-    this.setState({
-      isOpen: !isOpen,
-    });
-  };
-
-  render() {
-    const { user } = this.props;
-    const { isOpen } = this.state;
-
-    const isLoggedIn = user != null;
-    const isAdmin = user != null && user.isAdmin;
-
-    return (
-      <Navbar
-        light
-        expand="sm"
-        className={clsx("mb-5", isLoggedIn && classes.appNavbar)}
-      >
-        <Container className={classes.navContainer}>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={isOpen} navbar>
-            <Nav navbar className={classes.appNavbarNav}>
-              {!isLoggedIn && (
-                <>
-                  <NavItem
-                    className={clsx(classes.appNavItem, classes.appNavButton)}
-                  >
-                    <NavLink href={config.pages.home}>Back to Homepage</NavLink>
-                  </NavItem>
-                </>
-              )}
-              {isLoggedIn && (
-                <>
-                  <NavItem className={classes.appNavItem}>
-                    <NavLink href={config.pages.admin}>Applications</NavLink>
-                  </NavItem>
-                  <NavItem className={classes.appNavItem}>
-                    <NavLink href={config.pages.availability}>
-                      Availability
-                    </NavLink>
-                  </NavItem>
-                </>
-              )}
-              {isAdmin && (
+  return (
+    <Navbar
+      light
+      expand="sm"
+      className={clsx("mb-5", isLoggedIn && classes.appNavbar)}
+    >
+      <Container className={classes.navContainer}>
+        <NavbarToggler onClick={toggleOpen} />
+        <Collapse isOpen={isOpen} navbar>
+          <Nav navbar className={classes.appNavbarNav}>
+            {!isLoggedIn && (
+              <>
+                <NavItem
+                  className={clsx(classes.appNavItem, classes.appNavButton)}
+                >
+                  <NavLink href={urls.pages.home}>Back to Homepage</NavLink>
+                </NavItem>
+              </>
+            )}
+            {isLoggedIn && (
+              <>
                 <NavItem className={classes.appNavItem}>
-                  <NavLink href={config.pages.register}>Create User</NavLink>
+                  <NavLink href={urls.pages.admin}>Applications</NavLink>
                 </NavItem>
-              )}
-              {isLoggedIn ? (
-                <NavItem className={clsx(classes.appNavItem, "right")}>
-                  <NavLink
-                    onClick={signOut}
-                    style={{
-                      cursor: "pointer",
-                    }}
-                  >
-                    Logout
-                  </NavLink>
-                </NavItem>
-              ) : (
                 <NavItem className={classes.appNavItem}>
-                  <NavLink href={config.pages.login}>Login</NavLink>
+                  <NavLink href={urls.pages.availability}>Availability</NavLink>
                 </NavItem>
-              )}
-            </Nav>
-          </Collapse>
-        </Container>
-      </Navbar>
-    );
-  }
+              </>
+            )}
+            {isAdmin && (
+              <NavItem className={classes.appNavItem}>
+                <NavLink href={urls.pages.register}>Create User</NavLink>
+              </NavItem>
+            )}
+            {isLoggedIn ? (
+              <NavItem className={clsx(classes.appNavItem, "right")}>
+                <NavLink
+                  onClick={signOut}
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  Logout
+                </NavLink>
+              </NavItem>
+            ) : (
+              <NavItem className={classes.appNavItem}>
+                <NavLink href={urls.pages.login}>Login</NavLink>
+              </NavItem>
+            )}
+          </Nav>
+        </Collapse>
+      </Container>
+    </Navbar>
+  );
 }
 
 AppNavbar.propTypes = {

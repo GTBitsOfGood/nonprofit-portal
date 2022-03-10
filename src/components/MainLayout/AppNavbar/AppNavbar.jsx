@@ -20,7 +20,7 @@ function AppNavbar() {
 
   const toggleOpen = () => setIsOpen((prevState) => !prevState);
 
-  const isLoggedIn = user != null;
+  const isLoggedIn = user != null && user.isLoggedIn;
   const isAdmin = user != null && user.isAdmin;
 
   return (
@@ -34,13 +34,11 @@ function AppNavbar() {
         <Collapse isOpen={isOpen} navbar>
           <Nav navbar className={classes.appNavbarNav}>
             {!isLoggedIn && (
-              <>
-                <NavItem
-                  className={clsx(classes.appNavItem, classes.appNavButton)}
-                >
-                  <NavLink href={urls.pages.home}>Back to Homepage</NavLink>
-                </NavItem>
-              </>
+              <NavItem
+                className={clsx(classes.appNavItem, classes.appNavButton)}
+              >
+                <NavLink href={urls.pages.home}>Back to Homepage</NavLink>
+              </NavItem>
             )}
             {isLoggedIn && (
               <>

@@ -89,6 +89,10 @@ function AdminScreen({
     [applications, debSearch]
   );
 
+  if (!user || !user.isLoggedIn) {
+    return null;
+  }
+
   return (
     <div className={classes.flexHorizontal}>
       <div className={classes.flexVertical}>

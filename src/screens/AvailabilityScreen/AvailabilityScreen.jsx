@@ -252,6 +252,10 @@ function AvailabilityScreen({
 
   const endOfDay = moment().endOf("day");
 
+  if (!user || !user.isLoggedIn) {
+    return null;
+  }
+
   return (
     <div>
       <h1 style={{ fontWeight: 600, marginLeft: "10%" }}>

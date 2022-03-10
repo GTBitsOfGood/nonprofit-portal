@@ -4,20 +4,25 @@ import Router from "next/router";
 import useSWR from "swr";
 import urls from "../utils/urls";
 
-export const getUser = async () => axios.get(urls.apis.getUser);
+export const getUser = async () =>
+  axios.get(urls.apis.getUser).then((res) => res.data.payload);
 
 export const login = async (email, password) =>
-  axios.post(urls.apis.login, {
-    email,
-    password,
-  });
+  axios
+    .post(urls.apis.login, {
+      email,
+      password,
+    })
+    .then((res) => res.data.payload);
 
 export const signUp = async (name, email, password) =>
-  axios.post(urls.apis.signUp, {
-    name,
-    email,
-    password,
-  });
+  axios
+    .post(urls.apis.signUp, {
+      name,
+      email,
+      password,
+    })
+    .then((res) => res.data.payload);
 
 export const signOut = () => axios.get(urls.apis.logout);
 

@@ -1,9 +1,10 @@
 import React from "react";
+import Image from "next/image";
 
 const WelcomeJumbo = () => (
   <div>
     <div style={{ background: "transparent" }} className="Jumbotron">
-      <img
+      <Image
         src="/static/bog_logo.svg"
         alt="Bits of Good"
         style={{

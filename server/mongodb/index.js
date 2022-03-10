@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const prod = process.env.NODE_ENV === "production";
 const dbUrl = prod
-  ? process.env.MONGO_DB
+  ? process.env.MONGO_DB || process.env.MONGO_DEV_DB
   : process.env.MONGO_DEV_DB || "mongodb://localhost:27017";
 const dbName = process.env.DB_NAME || "Applications";
 

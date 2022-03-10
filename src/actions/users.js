@@ -30,7 +30,6 @@ export const useUser = ({ redirectTo = "", redirectIfFound = false } = {}) => {
   const { data: user, mutate: mutateUser } = useSWR(urls.apis.getUser, getUser);
 
   React.useEffect(() => {
-    console.log("user", user);
     // if no redirect needed, just return (example: already on /dashboard)
     // if user data not yet there (fetch in progress, logged in or not) then don't do anything yet
     if (!redirectTo || !user) return;

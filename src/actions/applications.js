@@ -2,7 +2,7 @@ import axios from "axios";
 import urls from "../utils/urls";
 
 export const getApplications = async () =>
-  axios.get(urls.apis.application).then((res) => res.data);
+  axios.get(urls.apis.application).then((res) => res.data.payload);
 
 export const getApplication = async (url) =>
   axios

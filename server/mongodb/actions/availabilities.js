@@ -1,19 +1,17 @@
-import moment from 'moment';
-import mongoDB from '../index';
-import Availability from '../models/Availability';
+import moment from "moment";
+import mongoDB from "../index";
+import Availability from "../models/Availability";
 
 export async function getAvailabilities() {
   await mongoDB();
 
-  return Availability
-    .find({
-      startDate: {
-        $gte: moment().startOf('week'),
-      },
-    })
-    .sort({
-      startDate: -1,
-    });
+  return Availability.find({
+    startDate: {
+      $gte: moment().startOf("week"),
+    },
+  }).sort({
+    startDate: -1,
+  });
 }
 
 export async function addAvailability(availability) {
@@ -25,15 +23,16 @@ export async function addAvailability(availability) {
 export async function deleteAvailability(id) {
   await mongoDB();
 
-  await Availability.findById(id)
-    .then((availability) => availability.remove());
+  await Availability.findById(id).then((availability) => availability.remove());
 }
 
 export async function updateAvailability(id, updatedFields) {
   await mongoDB();
 
-  return Availability.findOneAndUpdate({ _id: id }, updatedFields,
-    { upsert: false, new: true });
+  return Availability.findOneAndUpdate({ _id: id }, updatedFields, {
+    upsert: false,
+    new: true,
+  });
 }
 
 export async function getAvailability(id) {

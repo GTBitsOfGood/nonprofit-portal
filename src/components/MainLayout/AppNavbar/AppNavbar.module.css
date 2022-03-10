@@ -1,0 +1,47 @@
+.navContainer {
+  max-width: unset !important;
+}
+
+.appNavbar {
+  background-color: #ffffff;
+  border-top: solid;
+  border-bottom: solid;
+  border-width: 4px;
+  border-color: #cccccc;
+}
+
+.appNavbarNav {
+  width: 100%;
+  padding: 0 20px !important;
+  margin-top: 10px;
+}
+
+.appNavItem {
+  color: #747474;
+  font-size: 16px;
+  font-weight: bolder;
+  margin: 0 8px;
+  text-decoration: none;
+}
+
+.appNavItem:hover {
+  color: #747474;
+  text-decoration: none;
+}
+
+.appNavButton {
+  border-radius: 5px;
+  background-color: #ffc55a;
+  margin-left: 0px;
+  padding: 12px;
+  text-align: center;
+  transition: box-shadow 0.2s ease;
+}
+
+.appNavButton:hover {
+  box-shadow: 2px 2px 5px rgb(0, 0, 0, 0.15);
+}
+
+.appNavButton > a {
+  color: black !important;
+}

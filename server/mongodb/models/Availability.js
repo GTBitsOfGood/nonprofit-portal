@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
@@ -30,4 +30,5 @@ const AvailabilitySchema = new Schema({
   },
 });
 
-export default mongoose.models.Availability || mongoose.model('Availability', AvailabilitySchema);
+export default mongoose.models.Availability ||
+  mongoose.model("Availability", AvailabilitySchema);

@@ -5,10 +5,11 @@ import deleteApplication from "../../../server/apiHandlers/application/deleteApp
 import updateApplicationDecision from "../../../server/apiHandlers/application/updateApplicationDecision";
 import updateApplicationMeeting from "../../../server/apiHandlers/application/updateApplicationMeeting";
 import updateApplicationState from "../../../server/apiHandlers/application/updateApplicationState";
+import { withSessionRoute } from "../../utils/session";
 
 // @route   api/application
 // @access  Private
-export default async function (req, res) {
+const handler = (req, res) => {
   switch (req.method) {
     case "GET": {
       if (req?.query?.url) {
@@ -41,4 +42,6 @@ export default async function (req, res) {
       });
     }
   }
-}
+};
+
+export default withSessionRoute(handler);

@@ -3,10 +3,11 @@ import getAvailabilities from "../../../server/apiHandlers/availability/getAvail
 import addAvailability from "../../../server/apiHandlers/availability/addAvailability";
 import deleteAvailability from "../../../server/apiHandlers/availability/deleteAvailability";
 import updateAvailability from "../../../server/apiHandlers/availability/updateAvailability";
+import { withSessionRoute } from "../../utils/session";
 
 // @route   api/availability
 // @access  Private
-export default async function (req, res) {
+const handler = (req, res) => {
   switch (req.method) {
     case "GET": {
       if (req?.query?.id) {
@@ -31,4 +32,6 @@ export default async function (req, res) {
       });
     }
   }
-}
+};
+
+export default withSessionRoute(handler);

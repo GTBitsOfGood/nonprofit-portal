@@ -15,10 +15,14 @@ import urls from "../../../utils/urls";
 import classes from "./AppNavbar.module.css";
 
 function AppNavbar() {
-  const { user } = useUser();
+  const { user, mutateUser } = useUser();
   const [isOpen, setIsOpen] = React.useState(false);
 
   const toggleOpen = () => setIsOpen((prevState) => !prevState);
+
+  const handleLogout = async () => {
+    mutateUser(await signOut());
+  };
 
   const isLoggedIn = user != null && user.isLoggedIn;
   const isAdmin = user != null && user.isAdmin;
@@ -58,7 +62,7 @@ function AppNavbar() {
             {isLoggedIn ? (
               <NavItem className={clsx(classes.appNavItem, "right")}>
                 <NavLink
-                  onClick={signOut}
+                  onClick={handleLogout}
                   style={{
                     cursor: "pointer",
                   }}

@@ -10,9 +10,9 @@ import classes from "./RegisterScreen.module.css";
 import urls from "../../utils/urls";
 
 function RegisterScreen({ addNotification, deleteNotification }) {
-  const { mutateUser } = useUser({
+  const { user } = useUser({
     redirectTo: urls.pages.admin,
-    redirectIfFound: true,
+    requireAdmin: true,
   });
   const [errorKeys, setErrorKeys] = React.useState([]);
 
@@ -25,7 +25,7 @@ function RegisterScreen({ addNotification, deleteNotification }) {
 
     try {
       deleteNotification(...errorKeys);
-      mutateUser(await signUp(name, email, password));
+      await signUp(name, email, password);
 
       await addNotification({
         header: "Successfully created account!",
@@ -45,6 +45,10 @@ function RegisterScreen({ addNotification, deleteNotification }) {
       setErrorKeys((prevState) => [...prevState, payload.key]);
     }
   };
+
+  if (!user || !user.isLoggedIn) {
+    return null;
+  }
 
   return (
     <div className={classes.LoginContainer}>

@@ -8,12 +8,6 @@ const handler = async (req, res) => {
   try {
     const user = await signUp(req.body.name, req.body.email, req.body.password);
 
-    req.session.user = {
-      ...user,
-      isLoggedIn: true,
-    };
-    await req.session.save();
-
     return res.status(200).json({
       success: true,
       payload: user,

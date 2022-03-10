@@ -26,7 +26,11 @@ export const signUp = async (name, email, password) =>
 
 export const signOut = () => axios.get(urls.apis.logout);
 
-export const useUser = ({ redirectTo = "", redirectIfFound = false } = {}) => {
+export const useUser = ({
+  redirectTo = "",
+  redirectIfFound = false,
+  requireAdmin = false,
+} = {}) => {
   const { data: user, mutate: mutateUser } = useSWR(urls.apis.getUser, getUser);
 
   React.useEffect(() => {
@@ -38,11 +42,13 @@ export const useUser = ({ redirectTo = "", redirectIfFound = false } = {}) => {
       // If redirectTo is set, redirect if the user was not found.
       (redirectTo && !redirectIfFound && !user.isLoggedIn) ||
       // If redirectIfFound is also set, redirect if the user was found
-      (redirectIfFound && user.isLoggedIn)
+      (redirectIfFound && user.isLoggedIn) ||
+      // If redirectTo and requireAdmin is set, redirect if the user is not admin.
+      (requireAdmin && !user.isAdmin)
     ) {
       Router.push(redirectTo);
     }
-  }, [user, redirectIfFound, redirectTo]);
+  }, [user, redirectIfFound, redirectTo, requireAdmin]);
 
   return {
     user,

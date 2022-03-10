@@ -1,6 +1,6 @@
 import ApplicationScreen from "../../screens/ApplicationScreen";
-import { getApplication } from "../../actions/applications";
-import { getAvailability } from "../../actions/availabilities";
+import { getApplication } from "../../../server/mongodb/actions/applications";
+import { getAvailability } from "../../../server/mongodb/actions/availabilities";
 import { withSessionSsr } from "../../utils/session";
 
 export default ApplicationScreen;

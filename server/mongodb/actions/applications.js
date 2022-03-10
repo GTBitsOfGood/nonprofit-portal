@@ -33,15 +33,19 @@ export async function addApplication(application) {
     },
   });
 
-  await sendEmail({
-    to: selfEmail,
-    template: "notification",
-    locals: {
-      name: newApplication.name,
-    },
-  });
-
   await newApplication.save();
+
+  try {
+    await sendEmail({
+      to: selfEmail,
+      template: "notification",
+      locals: {
+        name: newApplication.name,
+      },
+    });
+  } catch (error) {
+    console.error("Failed to send notification email!");
+  }
 
   return newApplication;
 }

@@ -11,18 +11,20 @@ export async function login(email, password) {
 
   const user = await User.findOne({ email });
 
-  if (user) {
-    const didMatch = bcrypt.compare(password, user.password);
-
-    if (!didMatch) {
-      throw new Error("The password you entered is incorrect!");
-    }
-  } else {
+  if (!user) {
     throw new Error("User does not exist!");
+  }
+
+  const didMatch = bcrypt.compare(password, user.password);
+  if (!didMatch) {
+    throw new Error("The password you entered is incorrect!");
   }
 
   return {
     id: user._id,
+    name: user.name,
+    email: user.email,
+    isAdmin: user.isAdmin,
   };
 }
 
@@ -49,6 +51,9 @@ export async function signUp(name, email, password) {
 
   return {
     id: user._id,
+    name: user.name,
+    email: user.email,
+    isAdmin: user.isAdmin,
   };
 }
 

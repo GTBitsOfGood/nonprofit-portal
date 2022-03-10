@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
+import Link from "next/link";
 import {
   Collapse,
   Navbar,
@@ -47,16 +48,22 @@ function AppNavbar() {
             {isLoggedIn && (
               <>
                 <NavItem className={classes.appNavItem}>
-                  <NavLink href={urls.pages.admin}>Applications</NavLink>
+                  <NavLink href={urls.pages.admin} tag={Link}>
+                    Applications
+                  </NavLink>
                 </NavItem>
                 <NavItem className={classes.appNavItem}>
-                  <NavLink href={urls.pages.availability}>Availability</NavLink>
+                  <NavLink href={urls.pages.availability} tag={Link}>
+                    Availability
+                  </NavLink>
                 </NavItem>
               </>
             )}
             {isAdmin && (
               <NavItem className={classes.appNavItem}>
-                <NavLink href={urls.pages.register}>Create User</NavLink>
+                <NavLink href={urls.pages.register} tag={Link}>
+                  Create User
+                </NavLink>
               </NavItem>
             )}
             {isLoggedIn ? (
@@ -72,7 +79,9 @@ function AppNavbar() {
               </NavItem>
             ) : (
               <NavItem className={classes.appNavItem}>
-                <NavLink href={urls.pages.login}>Login</NavLink>
+                <NavLink href={urls.pages.login} tag={Link}>
+                  Login
+                </NavLink>
               </NavItem>
             )}
           </Nav>

@@ -2,7 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import Link from "next/link";
-import { Collapse, Navbar, NavbarToggler, Nav, Container } from "reactstrap";
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  Nav,
+  NavItem,
+  Container,
+} from "reactstrap";
 import { useUser, signOut } from "../../../actions/users";
 import urls from "../../../utils/urls";
 import classes from "./AppNavbar.module.css";
@@ -31,45 +38,54 @@ function AppNavbar() {
         <Collapse isOpen={isOpen} navbar>
           <Nav navbar className={classes.appNavbarNav}>
             {!isLoggedIn && (
-              <a
-                className={clsx(classes.appNavItem, classes.appNavButton)}
-                href={urls.pages.home}
-              >
-                Back to Homepage
-              </a>
+              <NavItem>
+                <a
+                  className={clsx(classes.appNavItem, classes.appNavButton)}
+                  href={urls.pages.home}
+                >
+                  Back to Homepage
+                </a>
+              </NavItem>
             )}
             {isLoggedIn && (
               <>
-                <Link className={classes.appNavItem} href={urls.pages.admin}>
-                  Applications
-                </Link>
-                <Link
-                  className={classes.appNavItem}
-                  href={urls.pages.availability}
-                >
-                  Availability
-                </Link>
+                <NavItem>
+                  <Link href={urls.pages.admin}>
+                    <a className={classes.appNavItem}>Applications</a>
+                  </Link>
+                </NavItem>
+                <NavItem>
+                  <Link href={urls.pages.availability}>
+                    <a className={classes.appNavItem}>Availability</a>
+                  </Link>
+                </NavItem>
               </>
             )}
             {isAdmin && (
-              <Link className={classes.appNavItem} href={urls.pages.register}>
-                Create User
-              </Link>
+              <NavItem>
+                <Link href={urls.pages.register}>
+                  <a className={classes.appNavItem}>Create User</a>
+                </Link>
+              </NavItem>
             )}
             {isLoggedIn ? (
-              <a
-                className={clsx(classes.appNavItem, "right")}
-                onClick={handleLogout}
-                style={{
-                  cursor: "pointer",
-                }}
-              >
-                Logout
-              </a>
+              <NavItem>
+                <a
+                  className={clsx(classes.appNavItem, "right")}
+                  onClick={handleLogout}
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  Logout
+                </a>
+              </NavItem>
             ) : (
-              <Link className={classes.appNavItem} href={urls.pages.login}>
-                Login
-              </Link>
+              <NavItem>
+                <Link href={urls.pages.login}>
+                  <a className={classes.appNavItem}>Login</a>
+                </Link>
+              </NavItem>
             )}
           </Nav>
         </Collapse>

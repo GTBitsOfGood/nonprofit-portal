@@ -42,18 +42,28 @@ function AppNavbar() {
               <NavItem
                 className={clsx(classes.appNavItem, classes.appNavButton)}
               >
-                <NavLink href={urls.pages.home}>Back to Homepage</NavLink>
+                <NavLink className="nav-link" href={urls.pages.home}>
+                  Back to Homepage
+                </NavLink>
               </NavItem>
             )}
             {isLoggedIn && (
               <>
                 <NavItem className={classes.appNavItem}>
-                  <NavLink href={urls.pages.admin} tag={Link}>
+                  <NavLink
+                    className="nav-link"
+                    href={urls.pages.admin}
+                    tag={Link}
+                  >
                     Applications
                   </NavLink>
                 </NavItem>
                 <NavItem className={classes.appNavItem}>
-                  <NavLink href={urls.pages.availability} tag={Link}>
+                  <NavLink
+                    className="nav-link"
+                    href={urls.pages.availability}
+                    tag={Link}
+                  >
                     Availability
                   </NavLink>
                 </NavItem>
@@ -61,7 +71,11 @@ function AppNavbar() {
             )}
             {isAdmin && (
               <NavItem className={classes.appNavItem}>
-                <NavLink href={urls.pages.register} tag={Link}>
+                <NavLink
+                  className="nav-link"
+                  href={urls.pages.register}
+                  tag={Link}
+                >
                   Create User
                 </NavLink>
               </NavItem>
@@ -69,6 +83,7 @@ function AppNavbar() {
             {isLoggedIn ? (
               <NavItem className={clsx(classes.appNavItem, "right")}>
                 <NavLink
+                  className="nav-link"
                   onClick={handleLogout}
                   style={{
                     cursor: "pointer",
@@ -79,7 +94,11 @@ function AppNavbar() {
               </NavItem>
             ) : (
               <NavItem className={classes.appNavItem}>
-                <NavLink href={urls.pages.login} tag={Link}>
+                <NavLink
+                  className="nav-link"
+                  href={urls.pages.login}
+                  tag={Link}
+                >
                   Login
                 </NavLink>
               </NavItem>

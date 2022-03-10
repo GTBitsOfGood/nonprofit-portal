@@ -12,89 +12,62 @@ import {
 import { deleteNotification as deleteNotificationBase } from "../../redux/actions/notificationActions";
 import classes from "./Notification.module.css";
 
-class Notification extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const iconMap = {
+  success: faCheck,
+  error: faTimes,
+  warning: faExclamation,
+  info: faInfo,
+};
 
-    this.state = {
-      disappearing: false,
+function Notification({ notification, deleteNotification }) {
+  const { key, type, header, body, expiresIn, persist } = notification;
+  const [disappearing, setDisappearing] = React.useState(false);
+  const timer = React.useRef(null);
+
+  React.useEffect(() => {
+    return () => {
+      clearTimeout(timer.current);
     };
-  }
+  }, []);
 
-  componentDidMount() {
-    const { notification } = this.props;
-    const { expiresIn, persist } = notification;
-
-    if (!persist) {
-      this.timer = setTimeout(async () => {
-        this.onDelete();
-      }, expiresIn);
-    }
-  }
-
-  onDelete = () => {
-    const { notification, deleteNotification } = this.props;
-    const { key } = notification;
-
-    if (this.timer != null) {
-      clearTimeout(this.timer);
+  const handleDelete = React.useCallback(() => {
+    if (timer.current != null) {
+      clearTimeout(timer.current);
+      timer.current = null;
     }
 
-    this.setState({
-      disappearing: true,
-    });
+    setDisappearing(true);
 
     setTimeout(async () => {
       await deleteNotification(key);
     }, 1100);
-  };
+  }, [key, deleteNotification]);
 
-  getIcon = () => {
-    const { notification } = this.props;
-    const { type } = notification;
-
-    const size = "2x";
-
-    switch (type) {
-      case "success":
-        return <FontAwesomeIcon icon={faCheck} size={size} />;
-      case "error":
-        return <FontAwesomeIcon icon={faTimes} size={size} />;
-      case "warning":
-        return <FontAwesomeIcon icon={faExclamation} size={size} />;
-      case "info":
-        return <FontAwesomeIcon icon={faInfo} size={size} />;
-      default:
-        return null;
+  React.useEffect(() => {
+    if (!persist) {
+      timer.current = setTimeout(handleDelete, expiresIn);
     }
-  };
+  }, [expiresIn, persist, handleDelete]);
 
-  render() {
-    const { notification } = this.props;
-    const { disappearing } = this.state;
-
-    const { type, header, body } = notification;
-
-    return (
-      <div
-        className={clsx(
-          classes.Notification,
-          disappearing ? classes.exit : classes.enter
-        )}
-      >
-        <div className={clsx(classes.NotificationIcon, type)}>
-          {this.getIcon()}
-        </div>
-        <div className={classes.NotificationText}>
-          <h3>{header}</h3>
-          <p>{body}</p>
-        </div>
-        <div className={classes.NotificationClose} onClick={this.onDelete}>
-          <FontAwesomeIcon icon={faTimes} size="sm" />
-        </div>
+  return (
+    <div
+      className={clsx(
+        classes.Notification,
+        disappearing ? classes.exit : classes.enter
+      )}
+    >
+      <div className={clsx(classes.NotificationIcon, type)}>
+        <FontAwesomeIcon icon={iconMap[type]} size="2x" />
       </div>
-    );
-  }
+      <div className={classes.NotificationText}>
+        <h3>{header}</h3>
+        <p>{body}</p>
+      </div>
+      <div className={classes.NotificationClose} onClick={handleDelete}>
+        <FontAwesomeIcon icon={faTimes} size="sm" />
+      </div>
+    </div>
+  );
 }
 
 Notification.propTypes = {

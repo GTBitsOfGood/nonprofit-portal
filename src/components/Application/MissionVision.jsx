@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Collapse, Input } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,71 +7,55 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-class MissionVision extends Component {
-  constructor(props) {
-    super(props);
+function MissionVision({ onChange, values }) {
+  const [open, setOpen] = React.useState(false);
 
-    this.state = {
-      open: false,
-    };
-  }
+  const toggleCollapse = () => setOpen((prevState) => !prevState);
 
-  toggleCollapse = () => {
-    this.setState((state) => ({
-      open: !state.open,
-    }));
-  };
-
-  render() {
-    const { onChange, values } = this.props;
-    const { open } = this.state;
-
-    return (
-      <>
-        <Button
-          color="#F0F4F7"
-          onClick={this.toggleCollapse}
-          block
-          className={`formCollapseController${open ? " open" : ""}`}
-        >
-          <div align="left">
-            {open ? (
-              <FontAwesomeIcon icon={faChevronDown} size="sm" />
-            ) : (
-              <FontAwesomeIcon icon={faChevronRight} size="sm" />
-            )}{" "}
-            Your Mission
-          </div>
-        </Button>
-        <Collapse isOpen={open} className="formCollapse">
-          <div>
-            <FormGroup>
-              <p>
-                At Bits of Good, our mission is to change lives one bit at a
-                time - we serve our community by building powerful applications
-                for local nonprofits.
-              </p>
-              <Label for="application">
-                We want to know the mission of your organization. Who do you
-                care to serve? What services do you provide to the community?
-                How could the collaboration with BoG help you achieve your
-                mission?
-              </Label>
-              <Input
-                type="textarea"
-                name="mission"
-                id="mission"
-                placeholder="Organization Mission"
-                value={values.mission}
-                onChange={onChange}
-                required
-              />
-            </FormGroup>
-          </div>
-        </Collapse>
-      </>
-    );
-  }
+  return (
+    <>
+      <Button
+        color="#F0F4F7"
+        onClick={toggleCollapse}
+        block
+        className={`formCollapseController${open ? " open" : ""}`}
+      >
+        <div align="left">
+          {open ? (
+            <FontAwesomeIcon icon={faChevronDown} size="sm" />
+          ) : (
+            <FontAwesomeIcon icon={faChevronRight} size="sm" />
+          )}{" "}
+          Your Mission
+        </div>
+      </Button>
+      <Collapse isOpen={open} className="formCollapse">
+        <div>
+          <FormGroup>
+            <p>
+              At Bits of Good, our mission is to change lives one bit at a time
+              - we serve our community by building powerful applications for
+              local nonprofits.
+            </p>
+            <Label for="application">
+              We want to know the mission of your organization. Who do you care
+              to serve? What services do you provide to the community? How could
+              the collaboration with BoG help you achieve your mission?
+            </Label>
+            <Input
+              type="textarea"
+              name="mission"
+              id="mission"
+              placeholder="Organization Mission"
+              value={values.mission}
+              onChange={onChange}
+              required
+            />
+          </FormGroup>
+        </div>
+      </Collapse>
+    </>
+  );
 }
 
 MissionVision.propTypes = {

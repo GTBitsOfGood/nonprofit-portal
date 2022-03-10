@@ -28,10 +28,14 @@ const statusNames = [
   "Decision Reached: Accepted",
 ];
 
-class Application extends React.PureComponent {
-  onDeleteClick = async () => {
-    const { deleteHandler, info } = this.props;
-
+function Application({
+  info,
+  deleteHandler,
+  updateApplicationState,
+  addNotification,
+  updateApplicationDecision,
+}) {
+  const onDeleteClick = async () => {
     const { _id } = info;
 
     // eslint-disable-next-line no-alert
@@ -44,9 +48,7 @@ class Application extends React.PureComponent {
     }
   };
 
-  changeAppState = async (state) => {
-    const { info, updateApplicationState, addNotification } = this.props;
-
+  const changeAppState = async (state) => {
     const { _id } = info;
 
     await updateApplicationState(_id, state)
@@ -66,9 +68,7 @@ class Application extends React.PureComponent {
       });
   };
 
-  changeAppDecision = async (decision) => {
-    const { info, updateApplicationDecision, addNotification } = this.props;
-
+  const changeAppDecision = async (decision) => {
     const { _id } = info;
 
     await updateApplicationDecision(_id, decision)
@@ -88,184 +88,172 @@ class Application extends React.PureComponent {
       });
   };
 
-  render() {
-    const { info } = this.props;
+  if (info == null) {
+    return null;
+  }
 
-    if (info == null) {
-      return null;
-    }
+  const {
+    name,
+    address,
+    website,
+    workPhone,
+    contactName,
+    mobilePhone,
+    email,
+    mission,
+    productNeeds,
+    needsOtherExpand,
+    stageRadio,
+    stageOtherExpand,
+    availRadio,
+    fieldRadio,
+    productExtra,
+    feedback,
+    status,
+    urlString,
+    decision,
+  } = info;
 
-    const {
-      name,
-      address,
-      website,
-      workPhone,
-      contactName,
-      mobilePhone,
-      email,
-      mission,
-      productNeeds,
-      needsOtherExpand,
-      stageRadio,
-      stageOtherExpand,
-      availRadio,
-      fieldRadio,
-      productExtra,
-      feedback,
-      status,
-      urlString,
-      decision,
-    } = info;
-
-    return (
-      <div className={classes.applicationWrapper}>
-        <div className={classes.nameHeader}>
-          <h3>{name}</h3>
-          <Button
-            className="remove-btn"
-            color="danger"
-            size="sm"
-            onClick={this.onDeleteClick}
-          >
-            <FontAwesomeIcon icon={faTimes} color="white" size="2x" />
-            <h4>Delete</h4>
-          </Button>
-        </div>
-        <div className={classes.applicationContent}>
-          <ButtonGroup style={{ marginBottom: "30px" }}>
-            {stageButtons.map((buttonName, stageIndex) => (
-              <Button
-                key={buttonName}
-                color="primary"
-                onClick={() => this.changeAppState(stageIndex)}
-                {...(status === stageIndex ? { active: true } : {})}
-              >
-                {buttonName}
-              </Button>
-            ))}
-          </ButtonGroup>
-          <p style={{ fontWeight: "600" }}>
-            <a
-              href={`/p/${urlString}`}
-              target="_blank"
-              rel="noopener noreferrer"
+  return (
+    <div className={classes.applicationWrapper}>
+      <div className={classes.nameHeader}>
+        <h3>{name}</h3>
+        <Button
+          className="remove-btn"
+          color="danger"
+          size="sm"
+          onClick={onDeleteClick}
+        >
+          <FontAwesomeIcon icon={faTimes} color="white" size="2x" />
+          <h4>Delete</h4>
+        </Button>
+      </div>
+      <div className={classes.applicationContent}>
+        <ButtonGroup style={{ marginBottom: "30px" }}>
+          {stageButtons.map((buttonName, stageIndex) => (
+            <Button
+              key={buttonName}
+              color="primary"
+              onClick={() => changeAppState(stageIndex)}
+              {...(status === stageIndex ? { active: true } : {})}
             >
-              View Application Page
+              {buttonName}
+            </Button>
+          ))}
+        </ButtonGroup>
+        <p style={{ fontWeight: "600" }}>
+          <a href={`/p/${urlString}`} target="_blank" rel="noopener noreferrer">
+            View Application Page
+          </a>
+        </p>
+        <p>
+          <span style={{ fontWeight: "600" }}>Stage: </span>
+          <span>
+            {statusNames[status + (status === 4 && decision === true ? 1 : 0)]}
+          </span>
+        </p>
+        <p>
+          <span style={{ fontWeight: "600" }}>Address: </span>
+          {address}
+        </p>
+        {website && (
+          <p>
+            <span style={{ fontWeight: "600" }}>Website: </span>
+            <a href={website} target="_blank" rel="noopener noreferrer">
+              {website}
             </a>
           </p>
+        )}
+        <p>
+          <span style={{ fontWeight: "600" }}>Work Phone: </span>
+          {workPhone}
+        </p>
+        <p>
+          <span style={{ fontWeight: "600" }}>Contact Name: </span>
+          {contactName}
+        </p>
+        {mobilePhone && (
           <p>
-            <span style={{ fontWeight: "600" }}>Stage: </span>
-            <span>
-              {
-                statusNames[
-                  status + (status === 4 && decision === true ? 1 : 0)
-                ]
+            <span style={{ fontWeight: "600" }}>Mobile Phone: </span>
+            {mobilePhone}
+          </p>
+        )}
+        <p>
+          <span style={{ fontWeight: "600" }}>Email: </span>
+          {email}
+        </p>
+        <p>
+          <span style={{ fontWeight: "600" }}>Mission: </span>
+          {mission}
+        </p>
+        {productNeeds.length > 0 && (
+          <>
+            <p style={{ fontWeight: "600" }}>Needs:</p>
+            {productNeeds.map((need) => {
+              if (need === "Other" && needsOtherExpand) {
+                return <p key={need}>{`- ${need}: ${needsOtherExpand}`}</p>;
               }
-            </span>
-          </p>
-          <p>
-            <span style={{ fontWeight: "600" }}>Address: </span>
-            {address}
-          </p>
-          {website && (
-            <p>
-              <span style={{ fontWeight: "600" }}>Website: </span>
-              <a href={website} target="_blank" rel="noopener noreferrer">
-                {website}
-              </a>
-            </p>
-          )}
-          <p>
-            <span style={{ fontWeight: "600" }}>Work Phone: </span>
-            {workPhone}
-          </p>
-          <p>
-            <span style={{ fontWeight: "600" }}>Contact Name: </span>
-            {contactName}
-          </p>
-          {mobilePhone && (
-            <p>
-              <span style={{ fontWeight: "600" }}>Mobile Phone: </span>
-              {mobilePhone}
-            </p>
-          )}
-          <p>
-            <span style={{ fontWeight: "600" }}>Email: </span>
-            {email}
-          </p>
-          <p>
-            <span style={{ fontWeight: "600" }}>Mission: </span>
-            {mission}
-          </p>
-          {productNeeds.length > 0 && (
-            <>
-              <p style={{ fontWeight: "600" }}>Needs:</p>
-              {productNeeds.map((need) => {
-                if (need === "Other" && needsOtherExpand) {
-                  return <p key={need}>{`- ${need}: ${needsOtherExpand}`}</p>;
-                }
 
-                return <p key={need}>{`- ${need}`}</p>;
-              })}
-            </>
-          )}
-          {stageRadio !== "Other" && (
-            <p>
-              <span style={{ fontWeight: "600" }}>Stage of Development: </span>
-              {stageRadio}
-            </p>
-          )}
-          {stageOtherExpand && (
-            <p>
-              <span style={{ fontWeight: "600" }}>Stage of Development: </span>
-              {stageOtherExpand}
-            </p>
-          )}
+              return <p key={need}>{`- ${need}`}</p>;
+            })}
+          </>
+        )}
+        {stageRadio !== "Other" && (
           <p>
-            <span style={{ fontWeight: "600" }}>Availability: </span>
-            {availRadio}
+            <span style={{ fontWeight: "600" }}>Stage of Development: </span>
+            {stageRadio}
           </p>
+        )}
+        {stageOtherExpand && (
           <p>
-            <span style={{ fontWeight: "600" }}>Field Test? </span>
-            {fieldRadio}
+            <span style={{ fontWeight: "600" }}>Stage of Development: </span>
+            {stageOtherExpand}
           </p>
-          {productExtra && (
-            <p>
-              <span style={{ fontWeight: "600" }}>Other Product Needs: </span>
-              {productExtra}
-            </p>
-          )}
-          {feedback && (
-            <p>
-              <span style={{ fontWeight: "600" }}>Feedback: </span>
-              {feedback}
-            </p>
-          )}
-          {status >= 3 && (
-            <>
-              <span style={{ fontWeight: "600", marginRight: "15px" }}>
-                Make Decision:{" "}
-              </span>
-              <ButtonGroup>
-                <Button
-                  onClick={() => this.changeAppDecision(true)}
-                  {...(decision ? { color: "success" } : {})}
-                >
-                  Accept
-                </Button>
-                <Button
-                  onClick={() => this.changeAppDecision(false)}
-                  {...(decision === false ? { color: "danger" } : {})}
-                >
-                  Decline
-                </Button>
-              </ButtonGroup>
-            </>
-          )}
-        </div>
+        )}
+        <p>
+          <span style={{ fontWeight: "600" }}>Availability: </span>
+          {availRadio}
+        </p>
+        <p>
+          <span style={{ fontWeight: "600" }}>Field Test? </span>
+          {fieldRadio}
+        </p>
+        {productExtra && (
+          <p>
+            <span style={{ fontWeight: "600" }}>Other Product Needs: </span>
+            {productExtra}
+          </p>
+        )}
+        {feedback && (
+          <p>
+            <span style={{ fontWeight: "600" }}>Feedback: </span>
+            {feedback}
+          </p>
+        )}
+        {status >= 3 && (
+          <>
+            <span style={{ fontWeight: "600", marginRight: "15px" }}>
+              Make Decision:{" "}
+            </span>
+            <ButtonGroup>
+              <Button
+                onClick={() => changeAppDecision(true)}
+                {...(decision ? { color: "success" } : {})}
+              >
+                Accept
+              </Button>
+              <Button
+                onClick={() => changeAppDecision(false)}
+                {...(decision === false ? { color: "danger" } : {})}
+              >
+                Decline
+              </Button>
+            </ButtonGroup>
+          </>
+        )}
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 Application.propTypes = {

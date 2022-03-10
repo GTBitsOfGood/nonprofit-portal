@@ -4,6 +4,8 @@ import { generateURLString } from "./util";
 import { sendEmail } from "../../util/email";
 import urls from "../../../src/utils/urls";
 
+const selfEmail = process.env.EMAIL_ADDRESS || "hello@bitsofgood.org";
+
 export async function getApplications() {
   await mongoDB();
 
@@ -15,7 +17,7 @@ export async function addApplication(application) {
 
   const pageURLString = await generateURLString();
 
-  const newApplication = await Application.create({
+  const newApplication = new Application({
     ...application,
     urlString: pageURLString,
   });
@@ -32,12 +34,14 @@ export async function addApplication(application) {
   });
 
   await sendEmail({
-    to: process.env.EMAIL_ADDRESS,
+    to: selfEmail,
     template: "notification",
     locals: {
       name: newApplication.name,
     },
   });
+
+  await newApplication.save();
 
   return newApplication;
 }

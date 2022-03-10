@@ -97,3 +97,10 @@ body,
 .formCollapse > div > .form-group:nth-last-child(1) {
   margin-bottom: 0;
 }
+
+.bogLogo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+}

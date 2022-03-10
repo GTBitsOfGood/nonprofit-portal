@@ -1,20 +1,13 @@
 import React from "react";
 import Image from "next/image";
+import BogLogo from "../../../public/static/bog_logo.svg";
 
 const WelcomeJumbo = () => (
   <div>
     <div style={{ background: "transparent" }} className="Jumbotron">
-      <Image
-        src="/static/bog_logo.svg"
-        alt="Bits of Good"
-        style={{
-          display: "block",
-          marginLeft: "auto",
-          marginRight: "auto",
-          marginBottom: "5px",
-          width: "230px",
-        }}
-      />
+      <div className="bogLogo">
+        <Image src={BogLogo} alt="Bits of Good" width={230} height={50} />
+      </div>
       <h4 align="center">Nonprofit Application</h4>
       <p className="lead" align="center">
         As a partner, Bits of Good will help you build software that turns your

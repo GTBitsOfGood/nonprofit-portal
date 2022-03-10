@@ -1,5 +1,7 @@
 import axios from "axios";
+import urls from "./urls";
 
+axios.defaults.baseURL = urls.baseUrl;
 axios.defaults.timeout = 15000;
 
 axios.interceptors.response.use(

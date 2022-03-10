@@ -1,7 +1,9 @@
 const prod = process.env.NODE_ENV === "production";
 
 export default {
-  baseUrl: prod ? process.env.PROD_BASE_URL || "" : "http://localhost:3000",
+  baseUrl: prod
+    ? process.env.NEXT_PUBLIC_VERCEL_URL || process.env.PROD_BASE_URL || ""
+    : "http://localhost:3000",
   apis: {
     application: "/api/application",
     availability: "/api/availability",

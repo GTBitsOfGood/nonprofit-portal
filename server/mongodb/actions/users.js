@@ -1,4 +1,4 @@
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import mongoDB from "../index";
 import User from "../models/User";
 
@@ -41,7 +41,7 @@ export async function signUp(name, email, password) {
     throw new Error("The email has already been used!");
   }
 
-  const hashedPassword = await bcrypt.hashSync(password, 10);
+  const hashedPassword = await bcrypt.hash(password, 10);
 
   const user = await User.create({
     name,

@@ -21,10 +21,9 @@ const WelcomeJumbo = () => (
         className="row w-75"
         style={{ marginLeft: "auto", marginRight: "auto" }}
       >
-        <dt className="col-sm-3 text-right">January 25, 2022 and beyond</dt>
+        <dt className="col-sm-3 text-right">April 25, 2022 and beyond</dt>
         <dd className="col-sm-9">
-          Expect to hear back from us within a week to set up a follow-up
-          meeting and you will be considered for the Fall 2022 project cycle.
+          All new applications will be considered for the Spring 2023 project cycle
         </dd>
       </dl>
     </div>

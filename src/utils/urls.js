@@ -1,8 +1,14 @@
 const prod = process.env.NODE_ENV === "production";
 
+const ensureProtocol = (url) => {
+  if (!url) return "";
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  return `https://${url}`;
+};
+
 export default {
   baseUrl: prod
-    ? process.env.NEXT_PUBLIC_VERCEL_URL || process.env.PROD_BASE_URL || ""
+    ? ensureProtocol(process.env.NEXT_PUBLIC_VERCEL_URL || process.env.PROD_BASE_URL)
     : "http://localhost:3000",
   apis: {
     application: "/api/application",

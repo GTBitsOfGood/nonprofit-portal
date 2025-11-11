@@ -29,7 +29,10 @@ function getCycleInfo(now = new Date()) {
 
   // Before Jan 1 of this year (i.e., late previous year)
   if (now < jan1) {
+    const prevYear = year - 1;
+    const prevAug1 = new Date(prevYear, 7, 1);
     return {
+      lastCycleCutoff: formatDate(prevAug1),
       thisCycleCutoff: formatDate(jan1),
       nextCycleSeason: "Spring",
       nextCycleYear: year,
@@ -39,6 +42,7 @@ function getCycleInfo(now = new Date()) {
   // Jan 1 up to (but not including) Aug 1 -> Fall of the same year
   if (now < aug1) {
     return {
+      lastCycleCutoff: formatDate(jan1),
       thisCycleCutoff: formatDate(aug1),
       nextCycleSeason: "Fall",
       nextCycleYear: year,
@@ -49,6 +53,7 @@ function getCycleInfo(now = new Date()) {
   const nextYear = year + 1;
   const nextJan1 = new Date(nextYear, 0, 1);
   return {
+    lastCycleCutoff: formatDate(aug1),
     thisCycleCutoff: formatDate(nextJan1),
     nextCycleSeason: "Spring",
     nextCycleYear: nextYear,
@@ -56,7 +61,7 @@ function getCycleInfo(now = new Date()) {
 }
 
 const WelcomeJumbo = () => {
-  const { thisCycleCutoff, nextCycleSeason, nextCycleYear } = getCycleInfo();
+  const { lastCycleCutoff, thisCycleCutoff, nextCycleSeason, nextCycleYear } = getCycleInfo();
 
   return (
     <div>
@@ -80,7 +85,7 @@ const WelcomeJumbo = () => {
           className="row w-75"
           style={{ marginLeft: "auto", marginRight: "auto" }}
         >
-          <dt className="col-sm-3 text-right">April 25, 2022 and beyond</dt>
+          <dt className="col-sm-3 text-right">{lastCycleCutoff} and beyond</dt>
           <dd className="col-sm-9">
             All new applications before {thisCycleCutoff} will be considered for the{" "}
             {nextCycleSeason} {nextCycleYear} project cycle.

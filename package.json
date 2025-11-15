@@ -30,7 +30,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "mongodb": "^4.4.1",
-    "mongoose": "^6.2.5",
+    "mongoose": "^6.4.6",
     "next": "^12.1.0",
     "next-images": "^1.8.4",
     "next-redux-wrapper": "^7.0.5",
